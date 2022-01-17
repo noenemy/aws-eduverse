@@ -1,25 +1,72 @@
-import logo from './logo.svg';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import React from "react";
+import { render } from "react-dom";
+import Navbar from './components/layout/Navbar';
+import Footer from './components/layout/Footer';
+import HomeComponent from './components/home/HomeComponent';
+import AuditoriumComponent from './components/auditorium/AuditoriumComponent';
+import ClassroomComponent from './components/classroom/ClassroomComponent';
+import LoungeComponent from './components/lounge/LoungeComponent';
+import VRLearningComponent from './components/vrlearning/VRLearningComponent';
+
+import {
+    BrowserRouter,
+    Routes,
+    Route
+} from "react-router-dom";
 
 function App() {
+  const showContentOnly = window.location.pathname === "/sumerian";
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <BrowserRouter>
+          { showContentOnly ? null :
+            (<Navbar title="AWS Eduverse" />)
+          }
+
+          <Routes>
+            <Route path="/home" element={<Home />} />
+            <Route path="/auditorium" element={<Auditorium />} />            
+            <Route path="/classroom" element={<Classroom />} />
+            <Route path="/vrlearning" element={<VRLearning />} />
+            <Route path="/lounge" element={<Lounge />} />
+            <Route path="/" element={<Home />} />
+          </Routes>
+
+          { showContentOnly ? null : (<Footer />) }
+
+        </BrowserRouter>
   );
+}
+
+function Home(){
+  return(
+    <HomeComponent />
+  )
+}
+
+function Auditorium(){
+  return(
+    <AuditoriumComponent />
+  )
+}
+
+function Classroom(){
+  return(
+    <ClassroomComponent />
+  )
+}
+
+function VRLearning(){
+  return(
+    <VRLearningComponent />
+  )
+}
+
+function Lounge(){
+  return(
+      <LoungeComponent />
+  )
 }
 
 export default App;
