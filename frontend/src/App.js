@@ -1,7 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import React from "react";
-import { render } from "react-dom";
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import HomeComponent from './components/home/HomeComponent';
@@ -9,6 +8,7 @@ import AuditoriumComponent from './components/auditorium/AuditoriumComponent';
 import ClassroomComponent from './components/classroom/ClassroomComponent';
 import LoungeComponent from './components/lounge/LoungeComponent';
 import VRLearningComponent from './components/vrlearning/VRLearningComponent';
+import AboutComponent from './components/about/AboutComponent';
 
 import {
     BrowserRouter,
@@ -30,6 +30,7 @@ function App() {
             <Route path="/classroom" element={<Classroom />} />
             <Route path="/vrlearning" element={<VRLearning />} />
             <Route path="/lounge" element={<Lounge />} />
+            <Route path="/about" element={<About />} />
             <Route path="/" element={<Home />} />
           </Routes>
 
@@ -66,6 +67,12 @@ function VRLearning(){
 function Lounge(){
   return(
       <LoungeComponent />
+  )
+}
+
+function About(){
+  return(
+      <AboutComponent />
   )
 }
 

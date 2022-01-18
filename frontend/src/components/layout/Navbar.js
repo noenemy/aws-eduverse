@@ -30,16 +30,14 @@ export class Navbar extends Component {
                             <li className="nav-item">
                                 <a className="nav-link" href="/classroom">Classroom</a>
                             </li>
-                            {/*
-                            <li className="nav-item">
-                                <a className="nav-link" href="/leaderboard">Leaderboard</a>
-                            </li>
-                            */}
                             <li className="nav-item">
                                 <a className="nav-link" href="/vrlearning">VR Learning</a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="/lounge">Lounge</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="/about">About</a>
                             </li>
                         </ul>
                     </div>
