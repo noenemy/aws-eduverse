@@ -1,0 +1,21 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - echo "================before node version:$(node -v)"
+        - nvm install 14.17.0
+        - nvm use v14
+        - echo "================after node version:$(node -v)"
+        - cd frontend
+        - yarn install
+    build:
+      commands:
+        - yarn build
+  artifacts:
+    baseDirectory: frontend/build
+    files:
+      - "**/*"
+  cache:
+    paths:
+      - frontend/node_modules/**/*
