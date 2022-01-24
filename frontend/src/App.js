@@ -26,10 +26,13 @@ function App() {
 
           <Routes>
             <Route path="/home" element={<Home />} />
-            <Route path="/auditorium" element={<Auditorium />} />            
+            <Route path="/auditorium" element={<Auditorium />} />
+            <Route path="/auditorium/:id" element={<Auditorium />} />         
             <Route path="/classroom" element={<Classroom />} />
+            <Route path="/classroom/:id" element={<Classroom />} />
             <Route path="/vrlearning" element={<VRLearning />} />
             <Route path="/lounge" element={<Lounge />} />
+            <Route path="/lounge/:id" element={<Lounge />} />
             <Route path="/about" element={<About />} />
             <Route path="/" element={<Home />} />
           </Routes>

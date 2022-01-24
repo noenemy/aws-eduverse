@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
+import LoungeList from './LoungeList';
 
 class LoungeComponent extends Component {
     render() {
         return (
             <div>
-                Lounge
+                <h2>Lounge</h2>
+                Amazon 서비스를 이용해서 구현된 각종 게임입니다.
+                <p></p>
+                <LoungeList />
             </div>
         );
     }
