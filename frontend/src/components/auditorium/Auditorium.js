@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import AuditoriumList from './AuditoriumList';
 
-class AuditoriumComponent extends Component {
+class Auditorium extends Component {
     render() {
         return (
             <div>
@@ -14,4 +14,4 @@ class AuditoriumComponent extends Component {
     }
 }
 
-export default AuditoriumComponent;
+export default Auditorium;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import LoungeList from './LoungeList';
 
-class LoungeComponent extends Component {
+class Lounge extends Component {
     render() {
         return (
             <div>
@@ -14,4 +14,4 @@ class LoungeComponent extends Component {
     }
 }
 
-export default LoungeComponent;
+export default Lounge;

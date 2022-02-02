@@ -3,12 +3,12 @@ import './App.css';
 import React from "react";
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
-import HomeComponent from './components/home/HomeComponent';
-import AuditoriumComponent from './components/auditorium/AuditoriumComponent';
-import ClassroomComponent from './components/classroom/ClassroomComponent';
-import LoungeComponent from './components/lounge/LoungeComponent';
-import VRLearningComponent from './components/vrlearning/VRLearningComponent';
-import AboutComponent from './components/about/AboutComponent';
+import Home from './components/home/Home';
+import Auditorium from './components/auditorium/Auditorium';
+import Classroom from './components/classroom/Classroom';
+import Lounge from './components/lounge/Lounge';
+import VRLearning from './components/vrlearning/VRLearning';
+import About from './components/about/About';
 
 import {
     BrowserRouter,
@@ -41,42 +41,6 @@ function App() {
 
         </BrowserRouter>
   );
-}
-
-function Home(){
-  return(
-    <HomeComponent />
-  )
-}
-
-function Auditorium(){
-  return(
-    <AuditoriumComponent />
-  )
-}
-
-function Classroom(){
-  return(
-    <ClassroomComponent />
-  )
-}
-
-function VRLearning(){
-  return(
-    <VRLearningComponent />
-  )
-}
-
-function Lounge(){
-  return(
-      <LoungeComponent />
-  )
-}
-
-function About(){
-  return(
-      <AboutComponent />
-  )
 }
 
 export default App;
