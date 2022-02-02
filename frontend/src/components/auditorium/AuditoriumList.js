@@ -34,7 +34,7 @@ class AuditoriumList extends Component {
                             <Card style={{ width: '18rem' }}>
                                 <Card.Img variant="top" src="/assets/images/dummy_180x100.png" />
                                 <Card.Body>
-                                    <Card.Title>대강당 #1</Card.Title>
+                                    <Card.Title>대강당 #1 (데모용)</Card.Title>
                                     <Card.Text>
                                     Some quick example text to build on the card title and make up the bulk of
                                     the card's content.
@@ -47,7 +47,7 @@ class AuditoriumList extends Component {
                         <Card style={{ width: '18rem' }}>
                                 <Card.Img variant="top" src="/assets/images/dummy_180x100.png" />
                                 <Card.Body>
-                                    <Card.Title>대강당 #2</Card.Title>
+                                    <Card.Title>대강당 #2 (Live)</Card.Title>
                                     <Card.Text>
                                     Some quick example text to build on the card title and make up the bulk of
                                     the card's content.
@@ -60,7 +60,7 @@ class AuditoriumList extends Component {
                         <Card style={{ width: '18rem' }}>
                                 <Card.Img variant="top" src="/assets/images/dummy_180x100.png" />
                                 <Card.Body>
-                                    <Card.Title>대강당 #3</Card.Title>
+                                    <Card.Title>대강당 #3 (Live)</Card.Title>
                                     <Card.Text>
                                     Some quick example text to build on the card title and make up the bulk of
                                     the card's content.

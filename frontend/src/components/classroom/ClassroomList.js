@@ -31,41 +31,62 @@ class ClassroomList extends Component {
                     </div>
                     <div className="row">
                         <div className="col">
-                            <Card style={{ width: '18rem' }}>
+                            <Card style={{ width: '14rem' }}>
                                 <Card.Img variant="top" src="/assets/images/dummy_180x100.png" />
                                 <Card.Body>
-                                    <Card.Title>강의실 #1</Card.Title>
+                                    <Card.Title>강의실 #1 (데모용)</Card.Title>
                                     <Card.Text>
-                                    Some quick example text to build on the card title and make up the bulk of
-                                    the card's content.
+                                    Some quick example text to build.
                                     </Card.Text>
                                     <Button variant="primary" onClick={() => this.enterClassroom(1)}>Go somewhere</Button>
                                 </Card.Body>
                             </Card>
                         </div>
-                        <div class="col">
-                        <Card style={{ width: '18rem' }}>
+                        <div className="col">
+                        <Card style={{ width: '14rem' }}>
                                 <Card.Img variant="top" src="/assets/images/dummy_180x100.png" />
                                 <Card.Body>
-                                    <Card.Title>강의실 #2</Card.Title>
+                                    <Card.Title>AWS 101</Card.Title>
                                     <Card.Text>
-                                    Some quick example text to build on the card title and make up the bulk of
-                                    the card's content.
+                                    Some quick example text to build.
                                     </Card.Text>
                                     <Button variant="primary" onClick={() => this.enterClassroom(2)}>Go somewhere</Button>
                                 </Card.Body>
                             </Card>
                         </div>
-                        <div class="col">
-                        <Card style={{ width: '18rem' }}>
+                        <div className="col">
+                            <Card style={{ width: '14rem' }}>
                                 <Card.Img variant="top" src="/assets/images/dummy_180x100.png" />
                                 <Card.Body>
-                                    <Card.Title>강의실 #3</Card.Title>
+                                    <Card.Title>메타버스란 무엇인가</Card.Title>
                                     <Card.Text>
-                                    Some quick example text to build on the card title and make up the bulk of
-                                    the card's content.
+                                    Some quick example text to build.
                                     </Card.Text>
                                     <Button variant="primary" onClick={() => this.enterClassroom(3)}>Go somewhere</Button>
+                                </Card.Body>
+                            </Card>
+                        </div>
+                        <div className="col">
+                            <Card style={{ width: '14rem' }}>
+                                <Card.Img variant="top" src="/assets/images/dummy_180x100.png" />
+                                <Card.Body>
+                                    <Card.Title>AWS 워크샵</Card.Title>
+                                    <Card.Text>
+                                    Some quick example text to build.
+                                    </Card.Text>
+                                    <Button variant="primary" onClick={() => this.enterClassroom(4)}>Go somewhere</Button>
+                                </Card.Body>
+                            </Card>
+                        </div>
+                        <div className="col">
+                            <Card style={{ width: '14rem' }}>
+                                <Card.Img variant="top" src="/assets/images/dummy_180x100.png" />
+                                <Card.Body>
+                                    <Card.Title>AWS AI/ML 기본</Card.Title>
+                                    <Card.Text>
+                                    Some quick example text to build.
+                                    </Card.Text>
+                                    <Button variant="primary" onClick={() => this.enterClassroom(5)}>Go somewhere</Button>
                                 </Card.Body>
                             </Card>
                         </div>
