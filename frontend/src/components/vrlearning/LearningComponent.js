@@ -1,40 +1,65 @@
 import React, { Component, Fragment } from 'react';
-import { Button } from "react-bootstrap";
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from "axios";
+import { Button } from "react-bootstrap";
 import LoadScreen from '../../assets/images/load_screen.png'
 
-class VRLearningComponent extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            courses: [{
-                id: "1",
-                language: "ko-KR",
-                icon: "asia",
-                course_title: "한국어"
-            },
-            {
-                id: "2",
-                language: "es-ES",
-                icon: "europe",
-                course_title: "Spanish"
-            }],
-            lectures: [{
-                id: "1",
-                lecture_title: "1강. 인사말을 배워봅시다."
-            }, 
-            {
-                id: "2",
-                lecture_title: "2강. 드라마로 배우는 한국어 표현"
-            }]
-        };
+class LearningComponent extends Component {
+    state = {
+        selectedCourseId: "ef717ea27fc4426b99e484343a493e5a", // Korean 101
+        courses: null,
+        language: 'ko-KR',
+        lectures: null,
+        loading: false
+    };
+
+    componentDidMount() {
+        this.getCourses();
+        this.getLectures(this.state.selectedCourseId);
+    }
+
+    selectCourse = (courseId, language) => {
+        this.setState({ selectedCourseId: courseId, language: language }, () => {
+            this.getLectures(courseId);
+        });
+    }
+
+    async getCourses() {
+        this.setState({ loading: true });
+        const backendAPI = `${process.env.REACT_APP_BACKEND_SERVER}/courses`;
+        const res = await axios.get(backendAPI);        
+        this.setState({ loading: false });
+
+        if (res != null && res.data.listCourses != null) {
+            this.setState({ courses: res.data.listCourses.items });
+        }
+        else {
+            toast.error("something wrong! try again.");
+        }
+    }
+
+    async getLectures(courseId=1) {
+        this.setState({ loading: true });
+        const backendAPI = `${process.env.REACT_APP_BACKEND_SERVER}/courses/${courseId}/lectures`;
+        const res = await axios.get(backendAPI);        
+        this.setState({ loading: false });
+
+        if (res != null && res.data.listCourses != null) {
+            this.setState({ lectures: res.data.listCourses.items });
+        }
+        else {
+            toast.error("something wrong! try again.");
+        }
+    }
+
+    enterClassroom = (lectureId, language) => {
+        window.location.href = `/classroom?courseId=${this.state.selectedCourseId}&lectureId=${lectureId}&language=${language}`;
     }
 
     render() {
-        return (
+        return(
             <div>
-                <h2>VRLearning</h2>
-                Amazon AI/ML 서비스 및 Sumerian을 이용해서 구현한 셀프스터디 서비스입니다.
                 <div className="container">
                     <div className="row">
                         <br /><br />
@@ -53,6 +78,7 @@ class VRLearningComponent extends Component {
                             <h2>We will help you. <i className="fas fa-quote-right" />&nbsp;
                             </h2>
                             <br /><br />
+    
                             <h2>Which language do you want to learn?</h2>
                             {this.state.courses && this.state.courses.map(( course, index) => {
                                     return (
@@ -64,6 +90,7 @@ class VRLearningComponent extends Component {
                             
                             <br /><br />
                             <h2>Which subject do you want to learn today?</h2>
+
                             <div className="list-group">
                                 <button type="button" className="list-group-item list-group-item-action list-group-item-secondary" aria-current="true">
                                     Course content
@@ -77,7 +104,6 @@ class VRLearningComponent extends Component {
                                 })}
 
                             </div>
-
                         </div>
                     </div>
                     <div className="row"> 
@@ -85,9 +111,11 @@ class VRLearningComponent extends Component {
                     </div>
                     <ToastContainer position="bottom-right" autoClose="3000" />
                 </div>
+    
             </div>
-        );
+          );
     }
-}
 
-export default VRLearningComponent;
+};
+
+export default LearningComponent;

@@ -1,0 +1,26 @@
+a {
+    text-decoration: none;
+    color: black;
+    display: inline-block;
+    padding: 8px 8px;
+}
+
+.previous {
+    background-color: #f1f1f1;
+    color: black;
+}
+
+.next {
+  background-color: #04AA6D;
+  color: white;
+}
+
+.round {
+  border-radius: 50%;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
