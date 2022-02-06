@@ -49,6 +49,7 @@ You can check the logs for Eduverse API service using below command.
 ```bash
 copilot svc logs --follow
 ```
+`copilot svc status` is also useful to check the status.
 
 
 ## CI/CD pipeline provisioning
