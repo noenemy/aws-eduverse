@@ -62,7 +62,7 @@ After initialize you can run below command for provisioning
 copilot pipeline update
 ```
 
-You can also follow command to confirm status of pipeline.
+You can also use following command to confirm status of pipeline.
 
 ```bash
 copilot pipeline status
