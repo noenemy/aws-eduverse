@@ -3,8 +3,9 @@
 # For more info: https://aws.github.io/copilot-cli/docs/manifest/pipeline/
 
 # The name of the pipeline.
-# name: pipeline-eduverse-api-eduverse@aws-eduverse
-# check if pipeline exists: describe stack pipeline-eduverse-api-eduverse@aws-eduverse: ValidationError: 1 validation error detected: Value 'pipeline-eduverse-api-eduverse@aws-eduverse' at 'stackName' failed to satisfy constraint: Member must satisfy regular expression pattern: [a-zA-Z][-a-zA-Z0-9]*|arn:[-a-zA-Z0-9:/._+]*
+### Change the 'name' due to ValidationError
+### name: pipeline-eduverse-api-eduverse@aws-eduverse
+### check if pipeline exists: describe stack pipeline-eduverse-api-eduverse@aws-eduverse: ValidationError: 1 validation error detected: Value 'pipeline-eduverse-api-eduverse@aws-eduverse' at 'stackName' failed to satisfy constraint: Member must satisfy regular expression pattern: [a-zA-Z][-a-zA-Z0-9]*|arn:[-a-zA-Z0-9:/._+]*
 name: pipeline-eduverse-api-eduverse
 
 # The version of the schema used in this template.
@@ -18,7 +19,9 @@ source:
   # Additional properties that further specify the location of the artifacts.
   properties:
     branch: main
-    repository: https://ap-northeast-2.console.aws.amazon.com/codesuite/codecommit/repositories/eduverse@aws-eduverse/browse
+    ###  Remove 'eduverse@', due to repository lookup problem.
+    ###  repository: https://ap-northeast-2.console.aws.amazon.com/codesuite/codecommit/repositories/eduverse@aws-eduverse/browse
+    repository: https://ap-northeast-2.console.aws.amazon.com/codesuite/codecommit/repositories/aws-eduverse/browse
 
 # This section defines the order of the environments your pipeline will deploy to.
 stages:
