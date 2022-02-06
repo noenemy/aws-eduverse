@@ -8,16 +8,12 @@
     :license: BSD 3-Clause License, see LICENSE for more details.
 """
 import os
-import json
+import sys
 import boto3
-import base64
 # from gql import Client, gql
 # from gql.transport.aiohttp import AIOHTTPTransport
-from botocore.exceptions import ClientError
 from aws_parameter_store import AwsParameterStore
-from requests import Session
-from boto3.session import Session as AWSSession
-from requests_aws4auth import AWS4Auth
+
 
 def check_env_vars():
     MANDATORY_ENV_VARS = ["APP_SETTINGS", "AWS_REGION"]
@@ -30,7 +26,7 @@ def check_env_vars():
         print("{} : {}".format(var, os.getenv(var)))
         if var not in os.environ:
             os.environ[var] = DEFAULT_ENV[var]
-            print("Use default value {} for {}".format(DEFAULT_ENV[var], var))
+            print("WARNING: Use default value '{}' for {}".format(DEFAULT_ENV[var], var), file=sys.stderr)
 
 
 def get_param_path(param_path):
