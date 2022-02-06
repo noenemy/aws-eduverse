@@ -27,7 +27,7 @@ Resources:
       PolicyDocument:
         Version: 2012-10-17
         Statement:
-          - Sid: TuttiAppPolicy
+          - Sid: EduverseAppPolicy
             Effect: Allow
             Action:
               - cloudwatch:PutMetricData
