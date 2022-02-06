@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "awseduversetest",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "/Users/kwojihye/workplace/eduverse/cc-repo/aws-eduverse/frontend/amplify/backend/api/awseduversetest/schema.graphql",
+    "defaultAuthType": {
+      "mode": "API_KEY",
+      "expirationTime": 365,
+      "apiKeyExpirationDate": "2023-02-06T15:21:42.056Z",
+      "keyDescription": ""
+    }
+  }
+}

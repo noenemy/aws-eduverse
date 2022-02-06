@@ -8,10 +8,10 @@ frontend:
         - nvm use v14
         - echo "================after node version:$(node -v)"
         - cd frontend
-        - yarn install
+        - npm install
     build:
       commands:
-        - yarn build
+        - npm build
   artifacts:
     baseDirectory: frontend/build
     files:

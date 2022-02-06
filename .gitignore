@@ -210,3 +210,5 @@ venv.bak/
 
 # pycharm
 .idea
+
+yarn.lock
