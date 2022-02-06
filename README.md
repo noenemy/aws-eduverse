@@ -80,3 +80,12 @@ For the app
 copilot app delete
 ```
 
+## References and more for AWS Copilot 
+Explore advanced features – addons, storage, sidecars, etc
+
+* [AWS Copilot CLI repository](https://github.com/aws/copilot-cli/)
+* [AWS Copilot CLI documentation](https://aws.github.io/copilot-cli/)
+* [Guides and resources](https://aws.github.io/copilot-cli/community/guides/)
+
+
+
