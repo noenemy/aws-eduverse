@@ -8,7 +8,6 @@
     :license: BSD 3-Clause License, see LICENSE for more details.
 """
 import os
-import sys
 import boto3
 # from gql import Client, gql
 # from gql.transport.aiohttp import AIOHTTPTransport
@@ -26,7 +25,7 @@ def check_env_vars():
         print("{} : {}".format(var, os.getenv(var)))
         if var not in os.environ:
             os.environ[var] = DEFAULT_ENV[var]
-            print("WARNING: Use default value '{}' for {}".format(DEFAULT_ENV[var], var), file=sys.stderr)
+            print("WARNING: Use default value '{}' for {}".format(DEFAULT_ENV[var], var))
 
 
 def get_param_path(param_path):
