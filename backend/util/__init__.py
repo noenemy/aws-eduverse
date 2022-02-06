@@ -19,14 +19,18 @@ from requests import Session
 from boto3.session import Session as AWSSession
 from requests_aws4auth import AWS4Auth
 
-
 def check_env_vars():
     MANDATORY_ENV_VARS = ["APP_SETTINGS", "AWS_REGION"]
+    DEFAULT_ENV = {
+        MANDATORY_ENV_VARS[0]: "config.DevelopmentConfig",
+        MANDATORY_ENV_VARS[1]: "ap-northeast-2"
+    }
 
     for var in MANDATORY_ENV_VARS:
         print("{} : {}".format(var, os.getenv(var)))
         if var not in os.environ:
-            raise EnvironmentError("Failed because {} is not set.".format(var))
+            os.environ[var] = DEFAULT_ENV[var]
+            print("Use default value {} for {}".format(DEFAULT_ENV[var], var))
 
 
 def get_param_path(param_path):
@@ -38,7 +42,6 @@ def get_param_path(param_path):
     region = boto3.session.Session().region_name
     store = AwsParameterStore(region)
     return store.get_parameters_dict(param_path)
-
 
 # No more use
 # def get_appsync_secret(secret_name, region_name):
