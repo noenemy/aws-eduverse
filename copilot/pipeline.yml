@@ -3,7 +3,9 @@
 # For more info: https://aws.github.io/copilot-cli/docs/manifest/pipeline/
 
 # The name of the pipeline.
-name: pipeline-eduverse-api-eduverse@aws-eduverse
+# name: pipeline-eduverse-api-eduverse@aws-eduverse
+# check if pipeline exists: describe stack pipeline-eduverse-api-eduverse@aws-eduverse: ValidationError: 1 validation error detected: Value 'pipeline-eduverse-api-eduverse@aws-eduverse' at 'stackName' failed to satisfy constraint: Member must satisfy regular expression pattern: [a-zA-Z][-a-zA-Z0-9]*|arn:[-a-zA-Z0-9:/._+]*
+name: pipeline-eduverse-api-eduverse
 
 # The version of the schema used in this template.
 version: 1
