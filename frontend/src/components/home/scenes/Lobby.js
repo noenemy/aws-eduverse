@@ -29,6 +29,14 @@ class Lobby extends Phaser.Scene {
   preload() {
 
     this.load.tilemapTiledJSON('lobby-map', 'assets/tilemaps/lobby.json');
+    this.load.tilemapTiledJSON('new-lobby-map', 'assets/tilemaps/new_lobby.json');
+
+    this.load.spritesheet('new-lobby-wallpaper-sheet', 'assets/tilesets/wallpapers.png', {
+      frameWidth: 16,
+      frameHeight: 16,
+      // margin: 1,
+      // spacing: 2,
+    });
 
     this.load.spritesheet('lobby-interior-sheet', 'assets/tilesets/Interiors_free_16x16.png', {
       frameWidth: 16,
@@ -107,8 +115,11 @@ class Lobby extends Phaser.Scene {
     });
 
     this.lobby = this.make.tilemap({key: 'lobby-map'});
+    this.new_lobby = this.make.tilemap({key: 'new-lobby-map'});
 
     this.addLobby();
+
+    this.addNewLobby();
 
 
     console.log("@ mainTutee > ", this.mainTutee);
@@ -200,6 +211,7 @@ class Lobby extends Phaser.Scene {
     const lobbyBuilderTiles = this.lobby.addTilesetImage('Room_Builder_free_16x16', 'lobby-builder-sheet');
     const lobbyInteriorTiles = this.lobby.addTilesetImage('Interiors_free_16x16', 'lobby-interior-sheet');
 
+
     const groundLayer = this.lobby.createLayer('Ground', lobbyBuilderTiles);
     const wallLayer = this.lobby.createLayer('Wall', lobbyBuilderTiles);
     wallLayer.setCollision([ 295, 329 ], true);
@@ -211,6 +223,19 @@ class Lobby extends Phaser.Scene {
 
     this.physics.world.setBounds(0, 0, this.lobby.widthInPixels, this.lobby.heightInPixels);
     this.physics.world.setBoundsCollision(true, true, true, true);
+  }
+
+  addNewLobby() {
+
+    const newLobbyWallPaperTiles = this.new_lobby.addTilesetImage('wallpapers', 'new-lobby-wallpaper-sheet');
+    const groundLayer = this.new_lobby.createLayer('ground_layer', newLobbyWallPaperTiles);
+    const ceilLayer = this.new_lobby.createLayer('ceil_layer', newLobbyWallPaperTiles);
+    const wallLayer = this.new_lobby.createLayer('wall_layer', newLobbyWallPaperTiles);
+    
+
+    this.physics.world.setBounds(0, 0, this.new_lobby.widthInPixels, this.new_lobby.heightInPixels);
+    this.physics.world.setBoundsCollision(true, true, true, true);
+
   }
 
   update(time, delta) {

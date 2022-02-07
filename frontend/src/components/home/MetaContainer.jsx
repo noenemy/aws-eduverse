@@ -11,9 +11,9 @@ const MetaContainer = props => {
     const config = {
       type: Phaser.AUTO,
       parent: 'game',
-      backgroundColor: '#33A5E7',
-      width: 800,
-      height: 600,
+      backgroundColor: '#87CEEB',
+      width: 1200,
+      height: 800,
       // autoCenter: Phaser.Scale.CENTER_BOTH,
       // scale: {
       //   width: 800,
@@ -58,7 +58,7 @@ const MetaContainer = props => {
   //   return false;
   // }
  
-  return <div id="game" />;
+  return <div id="game" style={{height:'100vh', weight:'100%', backgroundColor:'#87CEEB'/*'#CDCDCD'*/, overflow: 'hidden'}}/>;
 }
 
 export default MetaContainer;
