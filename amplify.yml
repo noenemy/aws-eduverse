@@ -3,15 +3,15 @@ frontend:
   phases:
     preBuild:
       commands:
-        - echo "================before node version:$(node -v)"
+        - echo "=====================================BEFORE node version:$(node -v)"
         - nvm install 14.17.0
         - nvm use v14
-        - echo "================after node version:$(node -v)"
+        - echo "=====================================AFTER node version:$(node -v)"
         - cd frontend
-        - npm install
+        - yarn install
     build:
       commands:
-        - npm build
+        - yarn build
   artifacts:
     baseDirectory: frontend/build
     files:
