@@ -1,4 +1,15 @@
 version: 1
+backend:
+  phases:
+    preBuild:
+      commands:
+        - echo "================================backend preBuild"
+    build:
+      commands:
+        - echo "================================backend build"
+    postBuild:
+        commands:
+        - echo "================================backend postBuild"
 frontend:
   phases:
     preBuild:
