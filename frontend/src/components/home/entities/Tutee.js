@@ -225,8 +225,8 @@ class Tutee extends Phaser.GameObjects.Sprite {
       // this.debug.lineBetween(0, this.body.y, 1200, this.body.y);
       // this.debug.lineBetween(this.body.x, 0, this.body.x, 800);
 
-      if(this.text) this.text.destroy();
-      this.text = this.scene.add.text(this.body.x, this.body.y, `${this.body.x},${this.body.y}`)
+      // if(this.text) this.text.destroy();
+      // this.text = this.scene.add.text(this.body.x, this.body.y, `${this.body.x},${this.body.y}`)
     } else {
 
       if(this.body.speed > 0) {
