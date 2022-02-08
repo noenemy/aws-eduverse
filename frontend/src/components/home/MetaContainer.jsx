@@ -12,20 +12,20 @@ const MetaContainer = props => {
       type: Phaser.AUTO,
       parent: 'game',
       backgroundColor: '#87CEEB',
-      width: 1200,
-      height: 800,
+      // width: 1200,
+      // height: 800,
       // autoCenter: Phaser.Scale.CENTER_BOTH,
-      // scale: {
-      //   width: 800,
-      //   height: 600,
-      //   // mode: Phaser.Scale.FIT,
-      //   autoCenter: Phaser.Scale.CENTER_BOTH,
-      // },
+      scale: {
+        width: 800,
+        height: 600,
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+      },
       dom: {
           createContainer: true
       },
       render: {
-        pixelArt: false,  //true 하니까 눈이 넘 작아지네..
+        pixelArt: true,  //true 하니까 눈이 넘 작아지네..
       },
       audio: {
         noAudio: true,
