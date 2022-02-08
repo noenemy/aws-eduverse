@@ -37,11 +37,11 @@ class Login extends Phaser.Scene {
 
 		element.on('click', async function (event) {
 			const allCharacters = ['pink','purple'];
-			let character = '';
-			allCharacters.filter(item => {
-				character = this.getChildByID(`character_${item}`);
+			
+			const checkedCharacter = allCharacters.filter(item => {
+				let character = this.getChildByID(`character_${item}`);
 				return character.checked;
-			})
+			});
 
 			if (event.target.name === 'loginButton')
 			{
@@ -57,7 +57,7 @@ class Login extends Phaser.Scene {
 						x: randomInt(100, 400),	//default 시작위치
 						y: randomInt(100, 400),
 						state: "active", 	//active, disconected?
-						character: character.value
+						character: checkedCharacter.length ? checkedCharacter[0] : 'purple'
 					}
 
 					const res = await API.graphql(graphqlOperation(createTutee, {
