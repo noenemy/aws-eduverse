@@ -10,6 +10,7 @@ export const onCreateTutee = /* GraphQL */ `
       y
       to
       state
+      character
       createdAt
       updatedAt
     }
@@ -24,6 +25,7 @@ export const onUpdateTutee = /* GraphQL */ `
       y
       to
       state
+      character
       createdAt
       updatedAt
     }
@@ -38,6 +40,7 @@ export const onDeleteTutee = /* GraphQL */ `
       y
       to
       state
+      character
       createdAt
       updatedAt
     }

@@ -2,7 +2,6 @@ import Phaser from 'phaser';
 import { API, graphqlOperation } from 'aws-amplify';
 import { createTutee } from '../../../graphql/mutations';
 import { randomInt } from '../common';
-
 // var game = new Phaser.Game(config);
 class Login extends Phaser.Scene {
 
@@ -37,6 +36,7 @@ class Login extends Phaser.Scene {
 			if (event.target.name === 'loginButton')
 			{
 				var inputUsername = this.getChildByName('username');
+				var character = this.getChildByName('character');
 
 				//  Have they entered anything?
 				if (inputUsername.value !== '')
@@ -48,13 +48,12 @@ class Login extends Phaser.Scene {
 						x: randomInt(100, 400),	//default 시작위치
 						y: randomInt(100, 400),
 						state: "active", 	//active, disconected?
+						character: character.value
 					}
 
 					const res = await API.graphql(graphqlOperation(createTutee, {
 						input: newTutee
 					}));
-
-					
 
 					//  Turn off the click events
 					this.removeListener('click');

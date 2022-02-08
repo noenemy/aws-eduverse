@@ -5,24 +5,28 @@ import { updateTutee } from '../../../graphql/mutations';
 
 class Tutee extends Phaser.GameObjects.Sprite {
 
-	constructor(scene, x, y, sheet, id) {
+	constructor(scene, x, y, sheet, id, nickname, character) {
 		super(scene, x, y, sheet, 0);
+
+    scene.add.existing(this);
+		scene.physics.add.existing(this);
+
+    console.log("@ new Tutee >> ", {id, nickname, character} )
+
+    this.scene = scene;
 
     this.keys = scene.cursorKeys;
 
-		scene.add.existing(this);
-		scene.physics.add.existing(this);
-
     this.id = id;
+    this.nickname = nickname;
+    this.character = character ? character : "purple";
 
-		this.scene = scene;
-
-		this.anims.play(`${scene.tutee}-idle`);
+    this.anims.play(`walk-${character}-idle`);
 
 		this.setOrigin(0.5, 1);
 
-		this.body.setSize(16,23);
-		// this.body.setOffset(0,10);
+		this.body.setSize(16,22);
+		this.body.setOffset(10,10);
 		
 		this.input = {};
 
@@ -32,16 +36,17 @@ class Tutee extends Phaser.GameObjects.Sprite {
       y: this.y
     };
 
-    this.debug = this.scene.add.graphics();
+    // this.debug = this.scene.add.graphics();
 
-    this.velocity = 4;
+    this.velocity = 10;
+    this.setScale(1.4);
 
 	}
 
   setMovingStateTo(to, x, y) {
     this.movingStateTo.to = to;
-    this.movingStateTo.x = x+8;
-    this.movingStateTo.y = y+30;
+    this.movingStateTo.x = x;
+    this.movingStateTo.y = y;
   }
 
   async updateTuteePosition(tutee) {
@@ -68,9 +73,14 @@ class Tutee extends Phaser.GameObjects.Sprite {
       ],
       methods: {
         onEnterState: (lifecycle) => {
-          this.anims.play(`${this.scene.tutee}-${lifecycle.to}`);
+          // this.anims.play(`${this.scene.tutee}-${lifecycle.to}`);
+          if('idle' === lifecycle.to) {
+            this.anims.play(`walk-${this.character}-${lifecycle.to}`);
+          } else {
+            this.anims.play(`walk-${this.character}-down`);
+          }
+          
           if(!['idle', 'none'].includes(lifecycle.from) && lifecycle.to === 'idle') {
-            // this.client.sendPosition(this.id, this.body.x, this.body.y, "idle");
             this.updateTuteePosition({
               id: this.id,
               x: this.body.x,
@@ -82,43 +92,39 @@ class Tutee extends Phaser.GameObjects.Sprite {
         },
 				onLeft: () => {
           this.x -= this.velocity;
-          // this.client.sendPosition(this.id, this.body.x, this.body.y, "left");
-          this.updateTuteePosition({
-            id: this.id,
-            x: this.body.x,
-            y: this.body.y,
-            to: "left"
-          });
+          // this.updateTuteePosition({
+          //   id: this.id,
+          //   x: this.body.x,
+          //   y: this.body.y,
+          //   to: "left"
+          // });
 				},
 				onRight: () => {
           this.x += this.velocity;
-          // this.client.sendPosition(this.id, this.body.x, this.body.y, "right");
-          this.updateTuteePosition({
-            id: this.id,
-            x: this.body.x,
-            y: this.body.y,
-            to: "right"
-          });
+          // this.updateTuteePosition({
+          //   id: this.id,
+          //   x: this.body.x,
+          //   y: this.body.y,
+          //   to: "right"
+          // });
 				},
 				onUp: () => {
           this.y -= this.velocity;
-          // this.client.sendPosition(this.id, this.body.x, this.body.y, "up");
-          this.updateTuteePosition({
-            id: this.id,
-            x: this.body.x,
-            y: this.body.y,
-            to: "up"
-          });
+          // this.updateTuteePosition({
+          //   id: this.id,
+          //   x: this.body.x,
+          //   y: this.body.y,
+          //   to: "up"
+          // });
 				},
 				onDown: () => {
           this.y += this.velocity;
-          // this.client.sendPosition(this.id, this.body.x, this.body.y, "down");
-          this.updateTuteePosition({
-            id: this.id,
-            x: this.body.x,
-            y: this.body.y,
-            to: "down"
-          });
+          // this.updateTuteePosition({
+          //   id: this.id,
+          //   x: this.body.x,
+          //   y: this.body.y,
+          //   to: "down"
+          // });
 				},
         // onIdle: () => {
         //   this.client.sendPosition(this.id, this.body.x, this.body.y, "idle");
@@ -151,29 +157,38 @@ class Tutee extends Phaser.GameObjects.Sprite {
       init: 'idle',
       transitions: [
         { name: 'idle', from: '*', to: 'idle' },
-        { name: 'left', from: '*', to: 'left' },
-        { name: 'right', from: '*', to: 'right' },
-        { name: 'up', from: '*', to: 'up' },
+        // { name: 'left', from: '*', to: 'left' },
+        // { name: 'right', from: '*', to: 'right' },
+        // { name: 'up', from: '*', to: 'up' },
         { name: 'down', from: '*', to: 'down' },
       ],
       methods: {
         onEnterState: (lifecycle) => {
-          this.anims.play(`${this.scene.tutee}-${lifecycle.to}`);
+          // this.anims.play(`${this.scene.tutee}-${lifecycle.to}`);
+          this.anims.play(`walk-${this.character}-${lifecycle.to}`);
           // console.log("OTHER's lifecycle > ", lifecycle);
-          this.setX(this.movingStateTo.x);
-          this.setY(this.movingStateTo.y);
+          // this.setX(this.movingStateTo.x);
+          // this.setY(this.movingStateTo.y);
+          // const distance = Phaser.Math.Distance.Between(this.body.x, this.body.y, this.movingStateTo.x, this.movingStateTo.y);
+          // if(this.tween) this.tween.destroy();
+          // this.tween = this.scene.add.tween({
+          //   targets: this,
+          //   x: this.movingStateTo.x,
+          //   y: this.movingStateTo.y,
+          //   duration: distance*10
+          // });
         },
 				onLeft: () => {
-          this.setX(this.movingStateTo.x);
+          // this.setX(this.movingStateTo.x);
 				},
 				onRight: () => {
-          this.setX(this.movingStateTo.x);
+          // this.setX(this.movingStateTo.x);
 				},
 				onUp: () => {
-          this.setY(this.movingStateTo.y);
+          // this.setY(this.movingStateTo.y);
 				},
 				onDown: () => {
-          this.setY(this.movingStateTo.y);
+          // this.setY(this.movingStateTo.y);
 				}
       },
     });
@@ -202,24 +217,31 @@ class Tutee extends Phaser.GameObjects.Sprite {
 
     if(!this.animState) return;
 
+    if(this.nicknametext) this.nicknametext.destroy();
+    this.nicknametext = this.scene.add.text(this.body.x, this.body.y-20, this.nickname);
+
     if(this.id === this.scene.mainPlayerId) {
-      this.debug.clear().lineStyle(1, 0xFF00FF);
-      this.debug.lineBetween(0, this.body.y, 800, this.body.y);
-      this.debug.lineBetween(this.body.x, 0, this.body.x, 600);
+      // this.debug.clear().lineStyle(1, 0xFF00FF);
+      // this.debug.lineBetween(0, this.body.y, 1200, this.body.y);
+      // this.debug.lineBetween(this.body.x, 0, this.body.x, 800);
+
       if(this.text) this.text.destroy();
       this.text = this.scene.add.text(this.body.x, this.body.y, `${this.body.x},${this.body.y}`)
-
     } else {
-      // if(this.body.speed > 0) {
-        // const distance = Phaser.Math.Distance.Between(this.body.x, this.body.y, this.movingStateTo.x, this.movingStateTo.y);
 
-        // if(distance < 4) {
-          // console.log("@ near!")
+      if(this.body.speed > 0) {
+        const distance = Phaser.Math.Distance.Between(this.body.x, this.body.y, this.movingStateTo.x, this.movingStateTo.y);
+
+        if(distance < 4) {
+          console.log("@ near!")
           // this.body.reset(this.movingStateTo.x, this.movingStateTo.y);
-          // this.setMovingStateTo( "idle", this.movingStateTo.x, this.movingStateTo.y );
-
-        // }
-      // }
+          this.setX(this.movingStateTo.x);
+          this.setY(this.movingStateTo.y);
+          this.setMovingStateTo( "idle", this.movingStateTo.x, this.movingStateTo.y );
+          if(this.tween) this.tween.stop();
+          return;
+        } 
+      }
     }
 
 		for (const t of this.animState.transitions()) {    

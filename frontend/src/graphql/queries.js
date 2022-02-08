@@ -10,6 +10,7 @@ export const getTutee = /* GraphQL */ `
       y
       to
       state
+      character
       createdAt
       updatedAt
     }
@@ -29,6 +30,7 @@ export const listTutees = /* GraphQL */ `
         y
         to
         state
+        character
         createdAt
         updatedAt
       }

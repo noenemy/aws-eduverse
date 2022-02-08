@@ -34,10 +34,10 @@ const MetaContainer = props => {
         default: 'arcade',
         arcade: {
           // gravity: {x:0, y:0},
-          debug: true,
-          debugShowVelocity: true,
-          debugShowBody: true,
-          debugShoeStaticBody: true
+          // debug: true,
+          // debugShowVelocity: true,
+          // debugShowBody: true,
+          // debugShoeStaticBody: true
         }
       },
       scene: [
