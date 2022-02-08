@@ -25,7 +25,7 @@ const MetaContainer = props => {
           createContainer: true
       },
       render: {
-        pixelArt: true,
+        pixelArt: false,  //true 하니까 눈이 넘 작아지네..
       },
       audio: {
         noAudio: true,

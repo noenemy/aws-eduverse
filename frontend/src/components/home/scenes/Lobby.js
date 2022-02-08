@@ -27,8 +27,6 @@ class Lobby extends Phaser.Scene {
       x: parseInt(data.newTutee.x),
       y: parseInt(data.newTutee.y),
     }
-
-    
   }
 
   preload() {
@@ -102,7 +100,7 @@ class Lobby extends Phaser.Scene {
 
   addTutee({x, y, id, nickname, character}) {
 
-    console.log(`@ Lobby.addTutee >> :`, {x, y, id, nickname, character});
+    // console.log(`@ Lobby.addTutee >> :`, {x, y, id, nickname, character});
     // console.log(`@ Lobby >> addTutee id: ${id}, x : ${x}, y: ${y}, nickname: ${nickname}`);
 
     // this.tuteeMap[id] = new Tutee(this, x, y, `${this.tutee}-idle-sheet`, id, nickname);
@@ -171,12 +169,12 @@ class Lobby extends Phaser.Scene {
     const newLobbyWallPaperTiles = this.new_lobby.addTilesetImage('wallpapers', 'new-lobby-wallpaper-sheet');
 
     const groundLayer = this.new_lobby.createLayer('ground_layer', newLobbyWallPaperTiles);
-    const ceilLayer = this.new_lobby.createLayer('ceil_layer', newLobbyWallPaperTiles);
-    ceilLayer.setCollisionBetween(1, 1280);
+    // const ceilLayer = this.new_lobby.createLayer('ceil_layer', newLobbyWallPaperTiles);
+    // ceilLayer.setCollisionBetween(1, 1280);
     // ceilLayer.setCollisionByExclusion([-1]);
-    const wallLayer = this.new_lobby.createLayer('wall_layer', newLobbyWallPaperTiles);
+    // const wallLayer = this.new_lobby.createLayer('wall_layer', newLobbyWallPaperTiles);
     // wallLayer.setCollision([602,603,604,640,641,642,643,644,645,646,680,681,682,683,684,685,686]);
-    wallLayer.setCollisionBetween(121, 688)
+    // wallLayer.setCollisionBetween(121, 688)
     // wallLayer.setCollisionByExclusion([-1]);
 
     this.physics.world.setBounds(0, 0, this.new_lobby.widthInPixels, this.new_lobby.heightInPixels);

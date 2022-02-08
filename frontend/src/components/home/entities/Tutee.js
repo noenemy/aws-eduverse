@@ -11,7 +11,7 @@ class Tutee extends Phaser.GameObjects.Sprite {
     scene.add.existing(this);
 		scene.physics.add.existing(this);
 
-    console.log("@ new Tutee >> ", {id, nickname, character} )
+    // console.log("@ new Tutee >> ", {id, nickname, character} )
 
     this.scene = scene;
 
@@ -88,7 +88,7 @@ class Tutee extends Phaser.GameObjects.Sprite {
               to: "idle"
             });
           }
-          console.log("MY lifecycle > ", lifecycle);
+          // console.log("MY lifecycle > ", lifecycle);
         },
 				onLeft: () => {
           this.x -= this.velocity;
