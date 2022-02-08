@@ -39,7 +39,7 @@ class Tutee extends Phaser.GameObjects.Sprite {
     // this.debug = this.scene.add.graphics();
 
     this.velocity = 10;
-    this.setScale(1.8);
+    this.setScale(1.5);
 
 	}
 

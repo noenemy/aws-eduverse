@@ -8,13 +8,22 @@ class Lobby extends Phaser.Scene {
   tuteeMap = {}
   allCharacters = ['pink','purple'];
   allState = ['idle', 'down'];
+  backgroundTilesets = [
+    'chairs_shadow',
+    'couches_shadow',
+    'couchtables_shadow',
+    'curtains',
+    'kidsroom_shadow',
+    'rugs',
+    'stairs',
+    'tables_shadow',
+    'wallpapers'
+  ];
+
+  tutees = {};
 
   constructor() {
     super({ key: 'LobbyScene' });
-
-    this.tutees = [];
-    this.tutee = 'Adam';
-    this.char = 'pink';
 
     this.createSubscriptions();
 
@@ -34,13 +43,15 @@ class Lobby extends Phaser.Scene {
     // this.load.tilemapTiledJSON('lobby-map', 'assets/tilemaps/lobby.json');
     this.load.tilemapTiledJSON('new-lobby-map', 'assets/tilemaps/new_lobby.json');
 
-    this.load.spritesheet('new-lobby-wallpaper-sheet', 'assets/tilesets/wallpapers.png', {
-      frameWidth: 16,
-      frameHeight: 16,
-      endFrame: 2
-      // margin: 1,
-      // spacing: 2,
-    },);
+    this.backgroundTilesets.map(item => {
+      return this.load.spritesheet(`new-lobby-${item}-sheet`, `assets/tilesets/${item}.png`, {
+        frameWidth: 16,
+        frameHeight: 16,
+        endFrame: 2
+        // margin: 1,
+        // spacing: 2,
+      },);
+    })
 
     this.allCharacters.map(char => {
       return this.load.spritesheet(`walk-${char}-sheet`, `assets/walk/walk_${char}.png`, {
@@ -166,16 +177,22 @@ class Lobby extends Phaser.Scene {
 
   addNewLobby() {
 
-    const newLobbyWallPaperTiles = this.new_lobby.addTilesetImage('wallpapers', 'new-lobby-wallpaper-sheet');
+    const lobbyTiles = this.backgroundTilesets.map(item => this.new_lobby.addTilesetImage(item, `new-lobby-${item}-sheet`))
 
-    const groundLayer = this.new_lobby.createLayer('ground_layer', newLobbyWallPaperTiles);
-    // const ceilLayer = this.new_lobby.createLayer('ceil_layer', newLobbyWallPaperTiles);
-    // ceilLayer.setCollisionBetween(1, 1280);
+    // const newLobbyWallPaperTiles = this.new_lobby.addTilesetImage('wallpapers', 'new-lobby-wallpaper-sheet');
+
+    const groundLayer = this.new_lobby.createLayer('ground_layer', lobbyTiles);
+    const ceilLayer = this.new_lobby.createLayer('ceil_layer', lobbyTiles);
+    ceilLayer.setCollisionBetween(1, 1280);
     // ceilLayer.setCollisionByExclusion([-1]);
-    // const wallLayer = this.new_lobby.createLayer('wall_layer', newLobbyWallPaperTiles);
-    // wallLayer.setCollision([602,603,604,640,641,642,643,644,645,646,680,681,682,683,684,685,686]);
+    const wallLayer = this.new_lobby.createLayer('wall_layer', lobbyTiles);
+    wallLayer.setCollision([602,603,604,640,641,642,643,644,645,646,680,681,682,683,684,685,686]);
     // wallLayer.setCollisionBetween(121, 688)
     // wallLayer.setCollisionByExclusion([-1]);
+    this.new_lobby.createLayer('interior_ground_layer', lobbyTiles);
+    this.new_lobby.createLayer('interior_upper_layer', lobbyTiles);
+
+    // const interiorGroundLayer = this.new_lobby.createLayer
 
     this.physics.world.setBounds(0, 0, this.new_lobby.widthInPixels, this.new_lobby.heightInPixels);
   }

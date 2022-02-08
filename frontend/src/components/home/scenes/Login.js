@@ -36,12 +36,6 @@ class Login extends Phaser.Scene {
 		element.addListener('click');
 
 		element.on('click', async function (event) {
-			const allCharacters = ['pink','purple'];
-			
-			const checkedCharacter = allCharacters.filter(item => {
-				let character = this.getChildByID(`character_${item}`);
-				return character.checked;
-			});
 
 			if (event.target.name === 'loginButton')
 			{
@@ -50,6 +44,11 @@ class Login extends Phaser.Scene {
 				//  Have they entered anything?
 				if (inputUsername.value !== '')
 				{
+					const allCharacters = ['pink','purple'];
+					const checkedCharacter = allCharacters.filter(item => {
+						let character = this.getChildByID(`character_${item}`);
+						return character.checked;
+					});
 					
 					const newTutee = {
 						// id: 1, PK 는 자동생성
