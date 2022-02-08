@@ -6,6 +6,7 @@ import { randomInt } from '../common';
 class Login extends Phaser.Scene {
 
 	client = null;
+	
 
 	constructor(client) {
 		super({key: 'LoginScene'})
@@ -18,30 +19,38 @@ class Login extends Phaser.Scene {
 	preload () {
 		this.load.html('nameform', 'assets/text/loginform.html');
 		// this.load.image('pic', 'assets/pics/turkey-1985086.jpg');
+
+		// this.load.image('main_text', `assets/main_text.png`);
 	}
 
 	create () {
 		// this.add.image(400, 300, 'pic');
 
-		var text = this.add.text(10, 10, 'Please Input Nickname', { color: 'white', fontFamily: 'Arial', fontSize: '32px '});
+		// var text = this.add.text(10, 10, 'Please Input Nickname', { color: 'white', fontFamily: 'Arial', fontSize: '32px '});
 
+		// var main_text = this.add.image(600,100,'main_text');
 		var element = this.add.dom(400, 600).createFromCache('nameform');
-
+		
 		element.setPerspective(800);
 
 		element.addListener('click');
 
 		element.on('click', async function (event) {
+			const allCharacters = ['pink','purple'];
+			let character = '';
+			allCharacters.filter(item => {
+				character = this.getChildByID(`character_${item}`);
+				return character.checked;
+			})
 
 			if (event.target.name === 'loginButton')
 			{
 				var inputUsername = this.getChildByName('username');
-				var character = this.getChildByName('character');
-
+				
 				//  Have they entered anything?
 				if (inputUsername.value !== '')
 				{
-
+					
 					const newTutee = {
 						// id: 1, PK 는 자동생성
 						nickname: inputUsername.value,

@@ -6,7 +6,8 @@ import { listTutees } from '../../../graphql/queries';
 class Lobby extends Phaser.Scene {
 
   tuteeMap = {}
-  allCharacters = ['pink','purple']
+  allCharacters = ['pink','purple'];
+  allState = ['idle', 'down'];
 
   constructor() {
     super({ key: 'LobbyScene' });
@@ -16,6 +17,7 @@ class Lobby extends Phaser.Scene {
     this.char = 'pink';
 
     this.createSubscriptions();
+
   }
 
   init(data) {
@@ -25,6 +27,8 @@ class Lobby extends Phaser.Scene {
       x: parseInt(data.newTutee.x),
       y: parseInt(data.newTutee.y),
     }
+
+    
   }
 
   preload() {
@@ -41,7 +45,7 @@ class Lobby extends Phaser.Scene {
     },);
 
     this.allCharacters.map(char => {
-      this.load.spritesheet(`walk-${char}-sheet`, `assets/walk/walk_${char}.png`, {
+      return this.load.spritesheet(`walk-${char}-sheet`, `assets/walk/walk_${char}.png`, {
         frameWidth: 32,
         frameHeight: 32,
         // spacing: 16,
@@ -51,7 +55,7 @@ class Lobby extends Phaser.Scene {
 
   }
 
-  async create(data) {
+  create(data) {
 
     this.new_lobby = this.make.tilemap({key: 'new-lobby-map'});
     this.addNewLobby();
@@ -66,19 +70,13 @@ class Lobby extends Phaser.Scene {
     // this.addTutee(this.mainTutee);
 
     // 기존 방문자들 추가
-    const filter = {
-        state: { eq: "active" }
-    };
-    const allData = await API.graphql(graphqlOperation(listTutees, { filter: filter }));
-    this.allTutees = allData.data.listTutees.items;
-    this.allTutees.map(tutee => this.addTutee(tutee));
-
+    this.addActiveTutees()
   }
 
-  createAnims(charName) {
-    ['idle','down'/*,'left','right','up'*/].map(direction => {
-      this.allCharacters.map(char => {
-        const walkSprite = this.anims.create({
+  createAnims() {
+    this.allState.map(direction => {
+      return this.allCharacters.map(char => {
+        return this.anims.create({
           key: `walk-${char}-${direction}`,
           frames: this.anims.generateFrameNumbers(`walk-${char}-sheet`, {
             start: 0,
@@ -88,6 +86,18 @@ class Lobby extends Phaser.Scene {
         });
       })
     });
+  }
+
+  async addActiveTutees() {
+    // 기존 방문자들 추가
+    const filter = {
+      state: { eq: "active" }
+    };
+    const allData = await API.graphql(graphqlOperation(listTutees, { filter: filter }));
+    this.allTutees = allData.data.listTutees.items;
+    this.allTutees.map(tutee => this.addTutee(tutee));
+    
+    return this.allTutees;
   }
 
   addTutee({x, y, id, nickname, character}) {
@@ -113,7 +123,7 @@ class Lobby extends Phaser.Scene {
 
   createCollider(tutee) {
     if(this.new_lobby && this.new_lobby.getLayer('wall_layer')) {
-      console.log(`wall_layer : `, this.new_lobby.getLayer('wall_layer'))
+      // console.log(`wall_layer : `, this.new_lobby.getLayer('wall_layer'))
       this.physics.add.collider(tutee, this.new_lobby.getLayer('wall_layer').tilemapLayer);
     }
 
@@ -152,7 +162,7 @@ class Lobby extends Phaser.Scene {
       targets: this.tuteeMap[id],
       x: x + 8,
       y: y + 23,
-      duration: distance * 10
+      duration: distance * 20
     });
   }
 
