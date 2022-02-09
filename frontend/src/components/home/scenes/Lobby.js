@@ -17,7 +17,11 @@ class Lobby extends Phaser.Scene {
     'rugs',
     'stairs',
     'tables_shadow',
-    'wallpapers'
+    'wallpapers',
+    'decorations',
+    'kitchen_tiles',
+    'kitchens_assembled',
+    'storage',
   ];
 
   tutees = {};
@@ -43,6 +47,12 @@ class Lobby extends Phaser.Scene {
     // this.load.tilemapTiledJSON('lobby-map', 'assets/tilemaps/lobby.json');
     this.load.tilemapTiledJSON('new-lobby-map', 'assets/tilemaps/new_lobby.json');
 
+    this.load.spritesheet(`door-sheet`, `assets/gifs/door3_beige.png`, {
+        frameWidth: 48,
+        frameHeight: 32,
+      }
+    )
+    
     this.backgroundTilesets.map(item => {
       return this.load.spritesheet(`new-lobby-${item}-sheet`, `assets/tilesets/${item}.png`, {
         frameWidth: 16,
@@ -68,6 +78,18 @@ class Lobby extends Phaser.Scene {
 
     this.new_lobby = this.make.tilemap({key: 'new-lobby-map'});
     this.addNewLobby();
+    
+    this.doorAnims = this.anims.create({
+      key: 'door-sheet',
+      frames: this.anims.generateFrameNumbers('door-sheet', {
+        start: 0,
+        end: 2
+      }),
+      repeat: -1,
+      duration: 800,
+    })
+
+    this.addDoor(215,30);
 
     // this.debug = this.add.graphics();
     this.cursorKeys = this.input.keyboard.createCursorKeys();
@@ -79,7 +101,7 @@ class Lobby extends Phaser.Scene {
     // this.addTutee(this.mainTutee);
 
     // 기존 방문자들 추가
-    this.addActiveTutees()
+    this.addActiveTutees();
   }
 
   createAnims() {
@@ -128,6 +150,10 @@ class Lobby extends Phaser.Scene {
     this.tuteeMap[id].body.setCollideWorldBounds(true);
   
     this.createCollider(this.tuteeMap[id]);
+  }
+
+  addDoor(x, y) {
+    this.add.sprite(x, y, 'door-sheet').play('door-sheet');
   }
 
   createCollider(tutee) {
@@ -180,7 +206,6 @@ class Lobby extends Phaser.Scene {
     const lobbyTiles = this.backgroundTilesets.map(item => this.new_lobby.addTilesetImage(item, `new-lobby-${item}-sheet`))
 
     // const newLobbyWallPaperTiles = this.new_lobby.addTilesetImage('wallpapers', 'new-lobby-wallpaper-sheet');
-
     const groundLayer = this.new_lobby.createLayer('ground_layer', lobbyTiles);
     const ceilLayer = this.new_lobby.createLayer('ceil_layer', lobbyTiles);
     ceilLayer.setCollisionBetween(1, 1280);
