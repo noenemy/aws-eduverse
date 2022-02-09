@@ -1,4 +1,9 @@
 <style>
+	.login-wrapper {
+		position: absolute;
+    top: -270px;
+    left: -270px;
+	}
 	.login {
 		background: #eceeee;
 		border: 1px solid #42464b;
@@ -143,21 +148,25 @@
 	
 	</style>
 
-	<img src="assets/main_text.png" />
-	
-	<div class="login">
-			<div class="form">
-				<input type="text" placeholder="nickname" id="username" name="username">
-			</div>
-			<!-- <input type="password" placeholder="password" id="password" name="password"> -->
-			<!-- <a href="#" class="forgot">forgot password?</a> -->
-			<div class="form-radio">
-				<input type="radio" id="character_pink" name="character" value="pink" checked="true">
-				<!-- <label for="pink">Amy<br><div class="cropped" ><img class="centered-and-cropped" src="assets/walk/walk_pink.png"/></div></label> -->
-				<label for="pink"><div class="cropped"><img class="trimmed-cover" src="assets/walk/walk_pink.png"/></div></label>
-				<input type="radio" id="character_purple" name="character" value="purple">
-				<label for="purple"><div class="cropped"><img class="trimmed-cover" src="assets/walk/walk_purple.png"/></div></label>
-			</div>
-			<input type="submit" value="Enter" name="loginButton">
+	<div class="login-wrapper">
+		<div>
+			<img src="assets/main_text.png" />
+		</div>
+		<div class="login">
+				
+				<div class="form">
+					<input type="text" placeholder="nickname" id="username" name="username">
+				</div>
+				<!-- <input type="password" placeholder="password" id="password" name="password"> -->
+				<!-- <a href="#" class="forgot">forgot password?</a> -->
+				<div class="form-radio">
+					<input type="radio" id="character_pink" name="character" value="pink" checked="true">
+					<!-- <label for="pink">Amy<br><div class="cropped" ><img class="centered-and-cropped" src="assets/walk/walk_pink.png"/></div></label> -->
+					<label for="pink"><div class="cropped"><img class="trimmed-cover" src="assets/walk/walk_pink.png"/></div></label>
+					<input type="radio" id="character_purple" name="character" value="purple">
+					<label for="purple"><div class="cropped"><img class="trimmed-cover" src="assets/walk/walk_purple.png"/></div></label>
+				</div>
+				<input type="submit" value="Enter" name="loginButton">
+		</div>
+		<div class="shadow"></div>
 	</div>
-	<div class="shadow"></div>
