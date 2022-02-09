@@ -18,13 +18,15 @@ import {
     Routes,
     Route
 } from "react-router-dom";
-
+import { RecoilRoot } from 'recoil';
 
 Amplify.configure(awsconfig);
 
 function App() {
   const showContentOnly = window.location.pathname === "/sumerian";
   return (
+
+    <RecoilRoot>
       <BrowserRouter>
           { showContentOnly ? null :
             (<Navbar title="AWS Eduverse" />)
@@ -46,6 +48,7 @@ function App() {
           { showContentOnly ? null : (<Footer />) }
 
         </BrowserRouter>
+    </RecoilRoot>
   );
 }
 

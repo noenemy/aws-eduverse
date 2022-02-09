@@ -1,10 +1,14 @@
 import Phaser from 'phaser';
 import React, { useEffect, useMemo } from 'react';
+import { useRecoilState } from 'recoil';
+import { userState } from '../../recoil/user/userState';
 
 import Lobby from './scenes/Lobby';
 import Login from './scenes/Login';
 
 const MetaContainer = props => {
+
+  const [user, setUser] = useRecoilState(userState);
 
   useEffect(() => {
     
@@ -41,7 +45,7 @@ const MetaContainer = props => {
         }
       },
       scene: [
-        new Login(),
+        new Login((user) => setUser(user)),
         new Lobby()
       ]
     }

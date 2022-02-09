@@ -5,12 +5,11 @@ import { randomInt } from '../common';
 // var game = new Phaser.Game(config);
 class Login extends Phaser.Scene {
 
-	client = null;
-	
-
-	constructor(client) {
-		super({key: 'LoginScene'})
-		this.client = client;
+	constructor(setUser) {
+		super({key: 'LoginScene'});
+		console.log(" @ setUser >", typeof setUser)
+		this.setUser = setUser;
+		console.log(" @ setUser2 >", typeof this.setUser)
 	}
 
 	init() {
@@ -34,6 +33,8 @@ class Login extends Phaser.Scene {
 		element.setPerspective(800);
 
 		element.addListener('click');
+
+		const setUser = this.setUser;
 
 		element.on('click', async function (event) {
 
@@ -77,6 +78,8 @@ class Login extends Phaser.Scene {
 					});
 
 					console.log("@ res >> ", res)
+
+					setUser(res.data?.createTutee);
 
 					//  Populate the text with whatever they typed in as the username!
 					// text.setText('Welcome ' + inputUsername.value);
