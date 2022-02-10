@@ -9,5 +9,6 @@ type Tutee @model {
   y: Float!
   to: String
   state: String!
-  character: String
+  character: String,
+  ttl: Int
 }
