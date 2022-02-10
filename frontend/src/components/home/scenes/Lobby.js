@@ -24,13 +24,9 @@ class Lobby extends Phaser.Scene {
     'storage',
   ];
 
-  tutees = {};
-
   constructor() {
     super({ key: 'LobbyScene' });
-
     this.createSubscriptions();
-
   }
 
   init(data) {
@@ -50,8 +46,7 @@ class Lobby extends Phaser.Scene {
     this.load.spritesheet(`door-sheet`, `assets/gifs/door3_beige.png`, {
         frameWidth: 48,
         frameHeight: 32,
-      }
-    )
+    });
     
     this.backgroundTilesets.map(item => {
       return this.load.spritesheet(`new-lobby-${item}-sheet`, `assets/tilesets/${item}.png`, {
@@ -61,15 +56,24 @@ class Lobby extends Phaser.Scene {
         // margin: 1,
         // spacing: 2,
       },);
-    })
+    });
 
     this.allCharacters.map(char => {
       return this.load.spritesheet(`walk-${char}-sheet`, `assets/walk/walk_${char}.png`, {
         frameWidth: 32,
         frameHeight: 32,
-        // spacing: 16,
-        // margin: 1
       })
+    });
+
+    this.load.spritesheet(`carry-sheet`, `assets/carry/carry_welcome.png`, {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+
+    this.load.spritesheet('emoji-sheet', `assets/carry/emoticons.png`, {
+      frameWidth: 16,
+      frameHeight: 16,
+      
     })
 
   }
@@ -79,32 +83,51 @@ class Lobby extends Phaser.Scene {
     this.new_lobby = this.make.tilemap({key: 'new-lobby-map'});
     this.addNewLobby();
     
-    this.doorAnims = this.anims.create({
-      key: 'door-sheet',
+    this.anims.create({
+      key: 'door-anims',
       frames: this.anims.generateFrameNumbers('door-sheet', {
         start: 0,
         end: 2
       }),
       repeat: -1,
       duration: 800,
+    });
+
+    this.anims.create({
+      key: `carry-anims`,
+      frames: this.anims.generateFrameNumbers('carry-sheet', {
+        start: 0,
+        end: 31
+      }),
+      repeat: -1,
+      duration: 2000,
+    });
+
+    this.anims.create({
+      key: 'emoji-anims',
+      frames: this.anims.generateFrameNumbers('emoji-sheet', {
+        start: 0,
+        end: 14
+      }),
+      repeat: 100,
+      duration: 3000
     })
 
-    this.addDoor(215,30);
+    this.addSpriteAndPlay(215, 30, 'door', 1, );
+    this.addSpriteAndPlay(435, 230, 'carry', 1.3);
+    this.addSpriteAndPlay(435, 210, 'emoji', 1.3);
 
     // this.debug = this.add.graphics();
     this.cursorKeys = this.input.keyboard.createCursorKeys();
-    this.createAnims();
+    this.createTuteeAnims();
     
     console.log("@ mainTutee > ", this.mainTutee);
-
-    // 로비 입장하면 나 추가
-    // this.addTutee(this.mainTutee);
 
     // 기존 방문자들 추가
     this.addActiveTutees();
   }
 
-  createAnims() {
+  createTuteeAnims() {
     this.allState.map(direction => {
       return this.allCharacters.map(char => {
         return this.anims.create({
@@ -152,8 +175,8 @@ class Lobby extends Phaser.Scene {
     this.createCollider(this.tuteeMap[id]);
   }
 
-  addDoor(x, y) {
-    this.add.sprite(x, y, 'door-sheet').play('door-sheet');
+  addSpriteAndPlay(x, y, anims, scaled) {
+    this.add.sprite(x, y,`${anims}-sheet`).setScale(scaled).play(`${anims}-anims`);
   }
 
   createCollider(tutee) {
@@ -225,7 +248,6 @@ class Lobby extends Phaser.Scene {
   update(time, delta) {
     // const cameraBottom = this.cameras.main.getWorldPoint(0, this.cameras.main.height).y;
     
-    // this.nicknameText.setPosition(this.tutees.body.x-10, this.tutees.body.y-20)
   }
 
   createSubscriptions() {
