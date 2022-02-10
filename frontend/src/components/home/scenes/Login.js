@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import { API, graphqlOperation } from 'aws-amplify';
 import { createTutee } from '../../../graphql/mutations';
-import { randomInt } from '../common';
+import { getTtlSeconds, randomInt } from '../common';
 // var game = new Phaser.Game(config);
 class Login extends Phaser.Scene {
 
@@ -57,7 +57,8 @@ class Login extends Phaser.Scene {
 						x: randomInt(100, 400),	//default 시작위치
 						y: randomInt(100, 400),
 						state: "active", 	//active, disconected?
-						character: checkedCharacter.length ? checkedCharacter[0] : 'purple'
+						character: checkedCharacter.length ? checkedCharacter[0] : 'purple',
+						ttl: getTtlSeconds(20)
 					}
 
 					const res = await API.graphql(graphqlOperation(createTutee, {
