@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import Tutee from '../entities/Tutee';
 import { API, graphqlOperation } from 'aws-amplify';
-import { onCreateTutee, onUpdateTutee } from '../../../graphql/subscriptions';
+import { onCreateTutee, onDeleteTutee, onUpdateTutee } from '../../../graphql/subscriptions';
 import { listTutees } from '../../../graphql/queries';
 class Lobby extends Phaser.Scene {
 
@@ -109,7 +109,7 @@ class Lobby extends Phaser.Scene {
         start: 0,
         end: 14
       }),
-      repeat: 100,
+      repeat: -1,
       duration: 5000
     })
 
@@ -175,23 +175,17 @@ class Lobby extends Phaser.Scene {
 
   addTutee({x, y, id, nickname, character}) {
 
-    // console.log(`@ Lobby.addTutee >> :`, {x, y, id, nickname, character});
-    // console.log(`@ Lobby >> addTutee id: ${id}, x : ${x}, y: ${y}, nickname: ${nickname}`);
-
-    // this.tuteeMap[id] = new Tutee(this, x, y, `${this.tutee}-idle-sheet`, id, nickname);
     this.tuteeMap[id] = new Tutee(this, x, y, `walk-${character}-sheet`, id, nickname, character);
 
-    const isMainPlayer = this.nickname === nickname;  //서버를 다녀와야 id가 발급되므로 nickname 이 unique 해야할 듯
+    const isMainPlayer = this.mainTutee.id === id; 
     if(isMainPlayer) {
       this.mainPlayerId = id;
       this.tuteeMap[id].setupMyAnimations();
+      this.createCollider(this.tuteeMap[id]);
     } else {
       this.tuteeMap[id].setupOtherAnimations();
     }
 
-    this.tuteeMap[id].body.setCollideWorldBounds(true);
-  
-    this.createCollider(this.tuteeMap[id]);
   }
 
   addSpriteAndPlay(x, y, anims, scaled) {
@@ -199,13 +193,15 @@ class Lobby extends Phaser.Scene {
   }
 
   createCollider(tutee) {
+    
     if(this.new_lobby && this.new_lobby.getLayer('wall_layer')) {
-      // console.log(`wall_layer : `, this.new_lobby.getLayer('wall_layer'))
-      this.physics.add.collider(tutee, this.new_lobby.getLayer('wall_layer').tilemapLayer);
+      console.log(`wall_layer : `, this.new_lobby.getLayer('wall_layer'))
+      this.physics.add.collider(tutee, this.new_lobby.getLayer('wall_layer'), () => console.log("@@ wall collide !"));
     }
 
     if(this.new_lobby && this.new_lobby.getLayer('ceil_layer')) {
-      this.physics.add.collider(tutee, this.new_lobby.getLayer('ceil_layer').tilemapLayer);
+      console.log(`ceil_layer : `, this.new_lobby.getLayer('ceil_layer'))
+      this.physics.add.collider(tutee, this.new_lobby.getLayer('ceil_layer').tilemapLayer, () => console.log("@@ ceil collide !"));
     }
   }
 
@@ -246,27 +242,36 @@ class Lobby extends Phaser.Scene {
   addNewLobby() {
 
     const lobbyTiles = this.backgroundTilesets.map(item => this.new_lobby.addTilesetImage(item, `new-lobby-${item}-sheet`))
-
-    // const newLobbyWallPaperTiles = this.new_lobby.addTilesetImage('wallpapers', 'new-lobby-wallpaper-sheet');
-    const groundLayer = this.new_lobby.createLayer('ground_layer', lobbyTiles);
-    const ceilLayer = this.new_lobby.createLayer('ceil_layer', lobbyTiles);
-    ceilLayer.setCollisionBetween(1, 1280);
-    // ceilLayer.setCollisionByExclusion([-1]);
-    const wallLayer = this.new_lobby.createLayer('wall_layer', lobbyTiles);
-    wallLayer.setCollision([602,603,604,640,641,642,643,644,645,646,680,681,682,683,684,685,686]);
-    // wallLayer.setCollisionBetween(121, 688)
-    // wallLayer.setCollisionByExclusion([-1]);
+    
+    this.groundLayer = this.new_lobby.createLayer('ground_layer', lobbyTiles);
+    this.ceilLayer = this.new_lobby.createLayer('ceil_layer', lobbyTiles);
+    this.ceilLayer.setCollisionByProperty({ collides: true}, true);
+    this.wallLayer = this.new_lobby.createLayer('wall_layer', lobbyTiles);
+    this.wallLayer.setCollisionByProperty({ collides: true}, true);
+    
+    this.showCollisionDebug(this.ceilLayer, new Phaser.Display.Color(243,234,48,255));
+    this.showCollisionDebug(this.wallLayer, new Phaser.Display.Color(143,234,48,255));
+    
     this.new_lobby.createLayer('interior_ground_layer', lobbyTiles);
     this.new_lobby.createLayer('interior_upper_layer', lobbyTiles);
 
     // const interiorGroundLayer = this.new_lobby.createLayer
 
-    this.physics.world.setBounds(0, 0, this.new_lobby.widthInPixels, this.new_lobby.heightInPixels);
+    this.physics.world.setBounds(0, 0, this.new_lobby.widthInPixels, this.new_lobby.heightInPixels-70);
+    this.physics.world.setBoundsCollision(true, true, true, true);
   }
 
   update(time, delta) {
     // const cameraBottom = this.cameras.main.getWorldPoint(0, this.cameras.main.height).y;
-    
+
+  }
+
+  showCollisionDebug(layer, color) {
+    const debugGraphics = this.add.graphics().setAlpha(0.7);
+    layer.renderDebug(debugGraphics, {
+      tileColor: null,
+      collidingTileColor: color
+    })
   }
 
   addSpeechBubble (x, y, width, height, quote) {
@@ -312,7 +317,7 @@ class Lobby extends Phaser.Scene {
     bubble.lineBetween(point2X, point2Y, point3X, point3Y);
     bubble.lineBetween(point1X, point1Y, point3X, point3Y);
 
-    var content = this.add.text(0, 0, quote, { fontFamily: 'Arial', fontSize: 10, color: '#5b5a5c', align: 'center', wordWrap: { width: bubbleWidth - (bubblePadding * 2) } });
+    var content = this.add.text(0, 0, quote, { fontFamily: 'Calibri', fontSize: 10, color: '#5b5a5c', align: 'center', wordWrap: { width: bubbleWidth - (bubblePadding * 2) } });
 
     allContent[allCounter++] = content;
     var b = content.getBounds();
@@ -344,6 +349,18 @@ class Lobby extends Phaser.Scene {
         if(this.mainTutee && tutee.id !== this.mainTutee.id) {
           console.log("@@@ onUpdateTutee >> ", tutee);
           this.moveTutee(tutee.id, tutee.x, tutee.y, tutee.to)
+        }
+      }
+    });
+
+    const deleteSub = API.graphql(
+      graphqlOperation(onDeleteTutee)
+    ).subscribe({
+      next: (subData) => {
+        console.log("@@@ onDeleteTutee >> ", subData);
+        const tutee = subData.value.data.onDeleteTutee;
+        if(tutee.id) {
+          this.removeTutee(tutee.id);
         }
       }
     })

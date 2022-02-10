@@ -40,7 +40,8 @@ class Tutee extends Phaser.GameObjects.Sprite {
 
     this.velocity = 10;
     this.setScale(1.3);
-
+    this.body.setVelocity(0,0);
+    this.body.setCollideWorldBounds(true);
 	}
 
   setMovingStateTo(to, x, y) {
@@ -50,7 +51,6 @@ class Tutee extends Phaser.GameObjects.Sprite {
   }
 
   async updateTuteePosition(tutee) {
-
     const tuteeDetails = {
       id: tutee.id,
       x: tutee.x,
@@ -88,43 +88,20 @@ class Tutee extends Phaser.GameObjects.Sprite {
               to: "idle"
             });
           }
-          // console.log("MY lifecycle > ", lifecycle);
         },
 				onLeft: () => {
+          
           this.x -= this.velocity;
-          // this.updateTuteePosition({
-          //   id: this.id,
-          //   x: this.body.x,
-          //   y: this.body.y,
-          //   to: "left"
-          // });
+          
 				},
 				onRight: () => {
           this.x += this.velocity;
-          // this.updateTuteePosition({
-          //   id: this.id,
-          //   x: this.body.x,
-          //   y: this.body.y,
-          //   to: "right"
-          // });
 				},
 				onUp: () => {
           this.y -= this.velocity;
-          // this.updateTuteePosition({
-          //   id: this.id,
-          //   x: this.body.x,
-          //   y: this.body.y,
-          //   to: "up"
-          // });
 				},
 				onDown: () => {
           this.y += this.velocity;
-          // this.updateTuteePosition({
-          //   id: this.id,
-          //   x: this.body.x,
-          //   y: this.body.y,
-          //   to: "down"
-          // });
 				},
         // onIdle: () => {
         //   this.client.sendPosition(this.id, this.body.x, this.body.y, "idle");
@@ -217,9 +194,6 @@ class Tutee extends Phaser.GameObjects.Sprite {
 
     if(!this.animState) return;
 
-    if(this.nicknametext) this.nicknametext.destroy();
-    this.nicknametext = this.scene.add.text(this.body.x, this.body.y-20, this.nickname);
-
     if(this.id === this.scene.mainPlayerId) {
       // this.debug.clear().lineStyle(1, 0xFF00FF);
       // this.debug.lineBetween(0, this.body.y, 1200, this.body.y);
@@ -233,8 +207,6 @@ class Tutee extends Phaser.GameObjects.Sprite {
         const distance = Phaser.Math.Distance.Between(this.body.x, this.body.y, this.movingStateTo.x, this.movingStateTo.y);
 
         if(distance < 4) {
-          console.log("@ near!")
-          // this.body.reset(this.movingStateTo.x, this.movingStateTo.y);
           this.setX(this.movingStateTo.x);
           this.setY(this.movingStateTo.y);
           this.setMovingStateTo( "idle", this.movingStateTo.x, this.movingStateTo.y );
@@ -251,13 +223,9 @@ class Tutee extends Phaser.GameObjects.Sprite {
       }
     }
 
-    // if(this.id !== this.scene.mainPlayerId && ['left','right','up','down'].includes(this.movingStateTo.to)) {
-    //   console.log("@ this.body > ", this.body);
-    //   console.log("@ this.movingStateTo > ", this.movingStateTo)
-    //   while(!this.gotToDestination[this.movingStateTo.to]) {
-    //     this.moveBody[this.movingStateTo.to]();
-    //   }      
-    // }
+    if(this.nicknametext) this.nicknametext.destroy();
+    if(this.anims && this.animPredicates) this.nicknametext = this.scene.add.text(this.body.x-5, this.body.y-10, this.nickname, { fontFamily: 'Calibri', fontSize: 12, color: '#ffffff', align: 'center' });
+
 	}
 
 }

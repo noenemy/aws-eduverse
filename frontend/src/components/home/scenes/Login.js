@@ -17,21 +17,12 @@ class Login extends Phaser.Scene {
 
 	preload () {
 		this.load.html('nameform', 'assets/text/loginform.html');
-		// this.load.image('pic', 'assets/pics/turkey-1985086.jpg');
-
-		// this.load.image('main_text', `assets/main_text.png`);
 	}
 
 	create () {
-		// this.add.image(400, 300, 'pic');
-
-		// var text = this.add.text(10, 10, 'Please Input Nickname', { color: 'white', fontFamily: 'Arial', fontSize: '32px '});
-
-		// var main_text = this.add.image(600,100,'main_text');
 		var element = this.add.dom(400, 600).createFromCache('nameform');
 		
 		element.setPerspective(800);
-
 		element.addListener('click');
 
 		const setUser = this.setUser;
@@ -80,13 +71,15 @@ class Login extends Phaser.Scene {
 
 					console.log("@ res >> ", res)
 
-					setUser(res.data?.createTutee);
+					const tutee = res.data?.createTutee;
+
+					setUser(tutee);
 
 					//  Populate the text with whatever they typed in as the username!
 					// text.setText('Welcome ' + inputUsername.value);
 					this.scene.scene.launch('LobbyScene', {
 						nickname: inputUsername.value,
-						newTutee: res.data?.createTutee
+						newTutee: tutee
 					});
 					
 				}
@@ -107,10 +100,6 @@ class Login extends Phaser.Scene {
 		});
 	}
 
-	getNickName() {
-		return this.nickname;
-	}
-	
 }
 
 
