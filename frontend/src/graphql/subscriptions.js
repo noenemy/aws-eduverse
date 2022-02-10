@@ -11,6 +11,7 @@ export const onCreateTutee = /* GraphQL */ `
       to
       state
       character
+      ttl
       createdAt
       updatedAt
     }
@@ -26,6 +27,7 @@ export const onUpdateTutee = /* GraphQL */ `
       to
       state
       character
+      ttl
       createdAt
       updatedAt
     }
@@ -41,6 +43,7 @@ export const onDeleteTutee = /* GraphQL */ `
       to
       state
       character
+      ttl
       createdAt
       updatedAt
     }
