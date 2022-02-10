@@ -110,12 +110,16 @@ class Lobby extends Phaser.Scene {
         end: 14
       }),
       repeat: 100,
-      duration: 3000
+      duration: 5000
     })
 
     this.addSpriteAndPlay(215, 30, 'door', 1, );
     this.addSpriteAndPlay(435, 230, 'carry', 1.3);
-    this.addSpriteAndPlay(435, 210, 'emoji', 1.3);
+    
+
+    this.timedEvent = this.time.addEvent({delay: 5000, callback: this.onRemoveWelcome, callbackScope: this, loop: false});
+
+    this.welcomeSpeechBubble = this.addSpeechBubble(450, 200, 120, 25, `Welcome! ${this.mainTutee.nickname ? this.mainTutee.nickname : 'Tutee'}! Let's study~!`)
 
     // this.debug = this.add.graphics();
     this.cursorKeys = this.input.keyboard.createCursorKeys();
@@ -140,6 +144,21 @@ class Lobby extends Phaser.Scene {
         });
       })
     });
+  }
+
+  onRemoveWelcome() {
+
+    if(this.welcomeSpeechBubble && this.welcomeSpeechBubble.length > 0) {
+      this.welcomeSpeechBubble.map(item => {
+        if(item.destroy) {
+          return item.destroy();
+        }
+        return item;
+      })
+    }
+
+    this.addSpriteAndPlay(435, 210, 'emoji', 1.3);
+
   }
 
   async addActiveTutees() {
@@ -248,6 +267,59 @@ class Lobby extends Phaser.Scene {
   update(time, delta) {
     // const cameraBottom = this.cameras.main.getWorldPoint(0, this.cameras.main.height).y;
     
+  }
+
+  addSpeechBubble (x, y, width, height, quote) {
+    var allContent = [];
+    var allCounter = 0;
+    var bubbleWidth = width;
+    var bubbleHeight = height;
+    var bubblePadding = 10;
+    var arrowHeight = bubbleHeight / 4;
+
+    var bubble = this.add.graphics({ x: x, y: y });
+    allContent[allCounter++] = bubble;
+
+    //  Bubble shadow
+    // bubble.fillStyle(0x222222, 0.5);
+    // bubble.fillRoundedRect(6, 6, bubbleWidth, bubbleHeight, 16);
+
+    //  Bubble color
+    bubble.fillStyle(0xdec4a6, 1);
+
+    //  Bubble outline line style
+    bubble.lineStyle(4, 0x766a62, 1);
+
+    //  Bubble shape and outline
+    bubble.strokeRoundedRect(0, 0, bubbleWidth, bubbleHeight, 16);
+    bubble.fillRoundedRect(0, 0, bubbleWidth, bubbleHeight, 16);
+
+    //  Calculate arrow coordinates
+    var point1X = Math.floor(bubbleWidth / 7);
+    var point1Y = bubbleHeight;
+    var point2X = Math.floor((bubbleWidth / 7) * 2);
+    var point2Y = bubbleHeight;
+    var point3X = Math.floor(bubbleWidth / 7);
+    var point3Y = Math.floor(bubbleHeight + arrowHeight);
+
+    //  Bubble arrow shadow
+    // bubble.lineStyle(4, 0x222222, 0.5);
+    // bubble.lineBetween(point2X - 1, point2Y + 6, point3X + 2, point3Y);
+
+    //  Bubble arrow fill
+    bubble.fillTriangle(point1X, point1Y, point2X, point2Y, point3X, point3Y);
+    bubble.lineStyle(2, 0x565656, 1);
+    bubble.lineBetween(point2X, point2Y, point3X, point3Y);
+    bubble.lineBetween(point1X, point1Y, point3X, point3Y);
+
+    var content = this.add.text(0, 0, quote, { fontFamily: 'Arial', fontSize: 10, color: '#5b5a5c', align: 'center', wordWrap: { width: bubbleWidth - (bubblePadding * 2) } });
+
+    allContent[allCounter++] = content;
+    var b = content.getBounds();
+
+    content.setPosition(bubble.x + (bubbleWidth / 2) - (b.width / 2), bubble.y + (bubbleHeight / 2) - (b.height / 2));
+
+    return allContent;
   }
 
   createSubscriptions() {
