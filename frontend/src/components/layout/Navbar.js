@@ -47,7 +47,7 @@ const Navbar  = (props) => {
                             <li className="nav-item">
                                 <a className="nav-link" href="/about">About</a>
                             </li>
-                            <li className="nav-item dropdown">
+                            <li className="nav-item dropdown mx-5">
                                 <a className="nav-link dropdown-toggle" href="#" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span className="flag-icon flag-icon-kr"> </span> 한국어</a>
                                 <div className="dropdown-menu" aria-labelledby="dropdown09">
                                     <a className="dropdown-item" href="#fr"><span className="flag-icon flag-icon-us"> </span>  English</a>
@@ -56,10 +56,10 @@ const Navbar  = (props) => {
                                     <a className="dropdown-item" href="#ru"><span className="flag-icon flag-icon-jp"> </span>  Japanese</a>
                                 </div>
                             </li>
+                            <li className="nav-item" mx-5>
+                                <a className="nav-link" href="#"><i className="far fa-user"></i> {user.nickname}</a>
+                            </li>
                         </ul>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">{user.nickname}</a>
-                        </li>
                     </div>
                 </div>
             </nav>
