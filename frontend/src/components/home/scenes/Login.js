@@ -55,10 +55,10 @@ class Login extends Phaser.Scene {
 						y: 70, //randomInt(100, 400),
 						state: "active", 	//active, disconected?
 						character: checkedCharacter.length ? checkedCharacter[0] : 'purple',
-						ttl: getTtlSeconds(20)
+						ttl: getTtlSeconds(3600)
 					}
 
-					// 모든 튜티 가져오기... get은 복잡해서 일단...다 데려옴
+					// 모든 튜티 가져오기... get안하고 일단...다 데려옴
 					const allData = await API.graphql(graphqlOperation(listTutees));
     			const allTutees = Array.from(allData.data.listTutees.items);
 
@@ -114,6 +114,10 @@ class Login extends Phaser.Scene {
 				duration: 3000,
 				ease: 'Power3'
 		});
+	}
+
+	update() {
+
 	}
 
 }

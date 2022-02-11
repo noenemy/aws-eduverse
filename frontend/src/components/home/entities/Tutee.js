@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import StateMachine from 'javascript-state-machine';
 import { API, graphqlOperation } from 'aws-amplify';
 import { updateTutee } from '../../../graphql/mutations';
+import { getTtlSeconds } from '../common';
 
 class Tutee extends Phaser.GameObjects.Sprite {
 
@@ -56,7 +57,8 @@ class Tutee extends Phaser.GameObjects.Sprite {
       id: tutee.id,
       x: tutee.x,
       y: tutee.y,
-      to: tutee.to
+      to: tutee.to,
+      ttl: getTtlSeconds(3600)  
     }
     const updateTutees = await API.graphql(graphqlOperation(updateTutee, { input: tuteeDetails }));
   }

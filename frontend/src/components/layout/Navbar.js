@@ -16,7 +16,7 @@ const Navbar  = (props) => {
     }, [user])
 
     const menu = useMemo(()=> ([
-        { menuName: 'Home', to:'/home' },
+        { menuName: 'Home', to:'/' },
         { menuName: 'Auditorium', to:'/auditorium' },
         { menuName: 'Classroom', to:'/classroom' },
         { menuName: 'VR Learning', to:'/vrlearning' },

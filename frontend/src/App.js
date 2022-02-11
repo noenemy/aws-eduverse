@@ -30,7 +30,6 @@ function App() {
           }
 
           <Routes>
-            <Route path="/home" element={<HomeComponent />} />
             <Route path="/auditorium" element={<Auditorium />} />
             <Route path="/auditorium/:auditoriumId" element={<Auditorium />} />         
             <Route path="/classroom" element={<Classroom />} />

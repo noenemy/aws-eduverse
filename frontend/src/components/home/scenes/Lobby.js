@@ -32,14 +32,11 @@ class Lobby extends Phaser.Scene {
     console.log("@ Lobby.user >>", data)
     if(data && data.newTutee) {
       this.mainTutee = data.newTutee;
-      this.nickname = data.nickname;
     }
   }
 
   init(data) {
     // 로그인 씬에서 닉네임 입력 후 넘어오는 경우 (신규, 기존 튜티)
-    if(data.nickname)
-      this.nickname = data.nickname;
     if(data.newTutee)
       this.mainTutee = {
         ...data.newTutee,
@@ -89,6 +86,8 @@ class Lobby extends Phaser.Scene {
 
   create(data) {
 
+    
+
     this.new_lobby = this.make.tilemap({key: 'new-lobby-map'});
     this.addNewLobby();
     
@@ -136,6 +135,10 @@ class Lobby extends Phaser.Scene {
     
     console.log("@ mainTutee > ", this.mainTutee);
 
+    this.lights.enable();
+    this.lights.setAmbientColor(0x808080);
+    var spotlight = this.lights.addLight(10,10,280).setIntensity(3);
+    
     // 기존 방문자들 추가
     this.addActiveTutees();
   }
@@ -226,11 +229,14 @@ class Lobby extends Phaser.Scene {
   }
 
   moveTutee(id, x, y, to) {
+
+    if(!this.tuteeMap[id] || !this.tuteeMap[id].setMovingStateTo) return; 
+
     this.tuteeMap[id].setMovingStateTo(to, x, y);
 
-    let target = new Phaser.Math.Vector2();
-    target.x = x;
-    target.y = y;
+    // let target = new Phaser.Math.Vector2();
+    // target.x = x;
+    // target.y = y;
 
     // if(this.debug) {
     //   this.debug.clear().lineStyle(1, 0x00ff00);
