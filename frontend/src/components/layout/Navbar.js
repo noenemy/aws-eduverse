@@ -1,6 +1,7 @@
-import React, { Component, useEffect } from 'react'
+import React, { useMemo, useEffect } from 'react'
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../recoil/user/userState';
+import { Link } from 'react-router-dom';
 
 const Navbar  = (props) => {
     const defaultProps = {
@@ -11,8 +12,17 @@ const Navbar  = (props) => {
     const user = useRecoilValue(userState);
 
     useEffect(()=> {
-        console.log("@ user >", user)
+        console.log("@ Navbar.user >", user)
     }, [user])
+
+    const menu = useMemo(()=> ([
+        { menuName: 'Home', to:'/home' },
+        { menuName: 'Auditorium', to:'/auditorium' },
+        { menuName: 'Classroom', to:'/classroom' },
+        { menuName: 'VR Learning', to:'/vrlearning' },
+        { menuName: 'Lounge', to:'/lounge' },
+        { menuName: 'About', to:'/about' },
+    ]))
 
     return (
         <div>
@@ -29,7 +39,11 @@ const Navbar  = (props) => {
                 
                     <div className="collapse navbar-collapse" id="navbarResponsive">
                         <ul className="navbar-nav ml-auto">
-                            <li className="nav-item">
+                            {menu.map((item, index) => 
+                                <li key={index} className="nav-item">
+                                    <Link className="nav-link" to={item.to}>{item.menuName}</Link>
+                                </li>)}
+                            {/* <li className="nav-item">
                                 <a className="nav-link" href="/home">Home</a>
                             </li>
                             <li className="nav-item">
@@ -46,7 +60,7 @@ const Navbar  = (props) => {
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="/about">About</a>
-                            </li>
+                            </li> */}
                             <li className="nav-item dropdown mx-5">
                                 <a className="nav-link dropdown-toggle" href="#" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span className="flag-icon flag-icon-kr"> </span> 한국어</a>
                                 <div className="dropdown-menu" aria-labelledby="dropdown09">
@@ -56,8 +70,11 @@ const Navbar  = (props) => {
                                     <a className="dropdown-item" href="#ru"><span className="flag-icon flag-icon-jp"> </span>  Japanese</a>
                                 </div>
                             </li>
-                            <li className="nav-item" mx-5>
-                                <a className="nav-link" href="#"><i className="far fa-user"></i> {user.nickname}</a>
+                            <li className="nav-item mx-5">
+                                <a className="nav-link" href="#">{ user && user.nickname ? <i className="far fa-user">{" "+user.nickname}</i> : ''}</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#">{ user && user.id ? 'Exit' : 'Please log in'}</a>
                             </li>
                         </ul>
                     </div>

@@ -5,18 +5,22 @@ import { updateTutee } from '../../../graphql/mutations';
 
 class Tutee extends Phaser.GameObjects.Sprite {
 
+  entered = false;
+  velocity = 7;
+  movingStateTo = {
+    to: "idle",
+    x: this.x,
+    y: this.y
+  };
+
 	constructor(scene, x, y, sheet, id, nickname, character) {
 		super(scene, x, y, sheet, 0);
 
     scene.add.existing(this);
 		scene.physics.add.existing(this);
 
-    // console.log("@ new Tutee >> ", {id, nickname, character} )
-
     this.scene = scene;
-
     this.keys = scene.cursorKeys;
-
     this.id = id;
     this.nickname = nickname;
     this.character = character ? character : "purple";
@@ -28,21 +32,18 @@ class Tutee extends Phaser.GameObjects.Sprite {
 		this.body.setSize(16,22);
 		this.body.setOffset(10,10);
 		
-		this.input = {};
-
-    this.movingStateTo = {
-      to: "idle",
-      x: this.x,
-      y: this.y
-    };
-
     // this.debug = this.scene.add.graphics();
 
-    this.velocity = 10;
     this.setScale(1.3);
     this.body.setVelocity(0,0);
     this.body.setCollideWorldBounds(true);
+
+    this.enterTimedEvent = this.scene.time.addEvent({delay: 1500, callback: () => this.setEntered(true), callbackScope: this, loop: false});
 	}
+
+  setEntered(flag) {
+    this.entered = flag;
+  }
 
   setMovingStateTo(to, x, y) {
     this.movingStateTo.to = to;
@@ -90,9 +91,7 @@ class Tutee extends Phaser.GameObjects.Sprite {
           }
         },
 				onLeft: () => {
-          
           this.x -= this.velocity;
-          
 				},
 				onRight: () => {
           this.x += this.velocity;
@@ -103,9 +102,6 @@ class Tutee extends Phaser.GameObjects.Sprite {
 				onDown: () => {
           this.y += this.velocity;
 				},
-        // onIdle: () => {
-        //   this.client.sendPosition(this.id, this.body.x, this.body.y, "idle");
-        // }
       },
     });
 
@@ -224,7 +220,7 @@ class Tutee extends Phaser.GameObjects.Sprite {
     }
 
     if(this.nicknametext) this.nicknametext.destroy();
-    if(this.anims && this.animPredicates) this.nicknametext = this.scene.add.text(this.body.x-5, this.body.y-10, this.nickname, { fontFamily: 'Calibri', fontSize: 12, color: '#ffffff', align: 'center' });
+    if(this.entered) this.nicknametext = this.scene.add.text(this.body.x-5, this.body.y-10, this.nickname, { fontFamily: 'Calibri', fontSize: 12, color: '#ffffff', align: 'center' });
 
 	}
 

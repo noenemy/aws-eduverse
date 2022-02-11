@@ -1,7 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import React, {Component} from "react";
-import { match } from 'react-router';
+import React from "react";
 import Amplify from 'aws-amplify';
 import awsconfig from './aws-exports'
 import Navbar from './components/layout/Navbar';
@@ -18,7 +17,6 @@ import {
     Routes,
     Route
 } from "react-router-dom";
-import { RecoilRoot } from 'recoil';
 
 Amplify.configure(awsconfig);
 
@@ -26,7 +24,6 @@ function App() {
   const showContentOnly = window.location.pathname === "/sumerian";
   return (
 
-    <RecoilRoot>
       <BrowserRouter>
           { showContentOnly ? null :
             (<Navbar title="AWS Eduverse" />)
@@ -48,7 +45,6 @@ function App() {
           { showContentOnly ? null : (<Footer />) }
 
         </BrowserRouter>
-    </RecoilRoot>
   );
 }
 

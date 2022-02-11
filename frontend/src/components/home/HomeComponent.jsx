@@ -1,12 +1,12 @@
 import React from 'react';
-import MetaContainer from './MetaContainer';
+import PhaserContainer from './PhaserContainer';
 
 const HomeComponent = (props) => {
 
     return (
         <div>
             {/* Welcome to AWS Eduverse */}
-            <MetaContainer/>
+            <PhaserContainer/>
         </div>
     );
 }

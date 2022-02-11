@@ -24,18 +24,28 @@ class Lobby extends Phaser.Scene {
     'storage',
   ];
 
-  constructor() {
+  constructor(data) {
     super({ key: 'LobbyScene' });
     this.createSubscriptions();
+
+    //다른 메뉴 갔다가 홈으로 돌아오는 경우
+    console.log("@ Lobby.user >>", data)
+    if(data && data.newTutee) {
+      this.mainTutee = data.newTutee;
+      this.nickname = data.nickname;
+    }
   }
 
   init(data) {
-    this.nickname = data.nickname;
-    this.mainTutee = {
-      ...data.newTutee,
-      x: parseInt(data.newTutee.x),
-      y: parseInt(data.newTutee.y),
-    }
+    // 로그인 씬에서 닉네임 입력 후 넘어오는 경우 (신규, 기존 튜티)
+    if(data.nickname)
+      this.nickname = data.nickname;
+    if(data.newTutee)
+      this.mainTutee = {
+        ...data.newTutee,
+        x: parseInt(data.newTutee.x),
+        y: parseInt(data.newTutee.y),
+      }
   }
 
   preload() {
@@ -73,8 +83,7 @@ class Lobby extends Phaser.Scene {
     this.load.spritesheet('emoji-sheet', `assets/carry/emoticons.png`, {
       frameWidth: 16,
       frameHeight: 16,
-      
-    })
+    });
 
   }
 
@@ -111,7 +120,7 @@ class Lobby extends Phaser.Scene {
       }),
       repeat: -1,
       duration: 5000
-    })
+    });
 
     this.addSpriteAndPlay(215, 30, 'door', 1, );
     this.addSpriteAndPlay(435, 230, 'carry', 1.3);
@@ -175,9 +184,13 @@ class Lobby extends Phaser.Scene {
 
   addTutee({x, y, id, nickname, character}) {
 
+    console.log("@ Lobby.addTutee.mainTutee >>> ", this.mainTutee)
+    console.log("@ Lobby.addTutee >>> ", {x, y, id, nickname, character})
+
     this.tuteeMap[id] = new Tutee(this, x, y, `walk-${character}-sheet`, id, nickname, character);
 
-    const isMainPlayer = this.mainTutee.id === id; 
+    const isMainPlayer = this.mainTutee.id == id; 
+    console.log("@ Lobby.addTutee.isMainPlayer >>> ", isMainPlayer )
     if(isMainPlayer) {
       this.mainPlayerId = id;
       this.tuteeMap[id].setupMyAnimations();
@@ -195,12 +208,12 @@ class Lobby extends Phaser.Scene {
   createCollider(tutee) {
     
     if(this.new_lobby && this.new_lobby.getLayer('wall_layer')) {
-      console.log(`wall_layer : `, this.new_lobby.getLayer('wall_layer'))
+      // console.log(`wall_layer : `, this.new_lobby.getLayer('wall_layer'))
       this.physics.add.collider(tutee, this.new_lobby.getLayer('wall_layer'), () => console.log("@@ wall collide !"));
     }
 
     if(this.new_lobby && this.new_lobby.getLayer('ceil_layer')) {
-      console.log(`ceil_layer : `, this.new_lobby.getLayer('ceil_layer'))
+      // console.log(`ceil_layer : `, this.new_lobby.getLayer('ceil_layer'))
       this.physics.add.collider(tutee, this.new_lobby.getLayer('ceil_layer').tilemapLayer, () => console.log("@@ ceil collide !"));
     }
   }
@@ -249,8 +262,8 @@ class Lobby extends Phaser.Scene {
     this.wallLayer = this.new_lobby.createLayer('wall_layer', lobbyTiles);
     this.wallLayer.setCollisionByProperty({ collides: true}, true);
     
-    this.showCollisionDebug(this.ceilLayer, new Phaser.Display.Color(243,234,48,255));
-    this.showCollisionDebug(this.wallLayer, new Phaser.Display.Color(143,234,48,255));
+    // this.showCollisionDebug(this.ceilLayer, new Phaser.Display.Color(243,234,48,255));
+    // this.showCollisionDebug(this.wallLayer, new Phaser.Display.Color(143,234,48,255));
     
     this.new_lobby.createLayer('interior_ground_layer', lobbyTiles);
     this.new_lobby.createLayer('interior_upper_layer', lobbyTiles);
@@ -334,7 +347,6 @@ class Lobby extends Phaser.Scene {
     ).subscribe({
       next: (subData) => {
         const tutee = subData.value.data.onCreateTutee;
-        console.log("@@@@ onCreateTutee >>  ", tutee);
 
         this.addTutee(tutee);
 
@@ -347,7 +359,6 @@ class Lobby extends Phaser.Scene {
       next: (subData) => {
         const tutee = subData.value.data.onUpdateTutee;
         if(this.mainTutee && tutee.id !== this.mainTutee.id) {
-          console.log("@@@ onUpdateTutee >> ", tutee);
           this.moveTutee(tutee.id, tutee.x, tutee.y, tutee.to)
         }
       }

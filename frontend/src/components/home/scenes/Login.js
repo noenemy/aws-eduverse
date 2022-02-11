@@ -2,17 +2,21 @@ import Phaser from 'phaser';
 import { API, graphqlOperation } from 'aws-amplify';
 import { createTutee } from '../../../graphql/mutations';
 import { getTtlSeconds, randomInt } from '../common';
+import { getTutee, listTutees } from '../../../graphql/queries';
 // var game = new Phaser.Game(config);
 class Login extends Phaser.Scene {
 
-	constructor(setUser) {
+	constructor(user, setUser) {
 		super({key: 'LoginScene'});
-		console.log(" @ setUser >", typeof setUser)
 		this.setUser = setUser;
-		console.log(" @ setUser2 >", typeof this.setUser)
+		this.user = user;
+
+		console.log("@ ###user  >> ", user)
+		// if(user.nick)
 	}
 
 	init() {
+
 	}
 
 	preload () {
@@ -32,6 +36,8 @@ class Login extends Phaser.Scene {
 			if (event.target.name === 'loginButton')
 			{
 				var inputUsername = this.getChildByName('username');
+
+				
 				
 				//  Have they entered anything?
 				if (inputUsername.value !== '')
@@ -52,9 +58,21 @@ class Login extends Phaser.Scene {
 						ttl: getTtlSeconds(20)
 					}
 
-					const res = await API.graphql(graphqlOperation(createTutee, {
-						input: newTutee
-					}));
+					// 모든 튜티 가져오기... get은 복잡해서 일단...다 데려옴
+					const allData = await API.graphql(graphqlOperation(listTutees));
+    			const allTutees = Array.from(allData.data.listTutees.items);
+
+					let tutee = {};
+					const existingTutee = allTutees.filter(item => item.nickname === newTutee.nickname);
+					//존재하면 그 정보로 세팅
+					if(existingTutee.length > 0) {
+						tutee = existingTutee[0];
+					} else {	//없으면 생성
+						const res = await API.graphql(graphqlOperation(createTutee, {
+							input: newTutee
+						}));
+						tutee = res.data?.createTutee;
+					}
 
 					//  Turn off the click events
 					this.removeListener('click');
@@ -69,9 +87,7 @@ class Login extends Phaser.Scene {
 						}
 					});
 
-					console.log("@ res >> ", res)
-
-					const tutee = res.data?.createTutee;
+					console.log("@ tutee >> ", tutee)
 
 					setUser(tutee);
 
