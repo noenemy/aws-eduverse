@@ -4,6 +4,7 @@ import { Button } from 'react-bootstrap';
 import AuditoriumList from './AuditoriumList';
 import * as _IVSPlayer from 'amazon-ivs-player';
 import IVSPlayer from './IVSPlayer';
+import Chat from '../chat/Chat';
 
 function leaveAuditorium() {
     window.location.href = '/auditorium';
@@ -40,26 +41,32 @@ function Auditorium() {
             <AuditoriumList />
             </div>
         ) : (
-        <div>
-            <h4>auditorium { auditoriumId }</h4>
 
-            <button onClick={() => console.log(player.getQuality())}>Get my quality now</button>
+        <div className="row">
+            <div className="col-sm-9">
+                <h4>auditorium { auditoriumId }</h4>
 
-            {qualities.map((quality, key) => (
-                <button key={`quality-${key}`} onClick={() => player.setQuality(quality, false)} >{quality.name}</button>
-            ))}
+                <button onClick={() => console.log(player.getQuality())}>Get my quality now</button>
 
-            <IVSPlayer 
-                player={player}
-                width="100%"
-                height="100%"
-                controls={true}
-                url={url}
-                playing={true}
-                onReady={onReady}
-            />
-            <Button variant="primary" onClick={leaveAuditorium}>Exit</Button>
-        </div>   
+                {qualities.map((quality, key) => (
+                    <button key={`quality-${key}`} onClick={() => player.setQuality(quality, false)} >{quality.name}</button>
+                ))}
+
+                <IVSPlayer 
+                    player={player}
+                    width="100%"
+                    height="100%"
+                    controls={true}
+                    url={url}
+                    playing={true}
+                    onReady={onReady}
+                />
+                <Button variant="primary" onClick={leaveAuditorium}>Exit</Button> 
+            </div>
+            <div className="col-sm-3">
+                <Chat />
+            </div>
+        </div>
     )
 };
 
