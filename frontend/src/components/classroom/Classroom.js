@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { useParams } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import ClassroomList from './ClassroomList';
-
+import Chat from '../chat/Chat'
 function leaveClassroom() {
     window.location.href = '/classroom';
 }
@@ -19,8 +19,16 @@ function Classroom() {
             </div>
         ) : (
         <div>
-            <h4>classroom { classroomId }</h4>
-            <Button variant="primary" onClick={leaveClassroom}>Exit</Button>
+            <div className="row">
+                <div className="col-sm-9">
+                    <h4>classroom { classroomId }</h4>
+                    <Button variant="primary" onClick={leaveClassroom}>Exit</Button>
+                </div>
+                <div className="col-sm-3">
+                    <Chat />
+                </div>
+            </div>
+
         </div>   
     )
 };
