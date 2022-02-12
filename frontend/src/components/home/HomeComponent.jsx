@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PhaserContainer from './PhaserContainer';
+import Chat from '../chat/Chat';
 
 const HomeComponent = (props) => {
 
@@ -14,7 +15,15 @@ const HomeComponent = (props) => {
     return (
         <div>
             {/* Welcome to AWS Eduverse */}
-            <PhaserContainer game={game} setGame={g=>setGame(g)}/>
+            <div className="row">
+                <div className="col-sm-9">
+                    <PhaserContainer game={game} setGame={g=>setGame(g)}/>
+                </div>
+                <div className="col-sm-3">
+                    <Chat />
+                </div>
+            </div>
+
         </div>
     );
 }
