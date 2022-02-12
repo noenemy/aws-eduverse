@@ -6,11 +6,8 @@ const HomeComponent = (props) => {
     const [game, setGame] = useState({});
 
     useEffect(() => {
-        console.log("@ game >> ", game)
         return ()=>{
-            console.log("@ BEFORE game >> ", game)
             if(game.config) game.destroy(true, false);
-            console.log("@ AFTER game >> ", game)
         }
     }, [game])
 
