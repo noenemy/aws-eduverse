@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: MIT-0
 
 import React, { useEffect, useState, createRef } from 'react';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../recoil/user/userState';
 import { Button } from 'react-bootstrap';
 import * as config from './config';
 
@@ -12,6 +14,12 @@ import SignIn from './SignIn';
 import './Chat.css';
 
 const Chat = () => {
+  const user = useRecoilValue(userState);
+
+  useEffect(()=> {
+    console.log("@ Chat.user >", user)
+  }, [user])
+
   const [showSignIn, setShowSignIn] = useState(false);
   const [username, setUsername] = useState('');
   const [message, setMessage] = useState('');
@@ -77,8 +85,11 @@ const Chat = () => {
   const handleOnClick = () => {
     if (!username) {
       console.log("setShowSignIn");
-      updateUsername('john mayer'); // TODO : Use signed-in username here.
-      //setShowSignIn(true);
+      if (user && user.nickname) {
+        updateUsername(user.nickname);
+      } else {
+        updateUsername('john mayer'); // TODO : Remove the default user name
+      }
     }
   }
 
