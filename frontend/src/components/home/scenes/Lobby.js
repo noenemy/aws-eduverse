@@ -126,15 +126,8 @@ class Lobby extends Phaser.Scene {
       
       this.auditoriumTrigger = this.physics.add.collider(
         this.tuteeMap[this.mainPlayerId],
-         this.auditoriumDoor, 
+        this.auditoriumDoor, 
          () => {
-          console.log("@ Auditorium Door collide!");
-          console.log("@ onCollideAuditorium.this > ", this)
-      
-          console.log("@ this.tuteeMap > ", this.tuteeMap)
-      
-          // this.tuteeMap[this.mainTutee.id].destroy();
-      
           if(this.mainTutee && !this.isCollide) {
             this.createModal(this, 'Auditorium', `${this.mainTutee.nickname}, Do you want to go to the Auditorium?`, ()=> {
               console.log("@ Click yes")
