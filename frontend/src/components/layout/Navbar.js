@@ -1,6 +1,6 @@
 import React, { useMemo, useEffect } from 'react'
 import { useRecoilValue } from 'recoil';
-import { userState } from '../../recoil/user/userState';
+import { allUserState, userState } from '../../recoil/user/userState';
 import { Link } from 'react-router-dom';
 
 const Navbar  = (props) => {
@@ -10,6 +10,12 @@ const Navbar  = (props) => {
     };
 
     const user = useRecoilValue(userState);
+    const allUsers = useRecoilValue(allUserState);
+
+    useEffect(()=> {
+        console.log("@ user > ", user);
+        console.log("@ allUsers > ", allUsers);
+    });
 
     const menu = useMemo(()=> ([
         { menuName: 'Home', to:'/' },
@@ -47,6 +53,9 @@ const Navbar  = (props) => {
                                     <a className="dropdown-item" href="#ru"><span className="flag-icon flag-icon-cn"> </span>  Chinese</a>
                                     <a className="dropdown-item" href="#ru"><span className="flag-icon flag-icon-jp"> </span>  Japanese</a>
                                 </div>
+                            </li>
+                            <li className="nav-item mx-5">
+                                <a className="nav-link" href="#">현재 접속자 : {allUsers.length} 명</a>
                             </li>
                             <li className="nav-item mx-5">
                                 <a className="nav-link" href="#">{ user && user.nickname ? <i className="far fa-user">{" "+user.nickname}</i> : ''}</a>

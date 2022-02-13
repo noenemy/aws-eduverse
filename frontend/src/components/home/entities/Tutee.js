@@ -29,17 +29,14 @@ class Tutee extends Phaser.GameObjects.Sprite {
     this.anims.play(`walk-${character}-idle`);
 
 		this.setOrigin(0.5, 1);
-
 		this.body.setSize(16,22);
 		this.body.setOffset(10,10);
 		
-    // this.debug = this.scene.add.graphics();
-
     this.setScale(1.3);
-    this.body.setVelocity(0,0);
-    this.body.setCollideWorldBounds(true);
+    this.body.setVelocity(0, 0);
+    
 
-    this.enterTimedEvent = this.scene.time.addEvent({delay: 1500, callback: () => this.setEntered(true), callbackScope: this, loop: false});
+    this.enterTimedEvent = this.scene.time.addEvent({delay: 2000, callback: () => this.setEntered(true), callbackScope: this, loop: false});
 	}
 
   setEntered(flag) {
@@ -64,6 +61,11 @@ class Tutee extends Phaser.GameObjects.Sprite {
   }
 
 	setupMyAnimations() {
+
+		this.body.setMaxVelocity(150, 150);
+		this.body.setDrag(1000, 1000);
+    this.body.setBounce(20, 20);
+    this.body.setCollideWorldBounds(true);
 
     this.animState = new StateMachine({
       init: 'idle',
@@ -92,18 +94,31 @@ class Tutee extends Phaser.GameObjects.Sprite {
             });
           }
         },
-				onLeft: () => {
-          this.x -= this.velocity;
+        onLeft: () => {
+					this.body.setVelocity(-1000, 0);
+					// this.x -= 5;
 				},
 				onRight: () => {
-          this.x += this.velocity;
+					this.body.setVelocity(1000, 0);
 				},
 				onUp: () => {
-          this.y -= this.velocity;
+					this.body.setVelocity(0, -500);
 				},
 				onDown: () => {
-          this.y += this.velocity;
-				},
+					this.body.setVelocity(0, 500);
+				}
+				// onLeft: () => {
+        //   this.x -= this.velocity;
+				// },
+				// onRight: () => {
+        //   this.x += this.velocity;
+				// },
+				// onUp: () => {
+        //   this.y -= this.velocity;
+				// },
+				// onDown: () => {
+        //   this.y += this.velocity;
+				// },
       },
     });
 

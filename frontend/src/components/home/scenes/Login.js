@@ -1,26 +1,23 @@
 import Phaser from 'phaser';
 import { API, graphqlOperation } from 'aws-amplify';
-import { createTutee } from '../../../graphql/mutations';
+import { createTutee, updateTutee } from '../../../graphql/mutations';
 import { getTtlSeconds, randomInt } from '../common';
 import { getTutee, listTutees } from '../../../graphql/queries';
-// var game = new Phaser.Game(config);
+
 class Login extends Phaser.Scene {
 
-	constructor(user, setUser) {
+	constructor(user, setUser, allUsers, setAllUsers) {
 		super({key: 'LoginScene'});
 		this.setUser = setUser;
+		this.setAllUsers = setAllUsers;
 		this.user = user;
-
-		console.log("@ ###user  >> ", user)
-		// if(user.nick)
 	}
 
 	init() {
-
 	}
 
 	preload () {
-		this.load.html('nameform', 'assets/text/loginform.html');
+		this.load.html('nameform', 'assets/htmls/loginform.html');
 	}
 
 	create () {
@@ -30,6 +27,7 @@ class Login extends Phaser.Scene {
 		element.addListener('click');
 
 		const setUser = this.setUser;
+		const setAllUsers = this.setAllUsers;
 
 		element.on('click', async function (event) {
 
@@ -37,8 +35,6 @@ class Login extends Phaser.Scene {
 			{
 				var inputUsername = this.getChildByName('username');
 
-				
-				
 				//  Have they entered anything?
 				if (inputUsername.value !== '')
 				{
@@ -67,6 +63,14 @@ class Login extends Phaser.Scene {
 					//존재하면 그 정보로 세팅
 					if(existingTutee.length > 0) {
 						tutee = existingTutee[0];
+						//로비 입장 위치는 항상 고정 - collide 오류 방지
+						delete tutee.createdAt;
+						delete tutee.updatedAt;
+						tutee.x = newTutee.x;
+						tutee.y = newTutee.y;
+						await API.graphql(graphqlOperation(updateTutee, {
+							input: tutee
+						}));
 					} else {	//없으면 생성
 						const res = await API.graphql(graphqlOperation(createTutee, {
 							input: newTutee
@@ -87,23 +91,15 @@ class Login extends Phaser.Scene {
 						}
 					});
 
-					console.log("@ tutee >> ", tutee)
-
 					setUser(tutee);
+					setAllUsers(allTutees);
 
-					//  Populate the text with whatever they typed in as the username!
-					// text.setText('Welcome ' + inputUsername.value);
 					this.scene.scene.launch('LobbyScene', {
 						nickname: inputUsername.value,
 						newTutee: tutee
 					});
 					
 				}
-				// else
-				// {
-				// 		//  Flash the prompt
-				// 		this.scene.tweens.add({ targets: text, alpha: 0.1, duration: 200, ease: 'Power3', yoyo: true });
-				// }
 			}
 
 		});
@@ -111,7 +107,7 @@ class Login extends Phaser.Scene {
 		this.tweens.add({
 				targets: element,
 				y: 300,
-				duration: 3000,
+				duration: 2500,
 				ease: 'Power3'
 		});
 	}

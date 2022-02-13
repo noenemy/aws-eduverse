@@ -11,4 +11,9 @@ export const userState = atom({
 		state: '',
 		character: '',
 	}
+});
+
+export const allUserState = atom({
+	key: 'allUserState',
+	default: {}
 })

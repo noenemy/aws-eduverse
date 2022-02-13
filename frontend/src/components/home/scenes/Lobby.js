@@ -3,6 +3,8 @@ import Tutee from '../entities/Tutee';
 import { API, graphqlOperation } from 'aws-amplify';
 import { onCreateTutee, onDeleteTutee, onUpdateTutee } from '../../../graphql/subscriptions';
 import { listTutees } from '../../../graphql/queries';
+// import { Dialog } from 'phaser3-rex-plugins/templates/ui/ui-components.js';
+
 class Lobby extends Phaser.Scene {
 
   tuteeMap = {}
@@ -23,33 +25,42 @@ class Lobby extends Phaser.Scene {
     'kitchens_assembled',
     'storage',
   ];
+  mainTutee = {};
+  showAuditoriumModal = false;
+  isCollide = false;
 
   constructor(data) {
     super({ key: 'LobbyScene' });
+
+    this.navigate = data.navigate;
+    this.setAllUsers = data.setAllUsers;
     this.createSubscriptions();
 
     //다른 메뉴 갔다가 홈으로 돌아오는 경우
-    console.log("@ Lobby.user >>", data)
+    console.log("@ Lobby.user >>", data);
     if(data && data.newTutee) {
       this.mainTutee = data.newTutee;
+      this.mainPlayerId = data.newTutee.id;
     }
   }
 
   init(data) {
     // 로그인 씬에서 닉네임 입력 후 넘어오는 경우 (신규, 기존 튜티)
-    if(data.newTutee)
+    if(data.newTutee) {
       this.mainTutee = {
         ...data.newTutee,
         x: parseInt(data.newTutee.x),
         y: parseInt(data.newTutee.y),
       }
+      this.mainPlayerId = data.newTutee.id;
+    }
   }
 
   preload() {
 
-    // this.load.tilemapTiledJSON('lobby-map', 'assets/tilemaps/lobby.json');
-    this.load.tilemapTiledJSON('new-lobby-map', 'assets/tilemaps/new_lobby.json');
+    this.load.scenePlugin('rexuiplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexuiplugin.min.js', 'rexUI', 'rexUI');
 
+    this.load.tilemapTiledJSON('new-lobby-map', 'assets/tilemaps/new_lobby.json');
     this.load.spritesheet(`door-sheet`, `assets/gifs/door3_beige.png`, {
         frameWidth: 48,
         frameHeight: 32,
@@ -86,62 +97,172 @@ class Lobby extends Phaser.Scene {
 
   create(data) {
 
-    
+    console.log("@ this.mainTutee >> ", this.mainTutee)
 
     this.new_lobby = this.make.tilemap({key: 'new-lobby-map'});
-    this.addNewLobby();
-    
-    this.anims.create({
-      key: 'door-anims',
-      frames: this.anims.generateFrameNumbers('door-sheet', {
-        start: 0,
-        end: 2
-      }),
-      repeat: -1,
-      duration: 800,
-    });
+    this.createLobby();
 
-    this.anims.create({
-      key: `carry-anims`,
-      frames: this.anims.generateFrameNumbers('carry-sheet', {
-        start: 0,
-        end: 31
-      }),
-      repeat: -1,
-      duration: 2000,
-    });
+    this.createAnims('door-anims', 'door-sheet', 0, 2, { repeat: -1, duration: 800 });
+    this.createAnims('carry-anims', 'carry-sheet', 0, 31, { repeat: -1, duration: 2000 });
+    this.createAnims('emoji-anims', 'emoji-sheet', 0, 14, { repeat: -1, duration: 5000 });
 
-    this.anims.create({
-      key: 'emoji-anims',
-      frames: this.anims.generateFrameNumbers('emoji-sheet', {
-        start: 0,
-        end: 14
-      }),
-      repeat: -1,
-      duration: 5000
-    });
+    this.createTuteeAnims();
 
-    this.addSpriteAndPlay(215, 30, 'door', 1, );
-    this.addSpriteAndPlay(435, 230, 'carry', 1.3);
-    
+    this.auditoriumDoor = this.addSpriteAndPlay(215, 35, 'door', 1 );
+    const welcomeNpc = this.addSpriteAndPlay(435, 230, 'carry', 1.3);
 
-    this.timedEvent = this.time.addEvent({delay: 5000, callback: this.onRemoveWelcome, callbackScope: this, loop: false});
-
+    this.time.addEvent({delay: 5000, callback: this.onRemoveWelcome, callbackScope: this, loop: false});
     this.welcomeSpeechBubble = this.addSpeechBubble(450, 200, 120, 25, `Welcome! ${this.mainTutee.nickname ? this.mainTutee.nickname : 'Tutee'}! Let's study~!`)
 
-    // this.debug = this.add.graphics();
     this.cursorKeys = this.input.keyboard.createCursorKeys();
-    this.createTuteeAnims();
     
-    console.log("@ mainTutee > ", this.mainTutee);
+    // 나를 포함한 기존 튜티들 추가
+    this.addActiveTutees().then(res => {
+      console.log("@ res >> ", res);
+      console.log("@ addActiveTutees. tuteeMap > ", this.tuteeMap)
+      // 방문자 모두 추가 후, 이동할 문에 main player에 대한 collide 설정
+      this.physics.add.existing(this.auditoriumDoor);
+      this.auditoriumDoor.body.setImmovable();
+      
+      this.auditoriumTrigger = this.physics.add.collider(
+        this.tuteeMap[this.mainPlayerId],
+         this.auditoriumDoor, 
+         () => {
+          console.log("@ Auditorium Door collide!");
+          console.log("@ onCollideAuditorium.this > ", this)
+      
+          console.log("@ this.tuteeMap > ", this.tuteeMap)
+      
+          // this.tuteeMap[this.mainTutee.id].destroy();
+      
+          if(this.mainTutee && !this.isCollide) {
+            this.createModal(this, 'Auditorium', `${this.mainTutee.nickname}, Do you want to go to the Auditorium?`, ()=> {
+              console.log("@ Click yes")
+              this.navigate('/auditorium');
+            });
+          }
+        })
+    });
 
-    this.lights.enable();
-    this.lights.setAmbientColor(0x808080);
-    var spotlight = this.lights.addLight(10,10,280).setIntensity(3);
-    
-    // 기존 방문자들 추가
-    this.addActiveTutees();
   }
+
+  createModal(scene, title, message, onClickYes) {
+    this.isCollide = true;
+    this.rexUI.modalPromise(
+      this.createDialog(scene, title, message, onClickYes).setPosition(400, 300), {
+          manaulClose: true,
+          duration: {
+              in: 1000,
+              out: 1000
+          }
+    }).then((closeEventData) => {
+      console.log("@ Dialog closed And this.isCollide > ", this.isCollide)
+      this.isCollide = false;
+    });
+  }
+
+  createDialog(scene, title, message, onClickYes) {
+    var dialog = this.rexUI.add.dialog({
+			background: scene.rexUI.add.roundRectangle(0, 0, 100, 100, 20, 0xdec4a6),
+			title: scene.rexUI.add.label({
+					background: scene.rexUI.add.roundRectangle(0, 0, 100, 40, 20, 0x766a62),
+					text: scene.add.text(0, 0, title ?? 'Confirmation', { fontSize: '15px' }),
+					space: {
+							left: 15,
+							right: 15,
+							top: 10,
+							bottom: 10
+					}
+			}),
+			content: scene.add.text(0, 0, message ?? 'Do you confirm?', { fontSize: '12px', color: '#5b5a5c' }),
+			actions: [
+					this.createLabel(scene, 'Yes'),
+					this.createLabel(scene, 'No')
+			],
+			space: {
+					title: 25,
+					content: 25,
+					action: 15,
+					left: 20,
+					right: 20,
+					top: 20,
+					bottom: 20,
+			},
+			align: {
+					actions: 'right', // 'center'|'left'|'right'
+			},
+			expand: {
+					content: false,  // Content is a pure text object
+			}
+	  }).layout().popUp(1000);
+
+    
+	  dialog
+			.on('button.click', function (button, groupName, index, pointer, event) {
+        console.log("@ Click index > ", index);
+        if(index === 0 && typeof onClickYes === 'function') {
+          onClickYes();
+        }
+        dialog.emit('modal.requestClose', { closedDialog: "Auditorium" });
+			})
+			.on('button.over', function (button, groupName, index, pointer, event) {
+        console.log("@ button.over")
+        button.getElement('background').setStrokeStyle(1, 0xffffff);
+			})
+			.on('button.out', function (button, groupName, index, pointer, event) {
+        console.log("@ button.out")
+        button.getElement('background').setStrokeStyle();
+			});
+
+	  return dialog;
+  }
+
+  createLabel(scene, text) {
+    return scene.rexUI.add.label({
+        // width: 40,
+        // height: 40,
+        background: scene.rexUI.add.roundRectangle(0, 0, 0, 0, 20, 0x766a62),
+        text: scene.add.text(0, 0, text, {
+            fontSize: '12px'
+        }),
+        space: {
+            left: 10,
+            right: 10,
+            top: 10,
+            bottom: 10
+        }
+    });
+  }
+
+  createAnims(key, sheet, start, end, others) {
+    return this.anims.create({
+      key: key,
+      frames: this.anims.generateFrameNumbers(sheet, {
+        start: start,
+        end: end
+      }),
+      ...others
+    });
+  }
+
+  createWindow(func)
+  {
+    var x = Phaser.Math.Between(400, 600);
+    var y = Phaser.Math.Between(64, 128);
+
+    var handle = 'window' + this.count++;
+
+    var win = this.add.zone(x, y, func.WIDTH, func.HEIGHT).setInteractive().setOrigin(0);
+    var demo = new func(handle, win);
+    this.input.setDraggable(win);
+    win.on('drag', function (pointer, dragX, dragY) {
+        this.x = dragX;
+        this.y = dragY;
+        demo.refresh()
+    });
+    this.scene.add(handle, demo, true);
+  }
+
 
   createTuteeAnims() {
     this.allState.map(direction => {
@@ -181,21 +302,17 @@ class Lobby extends Phaser.Scene {
     const allData = await API.graphql(graphqlOperation(listTutees, { filter: filter }));
     this.allTutees = allData.data.listTutees.items;
     this.allTutees.map(tutee => this.addTutee(tutee));
+    this.setAllUsers(this.allTutees);
     
     return this.allTutees;
   }
 
   addTutee({x, y, id, nickname, character}) {
 
-    console.log("@ Lobby.addTutee.mainTutee >>> ", this.mainTutee)
-    console.log("@ Lobby.addTutee >>> ", {x, y, id, nickname, character})
-
     this.tuteeMap[id] = new Tutee(this, x, y, `walk-${character}-sheet`, id, nickname, character);
-
-    const isMainPlayer = this.mainTutee.id == id; 
-    console.log("@ Lobby.addTutee.isMainPlayer >>> ", isMainPlayer )
+    console.log("@ this.tuteeMap >>> ", this.tuteeMap)
+    const isMainPlayer = id === this.mainPlayerId; 
     if(isMainPlayer) {
-      this.mainPlayerId = id;
       this.tuteeMap[id].setupMyAnimations();
       this.createCollider(this.tuteeMap[id]);
     } else {
@@ -205,19 +322,17 @@ class Lobby extends Phaser.Scene {
   }
 
   addSpriteAndPlay(x, y, anims, scaled) {
-    this.add.sprite(x, y,`${anims}-sheet`).setScale(scaled).play(`${anims}-anims`);
+    return this.add.sprite(x, y,`${anims}-sheet`).setScale(scaled).play(`${anims}-anims`);
   }
 
   createCollider(tutee) {
     
     if(this.new_lobby && this.new_lobby.getLayer('wall_layer')) {
-      // console.log(`wall_layer : `, this.new_lobby.getLayer('wall_layer'))
-      this.physics.add.collider(tutee, this.new_lobby.getLayer('wall_layer'), () => console.log("@@ wall collide !"));
+      this.physics.add.collider(tutee, this.new_lobby.getLayer('wall_layer').tilemapLayer);
     }
 
     if(this.new_lobby && this.new_lobby.getLayer('ceil_layer')) {
-      // console.log(`ceil_layer : `, this.new_lobby.getLayer('ceil_layer'))
-      this.physics.add.collider(tutee, this.new_lobby.getLayer('ceil_layer').tilemapLayer, () => console.log("@@ ceil collide !"));
+      this.physics.add.collider(tutee, this.new_lobby.getLayer('ceil_layer').tilemapLayer);
     }
   }
 
@@ -258,7 +373,7 @@ class Lobby extends Phaser.Scene {
     });
   }
 
-  addNewLobby() {
+  createLobby() {
 
     const lobbyTiles = this.backgroundTilesets.map(item => this.new_lobby.addTilesetImage(item, `new-lobby-${item}-sheet`))
     
@@ -355,6 +470,7 @@ class Lobby extends Phaser.Scene {
         const tutee = subData.value.data.onCreateTutee;
 
         this.addTutee(tutee);
+        // this.setAllUsers
 
       }
     });
