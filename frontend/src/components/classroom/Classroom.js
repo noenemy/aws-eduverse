@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import ClassroomList from './ClassroomList';
 import Chat from '../chat/Chat'
-function leaveClassroom() {
-    window.location.href = '/classroom';
-}
 
 function Classroom() {
     const { classroomId } = useParams();
+    const navigate = useNavigate();
 
     return !classroomId ? ( 
         <div>
@@ -22,7 +20,7 @@ function Classroom() {
             <div className="row">
                 <div className="col-sm-9">
                     <h4>classroom { classroomId }</h4>
-                    <Button variant="primary" onClick={leaveClassroom}>Exit</Button>
+                    <Button variant="primary" onClick={() => navigate(-1)}>Exit</Button>
                 </div>
                 <div className="col-sm-3">
                     <Chat />
