@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
-import { Card, Button } from 'react-bootstrap';
+import { Card, Button, Modal } from 'react-bootstrap';
 
 class ClassroomList extends Component {
     constructor(props, context) {
         super(props, context);
+        this.state = {showModal: false};
     }
 
-    createClassroom() {
-        alert('create');
+    handleClose = () => {
+        this.setState({ showModal: false });
+    }
+
+    createClassroom = () => {
+        this.setState({ showModal: true });
     }
 
     enterClassroom(classroomId) {
@@ -92,6 +97,22 @@ class ClassroomList extends Component {
                         </div>
                     </div>
                 </div>
+
+                <Modal show={this.state.showModal} onHide={this.handleClose}>
+                    <Modal.Header closeButton>
+                    <Modal.Title>Create a Classroom</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>Woohoo, you're creating a class here!</Modal.Body>
+                    <Modal.Footer>
+                    <Button variant="secondary" onClick={this.handleClose}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={this.handleClose}>
+                        Create
+                    </Button>
+                    </Modal.Footer>
+                </Modal>
+
             </div>
         );
     }

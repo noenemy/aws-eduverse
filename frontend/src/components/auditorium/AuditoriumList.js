@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
-import { Card, Button } from 'react-bootstrap';
+import { Card, Button, Modal } from 'react-bootstrap';
 
 class AuditoriumList extends Component {
     constructor(props, context) {
         super(props, context);
+        this.state = {showModal: false};
     }
 
-    createAuditorium() {
-        alert('create');
+    createAuditorium = () => {
+        this.setState({ showModal: true });
+    }
+
+    handleClose = () => {
+        this.setState({ showModal: false });
     }
 
     enterAuditorium(auditoriumId) {
@@ -71,6 +76,22 @@ class AuditoriumList extends Component {
                         </div>
                     </div>
                 </div>
+
+                <Modal show={this.state.showModal} onHide={this.handleClose}>
+                    <Modal.Header closeButton>
+                    <Modal.Title>Create an Auditorium</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>Woohoo, you're creating an auditorium here!</Modal.Body>
+                    <Modal.Footer>
+                    <Button variant="secondary" onClick={this.handleClose}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={this.handleClose}>
+                        Create
+                    </Button>
+                    </Modal.Footer>
+                </Modal>
+
             </div>
         );
     }
