@@ -4,7 +4,28 @@ import { Card, Button, Modal } from 'react-bootstrap';
 class AuditoriumList extends Component {
     constructor(props, context) {
         super(props, context);
-        this.state = {showModal: false};
+        this.state = {showModal: false,
+            auditoriums: [{
+                    id: 1,
+                    title: "대강당 #1 (데모용)",
+                    image: "dummy_180x100.png",
+                    description: "Some quick example text to build on the card title and make up the bulk of the card's content.",
+                    url: ""
+                }, {
+                    id: 2,
+                    title: "대강당 #2 (Live)",
+                    image: "dummy_180x100.png",
+                    description: "Some quick example text to build on the card title and make up the bulk of the card's content.",
+                    url: ""
+                }, {
+                    id: 3,
+                    title: "대강당 #3 (Live)",
+                    image: "dummy_180x100.png",
+                    description: "Some quick example text to build on the card title and make up the bulk of the card's content.",
+                    url: ""
+                } 
+            ]
+        };
     }
 
     createAuditorium = () => {
@@ -35,45 +56,22 @@ class AuditoriumList extends Component {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col">
-                            <Card style={{ width: '18rem' }}>
-                                <Card.Img variant="top" src="/assets/images/dummy_180x100.png" />
-                                <Card.Body>
-                                    <Card.Title>대강당 #1 (데모용)</Card.Title>
-                                    <Card.Text>
-                                    Some quick example text to build on the card title and make up the bulk of
-                                    the card's content.
-                                    </Card.Text>
-                                    <Button variant="primary" onClick={() => this.enterAuditorium(1)}>Go somewhere</Button>
-                                </Card.Body>
-                            </Card>
-                        </div>
-                        <div class="col">
-                        <Card style={{ width: '18rem' }}>
-                                <Card.Img variant="top" src="/assets/images/dummy_180x100.png" />
-                                <Card.Body>
-                                    <Card.Title>대강당 #2 (Live)</Card.Title>
-                                    <Card.Text>
-                                    Some quick example text to build on the card title and make up the bulk of
-                                    the card's content.
-                                    </Card.Text>
-                                    <Button variant="primary" onClick={() => this.enterAuditorium(2)}>Go somewhere</Button>
-                                </Card.Body>
-                            </Card>
-                        </div>
-                        <div class="col">
-                        <Card style={{ width: '18rem' }}>
-                                <Card.Img variant="top" src="/assets/images/dummy_180x100.png" />
-                                <Card.Body>
-                                    <Card.Title>대강당 #3 (Live)</Card.Title>
-                                    <Card.Text>
-                                    Some quick example text to build on the card title and make up the bulk of
-                                    the card's content.
-                                    </Card.Text>
-                                    <Button variant="primary" onClick={() => this.enterAuditorium(3)}>Go somewhere</Button>
-                                </Card.Body>
-                            </Card>
-                        </div>
+
+                        {this.state.auditoriums.map((item, index) => {
+                            return (
+                                <div className="col" key={index}>
+                                <Card style={{ width: '18rem' }}>
+                                    <Card.Img variant="top" src={'/assets/images/'+ item.image} />
+                                    <Card.Body>
+                                        <Card.Title>{item.title}</Card.Title>
+                                        <Card.Text>{item.description}</Card.Text>
+                                        <Button variant="primary" onClick={() => this.enterAuditorium(item.id)}>Go somewhere</Button>
+                                    </Card.Body>
+                                </Card>
+                            </div>
+                            );
+                        })}
+
                     </div>
                 </div>
 
