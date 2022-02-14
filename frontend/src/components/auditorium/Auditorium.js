@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useCallback } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import AuditoriumList from './AuditoriumList';
 import VideoPlayer from './VideoPlayer';
@@ -11,6 +11,7 @@ function leaveAuditorium() {
 
 function Auditorium() {
     const { auditoriumId } = useParams();
+    const navigate = useNavigate();
 
     return !auditoriumId ? ( 
         <div>
@@ -25,7 +26,7 @@ function Auditorium() {
             <div className="col-sm-9">
                 <h4>auditorium { auditoriumId }</h4>
                 <VideoPlayer />
-                <Button variant="primary" onClick={leaveAuditorium}>Exit</Button> 
+                <Button variant="primary" onClick={() => navigate(-1)}>Exit</Button> 
             </div>
             <div className="col-sm-3">
                 <Chat />
