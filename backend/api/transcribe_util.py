@@ -1,11 +1,15 @@
 import datetime, boto3, hmac
+import config
 import hashlib
 from urllib.parse import quote
+
+AWS_REGION = config.AWS_REGION
 
 # Key derivation functions. See:
 # http://docs.aws.amazon.com/general/latest/gr/signature-v4-examples.html#signature-v4-examples-python
 def sign(key, msg):
     return hmac.new(key, msg.encode('utf-8'), hashlib.sha256).digest()
+
 
 def getSignatureKey(key, dateStamp, regionName, serviceName):
     kDate = sign(('AWS4' + key).encode('utf-8'), dateStamp)
@@ -14,13 +18,14 @@ def getSignatureKey(key, dateStamp, regionName, serviceName):
     kSigning = sign(kService, 'aws4_request')
     return kSigning
 
+
 def add_param(params, key, value):
     return params + f'&{key}={value}'
 
+
 # Using Amazon Transcribe streaming with WebSockets. See:
 # https://docs.aws.amazon.com/transcribe/latest/dg/websocket.html
-def get_presigned_url(region='us-west-2', language_code='en-US'):
-
+def get_presigned_url(region=AWS_REGION, language_code='en-US'):
     method = 'GET'
     service = 'transcribe'
     endpoint = f'wss://transcribestreaming.{region}.amazonaws.com:8443'
@@ -37,7 +42,7 @@ def get_presigned_url(region='us-west-2', language_code='en-US'):
     # Create a date for headers and the credential string
     t = datetime.datetime.utcnow()
     amzdate = t.strftime('%Y%m%dT%H%M%SZ')
-    datestamp = t.strftime('%Y%m%d') # Date w/o time, used in credential scope
+    datestamp = t.strftime('%Y%m%d')  # Date w/o time, used in credential scope
 
     canonical_uri = '/stream-transcription-websocket'
     canonical_headers = 'host:' + host + '\n'
@@ -64,7 +69,8 @@ def get_presigned_url(region='us-west-2', language_code='en-US'):
     canonical_request = method + '\n' + canonical_uri + '\n' + canonical_querystring + '\n' + canonical_headers + '\n' + signed_headers + '\n' + payload_hash
 
     # string_to_sign
-    string_to_sign = algorithm + '\n'+ amzdate + '\n'+ credential_scope + '\n'+ hashlib.sha256(canonical_request.encode('utf-8')).hexdigest()
+    string_to_sign = algorithm + '\n' + amzdate + '\n' + credential_scope + '\n' + hashlib.sha256(
+        canonical_request.encode('utf-8')).hexdigest()
 
     # signing_key and calculate signature
     signing_key = getSignatureKey(secret_key, datestamp, region, service)
@@ -74,6 +80,6 @@ def get_presigned_url(region='us-west-2', language_code='en-US'):
     canonical_querystring += '&X-Amz-Signature=' + signature
     request_url = endpoint + canonical_uri + '?' + canonical_querystring
 
-    #print(request_url)
+    # print(request_url)
 
     return request_url
