@@ -1,17 +1,19 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 
-import React, { useEffect } from 'react';
-import * as config from '../chat/config';
+import React, { useState, useEffect } from 'react';
 
 // Styles
 import './VideoPlayer.css';
 
-const VideoPlayer = () => {
+const VideoPlayer = (props) => {
   const maxMetaData = 10;
-  const mediaUrl = "https://fcc3ddae59ed.us-west-2.playback.live-video.net/api/video/v1/us-west-2.893648527354.channel.DmumNckWFTqz.m3u8";
+  const mediaUrl = props.url;
+  //const [ mediaUrl, setMediaUrl] = useState();
 
   useEffect(() => {
+    //setMediaUrl(props.url);
+
     let metaData = []
     const mediaPlayerScriptLoaded = () => {
       // This shows how to include the Amazon IVS Player with a script tag from our CDN
@@ -62,12 +64,12 @@ const VideoPlayer = () => {
   
       // Setup stream and play
       player.setAutoplay(true);
-      //player.load(config.PLAYBACK_URL);
-      player.load("https://fcc3ddae59ed.us-west-2.playback.live-video.net/api/video/v1/us-west-2.893648527354.channel.DmumNckWFTqz.m3u8");
+      console.log("@player load > " + mediaUrl);
+      player.load(mediaUrl);
       player.setVolume(0.5);
     }
     const mediaPlayerScript = document.createElement("script");
-    mediaPlayerScript.src = mediaUrl;
+    mediaPlayerScript.src = "https://player.live-video.net/1.2.0/amazon-ivs-player.min.js";
     mediaPlayerScript.async = true;
     mediaPlayerScript.onload = () => mediaPlayerScriptLoaded();
     document.body.appendChild(mediaPlayerScript);

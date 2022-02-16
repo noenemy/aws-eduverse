@@ -5,6 +5,7 @@ import Amplify from 'aws-amplify';
 import awsconfig from './aws-exports'
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
+import AuditoriumList from './components/auditorium/AuditoriumList';
 import Auditorium from './components/auditorium/Auditorium';
 import Classroom from './components/classroom/Classroom';
 import Lounge from './components/lounge/Lounge';
@@ -30,8 +31,8 @@ function App() {
           }
 
           <Routes>
-            <Route path="/auditorium" element={<Auditorium />} />
-            <Route path="/auditorium/:auditoriumId" element={<Auditorium />} />         
+            <Route path="/auditorium" element={<AuditoriumList />} />
+            <Route path="/auditorium/:id" element={<Auditorium />} />         
             <Route path="/classroom" element={<Classroom />} />
             <Route path="/classroom/:classroomId" element={<Classroom />} />
             <Route path="/vrlearning" element={<VRLearning />} />
