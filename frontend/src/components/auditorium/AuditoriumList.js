@@ -3,16 +3,19 @@ import { useNavigate } from 'react-router-dom';
 import { Card, Button, Modal } from 'react-bootstrap';
 import { API, graphqlOperation } from 'aws-amplify';
 import { listAuditoriums } from '../../graphql/queries';
+import ReactLoading from 'react-loading';
 
 const AuditoriumList = (props) => {
 
     const [ auditoriums, setAuditorium] = useState([]);
     const [ showModal, setShowModal] = useState(false);
+    const [ loading, setLoading] = useState(true);
     const navigate = useNavigate();
     
     useEffect(async () => {
         const result = await API.graphql(graphqlOperation(listAuditoriums));
         console.log(result);
+        setLoading(false);
         setAuditorium(result.data.listAuditoriums.items);
     }, []);
 
@@ -35,7 +38,7 @@ const AuditoriumList = (props) => {
             <h2>Auditorium</h2>
             Amazon IVS를 이용해서 라이브스트리밍을 구현한 대강당 기능입니다.
             <p></p>
-            
+
             <div className="container">
                 <div className="row">
                     <div className="col">
@@ -48,7 +51,14 @@ const AuditoriumList = (props) => {
                         <h4>Which auditorium would you like to enter?</h4>
                     </div>
                 </div>
+                
+
+
                 <div className="row">
+
+                    { loading &&
+                        <ReactLoading type="spin" color="#123abc" /> 
+                    }
 
                     {auditoriums.map((item, index) => {
                         return (
