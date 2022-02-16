@@ -32,8 +32,8 @@ function App() {
           }
 
           <Routes>
-            <Route path="/auditorium" element={<Auditorium />} />
-            <Route path="/auditorium/:auditoriumId" element={<Auditorium />} />         
+            <Route path="/auditorium" element={<AuditoriumList />} />
+            <Route path="/auditorium/:id" element={<Auditorium />} />         
             <Route path="/classroom" element={<ChimeClassroom />} />
             <Route path="/classroom/:classroomId" element={<ChimeClassroom />} />
             <Route path="/vrlearning" element={<VRLearning />} />
