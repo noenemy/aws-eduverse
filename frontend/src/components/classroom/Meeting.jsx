@@ -6,6 +6,7 @@ import React, { FC } from 'react';
 import {
   AudioInputControl,
   AudioOutputControl,
+  ContentShareControl,
   ControlBar,
   ControlBarButton,
   Phone,
@@ -40,6 +41,7 @@ const Meeting = () => {
             <AudioInputControl />
             <VideoInputControl />
             <AudioOutputControl />
+            <ContentShareControl />
             <ControlBarButton icon={<Phone />} onClick={clickedEndMeeting} label="End" />
           </ControlBar> 
           :
