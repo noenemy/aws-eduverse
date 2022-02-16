@@ -1,38 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, Button, Modal } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { API, graphqlOperation } from 'aws-amplify';
+import { listClassrooms } from '../../graphql/queries';
+import ReactLoading from 'react-loading';
 
 const ClassroomList = (props) => {
 
-    const [classrooms, setClassroom] = useState([{
-            id: 1,
-            title: "강의실 #1 (데모용)",
-            image: "dummy_180x100.png",
-            description: "Some quick example text to build."
-        }, {
-            id: 2,
-            title: "AWS 101",
-            image: "dummy_180x100.png",
-            description: "Some quick example text to build."
-        }, {
-            id: 3,
-            title: "메타버스란 무엇인가",
-            image: "dummy_180x100.png",
-            description: "Some quick example text to build."
-        }, {
-            id: 4,
-            title: "AWS 워크샵",
-            image: "dummy_180x100.png",
-            description: "Some quick example text to build."
-        }, {
-            id: 5,
-            title: "AWS AI/ML 기본",
-            image: "dummy_180x100.png",
-            description: "Some quick example text to build."
-        }
-    ]);
-    const [showModal, setShowModal] = useState(false);
+    const [ classrooms, setClassroom ] = useState([]);
+    const [ showModal, setShowModal ] = useState(false);
+    const [ loading, setLoading ] = useState(true);
     const navigate = useNavigate();
+
+    useEffect(async () => {
+        const result = await API.graphql(graphqlOperation(listClassrooms));
+        console.log(result);
+        setLoading(false);
+        setClassroom(result.data.listClassrooms.items);
+    }, []);
 
     const handleClose = () => {
         setShowModal(false);
@@ -48,6 +33,10 @@ const ClassroomList = (props) => {
 
     return (
         <div>
+            <h2>Classroom</h2>
+            Amazon Chime SDK를 이용해서 구현한 온라인 클래스기능입니다.
+            <p></p>
+
             <div className="container">
                 <div className="row">
                     <div className="col">
@@ -60,7 +49,12 @@ const ClassroomList = (props) => {
                         <h4>Which classroom would you like to enter?</h4>
                     </div>
                 </div>
+
                 <div className="row">
+                { loading &&
+                    <ReactLoading type="spin" color="#123abc" /> 
+                }
+
                 {classrooms.map((item, index) => {
                     return (
 
@@ -96,7 +90,6 @@ const ClassroomList = (props) => {
 
         </div>
     );
-
 }
 
 export default ClassroomList;

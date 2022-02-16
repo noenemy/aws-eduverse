@@ -7,6 +7,7 @@ import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import AuditoriumList from './components/auditorium/AuditoriumList';
 import Auditorium from './components/auditorium/Auditorium';
+import ClassroomList from './components/classroom/ClassroomList';
 import Classroom from './components/classroom/Classroom';
 import Lounge from './components/lounge/Lounge';
 import VRLearning from './components/vrlearning/VRLearning';
@@ -34,8 +35,8 @@ function App() {
           <Routes>
             <Route path="/auditorium" element={<AuditoriumList />} />
             <Route path="/auditorium/:id" element={<Auditorium />} />         
-            <Route path="/classroom" element={<ChimeClassroom />} />
-            <Route path="/classroom/:classroomId" element={<ChimeClassroom />} />
+            <Route path="/classroom" element={<ClassroomList />} />
+            <Route path="/classroom/:id" element={<ChimeClassroom />} />
             <Route path="/vrlearning" element={<VRLearning />} />
             <Route path="/lounge" element={<Lounge />} />
             <Route path="/lounge/:id" element={<Lounge />} />
