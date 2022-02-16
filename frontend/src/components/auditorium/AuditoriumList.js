@@ -1,31 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, Button, Modal } from 'react-bootstrap';
+import { API, graphqlOperation } from 'aws-amplify';
+import { listAuditoriums } from '../../graphql/queries';
 
 const AuditoriumList = (props) => {
 
-    const [ auditoriums, setAuditorium] = useState([{
-            id: 1,
-            title: "대강당 #1 (데모용)",
-            image: "dummy_180x100.png",
-            description: "Some quick example text to build on the card title and make up the bulk of the card's content.",
-            url: ""
-        }, {
-            id: 2,
-            title: "대강당 #2 (Live)",
-            image: "dummy_180x100.png",
-            description: "Some quick example text to build on the card title and make up the bulk of the card's content.",
-            url: ""
-        }, {
-            id: 3,
-            title: "대강당 #3 (Live)",
-            image: "dummy_180x100.png",
-            description: "Some quick example text to build on the card title and make up the bulk of the card's content.",
-            url: ""
-        } 
-    ]);
+    const [ auditoriums, setAuditorium] = useState([]);
     const [ showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
+    
+    useEffect(async () => {
+        const result = await API.graphql(graphqlOperation(listAuditoriums));
+        console.log(result);
+        setAuditorium(result.data.listAuditoriums.items);
+    }, []);
 
     const createAuditorium = () => {
         setShowModal(true);
@@ -43,6 +32,10 @@ const AuditoriumList = (props) => {
 
     return (
         <div>
+            <h2>Auditorium</h2>
+            Amazon IVS를 이용해서 라이브스트리밍을 구현한 대강당 기능입니다.
+            <p></p>
+            
             <div className="container">
                 <div className="row">
                     <div className="col">

@@ -5,6 +5,7 @@ import Amplify from 'aws-amplify';
 import awsconfig from './aws-exports'
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
+import AuditoriumList from './components/auditorium/AuditoriumList';
 import Auditorium from './components/auditorium/Auditorium';
 import Classroom from './components/classroom/Classroom';
 import Lounge from './components/lounge/Lounge';
