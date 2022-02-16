@@ -1,7 +1,10 @@
 import uuid
+import config
 from pynamodb.models import Model
 from pynamodb.attributes import UnicodeAttribute, NumberAttribute, MapAttribute
 from pynamodb.indexes import GlobalSecondaryIndex, LocalSecondaryIndex, IncludeProjection, AllProjection
+
+AWS_REGION = config.AWS_REGION
 
 
 class CourseTitleIndex(GlobalSecondaryIndex):
@@ -71,7 +74,7 @@ class CourseModel(Model):
 
     class Meta:
         table_name = 'Course'
-        region = 'us-west-2'
+        region = AWS_REGION
 
     id = UnicodeAttribute(hash_key=True)
     _type = UnicodeAttribute(range_key=True)

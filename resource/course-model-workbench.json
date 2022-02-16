@@ -1,0 +1,1112 @@
+{
+  "ModelName": "Course",
+  "ModelMetadata": {
+    "Author": "",
+    "DateCreated": "Feb 06, 2022, 04:33 PM",
+    "DateLastModified": "Feb 12, 2022, 03:55 PM",
+    "Description": "",
+    "AWSService": "Amazon DynamoDB",
+    "Version": "3.0"
+  },
+  "DataModel": [
+    {
+      "TableName": "Course",
+      "KeyAttributes": {
+        "PartitionKey": {
+          "AttributeName": "id",
+          "AttributeType": "S"
+        },
+        "SortKey": {
+          "AttributeName": "_type",
+          "AttributeType": "S"
+        }
+      },
+      "NonKeyAttributes": [
+        {
+          "AttributeName": "course_order",
+          "AttributeType": "N"
+        },
+        {
+          "AttributeName": "course_ref",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "course_title",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "icon",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "language",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "lecture_order",
+          "AttributeType": "N"
+        },
+        {
+          "AttributeName": "lecture_ref",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "lecture_title",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "steps",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "tutor_character",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "tutor_gender",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "tutor_voice",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "unit_order",
+          "AttributeType": "N"
+        },
+        {
+          "AttributeName": "unit_title",
+          "AttributeType": "S"
+        }
+      ],
+      "GlobalSecondaryIndexes": [
+        {
+          "IndexName": "course_order_index",
+          "KeyAttributes": {
+            "PartitionKey": {
+              "AttributeName": "_type",
+              "AttributeType": "S"
+            },
+            "SortKey": {
+              "AttributeName": "course_order",
+              "AttributeType": "N"
+            }
+          },
+          "Projection": {
+            "ProjectionType": "ALL"
+          }
+        },
+        {
+          "IndexName": "course_title_index",
+          "KeyAttributes": {
+            "PartitionKey": {
+              "AttributeName": "_type",
+              "AttributeType": "S"
+            },
+            "SortKey": {
+              "AttributeName": "course_title",
+              "AttributeType": "S"
+            }
+          },
+          "Projection": {
+            "ProjectionType": "ALL"
+          }
+        },
+        {
+          "IndexName": "lecture_order_index",
+          "KeyAttributes": {
+            "PartitionKey": {
+              "AttributeName": "_type",
+              "AttributeType": "S"
+            },
+            "SortKey": {
+              "AttributeName": "lecture_order",
+              "AttributeType": "N"
+            }
+          },
+          "Projection": {
+            "ProjectionType": "ALL"
+          }
+        },
+        {
+          "IndexName": "unit_order_index",
+          "KeyAttributes": {
+            "PartitionKey": {
+              "AttributeName": "_type",
+              "AttributeType": "S"
+            },
+            "SortKey": {
+              "AttributeName": "unit_order",
+              "AttributeType": "N"
+            }
+          },
+          "Projection": {
+            "ProjectionType": "ALL"
+          }
+        }
+      ],
+      "TableData": [
+        {
+          "id": {
+            "S": "e8ecec1d3f04408bbe1b432709cbd6d4"
+          },
+          "_type": {
+            "S": "unit"
+          },
+          "lecture_ref": {
+            "S": "730eac45739f4c38b61d8a72a8dc7130"
+          },
+          "steps": {
+            "S": "{\n  \"steps\": [\n    {\n      \"step_id\": \"1\",\n      \"content\": {\n        \"type\": \"vocabulary\",\n        \"word\": \"할인\",\n        \"pronunciation\": \"Hal-in\",\n        \"help\": \"Discount\",\n        \"image\": \"discount.png\",\n        \"body\": \"\"\n      },\n      \"dialogs\": [\n        {\n          \"host\": 1,\n          \"caption\": \"Now, let's look at the words we will learn today.\",\n          \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>Now, let's look at the words we will learn today.</amazon:effect></prosody></amazon:domain></speak>\",\n          \"time\": 3000\n        },\n        {\n          \"host\": 1,\n          \"caption\": \"The first word to learn is 'Discount'. Listen and repeat!\",\n          \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> The first word to learn is <break time='200ms'/>Discount <break time='300ms'/> Listen and repeat! </amazon:effect></prosody></amazon:domain></speak>\",\n          \"time\": 4000\n        },\n        {\n          \"host\": 2,\n          \"caption\": \"할인, 할인, 할인\",\n          \"dialog\": \"<speak><prosody rate='115%' pitch ='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='soft'/> <p><prosody rate='100%' volume='loud'> 할인!</prosody></p> <break time='200ms'/> <p><prosody rate='100%' volume='loud'> 할인!</prosody></p> <break time='200ms'/> <p><prosody rate='100%' volume='loud'> 할인!</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\",\n          \"time\": 5700\n        }\n      ]\n    },\n    {\n      \"step_id\": \"2\",\n      \"content\": {\n        \"type\": \"vocabulary\",\n        \"word\": \"반품\",\n        \"pronunciation\": \"Banpum\",\n        \"help\": \"Return\",\n        \"image\": \"return.png\",\n        \"body\": \"\"\n      },\n      \"dialogs\": [\n        {\n          \"host\": 1,\n          \"caption\": \"The second word to learn is 'return'. Listen and repeat!\",\n          \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> The second word to learn is <break time='200ms'/> <prosody rate='65%'>'return'</prosody> <break time='200ms'/> Listen and repeat! </amazon:effect></prosody></amazon:domain></speak>\",\n          \"time\": 4200\n        },\n        {\n          \"host\": 2,\n          \"caption\": \"반품, 반품, 반품\",\n          \"dialog\": \"<speak><prosody rate='115%' pitch ='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='soft'/> <p><prosody rate='90%' volume='loud'> 반품!</prosody></p> <break time='200ms'/> <p><prosody rate='80%' volume='loud'> 반품!</prosody></p> <break time='200ms'/> <p><prosody rate='85%' volume='loud'> 반품!</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\",\n          \"time\": 5500\n        }\n      ]\n    },\n    {\n      \"step_id\": \"3\",\n      \"content\": {\n        \"type\": \"vocabulary\",\n        \"word\": \"현금\",\n        \"pronunciation\": \"Hyeongeum\",\n        \"help\": \"Cash\",\n        \"image\": \"cash.png\",\n        \"body\": \"\"\n      },\n      \"dialogs\": [\n        {\n          \"host\": 1,\n          \"caption\": \"The third word to learn is 'cash'. Listen and repeat!\",\n          \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> The third word to learn is <break time='200ms'/> cash <break time='200ms'/> Listen and repeat! </amazon:effect></prosody></amazon:domain></speak>\",\n          \"time\": 4700\n        },\n        {\n          \"host\": 2,\n          \"caption\": \"현금, 현금, 현금\",\n          \"dialog\": \"<speak><prosody rate='115%' pitch ='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='soft'/> <p><prosody rate='100%' volume='loud'> 현금!</prosody></p> <break time='200ms'/> <p><prosody rate='100%' volume='loud'> 현금!</prosody></p> <break time='200ms'/> <p><prosody rate='100%' volume='loud'> 현금</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\",\n          \"time\": 0\n        }\n      ]\n    }\n  ]\n}"
+          },
+          "unit_order": {
+            "N": "3"
+          },
+          "unit_title": {
+            "S": "3. Vocabulary"
+          }
+        },
+        {
+          "id": {
+            "S": "4866dba78e7846a4ae964ea2b4294ffb"
+          },
+          "_type": {
+            "S": "unit"
+          },
+          "lecture_ref": {
+            "S": "f6ffeb0bfe1e460884319ad415cdfbb0"
+          },
+          "steps": {
+            "S": "{\n    \"steps\": [\n      {\n        \"step_id\": \"1\",\n        \"content\": {\n            \"type\": \"textbook\",\n            \"picture\": \"hello.png\",\n            \"body\": \"<br><div class='row text-center'><h1 class='text-primary'>안녕하세요.</h1><h4 class='text-muted'>[annyeonghaseyo]</h4><h4 class='text-muted'>Hello</h4></div>\"\n        },\n        \"dialogs\": [\n          {\n            \"host\": 1,\n            \"caption\": \"First of all, let's learn a simple greeting. When we meet someone for the first time,we say Hello or Hi. How to say hello in Korean? Listen to Sohyeon's greeting.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> First of all, let's learn a simple greeting. When we meet someone for the first time, <break time='200ms'/> we say Hello or Hi. <break time='200ms'/> How to say hello in Korean?</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 8300\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"안녕하세요. 안녕하세요. 안녕하세요.\",\n            \"dialog\": \"<speak><prosody rate='115%' pitch ='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/><amazon:breath duration='medium' volume='soft'/> <prosody rate='95%' volume='loud'> 안녕</prosody><prosody rate='100%' volume='loud'> 하세요.</prosody> <break time='100ms'/> <prosody rate='95%' volume='loud'> 안녕</prosody><prosody rate='100%' volume='loud'> 하세요.</prosody> <break time='200ms'/> <p><prosody rate='115%' volume='loud'> 안녕하세요!</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 3000\n          }\n        ]\n      },\n      {\n        \"step_id\": \"2\",\n        \"content\": {\n          \"type\": \"transcribe\",\n          \"body\": \"<br><div class='row text-center'><h1 class='text-primary'>안녕하세요.</h1><h4 class='text-muted'>[annyeonghaseyo]</h4><h4 class='text-muted'>Hello</h4></div>\",\n          \"answer\": \"안녕하세요\"\n        },\n        \"dialogs\": [\n          {\n            \"host\": 1,\n            \"caption\": \"Now listen carefully and speak into the microphone accordingly.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> Now listen carefully and speak into the microphone accordingly.</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 4000\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"안녕하세요\",\n            \"dialog\": \"<speak><prosody rate='115%' pitch ='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/><p><prosody rate='90%' volume='loud'> 안녕하세요.</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 1000\n          }\n        ]\n      },     \n      {\n        \"step_id\": \"3\",\n        \"content\": {\n            \"type\": \"textbook\",\n            \"picture\": \"thankyou.png\",\n            \"body\": \"<br><div class='row text-center'><h1 class='text-primary'>감사합니다.</h1><h4 class='text-muted'>[gamsahabnida]</h4><h4 class='text-muted'>Thank you</h4></div>\"\n        },\n        \"dialogs\": [\n          {\n            \"host\": 1,\n            \"caption\": \"how do you say thank you in Korean! Listen and repeat.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> <prosody rate='70%'> Next, </prosody> <break time='300ms'/> how do you say thank you in Korean! <break time='300ms'/> Listen and repeat.</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 5000\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"감사합니다. 감사합니다. 감사합니다.\",\n            \"dialog\": \"<speak><prosody rate='115%' pitch ='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/> <amazon:breath duration='medium' volume='soft'/> <prosody rate='70%' volume='loud'> 감사</prosody><prosody rate='90%' volume='loud'> 합니다.</prosody> <break time='100ms'/> <prosody rate='95%' volume='loud'> 감사</prosody><prosody rate='100%' volume='loud'> 합니다.</prosody> <break time='200ms'/> <p><prosody rate='115%' volume='loud'> 감사합니다!</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 2000\n          }\n        ]\n      },\n      {\n        \"step_id\": \"4\",\n        \"content\": {\n          \"type\": \"transcribe\",\n          \"body\": \"<br><div class='row text-center'><h1 class='text-primary'>감사합니다.</h1><h4 class='text-muted'>[gamsahabnida]</h4><h4 class='text-muted'>Thank you</h4></div>\",\n          \"answer\": \"감사합니다\"\n        },\n        \"dialogs\": [\n          {\n            \"host\": 1,\n            \"caption\": \"Listen and repeat.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> Listen and repeat.</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 1500\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"감사합니다.\",\n            \"dialog\": \"<speak><prosody rate='115%' pitch ='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/><p><prosody rate='90%' volume='loud'> 감사합니다.</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 1000\n          }\n        ]\n      }\n    ]\n  }"
+          },
+          "unit_order": {
+            "N": "2"
+          },
+          "unit_title": {
+            "S": "2. Expressions"
+          }
+        },
+        {
+          "id": {
+            "S": "3da55d67aca74e81af62beefaa00f560"
+          },
+          "_type": {
+            "S": "unit"
+          },
+          "lecture_ref": {
+            "S": "2edcaed07018423aba6501d910af2b89"
+          },
+          "steps": {
+            "S": "\"{\n  \"\"steps\"\": [\n    {\n      \"\"step_id\"\": \"\"1\"\",\n      \"\"content\"\": {\n        \"\"type\"\": \"\"textbook\"\",\n        \"\"body\"\": \"\"<br/><br/><br/><div class='row text-center'><h1 class='text-primary'>可以打折吗？</h1><h4 class='text-muted'>[ke yi da zhe ma]</h4><h4 class='text-muted'>Could you get me discount?</h4></div><br/><br/>\"\"\n      },\n      \"\"dialogs\"\": [\n        {\n          \"\"host\"\": 1,\n          \"\"caption\"\": \"\"Let's make expressions using the words we learned today.\"\",\n          \"\"dialog\"\": \"\"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> Let's make expressions using the words we learned today?</amazon:effect></prosody></amazon:domain></speak>\"\",\n          \"\"time\"\": 4100\n        },\n        {\n          \"\"host\"\": 1,\n          \"\"caption\"\": \"\"First expression is, 'Could you get me discounts?'\"\",\n          \"\"dialog\"\": \"\"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> First expression is <break time='200ms'/>Could you get me discounts?</amazon:effect></prosody></amazon:domain></speak>\"\",\n          \"\"time\"\": 3100\n        },\n        {\n          \"\"host\"\": 2,\n          \"\"caption\"\": \"\"可以打折吗？\"\",\n          \"\"dialog\"\": \"\"<speak><prosody rate='115%' pitch ='5%'><amazon:effect vocal-tract-length='+0%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/><amazon:breath duration='medium' volume='soft'/> <prosody rate='95%' volume='loud'> 可以打折吗？</prosody> <break time='200ms'/> <break time='200ms'/> <p><prosody rate='110%' volume='loud'>可以打折吗？</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\"\",\n          \"\"time\"\": 0\n        }\n      ]\n    },\n    {\n      \"\"step_id\"\": \"\"2\"\",\n      \"\"content\"\": {\n        \"\"type\"\": \"\"textbook\"\",\n        \"\"body\"\": \"\"<br/><br/><br/><div class='row text-center'><h1 class='text-primary'>我要现金付款。</h1><h4 class='text-muted'>[xian jin fu kuan]</h4><h4 class='text-muted'> I will pay by cash.</h4></div><br/><br/>\"\"\n      },\n      \"\"dialogs\"\": [\n        {\n          \"\"host\"\": 1,\n          \"\"caption\"\": \"\"Second expression is, 'I will pay by cash.'\"\",\n          \"\"dialog\"\": \"\"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> Second expression is <break time='200ms'/>I will pay by cash.</amazon:effect></prosody></amazon:domain></speak>\"\",\n          \"\"time\"\": 4000\n        },\n        {\n          \"\"host\"\": 2,\n          \"\"caption\"\": \"\"我要现金付款。\"\",\n          \"\"dialog\"\": \"\"<speak><prosody rate='115%' pitch ='5%'><amazon:effect vocal-tract-length='+0%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/><amazon:breath duration='medium' volume='soft'/> <prosody rate='95%' volume='loud'>我要现金付款。</prosody> <break time='200ms'/> <p><prosody rate='115%' volume='loud'>我要现金付款。</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\"\",\n          \"\"time\"\": 0\n        }\n      ]\n    },\n    {\n      \"\"step_id\"\": \"\"3\"\",\n      \"\"content\"\": {\n        \"\"type\"\": \"\"textbook\"\",\n        \"\"body\"\": \"\"<br/><br/><br/><div class='row text-center'><h1 class='text-primary'>这件衬衫可以退货吗？</h1><h4 class='text-muted'>[zhe ge chen Shan keys tui huh ma]</h4><h4 class='text-muted'> I'd like to return this shirt.</h4></div><br/><br/>\"\"\n      },\n      \"\"dialogs\"\": [\n        {\n          \"\"host\"\": 1,\n          \"\"caption\"\": \"\"Third expression is, 'These jeans don’t fit, I am going to return them'\"\",\n          \"\"dialog\"\": \"\"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> Third expression is <break time='200ms'/>I'd like to return this shirt.</amazon:effect></prosody></amazon:domain></speak>\"\",\n          \"\"time\"\": 4000\n        },\n        {\n          \"\"host\"\": 2,\n          \"\"caption\"\": \"\"这件衬衫可以退货吗？\"\",\n          \"\"dialog\"\": \"\"<speak><prosody rate='115%' pitch ='5%'><amazon:effect vocal-tract-length='+0%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/><amazon:breath duration='medium' volume='soft'/> <prosody rate='95%' volume='loud'>这件衬衫可以退货吗？</prosody><break time='200ms'/> <p><prosody rate='115%' volume='loud'>这件衬衫可以退货吗？</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\"\",\n          \"\"time\"\": 0\n        }\n      ]\n    }\n  ]\n}\""
+          },
+          "unit_order": {
+            "N": "2"
+          },
+          "unit_title": {
+            "S": "2. Expressions"
+          }
+        },
+        {
+          "id": {
+            "S": "53bbe0ddf84a4be9b49703871bbb5fda"
+          },
+          "_type": {
+            "S": "unit"
+          },
+          "lecture_ref": {
+            "S": "46b3b16b29c4482bb72f1b8367460780"
+          },
+          "steps": {
+            "S": "{\n    \"steps\": [\n      {\n        \"step_id\": \"1\",\n        \"content\": {\n            \"type\": \"vocabulary\",\n            \"word\": \"삼각형\",\n            \"pronunciation\": \"samgaghyeong\",\n            \"help\": \"Triangle\",\n            \"image\": \"Triangle.png\",\n            \"body\": \"\"\n        },\n        \"dialogs\": [\n          {\n            \"host\": 1,\n            \"caption\": \"Now, let's look at the words we will learn today.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>Now, let's look at the words we will learn today.</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 2500\n          },\n          {\n            \"host\": 1,\n            \"caption\": \"The first word to learn is Triangle! Listen and repeat!\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> The first word to learn is <break time='200ms'/> <prosody rate='65%'> 'Triangle'! </prosody> <break time='100ms'/> Listen and repeat! </amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 3200\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"삼각형, 삼각형, 삼각형\",\n            \"dialog\": \"<speak><prosody rate='115%' pitch ='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='soft'/> <p><prosody rate='100%' volume='loud'> 삼각형!</prosody></p> <break time='200ms'/> <p><prosody rate='100%' volume='loud'> 삼각형!</prosody></p> <break time='200ms'/> <p><prosody rate='100%' volume='loud'> 삼각형!</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 1000\n          }\n        ]\n      },\n      {\n        \"step_id\": \"2\",\n        \"content\": {\n          \"type\": \"rekognition\",\n          \"body\": \"Today's words is<br>삼각형\",\n          \"given_word\": \"삼각형\",\n          \"answer\": \"Triangle\"\n        },\n        \"dialogs\": [\n          {\n            \"host\": 1,\n            \"caption\": \"Find the picture card that matches the word on the screen, then take a picture with your camera.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> Find the picture card that matches the word on the screen, <break time='150ms'/> then take a picture with your camera. </amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 4800\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"삼각형\",\n            \"dialog\": \"  <speak><prosody rate='115%' pitch ='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/><p><prosody rate='70%' volume='loud'> 삼각형!</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 1000\n          }\n        ]\n      },\n      {\n        \"step_id\": \"3\",\n        \"content\": {\n            \"type\": \"vocabulary\",\n            \"word\": \"우산\",\n            \"pronunciation\": \"usan\",\n            \"help\": \"umbrella\",\n            \"image\": \"umbrella.png\",\n            \"body\": \"\"\n        },\n        \"dialogs\": [\n          {\n            \"host\": 1,\n            \"caption\": \"The next word we will learn is umbrella.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>The next word we will learn is umbrella.<break time='100ms'/> Listen and repeat!</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 3300\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"우산, 우산, 우산\",\n            \"dialog\": \"<speak><prosody rate='115%' pitch ='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/><p><prosody rate='90%' volume='loud'> 우산!</prosody></p> <break time='200ms'/> <p><prosody rate='90%' volume='loud'> 우산!</prosody></p> <break time='200ms'/> <p><prosody rate='100%' volume='loud'> 우산!</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 2000\n          }\n        ]\n      },\n      {\n        \"step_id\": \"4\",\n        \"content\": {\n          \"type\": \"textract\",\n          \"body\": \"Today's words is<br>우산\",\n          \"given_picture\": \"umbrella.png\",\n          \"answer\": \"Umbrella\"\n        },\n        \"dialogs\": [\n          {\n            \"host\": 1,\n            \"caption\": \"Now please, find the word card that matches the picture on the screen.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> Now please, find the word card that matches the picture on the screen. </amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 3000\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"우산\",\n            \"dialog\": \"  <speak><prosody rate='115%' pitch ='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/><p><prosody rate='70%' volume='loud'> 우산</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 1300\n          }\n        ]\n      }\n    ]\n  }"
+          },
+          "unit_order": {
+            "N": "3"
+          },
+          "unit_title": {
+            "S": "3. Vocabulary"
+          }
+        },
+        {
+          "id": {
+            "S": "ce5146d534d14be69d39d232ad947974"
+          },
+          "_type": {
+            "S": "unit"
+          },
+          "lecture_ref": {
+            "S": "77acf08ce0ea4da88f9eb27bdddb6e63"
+          },
+          "steps": {
+            "S": "{\n    \"steps\": [\n      {\n        \"step_id\": \"1\",\n        \"content\": {\n            \"type\": \"vocabulary\",\n            \"word\": \"リンゴ\",\n            \"pronunciation\": \"Ringo\",\n            \"help\": \"apple\",\n            \"image\": \"apple.png\",\n            \"body\": \"\"\n        },\n        \"dialogs\": [\n          {\n            \"host\": 1,\n            \"caption\": \"The first word to learn is the delicious fruit. apple! Listen and repeat!\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> The first word to learn is <break time='200ms'/> the delicious fruit, <break time='700ms'/> <prosody rate='65%'> 'apple'! </prosody> <break time='100ms'/> Listen and repeat! </amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 5100\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"リンゴ, リンゴ, リンゴ\",\n            \"dialog\": \"<speak><prosody rate='125%' pitch ='15%'><amazon:effect vocal-tract-length='-7%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='soft'/> <p><prosody rate='90%' volume='loud'> リンゴ!</prosody></p> <break time='200ms'/> <p><prosody rate='90%' volume='loud'> リンゴ!</prosody></p> <break time='200ms'/> <p><prosody rate='100%' volume='loud'> リンゴ!</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 1000\n          }\n        ]\n      },\n      {\n        \"step_id\": \"2\",\n        \"content\": {\n          \"type\": \"textract\",\n          \"body\": \"Today's words is<br>リンゴ\",\n          \"given_picture\": \"apple.png\",\n          \"answer\": \"Apple\"\n        },\n        \"dialogs\": [\n          {\n            \"host\": 1,\n            \"caption\": \"Now please, find the word card that matches the picture on the screen.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> Now please, find the word card that matches the picture on the screen. </amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 4500\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"リンゴ\",\n            \"dialog\": \"<speak><prosody rate='125%' pitch ='15%'><amazon:effect vocal-tract-length='-7%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='soft'/><prosody rate='100%' volume='loud'> リンゴ!</prosody></amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 1000\n          }\n        ]\n      },\n      {\n        \"step_id\": \"3\",\n        \"content\": {\n            \"type\": \"vocabulary\",\n            \"word\": \"自転車\",\n            \"pronunciation\": \"Jitensha\",\n            \"help\": \"bicycle\",\n            \"image\": \"bicycle.png\",\n            \"body\": \"\"\n        },\n        \"dialogs\": [\n          {\n            \"host\": 1,\n            \"caption\": \"The next word we will learn is bicycle.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>The next word we will learn is bicycle.<break time='100ms'/> Listen and repeat!</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 3600\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"自転車, 自転車, 自転車\",\n            \"dialog\": \"<speak><prosody rate='125%' pitch ='15%'><amazon:effect vocal-tract-length='-7%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/><p><prosody rate='90%' volume='loud'> 自転車!</prosody></p> <break time='200ms'/> <p><prosody rate='90%' volume='loud'> 自転車!</prosody></p> <break time='200ms'/> <p><prosody rate='100%' volume='loud'> 自転車!</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 1000\n          }\n        ]\n      },\n      {\n        \"step_id\": \"4\",\n        \"content\": {\n          \"type\": \"rekognition\",\n          \"body\": \"Today's words is<br>自転車\",\n          \"given_word\": \"自転車\",\n          \"answer\": \"Bicycle\"\n        },\n        \"dialogs\": [\n          {\n            \"host\": 1,\n            \"caption\": \"It's time to review what you've learned today.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> It's time to review what you've learned today. <break time='200ms'/> </amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 3200\n          },\n          {\n            \"host\": 1,\n            \"caption\": \"Find the picture card that matches the word on the screen, then take a picture with your camera.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> Find the picture card that matches the word on the screen, <break time='150ms'/> then take a picture with your camera. </amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 4800\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"自転車\",\n            \"dialog\": \"<speak><prosody rate='125%' pitch ='15%'><amazon:effect vocal-tract-length='-7%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/><prosody rate='100%' volume='loud'> 自転車!</prosody> </amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 1000\n          }\n        ]\n      }\n    ]\n  }"
+          },
+          "unit_order": {
+            "N": "3"
+          },
+          "unit_title": {
+            "S": "3. Vocabulary"
+          }
+        },
+        {
+          "id": {
+            "S": "0bb80540ddf049bb80c8c2ac22366712"
+          },
+          "_type": {
+            "S": "unit"
+          },
+          "lecture_ref": {
+            "S": "d18e3e69eef74dd9a62dfff9bad3bb81"
+          },
+          "steps": {
+            "S": "{\n\t\"steps\": [{\n\t\t\t\"step_id\": \"1\",\n\t\t\t\"content\": {\n\t\t\t\t\"type\": \"vocabulary\",\n\t\t\t\t\"word\": \"苹果\",\n\t\t\t\t\"pronunciation\": \"ping guo\",\n\t\t\t\t\"help\": \"apple\",\n\t\t\t\t\"image\": \"apple.png\",\n\t\t\t\t\"body\": \"\"\n\t\t\t},\n\t\t\t\"dialogs\": [{\n\t\t\t\t\t\"host\": 1,\n\t\t\t\t\t\"caption\": \"The first word to learn is the delicious fruit. apple! Listen and repeat!\",\n\t\t\t\t\t\"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> The first word to learn is <break time='200ms'/> the delicious fruit, <break time='700ms'/> <prosody rate='65%'> 'apple'! </prosody> <break time='100ms'/> Listen and repeat! </amazon:effect></prosody></amazon:domain></speak>\",\n\t\t\t\t\t\"time\": 4800\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"host\": 2,\n\t\t\t\t\t\"caption\": \"苹果，苹果，苹果\",\n\t\t\t\t\t\"dialog\": \"<speak><prosody rate='115%' pitch ='5%'><amazon:effect vocal-tract-length='+0%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='soft'/> <p><prosody rate='80%' volume='loud'> 苹果!</prosody></p> <break time='200ms'/> <p><prosody rate='80%' volume='loud'> 苹果!</prosody></p> <break time='200ms'/> <p><prosody rate='100%' volume='loud'> 苹果!</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\",\n\t\t\t\t\t\"time\": 1000\n\t\t\t\t}\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"step_id\": \"2\",\n\t\t\t\"content\": {\n\t\t\t\t\"type\": \"textract\",\n\t\t\t\t\"body\": \"Today's words is<br>苹果\",\n\t\t\t\t\"given_picture\": \"apple.png\",\n\t\t\t\t\"answer\": \"Apple\"\n\t\t\t},\n\t\t\t\"dialogs\": [{\n\t\t\t\t\t\"host\": 1,\n\t\t\t\t\t\"caption\": \"Now please, find the word card that matches the picture on the screen.\",\n\t\t\t\t\t\"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> Now please, find the word card that matches the picture on the screen. </amazon:effect></prosody></amazon:domain></speak>\",\n\t\t\t\t\t\"time\": 4500\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"host\": 2,\n\t\t\t\t\t\"caption\": \"苹果\",\n\t\t\t\t\t\"dialog\": \"  <speak><prosody rate='115%' pitch ='5%'><amazon:effect vocal-tract-length='+0%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='soft'/><prosody rate='95%' volume='loud'> 苹果!</prosody></amazon:effect></amazon:effect></prosody> </speak>\",\n\t\t\t\t\t\"time\": 1000\n\t\t\t\t}\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"step_id\": \"3\",\n\t\t\t\"content\": {\n\t\t\t\t\"type\": \"vocabulary\",\n\t\t\t\t\"word\": \"自行车\",\n\t\t\t\t\"pronunciation\": \"zi xing che\",\n\t\t\t\t\"help\": \"bicycle\",\n\t\t\t\t\"image\": \"bicycle.png\",\n\t\t\t\t\"body\": \"\"\n\t\t\t},\n\t\t\t\"dialogs\": [{\n\t\t\t\t\t\"host\": 1,\n\t\t\t\t\t\"caption\": \"The next word we will learn is bicycle.\",\n\t\t\t\t\t\"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>The next word we will learn is bicycle.<break time='100ms'/> Listen and repeat!</amazon:effect></prosody></amazon:domain></speak>\",\n\t\t\t\t\t\"time\": 4000\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"host\": 2,\n\t\t\t\t\t\"caption\": \"自行车, 自行车, 自行车\",\n\t\t\t\t\t\"dialog\": \"<speak><prosody rate='115%' pitch ='5%'><amazon:effect vocal-tract-length='+0%'><amazon:effect name='drc'> <p><prosody rate='90%' volume='loud'> 自行车!</prosody></p> <break time='200ms'/> <p><prosody rate='90%' volume='loud'> 自行车!</prosody></p> <break time='200ms'/> <p><prosody rate='100%' volume='loud'> 自行车!</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\",\n\t\t\t\t\t\"time\": 1000\n\t\t\t\t}\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"step_id\": \"4\",\n\t\t\t\"content\": {\n\t\t\t\t\"type\": \"rekognition\",\n\t\t\t\t\"body\": \"Today's words is<br>自行车\",\n\t\t\t\t\"given_word\": \"自行车\",\n\t\t\t\t\"answer\": \"Bicycle\"\n\t\t\t},\n\t\t\t\"dialogs\": [{\n\t\t\t\t\t\"host\": 1,\n\t\t\t\t\t\"caption\": \"It's time to review what you've learned today.\",\n\t\t\t\t\t\"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> It's time to review what you've learned today. <break time='200ms'/> </amazon:effect></prosody></amazon:domain></speak>\",\n\t\t\t\t\t\"time\": 3200\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"host\": 1,\n\t\t\t\t\t\"caption\": \"Find the picture card that matches the word on the screen, then take a picture with your camera.\",\n\t\t\t\t\t\"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> Find the picture card that matches the word on the screen, <break time='150ms'/> then take a picture with your camera. </amazon:effect></prosody></amazon:domain></speak>\",\n\t\t\t\t\t\"time\": 4800\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"host\": 2,\n\t\t\t\t\t\"caption\": \"自行车\",\n\t\t\t\t\t\"dialog\": \"<speak><prosody rate='115%' pitch ='5%'><amazon:effect vocal-tract-length='+0%'><amazon:effect name='drc'><prosody rate='90%' volume='loud'> 自行车!</prosody></amazon:effect></amazon:effect></prosody> </speak>\",\n\t\t\t\t\t\"time\": 1000\n\t\t\t\t}\n\t\t\t]\n\t\t}\n\t]\n}"
+          },
+          "unit_order": {
+            "N": "3"
+          },
+          "unit_title": {
+            "S": "3. Vocabulary"
+          }
+        },
+        {
+          "id": {
+            "S": "c43f65948ae0402da9c042f48348abac"
+          },
+          "_type": {
+            "S": "unit"
+          },
+          "lecture_ref": {
+            "S": "2edcaed07018423aba6501d910af2b89"
+          },
+          "steps": {
+            "S": "\"{\n    \"\"steps\"\": [\n      {\n        \"\"step_id\"\": \"\"1\"\",\n        \"\"content\"\": {\n          \"\"type\"\": \"\"textract\"\",\n          \"\"body\"\": \"\"Today's words is<br>打折\"\",\n          \"\"given_picture\"\": \"\"discount.png\"\",\n          \"\"answer\"\": \"\"discount\"\"\n        },\n        \"\"dialogs\"\": [\n          {\n            \"\"host\"\": 1,\n            \"\"caption\"\": \"\"It's time to review what you've learned today. Shall we take some quizzes?\"\",\n            \"\"dialog\"\": \"\"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> It's time to review what you've learned today. <break time='200ms'/> Shall we take some quizzes? </amazon:effect></prosody></amazon:domain></speak>\"\",\n            \"\"time\"\": 4800\n          },\n          {\n            \"\"host\"\": 1,\n            \"\"caption\"\": \"\"Find the word card Zhiyu talked about, and take a picture with your camera.\"\",\n            \"\"dialog\"\": \"\"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> Find the word card Zhiyu talked about <break time='150ms'/> and take a picture with your camera.</amazon:effect></prosody></amazon:domain></speak>\"\",\n            \"\"time\"\": 4500\n          },\n          {\n            \"\"host\"\": 2,\n            \"\"caption\"\": \"\"打折, 打折\"\",\n            \"\"dialog\"\": \"\"<speak><prosody rate='115%' pitch ='5%'><amazon:effect vocal-tract-length='+0%'><amazon:effect name='drc'><amazon:breath duration='medium' volume='soft'/> <p><prosody rate='80%' volume='loud'> 打折！</prosody></p> <break time='200ms'/> <p><prosody rate='100%' volume='loud'> 打折！</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\"\",\n            \"\"time\"\": 4000\n          },\n          {\n            \"\"host\"\": 1,\n            \"\"caption\"\": \"\"Good Job\"\",\n            \"\"dialog\"\": \"\"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>Good Job!</amazon:effect></prosody></amazon:domain></speak>\"\",\n            \"\"time\"\": 1000\n          }\n        ]\n      }\n    ]\n  }\""
+          },
+          "unit_order": {
+            "N": "4"
+          },
+          "unit_title": {
+            "S": "4. Exercises"
+          }
+        },
+        {
+          "id": {
+            "S": "652057e4a0534e388db5b6bb77554eae"
+          },
+          "_type": {
+            "S": "course"
+          },
+          "course_order": {
+            "N": "3"
+          },
+          "course_title": {
+            "S": "Chinese"
+          },
+          "icon": {
+            "S": "asia"
+          },
+          "language": {
+            "S": "zh-CN"
+          }
+        },
+        {
+          "id": {
+            "S": "1d543b27cff44e63b50b9726a5cc806d"
+          },
+          "_type": {
+            "S": "unit"
+          },
+          "lecture_ref": {
+            "S": "f6ffeb0bfe1e460884319ad415cdfbb0"
+          },
+          "steps": {
+            "S": "{\n    \"steps\": [\n      {\n        \"step_id\": \"1\",\n        \"dialogs\": [\n          {\n            \"host\": 1,\n            \"caption\": \"Hello, My name is Joanna. nice to meet you!\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>Hello, My name is Joanna. nice to meet you!</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 3100\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"안녕하세요! 저는 한국어 선생님 김소현이에요!\",\n            \"dialog\": \"<speak><prosody rate='125%' pitch='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'><amazon:breath duration='medium' volume='x-loud'/>안녕하세요! 저는 한국어 선생님<break time='20ms'/> <amazon:breath duration='medium' volume='soft'/> <emphasis level='moderate'>김소현이에요! </emphasis></amazon:effect></amazon:effect></prosody></speak>\",\n            \"time\": 5500\n          },\n          {\n            \"host\": 1,\n            \"caption\": \"Do you wanna learn Korean language fun? We will bring you an exciting Korean lesson.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>Do you wanna learn Korean language fun? We will bring you an exciting Korean lesson.</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 4500\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"이제 우리와 함께 한국어를 배워봐요!\",\n            \"dialog\": \"<speak> <prosody rate='125%' pitch ='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='soft'/> <prosody rate='120%'> 이제 우리와 함께?</prosody><break time='10ms'/> 한국어를 배워봐요? </amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 3500\n          },\n          {\n            \"host\": 1,\n            \"caption\": \"Let's start!\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>Let's start.</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 1000\n          }\n        ],\n        \"content\": {\n          \"type\": \"textbook\",\n          \"body\": \"<br /><div className='row align-items-center'><div className='col-2'></div><div><h2>Objectives</h2>This lecture is designed to teach you how to:<ul><li> say hello</li><li> express gratitude</li><li>simple words: apple, bicycle</li></ul></div></div>\"\n        }\n      }\n    ]\n  }"
+          },
+          "unit_order": {
+            "N": "1"
+          },
+          "unit_title": {
+            "S": "1. Introduction"
+          }
+        },
+        {
+          "id": {
+            "S": "6784969d76e7429d978e356da33a147d"
+          },
+          "_type": {
+            "S": "unit"
+          },
+          "lecture_ref": {
+            "S": "730eac45739f4c38b61d8a72a8dc7130"
+          },
+          "steps": {
+            "S": "{\n    \"steps\": [\n      {\n        \"step_id\": \"1\",\n        \"content\": {\n          \"type\": \"textract\",\n          \"body\": \"Today's words is<br>할인\",\n          \"given_picture\": \"discount.png\",\n          \"answer\": \"discount\"\n        },\n        \"dialogs\": [\n          {\n            \"host\": 1,\n            \"caption\": \"It's time to review what you've learned today. Shall we take some quizzes?\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> It's time to review what you've learned today. <break time='200ms'/> Shall we take some quizzes? </amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 4800\n          },\n          {\n            \"host\": 1,\n            \"caption\": \"Find the word card Sohyeon talked about, and take a picture with your camera.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> Find the word card Sohyeon talked about <break time='150ms'/> and take a picture with your camera.</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 4500\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"할인, 할인\",\n            \"dialog\": \"<speak><prosody rate='115%' pitch ='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/><amazon:breath duration='medium' volume='soft'/> <p><prosody rate='70%' volume='loud'> 할인!</prosody></p> <break time='200ms'/> <p><prosody rate='100%' volume='loud'> 할인!</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 4000\n          },\n          {\n            \"host\": 1,\n            \"caption\": \"Good Job\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>Good Job!</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 1000\n          }\n        ]\n      }\n    ]\n  }"
+          },
+          "unit_order": {
+            "N": "4"
+          },
+          "unit_title": {
+            "S": "4. Exercises"
+          }
+        },
+        {
+          "id": {
+            "S": "552b5ce84ba741e09833ba85a62b3cb2"
+          },
+          "_type": {
+            "S": "unit"
+          },
+          "lecture_ref": {
+            "S": "77acf08ce0ea4da88f9eb27bdddb6e63"
+          },
+          "steps": {
+            "S": "{\n  \"steps\": [{\n      \"step_id\": \"1\",\n      \"content\": {\n        \"type\": \"textbook\",\n        \"picture\": \"hello.png\",\n        \"body\": \"<br><div class='row text-center'><h1 class='text-primary'>こんにちは.</h1><h4 class='text-muted'>[Kon'nichiwa]</h4><h4 class='text-muted'>Hello</h4></div>\"\n      },\n      \"dialogs\": [{\n          \"host\": 1,\n          \"caption\": \"First of all, let's learn a simple greeting. When we meet someone for the first time,we say Hello or Hi. How to say hello in Japanese? Listen to Haruko's greeting.\",\n          \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> First of all, let's learn a simple greeting. When we meet someone for the first time, <break time='200ms'/> we say Hello or Hi. <break time='200ms'/> How to say hello in Japanese?</amazon:effect></prosody></amazon:domain></speak>\",\n          \"time\": 8300\n        },\n        {\n          \"host\": 2,\n          \"caption\": \"こんにちは. こんにちは. こんにちは.\",\n          \"dialog\": \"<speak><prosody rate='125%' pitch ='15%'><amazon:effect vocal-tract-length='-7%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/><amazon:breath duration='medium' volume='soft'/> <prosody rate='95%' volume='loud'> こんにちは.</prosody> <break time='100ms'/> <prosody rate='95%' volume='loud'> こんにちは</prosody> <break time='200ms'/> <p><prosody rate='115%' volume='loud'> こんにちは!</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\",\n          \"time\": 3000\n        }\n      ]\n    },\n    {\n      \"step_id\": \"2\",\n      \"content\": {\n        \"type\": \"transcribe\",\n        \"body\": \"<br><div class='row text-center'><h1 class='text-primary'>こんにちは.</h1><h4 class='text-muted'>[Kon'nichiwa]</h4><h4 class='text-muted'>Hello</h4></div>\",\n        \"answer\": \"こんにちは\"\n      },\n      \"dialogs\": [{\n          \"host\": 1,\n          \"caption\": \"Now listen carefully and speak into the microphone accordingly.\",\n          \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> Now listen carefully and speak into the microphone accordingly.</amazon:effect></prosody></amazon:domain></speak>\",\n          \"time\": 4000\n        },\n        {\n          \"host\": 2,\n          \"caption\": \"こんにちは\",\n          \"dialog\": \"<speak><prosody rate='125%' pitch ='15%'><amazon:effect vocal-tract-length='-7%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/><amazon:breath duration='medium' volume='soft'/> <prosody rate='95%' volume='loud'> こんにちは.</prosody> </amazon:effect></amazon:effect></prosody> </speak>\",\n          \"time\": 1000\n        }\n      ]\n    },\n    {\n      \"step_id\": \"3\",\n      \"content\": {\n        \"type\": \"textbook\",\n        \"picture\": \"thankyou.png\",\n        \"body\": \"<br/><div class='row text-center'><h1 class='text-primary'>ありがとうございます.</h1><h4 class='text-muted'>[Arigatōgozaimasu]</h4><h4 class='text-muted'>Thank you</h4></div>\"\n      },\n      \"dialogs\": [{\n          \"host\": 1,\n          \"caption\": \"how do you say thank you in Japanese! Listen and repeat.\",\n          \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> <prosody rate='70%'> Next, </prosody> <break time='300ms'/> how do you say thank you in Japanese! <break time='300ms'/> Listen and repeat.</amazon:effect></prosody></amazon:domain></speak>\",\n          \"time\": 5500\n        },\n        {\n          \"host\": 2,\n          \"caption\": \"ありがとうございます. ありがとうございます. ありがとうございます.\",\n          \"dialog\": \"<speak><prosody rate='125%' pitch ='15%'><amazon:effect vocal-tract-length='-7%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/> <amazon:breath duration='medium' volume='soft'/> <prosody rate='95%' volume='loud'> ありがとうございます</prosody> <break time='100ms'/> <prosody rate='95%' volume='loud'> ありがとうございます</prosody> <break time='200ms'/> <p><prosody rate='115%' volume='loud'> ありがとうございます!</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\",\n          \"time\": 2000\n        }\n      ]\n    },\n    {\n      \"step_id\": \"4\",\n      \"content\": {\n        \"type\": \"transcribe\",\n        \"body\": \"<br><div class='row text-center'><h1 class='text-primary'>ありがとうございます.</h1><h4 class='text-muted'>[Arigatōgozaimasu]</h4></div>\",\n        \"answer\": \"ありがとうございます\"\n      },\n      \"dialogs\": [{\n          \"host\": 1,\n          \"caption\": \"Listen and repeat.\",\n          \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> Listen and repeat.</amazon:effect></prosody></amazon:domain></speak>\",\n          \"time\": 1500\n        },\n        {\n          \"host\": 2,\n          \"caption\": \"ありがとうございます.\",\n          \"dialog\": \"<speak><prosody rate='125%' pitch ='15%'><amazon:effect vocal-tract-length='-7%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/> <amazon:breath duration='medium' volume='soft'/> <prosody rate='70%' volume='loud'> ありがとうございます</prosody></amazon:effect></amazon:effect></prosody> </speak>\",\n          \"time\": 1000\n        }\n      ]\n    }\n  ]\n}"
+          },
+          "unit_order": {
+            "N": "2"
+          },
+          "unit_title": {
+            "S": "2. Expressions"
+          }
+        },
+        {
+          "id": {
+            "S": "7622dea1bdff40d6b65f44e8fd6ed9f0"
+          },
+          "_type": {
+            "S": "unit"
+          },
+          "lecture_ref": {
+            "S": "f6ffeb0bfe1e460884319ad415cdfbb0"
+          },
+          "steps": {
+            "S": "{\n    \"steps\": [\n      {\n        \"step_id\": \"1\",\n        \"content\": {\n            \"type\": \"vocabulary\",\n            \"word\": \"사과\",\n            \"pronunciation\": \"Sagwa\",\n            \"help\": \"apple\",\n            \"image\": \"apple.png\",\n            \"body\": \"\"\n        },\n        \"dialogs\": [\n          {\n            \"host\": 1,\n            \"caption\": \"The first word to learn is the delicious fruit. apple! Listen and repeat!\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> The first word to learn is <break time='200ms'/> the delicious fruit, <break time='700ms'/> <prosody rate='65%'> 'apple'! </prosody> <break time='100ms'/> Listen and repeat! </amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 4800\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"사과, 사과, 사과\",\n            \"dialog\": \"<speak><prosody rate='115%' pitch ='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='soft'/> <p><prosody rate='70%' volume='loud'> 사과!</prosody></p> <break time='200ms'/> <p><prosody rate='70%' volume='loud'> 사과!</prosody></p> <break time='200ms'/> <p><prosody rate='100%' volume='loud'> 사과!</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 1000\n          }\n        ]\n      },\n      {\n        \"step_id\": \"2\",\n        \"content\": {\n          \"type\": \"textract\",\n          \"body\": \"Today's words is<br>사과\",\n          \"given_picture\": \"apple.png\",\n          \"answer\": \"Apple\"\n        },\n        \"dialogs\": [\n          {\n            \"host\": 1,\n            \"caption\": \"Now please, find the word card that matches the picture on the screen.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> Now please, find the word card that matches the picture on the screen. </amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 4500\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"사과\",\n            \"dialog\": \"  <speak><prosody rate='115%' pitch ='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/><p><prosody rate='70%' volume='loud'> 사과!</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 1000\n          }\n        ]\n      },\n      {\n        \"step_id\": \"3\",\n        \"content\": {\n            \"type\": \"vocabulary\",\n            \"word\": \"자전거\",\n            \"pronunciation\": \"Jajongo\",\n            \"help\": \"bicycle\",\n            \"image\": \"bicycle.png\",\n            \"body\": \"\"\n        },\n        \"dialogs\": [\n          {\n            \"host\": 1,\n            \"caption\": \"The next word we will learn is bicycle.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>The next word we will learn is bicycle.<break time='100ms'/> Listen and repeat!</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 3600\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"자전거, 자전거, 자전거\",\n            \"dialog\": \"<speak><prosody rate='115%' pitch ='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/><p><prosody rate='70%' volume='loud'> 자전거!</prosody></p> <break time='200ms'/> <p><prosody rate='70%' volume='loud'> 자전거!</prosody></p> <break time='200ms'/> <p><prosody rate='100%' volume='loud'> 자전거!</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 1000\n          }\n        ]\n      },\n      {\n        \"step_id\": \"4\",\n        \"content\": {\n          \"type\": \"rekognition\",\n          \"body\": \"Today's words is<br>자전거\",\n          \"given_word\": \"자전거\",\n          \"answer\": \"Bicycle\"\n        },\n        \"dialogs\": [\n          {\n            \"host\": 1,\n            \"caption\": \"It's time to review what you've learned today.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> It's time to review what you've learned today. <break time='200ms'/> </amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 3200\n          },\n          {\n            \"host\": 1,\n            \"caption\": \"Find the picture card that matches the word on the screen, then take a picture with your camera.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> Find the picture card that matches the word on the screen, <break time='150ms'/> then take a picture with your camera. </amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 4800\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"자전거\",\n            \"dialog\": \"  <speak><prosody rate='115%' pitch ='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/><p><prosody rate='70%' volume='loud'> 자전거!</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 1000\n          }\n        ]\n      }\n    ]\n  }"
+          },
+          "unit_order": {
+            "N": "3"
+          },
+          "unit_title": {
+            "S": "3. Vocabulary"
+          }
+        },
+        {
+          "id": {
+            "S": "8a3dc97141b74d028ac932e9a1850769"
+          },
+          "_type": {
+            "S": "unit"
+          },
+          "lecture_ref": {
+            "S": "28c98bb8bc29496a8aa41612afd0fb83"
+          },
+          "steps": {
+            "S": "{\n    \"steps\": [\n      {\n        \"step_id\": \"1\",\n        \"dialogs\": [\n          {\n            \"host\": 1,\n            \"caption\": \"Hello, My name is Joanna. nice to meet you!\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>Hello, My name is Joanna. nice to meet you!</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 3100\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"Hola! Soy Isabella. Mucho gusto\",\n            \"dialog\": \"<speak><prosody rate='115%' pitch='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'><amazon:breath duration='medium' volume='x-loud'/>Hola! Soy Isabella. Mucho gusto!</amazon:effect></amazon:effect></prosody></speak>\",\n            \"time\": 4000\n          },\n          {\n            \"host\": 1,\n            \"caption\": \"Do you wanna learn Spanish language fun? We will bring you an exciting Spanish lesson.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>Do you wanna learn Spanish language fun? We will bring you an exciting Spanish lesson.</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 4500\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"Comencemos nuestras lecciones de español!\",\n            \"dialog\": \"<speak><prosody rate='125%' pitch ='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='soft'/> <prosody rate='110%'> Comencemos nuestras lecciones de español.</prosody></amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 3000\n          },\n          {\n            \"host\": 1,\n            \"caption\": \"Let's start!\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>Let's start.</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 1000\n          }\n        ],\n        \"content\": {\n          \"type\": \"textbook\",\n          \"body\": \"<br /><div className='row align-items-center'><div className='col-2'></div><div><h2>Objectives</h2>This lecture is designed to teach you how to:<ul><li>how to say hello</li><li>how to express gratitude</li><li>simple words: apple, bicycle</li></ul></div></div>\"\n        }\n      }\n    ]\n  }"
+          },
+          "unit_order": {
+            "N": "1"
+          },
+          "unit_title": {
+            "S": "1. Introduction"
+          }
+        },
+        {
+          "id": {
+            "S": "604fbe1a70554fd2aea55422a8d5794a"
+          },
+          "_type": {
+            "S": "lecture"
+          },
+          "course_ref": {
+            "S": "652057e4a0534e388db5b6bb77554eae"
+          },
+          "lecture_order": {
+            "N": "4"
+          },
+          "lecture_title": {
+            "S": "Lecture 04. Transportation (公共交通)"
+          }
+        },
+        {
+          "id": {
+            "S": "605f541b08324716aeb950a92a1a55f5"
+          },
+          "_type": {
+            "S": "lecture"
+          },
+          "course_ref": {
+            "S": "652057e4a0534e388db5b6bb77554eae"
+          },
+          "lecture_order": {
+            "N": "3"
+          },
+          "lecture_title": {
+            "S": "Lecture 03. Travel (旅行)"
+          }
+        },
+        {
+          "id": {
+            "S": "95dca299428e48f28c5f3453aaae05a5"
+          },
+          "_type": {
+            "S": "unit"
+          },
+          "lecture_ref": {
+            "S": "730eac45739f4c38b61d8a72a8dc7130"
+          },
+          "steps": {
+            "S": "{\n    \"steps\": [\n      {\n        \"step_id\": \"1\",\n        \"content\": {\n            \"type\": \"textbook\",\n            \"body\": \"<br/><div className='row align-items-center'><div className='col-2'></div><div><h2>Key Takeaway</h2>What we learned today:<ul><li>할인해 주실 수 있을까요?</li><li>현금으로 계산하겠습니다.</li><li>이 셔츠를 반품하고 싶습니다.</li><li>할인</li><li>현금</li><li>반품</li></ul></div></div>\"\n        },\n        \"dialogs\": [\n          {\n            \"host\": 1,\n            \"caption\": \"Today, we learned expressions used when shopping.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> Today we learned expressions used when shopping.</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 3500\n          },\n          {\n            \"host\": 1,\n            \"caption\": \"Sohyeon, can you wrap up the expressions we learned today?\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>Sohyeon, can you wrap up the expressions we learned today?</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 4200\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"할인해 주실 수 있을까요?, 현금으로 계산하겠습니다. 이 셔츠를 반품하고 싶습니다.\",\n            \"dialog\": \"<speak><prosody rate='115%' pitch ='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'>그럼요 <break time='1000ms'/>할인해 주실 수 있을까요?<break time='300ms'/>현금으로 계산하겠습니다.<break time='300ms'/>이 셔츠를 반품하고 싶습니다.</amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 8500\n          },\n          {\n            \"host\": 1,\n            \"caption\": \"How was today's class? Be sure to repeat the expressions you learned today so you don't forget them.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>How was today's class?<break time='150ms'/> Be sure to repeat the expressions you learned today so you don't forget them.</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 6300\n          },\n          {\n            \"host\": 1,\n            \"caption\": \"Then see you in the next lecture.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'><prosody volume='x-loud'>Then see you in the next lecture.</prosody></amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 300\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"다음 강의에서 만나요!\",\n            \"dialog\": \"<speak><prosody rate='125%' pitch ='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'><prosody volume='loud'>다음 강의에서 만나요!</prosody></amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 0\n          }\n        ]\n      },\n      {\n        \"step_id\": \"2\",\n        \"dialogs\": [\n          {\n            \"host\": 1,\n            \"caption\": \"Then see you in the next lecture.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>Then see you in the next lecture.</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 0\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"다음 강의에서 만나요!\",\n            \"dialog\": \"<speak><prosody rate='125%' pitch ='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'> 다음 강의에서 만나요? </amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 1000\n          }\n        ]\n      }\n    ]\n  }"
+          },
+          "unit_order": {
+            "N": "5"
+          },
+          "unit_title": {
+            "S": "5. Summary"
+          }
+        },
+        {
+          "id": {
+            "S": "8e67b42bab4f40d68eb3a24afe413f27"
+          },
+          "_type": {
+            "S": "unit"
+          },
+          "lecture_ref": {
+            "S": "d18e3e69eef74dd9a62dfff9bad3bb81"
+          },
+          "steps": {
+            "S": "{\n    \"steps\": [\n      {\n        \"step_id\": \"1\",\n        \"content\": {\n            \"type\": \"textbook\",\n            \"picture\": \"hello.png\",\n            \"body\": \"<br /><div class='row text-center'><h1 class='text-primary'>你好!</h1><h4 class='text-muted'>[ni hao]</h4><h4 class='text-muted'>Hello</h4></div><br /><br />\"\n        },\n        \"dialogs\": [\n          {\n            \"host\": 1,\n            \"caption\": \"First of all, let's learn a simple greeting. When we meet someone for the first time,we say Hello or Hi. How to say hello in Chinese? Listen to Zhiyu's greeting.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> First of all, let's learn a simple greeting. When we meet someone for the first time, <break time='200ms'/> we say Hello or Hi. <break time='200ms'/> How to say hello in Chinese?</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 8300\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"你好。你好。你好。\",\n            \"dialog\": \"<speak><prosody rate='115%' pitch ='5%'><amazon:effect vocal-tract-length='+0%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/><amazon:breath duration='medium' volume='soft'/> <prosody rate='95%' volume='loud'> 你好。</prosody> <break time='100ms'/> <prosody rate='95%' volume='loud'> 你好。</prosody> <break time='200ms'/> <p><prosody rate='115%' volume='loud'> 你好!</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 3000\n          }\n        ]\n      },\n      {\n        \"step_id\": \"2\",\n        \"content\": {\n          \"type\": \"transcribe\",\n          \"body\": \"<br><div class='row text-center'><h1 class='text-primary'>你好.</h1><h4 class='text-muted'>[Nǐ hǎo]</h4><h4 class='text-muted'>Hello</h4></div>\",\n          \"answer\": \"你好\"\n        },\n        \"dialogs\": [\n          {\n            \"host\": 1,\n            \"caption\": \"Now listen carefully and speak into the microphone accordingly.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> Now listen carefully and speak into the microphone accordingly.</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 3500\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"你好\",\n            \"dialog\": \"<speak><prosody rate='115%' pitch ='5%'><amazon:effect vocal-tract-length='+0%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/> <amazon:breath duration='medium' volume='soft'/> <prosody rate='100%' volume='loud'> 你好。</prosody>  </amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 1000\n          }\n        ]\n      },     \n      {\n        \"step_id\": \"3\",\n        \"content\": {\n            \"type\": \"textbook\",\n            \"picture\": \"thankyou.png\",\n            \"body\": \"<br /><div class='row text-center'><h1 class='text-primary'>谢谢.</h1><h4 class='text-muted'>[xie xie]</h4><h4 class='text-muted'>Thank you</h4></div><br /><br />\"\n        },\n        \"dialogs\": [\n          {\n            \"host\": 1,\n            \"caption\": \"how do you say thank you in Chinese! Listen and repeat.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> <prosody rate='70%'> Next, </prosody> <break time='300ms'/> how do you say thank you in Chinese! <break time='300ms'/> Listen and repeat.</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 6000\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"谢谢。谢谢。谢谢。\",\n            \"dialog\": \"<speak><prosody rate='115%' pitch ='5%'><amazon:effect vocal-tract-length='+0%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/> <amazon:breath duration='medium' volume='soft'/> <prosody rate='70%' volume='loud'> 谢谢。</prosody> <break time='100ms'/> <prosody rate='95%' volume='loud'> 谢谢。</prosody> <break time='200ms'/> <p><prosody rate='115%' volume='loud'> 谢谢。</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 2000\n          }\n        ]\n      },\n      {\n        \"step_id\": \"4\",\n        \"content\": {\n          \"type\": \"transcribe\",\n          \"body\": \"<br><div class='row text-center'><h1 class='text-primary'>谢谢.</h1><h4 class='text-muted'>[Xièxiè]</h4><h4 class='text-muted'>Thank you</h4></div>\",\n          \"answer\": \"谢谢\"\n        },\n        \"dialogs\": [\n          {\n            \"host\": 1,\n            \"caption\": \"Listen and repeat.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> Listen and repeat.</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 1500\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"谢谢.\",\n            \"dialog\": \"<speak><prosody rate='115%' pitch ='5%'><amazon:effect vocal-tract-length='+0%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/> <amazon:breath duration='medium' volume='soft'/> <prosody rate='100%' volume='loud'> 谢谢。</prosody>  </amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 1000\n          }\n        ]\n      }\n    ]\n  }"
+          },
+          "unit_order": {
+            "N": "2"
+          },
+          "unit_title": {
+            "S": "2. Expressions"
+          }
+        },
+        {
+          "id": {
+            "S": "91366b59f5994b9c9853c7c54110fdbf"
+          },
+          "_type": {
+            "S": "unit"
+          },
+          "lecture_ref": {
+            "S": "46b3b16b29c4482bb72f1b8367460780"
+          },
+          "steps": {
+            "S": "{\n    \"steps\": [\n      {\n        \"step_id\": \"1\",\n        \"content\": {\n            \"type\": \"textbook\",\n            \"body\": \"<br /><div className='row align-items-center'><div className='col-2'></div><div><h2>Key Takeaway</h2>What we learned today:<ul><li>이러다가는 다 죽어!</li><li>선생님, 저랑 게임 한번 하시겠습니까?</li><li>오징어</li><li>우산</li></ul></div></div>\"\n        },\n        \"dialogs\": [\n          {\n            \"host\": 1,\n            \"caption\": \"How was today's class? Today we learned the lines of a Korean TV show.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> How was today's class?<break time='150ms'/> Today we learned the lines of a Korean TV show. </amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 5000\n          },\n          {\n            \"host\": 1,\n            \"caption\": \"Let's wrap up.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>Let's wrap up.</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 2500\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"이러다가는 다 죽어! 선생님, 저랑 게임 한번 하시겠습니까? 오징어, 우산\",\n            \"dialog\": \"<speak><prosody rate='115%' pitch ='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/> <prosody rate='115%' volume='loud'> 이러다가는 다 죽어!</prosody> <break time='200ms'/> <prosody rate='115%' volume='loud'> 선생님, 저랑 게임 한번 하시겠습니까?</prosody> <break time='200ms'/> <prosody rate='100%' volume='loud'> 오징어 </prosody> <break time='200ms'/> <prosody rate='120%' volume='loud'> 우산 </prosody> </amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 8000\n          },\n          {\n            \"host\": 1,\n            \"caption\": \"Then see you in the next lecture.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>Then see you in the next lecture.</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 3100\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"그럼, 다음 강의에서 또 만나요!\",\n            \"dialog\": \"<speak><prosody rate='115%' pitch ='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='loud'/> <prosody rate='100%'>그럼, </prosody> <break time='100ms'/> 다음 강의에서 또 만나요? </amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 1000\n          }\n        ]\n      }\n    ]\n  }"
+          },
+          "unit_order": {
+            "N": "4"
+          },
+          "unit_title": {
+            "S": "4. Summary"
+          }
+        },
+        {
+          "id": {
+            "S": "6135b9cd6a4a4801bddcb36205f02396"
+          },
+          "_type": {
+            "S": "unit"
+          },
+          "lecture_ref": {
+            "S": "77acf08ce0ea4da88f9eb27bdddb6e63"
+          },
+          "steps": {
+            "S": "{\n    \"steps\": [\n      {\n        \"step_id\": \"1\",\n        \"dialogs\": [\n          {\n            \"host\": 1,\n            \"caption\": \"Hello, My name is Joanna. nice to meet you!\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>Hello, My name is Joanna. nice to meet you!</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 3100\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"こんにちは! 私は日本語の先生りょうたです!\",\n            \"dialog\": \"<speak><prosody rate='125%' pitch='15%'><amazon:effect vocal-tract-length='-7%'><amazon:effect name='drc'><amazon:breath duration='medium' volume='x-loud'/>こんにちは! 私は日本語の先生<break time='10ms'/> <amazon:breath duration='medium' volume='soft'/> <emphasis level='moderate'>りょうたです! </emphasis></amazon:effect></amazon:effect></prosody></speak>\",\n            \"time\": 5500\n          },\n          {\n            \"host\": 1,\n            \"caption\": \"Do you wanna learn Japanese language fun? We will bring you an exciting Japanese lesson.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>Do you wanna learn Japanese language fun? We will bring you an exciting Japanese lesson.</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 4700\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"今私たちと一緒に日本語を学びましょう!\",\n            \"dialog\": \"<speak> <prosody rate='125%' pitch ='15%'><amazon:effect vocal-tract-length='-7%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='soft'/> <prosody rate='120%'> 今私たちと一緒に?</prosody><break time='10ms'/> 日本語を学びましょう? </amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 3700\n          },\n          {\n            \"host\": 1,\n            \"caption\": \"Let's start!\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>Let's start.</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 1000\n          }\n        ],\n        \"content\": {\n          \"type\": \"textbook\",\n          \"body\": \"<br/><div className='row align-items-center'><div className='col-2'></div><div><h2>Objectives</h2>This lecture is designed to teach you how to:<ul><li>how to say hello</li><li>how to express gratitude</li><li>simple words: apple, bicycle </li></ul></div></div>\"\n        }\n      }\n    ]\n  }"
+          },
+          "unit_order": {
+            "N": "1"
+          },
+          "unit_title": {
+            "S": "1. Introduction"
+          }
+        },
+        {
+          "id": {
+            "S": "3a2d3406110945319c9f3144a6ec9307"
+          },
+          "_type": {
+            "S": "unit"
+          },
+          "lecture_ref": {
+            "S": "46b3b16b29c4482bb72f1b8367460780"
+          },
+          "steps": {
+            "S": "{\n  \"steps\": [{\n      \"step_id\": \"1\",\n      \"content\": {\n        \"type\": \"textbook\",\n        \"picture\": \"die.jpg\",\n        \"body\": \"<br><div class='row text-center'><h1 class='text-primary'>이러다가는 다 죽어</h1><h4 class='text-muted'>[ileodaganeun da jug-eo]</h4><h4 class='text-muted'>We are all gonna die in here!</h4></div>\"\n      },\n      \"dialogs\": [{\n          \"host\": 1,\n          \"caption\": \"We are all gonna die in here!\",\n          \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> The first is the line from the squid game. <break time='200ms'/> We are all gonna die in here! <break time='200ms'/> How to say this in Korean?</amazon:effect></prosody></amazon:domain></speak>\",\n          \"time\": 7300\n        },\n        {\n          \"host\": 2,\n          \"caption\": \"이러다가는 다 죽어!\",\n          \"dialog\": \"<speak><prosody rate='115%' pitch ='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/><amazon:breath duration='medium' volume='soft'/> <prosody rate='95%' volume='loud'> 이러다가는 다 죽어! </prosody> <break time='100ms'/> <prosody rate='95%' volume='loud'> 이러다가는 다 죽어! </prosody> <break time='200ms'/> <p><prosody rate='115%' volume='loud'> 이러다가는 다 죽어!</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\",\n          \"time\": 3000\n        }\n      ]\n    },\n    {\n      \"step_id\": \"2\",\n      \"content\": {\n        \"type\": \"transcribe\",\n        \"body\": \"<br><div class='row text-center'><h1 class='text-primary'>이러다가는 다 죽어!</h1><h4 class='text-muted'>[ileodaganeun da jug-eo]</h4><h4 class='text-muted'>We are all gonna die in here!</h4></div>\",\n        \"answer\": \"이러다가는 다 죽어\"\n      },\n      \"dialogs\": [{\n          \"host\": 1,\n          \"caption\": \"Now listen carefully and speak into the microphone accordingly.\",\n          \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> Now listen carefully and speak into the microphone accordingly.</amazon:effect></prosody></amazon:domain></speak>\",\n          \"time\": 3000\n        },\n        {\n          \"host\": 2,\n          \"caption\": \"이러다가는 다 죽어!\",\n          \"dialog\": \"<speak><prosody rate='115%' pitch ='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/><p><prosody rate='90%' volume='loud'> 이러다가는 다 죽어!</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\",\n          \"time\": 1000\n        }\n      ]\n    },\n    {\n      \"step_id\": \"3\",\n      \"content\": {\n        \"type\": \"textbook\",\n        \"picture\": \"game.jpg\",\n        \"body\": \"<br><div class='row text-center'><h1 class='text-primary'>선생님, 저랑 게임 한번 하시겠습니까?</h1><h4 class='text-muted'>[seonsaengnim, jeolang geim hanbeon hasigessseubnikka?]</h4><h4 class='text-muted'>Mister, would you like to play a game with me?</h4></div>\"\n      },\n      \"dialogs\": [{\n          \"host\": 1,\n          \"caption\": \"how do you say 'Mister, would you like to play a game with me?' in Korean? \",\n          \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> <prosody rate='70%'> Next, </prosody> <break time='300ms'/> how do you say 'Mister, would you like to play a game with me?' in Korean? <break time='300ms'/> Listen and repeat.</amazon:effect></prosody></amazon:domain></speak>\",\n          \"time\": 6500\n        },\n        {\n          \"host\": 2,\n          \"caption\": \"선생님, 저랑 게임 한번 하시겠습니까?\",\n          \"dialog\": \"<speak><prosody rate='115%' pitch ='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/> <amazon:breath duration='medium' volume='soft'/> <prosody rate='100%' volume='loud'> 선생님, 저랑 께임 한번 하시겠습니까?</prosody> <break time='100ms'/> <prosody rate='100%' volume='loud'> 선생님, 저랑 께임 한번 하시겠습니까?</prosody> <break time='200ms'/> <p><prosody rate='115%' volume='loud'> 선생님, 저랑 께임 한번 하시겠습니까?</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\",\n          \"time\": 2000\n        }\n      ]\n    },\n    {\n      \"step_id\": \"4\",\n      \"content\": {\n        \"type\": \"transcribe\",\n        \"body\": \"<br><div class='row text-center'><h1 class='text-primary'>선생님, 저랑 게임 한번 하시겠습니까?</h1><h4 class='text-muted'>[seonsaengnim jeolang geim hanbeon hasigessseubnikka?]</h4><h4 class='text-muted'>Mister, would you like to play a game with me?</h4></div>\",\n        \"answer\": \"선생님 저랑 게임 한번 하시겠습니까?\"\n      },\n      \"dialogs\": [{\n          \"host\": 1,\n          \"caption\": \"Now listen carefully and speak into the microphone.\",\n          \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> Now listen carefully and speak into the microphone</amazon:effect></prosody></amazon:domain></speak>\",\n          \"time\": 3000\n        },\n        {\n          \"host\": 2,\n          \"caption\": \"선생님, 저랑 게임 한번 하시겠습니까?\",\n          \"dialog\": \"<speak><prosody rate='115%' pitch ='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/><p><prosody rate='100%' volume='loud'> 선생님, 저랑 께임 한번 하시겠습니까?</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\",\n          \"time\": 1000\n        }\n      ]\n    }\n  ]\n}"
+          },
+          "unit_order": {
+            "N": "2"
+          },
+          "unit_title": {
+            "S": "2. Expressions"
+          }
+        },
+        {
+          "id": {
+            "S": "d59f1e12cb0643fb90446eb70072fad6"
+          },
+          "_type": {
+            "S": "course"
+          },
+          "course_order": {
+            "N": "5"
+          },
+          "course_title": {
+            "S": "English"
+          },
+          "icon": {
+            "S": "americas"
+          },
+          "language": {
+            "S": "en-US"
+          }
+        },
+        {
+          "id": {
+            "S": "730eac45739f4c38b61d8a72a8dc7130"
+          },
+          "_type": {
+            "S": "lecture"
+          },
+          "course_ref": {
+            "S": "ef717ea27fc4426b99e484343a493e5a"
+          },
+          "lecture_order": {
+            "N": "2"
+          },
+          "lecture_title": {
+            "S": "Lecture 02. Shopping (쇼핑)"
+          }
+        },
+        {
+          "id": {
+            "S": "eb792605306d4654ada6b5a8e4dcb173"
+          },
+          "_type": {
+            "S": "unit"
+          },
+          "lecture_ref": {
+            "S": "d18e3e69eef74dd9a62dfff9bad3bb81"
+          },
+          "steps": {
+            "S": "{\n  \"steps\": [{\n    \"step_id\": \"1\",\n    \"dialogs\": [{\n        \"host\": 1,\n        \"caption\": \"Hello, My name is Matthew. nice to meet you!\",\n        \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>Hello, My name is Matthew. nice to meet you!</amazon:effect></prosody></amazon:domain></speak>\",\n        \"time\": 3100\n      },\n      {\n        \"host\": 2,\n        \"caption\": \"你好！我是中文老师，知语！\",\n        \"dialog\": \"<speak><prosody rate='115%' pitch='5%'><amazon:effect vocal-tract-length='+0%'><amazon:effect name='drc'><amazon:breath duration='medium' volume='x-loud'/>你好! 我是中文老师，<break time='20ms'/> <amazon:breath duration='medium' volume='soft'/> <emphasis level='moderate'>知语! </emphasis></amazon:effect></amazon:effect></prosody></speak>\",\n        \"time\": 5000\n      },\n      {\n        \"host\": 1,\n        \"caption\": \"Do you wanna learn Chinese language fun? We will bring you an exciting Chinese lesson.\",\n        \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>Do you wanna learn Chinese language fun? We will bring you an exciting Chinese lesson.</amazon:effect></prosody></amazon:domain></speak>\",\n        \"time\": 4500\n      },\n      {\n        \"host\": 2,\n        \"caption\": \"来跟我们一起学习中文吧！\",\n        \"dialog\": \"<speak> <prosody rate='120%' pitch ='5%'><amazon:effect vocal-tract-length='+0%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='soft'/> <prosody rate='120%'>来跟我们一起</prosody>学习中文吧！ </amazon:effect></amazon:effect></prosody> </speak>\",\n        \"time\": 3300\n      },\n      {\n        \"host\": 1,\n        \"caption\": \"Let's start!\",\n        \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>Let's start.</amazon:effect></prosody></amazon:domain></speak>\",\n        \"time\": 1000\n      }\n    ],\n    \"content\": {\n      \"type\": \"textbook\",\n      \"body\": \"<br /><div className='row align-items-center'><div className='col-2'></div><div><h2>Objectives</h2>This lecture is designed to teach you how to:<ul><li>how to say hello</li><li>how to express gratitude</li><li>simple words: apple, bicycle</li></ul></div></div>\"\n    }\n  }]\n}"
+          },
+          "unit_order": {
+            "N": "1"
+          },
+          "unit_title": {
+            "S": "1. Introduction"
+          }
+        },
+        {
+          "id": {
+            "S": "43f92554c1fe44ce9434142da998475c"
+          },
+          "_type": {
+            "S": "lecture"
+          },
+          "course_ref": {
+            "S": "ef717ea27fc4426b99e484343a493e5a"
+          },
+          "lecture_order": {
+            "N": "5"
+          },
+          "lecture_title": {
+            "S": "Lecture 05. Restaurant (음식점)"
+          }
+        },
+        {
+          "id": {
+            "S": "77acf08ce0ea4da88f9eb27bdddb6e63"
+          },
+          "_type": {
+            "S": "lecture"
+          },
+          "course_ref": {
+            "S": "61954b3ef226419080aa5ac0a46d0652"
+          },
+          "lecture_order": {
+            "N": "1"
+          },
+          "lecture_title": {
+            "S": "Lecture 01. Greetings (挨拶)"
+          }
+        },
+        {
+          "id": {
+            "S": "28c98bb8bc29496a8aa41612afd0fb83"
+          },
+          "_type": {
+            "S": "lecture"
+          },
+          "course_ref": {
+            "S": "5c18f82e337144d8b9c3a10da64d11f4"
+          },
+          "lecture_order": {
+            "N": "1"
+          },
+          "lecture_title": {
+            "S": "Lecture 01. Greetings (saludo)"
+          }
+        },
+        {
+          "id": {
+            "S": "170fe5df3c574d0aa8cb69e67f4b73d2"
+          },
+          "_type": {
+            "S": "unit"
+          },
+          "lecture_ref": {
+            "S": "28c98bb8bc29496a8aa41612afd0fb83"
+          },
+          "steps": {
+            "S": "{\n    \"steps\": [\n      {\n        \"step_id\": \"1\",\n        \"content\": {\n            \"type\": \"textbook\",\n            \"picture\": \"hello.png\",\n            \"body\": \"<br/><div class='row text-center'><h1 class='text-primary'>Hola.</h1><h4 class='text-muted'>[Hola]</h4><h4 class='text-muted'>Hello</h4></div>\"\n        },\n        \"dialogs\": [\n          {\n            \"host\": 1,\n            \"caption\": \"First of all, let's learn a simple greeting. When we meet someone for the first time,we say Hello or Hi. How to say hello in Spanish? Listen to Sohyeon's greeting.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> First of all, let's learn a simple greeting. When we meet someone for the first time, <break time='200ms'/> we say Hello or Hi. <break time='200ms'/> How to say hello in Spanish?</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 8300\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"Hola. Hola. Hola.\",\n            \"dialog\": \"<speak><prosody rate='115%' pitch ='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/><amazon:breath duration='medium' volume='soft'/> <prosody rate='95%' volume='loud'>Hola</prosody> <break time='100ms'/> <prosody rate='95%' volume='loud'> Hola </prosody> <break time='200ms'/> <p><prosody rate='115%' volume='loud'> Hola!</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 3000\n          }\n        ]\n      },\n      {\n        \"step_id\": \"2\",\n        \"content\": {\n          \"type\": \"transcribe\",\n          \"body\": \"<br><div class='row text-center'><h1 class='text-primary'>Hola.</h1><h4 class='text-muted'>[Hola]</h4><h4 class='text-muted'>Hello</h4></div>\",\n          \"answer\": \"Hola\"\n        },\n        \"dialogs\": [\n          {\n            \"host\": 1,\n            \"caption\": \"Now listen carefully and speak into the microphone accordingly.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> Now listen carefully and speak into the microphone accordingly.</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 4000\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"Hola\",\n            \"dialog\": \"<speak><prosody rate='115%' pitch ='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/><p><prosody rate='90%' volume='loud'> Hola.</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 1000\n          }\n        ]\n      },     \n      {\n        \"step_id\": \"3\",\n        \"content\": {\n            \"type\": \"textbook\",\n            \"picture\": \"thankyou.png\",\n            \"body\": \"<br/><div class='row text-center'><h1 class='text-primary'>Gracias.</h1><h4 class='text-muted'>[Gracias]</h4><h4 class='text-muted'>Thank you</h4></div>\"\n        },\n        \"dialogs\": [\n          {\n            \"host\": 1,\n            \"caption\": \"how do you say thank you in Spanish! Listen and repeat.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> <prosody rate='70%'> Next, </prosody> <break time='300ms'/> how do you say thank you in Spanish! <break time='300ms'/> Listen and repeat.</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 6000\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"Gracias. Gracias. Gracias.\",\n            \"dialog\": \"<speak><prosody rate='115%' pitch ='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/> <amazon:breath duration='medium' volume='soft'/> <prosody rate='70%' volume='loud'> Gracias</prosody> <break time='100ms'/> <prosody rate='95%' volume='loud'> Gracias</prosody> <break time='200ms'/> <p><prosody rate='115%' volume='loud'> Gracias!</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 2000\n          }\n        ]\n      },\n      {\n        \"step_id\": \"4\",\n        \"content\": {\n          \"type\": \"transcribe\",\n          \"body\": \"<br><div class='row text-center'><h1 class='text-primary'>Gracias.</h1><h4 class='text-muted'>[Gracias]</h4><h4 class='text-muted'>Thank you</h4></div>\",\n          \"answer\": \"Gracias\"\n        },\n        \"dialogs\": [\n          {\n            \"host\": 1,\n            \"caption\": \"Listen and repeat.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> Listen and repeat.</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 1500\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"Gracias.\",\n            \"dialog\": \"<speak><prosody rate='115%' pitch ='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/><p><prosody rate='90%' volume='loud'> Gracias.</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 1000\n          }\n        ]\n      }\n    ]\n  }"
+          },
+          "unit_order": {
+            "N": "2"
+          },
+          "unit_title": {
+            "S": "2. Expressions"
+          }
+        },
+        {
+          "id": {
+            "S": "d18e3e69eef74dd9a62dfff9bad3bb81"
+          },
+          "_type": {
+            "S": "lecture"
+          },
+          "course_ref": {
+            "S": "652057e4a0534e388db5b6bb77554eae"
+          },
+          "lecture_order": {
+            "N": "1"
+          },
+          "lecture_title": {
+            "S": "Lecture 01. Greetings (问候语)"
+          }
+        },
+        {
+          "id": {
+            "S": "61954b3ef226419080aa5ac0a46d0652"
+          },
+          "_type": {
+            "S": "course"
+          },
+          "course_order": {
+            "N": "4"
+          },
+          "course_title": {
+            "S": "Japanese"
+          },
+          "icon": {
+            "S": "asia"
+          },
+          "language": {
+            "S": "ja-JP"
+          }
+        },
+        {
+          "id": {
+            "S": "949fdab6e0bf4756b6495f0020022c00"
+          },
+          "_type": {
+            "S": "unit"
+          },
+          "lecture_ref": {
+            "S": "46b3b16b29c4482bb72f1b8367460780"
+          },
+          "steps": {
+            "S": "{\n    \"steps\": [\n      {\n        \"step_id\": \"1\",\n        \"dialogs\": [\n          {\n            \"host\": 1,\n            \"caption\": \"Hello, nice to meet you again!\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>HHello, nice to meet you again!</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 2500\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"안녕하세요! \",\n            \"dialog\": \"<speak><prosody rate='125%' pitch='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'><amazon:breath duration='medium' volume='x-loud'/>안녕하세요!</amazon:effect></amazon:effect></prosody></speak>\",\n            \"time\": 1500\n          },\n          {\n            \"host\": 1,\n            \"caption\": \"Today, we will learn korean from famous Korean TV Shows. Squid Game\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>oday, we will learn korean from famous Korean TV Shows. Squid Game</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 4200\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"네, 오늘은 오징어 게임의 대사로 공부해 보겠습니다.\",\n            \"dialog\": \"<speak> <prosody rate='125%' pitch ='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='soft'/> <prosody rate='120%'> 네, 오늘은 오징어 게임의 대사로 공부해 보겠습니다.</prosody> </amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 4500\n          },\n          {\n            \"host\": 1,\n            \"caption\": \"Let's start!\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>Let's start.</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 1000\n          }\n        ],\n        \"content\": {\n          \"type\": \"textbook\",\n          \"body\": \"<br/><div className='row align-items-center'><div className='col-2'></div><div><h2>Objectives</h2>This lecture is designed to teach you how to:<ul><li>learn famous lines of TV shows </li><li>simple words: Squid, Umbrella</li></ul></div></div>\"\n        }\n      }\n    ]\n  }"
+          },
+          "unit_order": {
+            "N": "1"
+          },
+          "unit_title": {
+            "S": "1. Introduction"
+          }
+        },
+        {
+          "id": {
+            "S": "93cdfcb725e14c97988c991edd25643b"
+          },
+          "_type": {
+            "S": "unit"
+          },
+          "lecture_ref": {
+            "S": "2edcaed07018423aba6501d910af2b89"
+          },
+          "steps": {
+            "S": "\"{\n  \"\"steps\"\": [\n    {\n      \"\"step_id\"\": \"\"1\"\",\n      \"\"content\"\": {\n        \"\"type\"\": \"\"vocabulary\"\",\n        \"\"word\"\": \"\"打折\"\",\n        \"\"pronunciation\"\": \"\"da zhe\"\",\n        \"\"help\"\": \"\"Discount\"\",\n        \"\"image\"\": \"\"discount.png\"\",\n        \"\"body\"\": \"\"\"\"\n      },\n      \"\"dialogs\"\": [\n        {\n          \"\"host\"\": 1,\n          \"\"caption\"\": \"\"Now, let's look at the words we will learn today.\"\",\n          \"\"dialog\"\": \"\"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>Now, let's look at the words we will learn today.</amazon:effect></prosody></amazon:domain></speak>\"\",\n          \"\"time\"\": 3000\n        },\n        {\n          \"\"host\"\": 1,\n          \"\"caption\"\": \"\"The first word to learn is 'Discount'. Listen and repeat!\"\",\n          \"\"dialog\"\": \"\"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> The first word to learn is <break time='200ms'/>Discount <break time='300ms'/> Listen and repeat! </amazon:effect></prosody></amazon:domain></speak>\"\",\n          \"\"time\"\": 4000\n        },\n        {\n          \"\"host\"\": 2,\n          \"\"caption\"\": \"\"打折，打折，打折\"\",\n          \"\"dialog\"\": \"\"<speak><prosody rate='100%' pitch ='5%'><amazon:effect vocal-tract-length='+0%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='soft'/> <p><prosody rate='90%' volume='loud'> 打折！</prosody></p> <break time='200ms'/> <p><prosody rate='90%' volume='loud'> 打折！</prosody></p> <break time='200ms'/> <p><prosody rate='100%' volume='loud'> 打折！</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\"\",\n          \"\"time\"\": 5700\n        }\n      ]\n    },\n    {\n      \"\"step_id\"\": \"\"2\"\",\n      \"\"content\"\": {\n        \"\"type\"\": \"\"vocabulary\"\",\n        \"\"word\"\": \"\"退货\"\",\n        \"\"pronunciation\"\": \"\"qui huo\"\",\n        \"\"help\"\": \"\"Return\"\",\n        \"\"image\"\": \"\"return.png\"\",\n        \"\"body\"\": \"\"\"\"\n      },\n      \"\"dialogs\"\": [\n        {\n          \"\"host\"\": 1,\n          \"\"caption\"\": \"\"The second word to learn is 'return'. Listen and repeat!\"\",\n          \"\"dialog\"\": \"\"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> The second word to learn is <break time='200ms'/> <prosody rate='65%'>'return'</prosody> <break time='200ms'/> Listen and repeat! </amazon:effect></prosody></amazon:domain></speak>\"\",\n          \"\"time\"\": 4200\n        },\n        {\n          \"\"host\"\": 2,\n          \"\"caption\"\": \"\"退货，退货，退货\"\",\n          \"\"dialog\"\": \"\"<speak><prosody rate='115%' pitch ='5%'><amazon:effect vocal-tract-length='+0%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='soft'/> <p><prosody rate='90%' volume='loud'> 退货！</prosody></p> <break time='200ms'/> <p><prosody rate='80%' volume='loud'>  退货！</prosody></p> <break time='200ms'/> <p><prosody rate='85%' volume='loud'>  退货！</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\"\",\n          \"\"time\"\": 5500\n        }\n      ]\n    },\n    {\n      \"\"step_id\"\": \"\"3\"\",\n      \"\"content\"\": {\n        \"\"type\"\": \"\"vocabulary\"\",\n        \"\"word\"\": \"\"现金\"\",\n        \"\"pronunciation\"\": \"\"xian jin\"\",\n        \"\"help\"\": \"\"Cash\"\",\n        \"\"image\"\": \"\"cash.png\"\",\n        \"\"body\"\": \"\"\"\"\n      },\n      \"\"dialogs\"\": [\n        {\n          \"\"host\"\": 1,\n          \"\"caption\"\": \"\"The third word to learn is 'cash'. Listen and repeat!\"\",\n          \"\"dialog\"\": \"\"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> The third word to learn is <break time='200ms'/> cash <break time='200ms'/> Listen and repeat! </amazon:effect></prosody></amazon:domain></speak>\"\",\n          \"\"time\"\": 4700\n        },\n        {\n          \"\"host\"\": 2,\n          \"\"caption\"\": \"\"现金，现金，现金\"\",\n          \"\"dialog\"\": \"\"<speak><prosody rate='115%' pitch ='5%'><amazon:effect vocal-tract-length='+0%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='soft'/> <p><prosody rate='100%' volume='loud'> 现金!</prosody></p> <break time='200ms'/> <p><prosody rate='100%' volume='loud'> 现金!</prosody></p> <break time='200ms'/> <p><prosody rate='100%' volume='loud'> 现金</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\"\",\n          \"\"time\"\": 0\n        }\n      ]\n    }\n  ]\n}\""
+          },
+          "unit_order": {
+            "N": "3"
+          },
+          "unit_title": {
+            "S": "3. Vocabulary"
+          }
+        },
+        {
+          "id": {
+            "S": "48653cd55445476f9df82664b35eb7d9"
+          },
+          "_type": {
+            "S": "lecture"
+          },
+          "course_ref": {
+            "S": "652057e4a0534e388db5b6bb77554eae"
+          },
+          "lecture_order": {
+            "N": "5"
+          },
+          "lecture_title": {
+            "S": "Lecture 05. Restaurant (餐厅)"
+          }
+        },
+        {
+          "id": {
+            "S": "0f26d35fbe5e44a9acdd00927824e569"
+          },
+          "_type": {
+            "S": "lecture"
+          },
+          "course_ref": {
+            "S": "ef717ea27fc4426b99e484343a493e5a"
+          },
+          "lecture_order": {
+            "N": "4"
+          },
+          "lecture_title": {
+            "S": "Lecture 04. Transportation (대중교통)"
+          }
+        },
+        {
+          "id": {
+            "S": "70d1b3f8fd73491ab325dd6543755601"
+          },
+          "_type": {
+            "S": "unit"
+          },
+          "lecture_ref": {
+            "S": "d18e3e69eef74dd9a62dfff9bad3bb81"
+          },
+          "steps": {
+            "S": "{\n    \"steps\": [\n      {\n        \"step_id\": \"1\",\n        \"content\": {\n            \"type\": \"textbook\",\n            \"body\": \"<br /><div className='row align-items-center'><div className='col-2'></div><div><h2>Key Takeaway</h2>What we learned today:<ul><li>你好.</li><li>谢谢.</li><li>苹果</li><li>自行车</li></ul></div></div>\"\n        },\n        \"dialogs\": [\n          {\n            \"host\": 1,\n            \"caption\": \"How was today's class? Today we learned greetings and a few words!\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> How was today's class?<break time='150ms'/> Today we learned greetings and a few words.  </amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 5000\n          },\n          {\n            \"host\": 1,\n            \"caption\": \"Let's wrap up.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>Let's wrap up.</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 3000\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"你好. 谢谢. 苹果, 自行车\",\n            \"dialog\": \"<speak><prosody rate='115%' pitch ='5%'><amazon:effect vocal-tract-length='+0%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/> <prosody rate='115%' volume='loud'> 你好！</prosody> <break time='100ms'/> <prosody rate='115%' volume='loud'> 谢谢！</prosody> <break time='100ms'/> <prosody rate='100%' volume='loud'> 苹果！</prosody> <break time='100ms'/> <prosody rate='100%' volume='loud'> 自行车！</prosody> </amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 6600\n          },\n          {\n            \"host\": 1,\n            \"caption\": \"Then see you in the next lecture.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>Then see you in the next lecture.</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 3100\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"那么，我们下节课再见吧！\",\n            \"dialog\": \"<speak><prosody rate='115%' pitch ='5%'><amazon:effect vocal-tract-length='+0%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='loud'/> <prosody rate='100%'>那么 ，</prosody> 我们下节课再见吧！ </amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 1000\n          }\n        ]\n      }\n    ]\n  }"
+          },
+          "unit_order": {
+            "N": "4"
+          },
+          "unit_title": {
+            "S": "4. Summary"
+          }
+        },
+        {
+          "id": {
+            "S": "46b3b16b29c4482bb72f1b8367460780"
+          },
+          "_type": {
+            "S": "lecture"
+          },
+          "course_ref": {
+            "S": "ef717ea27fc4426b99e484343a493e5a"
+          },
+          "lecture_order": {
+            "N": "6"
+          },
+          "lecture_title": {
+            "S": "Lecture 06. TV Shows (드라마)"
+          }
+        },
+        {
+          "id": {
+            "S": "2edcaed07018423aba6501d910af2b89"
+          },
+          "_type": {
+            "S": "lecture"
+          },
+          "course_ref": {
+            "S": "652057e4a0534e388db5b6bb77554eae"
+          },
+          "lecture_order": {
+            "N": "2"
+          },
+          "lecture_title": {
+            "S": "Lecture 02. Shopping (购物)"
+          }
+        },
+        {
+          "id": {
+            "S": "5c18f82e337144d8b9c3a10da64d11f4"
+          },
+          "_type": {
+            "S": "course"
+          },
+          "course_order": {
+            "N": "2"
+          },
+          "course_title": {
+            "S": "Spanish"
+          },
+          "icon": {
+            "S": "europe"
+          },
+          "language": {
+            "S": "es-US"
+          }
+        },
+        {
+          "id": {
+            "S": "bf297456750c49318913750b5449d368"
+          },
+          "_type": {
+            "S": "unit"
+          },
+          "lecture_ref": {
+            "S": "730eac45739f4c38b61d8a72a8dc7130"
+          },
+          "steps": {
+            "S": "{\n  \"steps\": [\n    {\n      \"step_id\": \"1\",\n      \"dialogs\": [\n        {\n          \"host\": 1,\n          \"caption\": \"Hello everyone\",\n          \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>Hello everyone</amazon:effect></prosody></amazon:domain></speak>\",\n          \"time\": 0\n        },\n        {\n          \"host\": 2,\n          \"caption\": \"안녕하세요\",\n          \"dialog\": \"<speak><prosody rate='105%' pitch='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'><amazon:breath duration='medium' volume='x-loud'/><emphasis level='reduced'>안녕하세요</emphasis></amazon:effect></amazon:effect></prosody></speak>\",\n          \"time\": 2000\n        },\n        {\n          \"host\": 1,\n          \"caption\": \"My name is Joanna!\",\n          \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> My name is Joanna.</amazon:effect></prosody></amazon:domain></speak>\",\n          \"time\": 1200\n        },\n        {\n          \"host\": 2,\n          \"caption\": \"저는 김소현이에요!\",\n          \"dialog\": \"<speak><prosody rate='110%' pitch='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'><amazon:breath duration='medium' volume='loud'/>저는 김소현이에요!</amazon:effect></amazon:effect></prosody></speak>\",\n          \"time\": 2000\n        },\n        {\n          \"host\": 1,\n          \"caption\": \"The Korean topic we will learn today is shopping. let's get started\",\n          \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>The Korean topic we will learn today is <break time='200ms'/> shopping.<break time='100ms'/> Are you ready?<break time='100ms'/> Let's get started </amazon:effect></prosody></amazon:domain></speak>\",\n          \"time\": 0\n        }\n        \n      ],\n      \"content\": {\n        \"type\": \"textbook\",\n        \"body\": \"<br /><div className='row align-items-center'><div className='col-2'></div><div><h2>Objectives</h2>This lecture is designed to teach you how to:<ul><li>go shopping</li><li>simple words: discount, return, cash</li></ul></div></div>\"\n      }\n    }\n  ]\n}"
+          },
+          "unit_order": {
+            "N": "1"
+          },
+          "unit_title": {
+            "S": "1. Introduction"
+          }
+        },
+        {
+          "id": {
+            "S": "ef717ea27fc4426b99e484343a493e5a"
+          },
+          "_type": {
+            "S": "course"
+          },
+          "course_order": {
+            "N": "1"
+          },
+          "course_title": {
+            "S": "Korean"
+          },
+          "icon": {
+            "S": "asia"
+          },
+          "language": {
+            "S": "ko-KR"
+          },
+          "tutor_character": {
+            "S": "cristine"
+          },
+          "tutor_gender": {
+            "S": "female"
+          },
+          "tutor_voice": {
+            "S": "Seoyeon"
+          }
+        },
+        {
+          "id": {
+            "S": "c054849a51ce4976a338e92ada5dd65f"
+          },
+          "_type": {
+            "S": "unit"
+          },
+          "lecture_ref": {
+            "S": "2edcaed07018423aba6501d910af2b89"
+          },
+          "steps": {
+            "S": "\"{\n    \"\"steps\"\": [\n      {\n        \"\"step_id\"\": \"\"1\"\",\n        \"\"content\"\": {\n            \"\"type\"\": \"\"textbook\"\",\n            \"\"body\"\": \"\"<br/><div className='row align-items-center'><div className='col-2'></div><div><h2>Key Takeaway</h2>What we learned today:<ul><li>可以打折吗？</li><li>我要用现金付款。</li><li>这件衬衫可以退货吗？</li><li>打折</li><li>现金</li><li>退货</li></ul></div></div>\"\"\n        },\n        \"\"dialogs\"\": [\n          {\n            \"\"host\"\": 1,\n            \"\"caption\"\": \"\"Today, we learned expressions used when shopping.\"\",\n            \"\"dialog\"\": \"\"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> Today we learned expressions used when shopping.</amazon:effect></prosody></amazon:domain></speak>\"\",\n            \"\"time\"\": 3500\n          },\n          {\n            \"\"host\"\": 1,\n            \"\"caption\"\": \"\"Zhiyu, can you wrap up the expressions we learned today?\"\",\n            \"\"dialog\"\": \"\"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>Zhiyu, can you wrap up the expressions we learned today?</amazon:effect></prosody></amazon:domain></speak>\"\",\n            \"\"time\"\": 4200\n          },\n          {\n            \"\"host\"\": 2,\n            \"\"caption\"\": \"\"可以打折吗？ 我要用现金付款。 这件衬衫可以退货吗？\"\",\n            \"\"dialog\"\": \"\"<speak><prosody rate='105%' pitch ='5%'><amazon:effect vocal-tract-length='+0%'><amazon:effect name='drc'>好的。 <break time='1000ms'/>可以打折吗？<break time='300ms'/>我要用现金付款。<break time='300ms'/>这件衬衫可以退货吗？</amazon:effect></amazon:effect></prosody> </speak>,\n            \"\"time\"\": 8500\n          },\n          {\n            \"\"host\"\": 1,\n            \"\"caption\"\": \"\"How was today's class? Be sure to repeat the expressions you learned today so you don't forget them.\"\",\n            \"\"dialog\"\": \"\"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>How was today's class?<break time='150ms'/> Be sure to repeat the expressions you learned today so you don't forget them.</amazon:effect></prosody></amazon:domain></speak>\"\",\n            \"\"time\"\": 6300\n          },\n          {\n            \"\"host\"\": 1,\n            \"\"caption\"\": \"\"Then see you in the next lecture.\"\",\n            \"\"dialog\"\": \"\"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'><prosody volume='x-loud'>Then see you in the next lecture.</prosody></amazon:effect></prosody></amazon:domain></speak>\"\",\n            \"\"time\"\": 300\n          },\n          {\n            \"\"host\"\": 2,\n            \"\"caption\"\": \"\"下节课再见！\"\",\n            \"\"dialog\"\": \"\"<speak><prosody rate='105%' pitch ='5%'><amazon:effect vocal-tract-length='+0%'><amazon:effect name='drc'>下节课再见！</amazon:effect></amazon:effect></prosody> </speak>\"\",\n            \"\"time\"\": 0\n          }\n        ]\n      },\n      {\n        \"\"step_id\"\": \"\"2\"\",\n        \"\"dialogs\"\": [\n          {\n            \"\"host\"\": 1,\n            \"\"caption\"\": \"\"Then see you in the next lecture.\"\",\n            \"\"dialog\"\": \"\"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>Then see you in the next lecture.</amazon:effect></prosody></amazon:domain></speak>\"\",\n            \"\"time\"\": 0\n          },\n          {\n            \"\"host\"\": 2,\n            \"\"caption\"\": \"\"下节课再见！\"\",\n            \"\"dialog\"\": \"\"<speak><prosody rate='105%' pitch ='5%'><amazon:effect vocal-tract-length='+0%'><amazon:effect name='drc'>下节课再见！</amazon:effect></amazon:effect></prosody> </speak>\"\",\n            \"\"time\"\": 1000\n          }\n        ]\n      }\n    ]\n  }\""
+          },
+          "unit_order": {
+            "N": "5"
+          },
+          "unit_title": {
+            "S": "5. Summary"
+          }
+        },
+        {
+          "id": {
+            "S": "3cf2ec6c28b5402c99db88b861104909"
+          },
+          "_type": {
+            "S": "unit"
+          },
+          "lecture_ref": {
+            "S": "2edcaed07018423aba6501d910af2b89"
+          },
+          "steps": {
+            "S": "\"{\n  \"\"steps\"\": [\n    {\n      \"\"step_id\"\": \"\"1\"\",\n      \"\"dialogs\"\": [\n        {\n          \"\"host\"\": 1,\n          \"\"caption\"\": \"\"Hello everyone\"\",\n          \"\"dialog\"\": \"\"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>Hello everyone</amazon:effect></prosody></amazon:domain></speak>\"\",\n          \"\"time\"\": 0\n        },\n        {\n          \"\"host\"\": 2,\n          \"\"caption\"\": \"\"你好\"\",\n          \"\"dialog\"\": \"\"<speak><prosody rate='105%' pitch='5%'><amazon:effect vocal-tract-length='+0%'><amazon:effect name='drc'><amazon:breath duration='medium' volume='x-loud'/><emphasis level='reduced'>你好</emphasis></amazon:effect></amazon:effect></prosody></speak>\"\",\n          \"\"time\"\": 2000\n        },\n        {\n          \"\"host\"\": 1,\n          \"\"caption\"\": \"\"My name is Joanna!\"\",\n          \"\"dialog\"\": \"\"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> My name is Joanna.</amazon:effect></prosody></amazon:domain></speak>\"\",\n          \"\"time\"\": 1200\n        },\n        {\n          \"\"host\"\": 2,\n          \"\"caption\"\": \"\"我是知语！\"\",\n          \"\"dialog\"\": \"\"<speak><prosody rate='110%' pitch='5%'><amazon:effect vocal-tract-length='+0%'><amazon:effect name='drc'><amazon:breath duration='medium' volume='loud'/>我是知语！</amazon:effect></amazon:effect></prosody></speak>\"\",\n          \"\"time\"\": 2000\n        },\n        {\n          \"\"host\"\": 1,\n          \"\"caption\"\": \"\"The Chinese topic we will learn today is shopping. let's get started\"\",\n          \"\"dialog\"\": \"\"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>The Chinese topic we will learn today is <break time='200ms'/> shopping.<break time='100ms'/> Are you ready?<break time='100ms'/> Let's get started </amazon:effect></prosody></amazon:domain></speak>\"\",\n          \"\"time\"\": 0\n        }\n        \n      ],\n      \"\"content\"\": {\n        \"\"type\"\": \"\"textbook\"\",\n        \"\"body\"\": \"\"<br /><div className='row align-items-center'><div className='col-2'></div><div><h2>Objectives</h2>This lecture is designed to teach you how to:<ul><li>go shopping</li><li>simple words: discount, return, cash</li></ul></div></div>\"\"\n      }\n    }\n  ]\n}\""
+          },
+          "unit_order": {
+            "N": "1"
+          },
+          "unit_title": {
+            "S": "1. Introduction"
+          }
+        },
+        {
+          "id": {
+            "S": "a9f8ae8cc9ac44a8b84c9162033a6449"
+          },
+          "_type": {
+            "S": "unit"
+          },
+          "lecture_ref": {
+            "S": "730eac45739f4c38b61d8a72a8dc7130"
+          },
+          "steps": {
+            "S": "{\n  \"steps\": [\n    {\n      \"step_id\": \"1\",\n      \"content\": {\n        \"type\": \"textbook\",\n        \"body\": \"<br/><br/><br/><div class='row text-center'><h1 class='text-primary'>할인해 주실 수 있을까요?</h1><h4 class='text-muted'>[hal-inhae jusil su iss-eulkkayo]</h4><h4 class='text-muted'>Could you get me discount?</h4></div><br/><br/>\"\n      },\n      \"dialogs\": [\n        {\n          \"host\": 1,\n          \"caption\": \"Let's make expressions using the words we learned today.\",\n          \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> Let's make expressions using the words we learned today?</amazon:effect></prosody></amazon:domain></speak>\",\n          \"time\": 4100\n        },\n        {\n          \"host\": 1,\n          \"caption\": \"First expression is, 'Could you get me discounts?'\",\n          \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> First expression is <break time='200ms'/>Could you get me discounts?</amazon:effect></prosody></amazon:domain></speak>\",\n          \"time\": 3100\n        },\n        {\n          \"host\": 2,\n          \"caption\": \"할인해 주실 수 있을까요?\",\n          \"dialog\": \"<speak><prosody rate='115%' pitch ='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/><amazon:breath duration='medium' volume='soft'/> <prosody rate='95%' volume='loud'> 할인해 주실 수 있을까요?</prosody> <break time='200ms'/> <break time='200ms'/> <p><prosody rate='115%' volume='loud'>할인해 주실 수 있을까요?</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\",\n          \"time\": 0\n        }\n      ]\n    },\n    {\n      \"step_id\": \"2\",\n      \"content\": {\n        \"type\": \"textbook\",\n        \"body\": \"<br/><br/><br/><div class='row text-center'><h1 class='text-primary'>현금으로 계산하겠습니다.</h1><h4 class='text-muted'>[hyeongeum-eulo gyesanhagessseubnida]</h4><h4 class='text-muted'> I will pay by cash.</h4></div><br/><br/>\"\n      },\n      \"dialogs\": [\n        {\n          \"host\": 1,\n          \"caption\": \"Second expression is, 'I will pay by cash.'\",\n          \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> Second expression is <break time='200ms'/>I will pay by cash.</amazon:effect></prosody></amazon:domain></speak>\",\n          \"time\": 4000\n        },\n        {\n          \"host\": 2,\n          \"caption\": \"현금으로 계산하겠습니다.\",\n          \"dialog\": \"<speak><prosody rate='115%' pitch ='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/><amazon:breath duration='medium' volume='soft'/> <prosody rate='95%' volume='loud'>현금으로 계산하겠습니다.</prosody> <break time='200ms'/> <p><prosody rate='115%' volume='loud'>현금으로 계산하겠습니다.</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\",\n          \"time\": 0\n        }\n      ]\n    },\n    {\n      \"step_id\": \"3\",\n      \"content\": {\n        \"type\": \"textbook\",\n        \"body\": \"<br/><br/><br/><div class='row text-center'><h1 class='text-primary'>이 셔츠를 반품하고 싶습니다.</h1><h4 class='text-muted'>[annyeonghaseyo]</h4><h4 class='text-muted'> I'd like to return this shirt.</h4></div><br/><br/>\"\n      },\n      \"dialogs\": [\n        {\n          \"host\": 1,\n          \"caption\": \"Third expression is, 'These jeans don’t fit, I am going to return them'\",\n          \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> Third expression is <break time='200ms'/>I'd like to return this shirt.</amazon:effect></prosody></amazon:domain></speak>\",\n          \"time\": 4000\n        },\n        {\n          \"host\": 2,\n          \"caption\": \"이 셔츠를 반품하고 싶습니다.\",\n          \"dialog\": \"<speak><prosody rate='115%' pitch ='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/><amazon:breath duration='medium' volume='soft'/> <prosody rate='95%' volume='loud'>이 셔츠를 반품하고 싶습니다.</prosody><break time='200ms'/> <p><prosody rate='115%' volume='loud'>이 셔츠를 반품하고 싶습니다.</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\",\n          \"time\": 0\n        }\n      ]\n    }\n  ]\n}"
+          },
+          "unit_order": {
+            "N": "2"
+          },
+          "unit_title": {
+            "S": "2. Expressions"
+          }
+        },
+        {
+          "id": {
+            "S": "5441382ed2204309a477880ae78b32bd"
+          },
+          "_type": {
+            "S": "unit"
+          },
+          "lecture_ref": {
+            "S": "f6ffeb0bfe1e460884319ad415cdfbb0"
+          },
+          "steps": {
+            "S": "{\n    \"steps\": [\n      {\n        \"step_id\": \"1\",\n        \"content\": {\n            \"type\": \"textbook\",\n            \"body\": \"<br /><div className='row align-items-center'><div className='col-2'></div><div><h2>Key Takeaway</h2>What we learned today:<ul><li>안녕하세요.</li><li>감사합니다.</li><li>사과</li><li>자전거</li></ul></div></div>\"\n        },\n        \"dialogs\": [\n          {\n            \"host\": 1,\n            \"caption\": \"How was today's class? Today we learned greetings and a few words!\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> How was today's class?<break time='150ms'/> Today we learned greetings and a few words.  </amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 5000\n          },\n          {\n            \"host\": 1,\n            \"caption\": \"Let's wrap up.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>Let's wrap up.</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 3000\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"안녕하세요. 감사합니다. 사과, 자전거\",\n            \"dialog\": \"<speak><prosody rate='115%' pitch ='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/> <prosody rate='115%' volume='loud'> 안녕하세요!</prosody> <break time='100ms'/> <prosody rate='115%' volume='loud'> 감사합니다!</prosody> <break time='100ms'/> <prosody rate='100%' volume='loud'> 사과!</prosody> <break time='100ms'/> <prosody rate='100%' volume='loud'> 자전거!</prosody> </amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 6600\n          },\n          {\n            \"host\": 1,\n            \"caption\": \"Then see you in the next lecture.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>Then see you in the next lecture.</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 3100\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"그럼, 다음 강의에서 또 만나요!\",\n            \"dialog\": \"<speak><prosody rate='115%' pitch ='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='loud'/> <prosody rate='100%'>그럼, </prosody> <break time='100ms'/> 다음 강의에서 또 만나요? </amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 1000\n          }\n        ]\n      }\n    ]\n  }"
+          },
+          "unit_order": {
+            "N": "4"
+          },
+          "unit_title": {
+            "S": "4. Summary"
+          }
+        },
+        {
+          "id": {
+            "S": "586c04240dac45069d1e55dd0ee7050d"
+          },
+          "_type": {
+            "S": "unit"
+          },
+          "lecture_ref": {
+            "S": "28c98bb8bc29496a8aa41612afd0fb83"
+          },
+          "steps": {
+            "S": "{\n    \"steps\": [\n      {\n        \"step_id\": \"1\",\n        \"content\": {\n            \"type\": \"vocabulary\",\n            \"word\": \"Manzana\",\n            \"pronunciation\": \"Manzana\",\n            \"help\": \"apple\",\n            \"image\": \"apple.png\",\n            \"body\": \"\"\n        },\n        \"dialogs\": [\n          {\n            \"host\": 1,\n            \"caption\": \"The first word to learn is the delicious fruit. apple! Listen and repeat!\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> The first word to learn is <break time='200ms'/> the delicious fruit, <break time='700ms'/> <prosody rate='65%'> 'apple'! </prosody> <break time='100ms'/> Listen and repeat! </amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 5000\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"Manzana, Manzana, Manzana\",\n            \"dialog\": \"<speak><prosody rate='115%' pitch ='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/><p><prosody rate='95%' volume='loud'> Manzana!</prosody></p> <break time='200ms'/> <p><prosody rate='95%' volume='loud'> Manzana!</prosody></p> <break time='200ms'/> <p><prosody rate='100%' volume='loud'> Manzana!</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 1000\n          }\n        ]\n      },\n      {\n        \"step_id\": \"2\",\n        \"content\": {\n          \"type\": \"textract\",\n          \"body\": \"Today's words is<br>Manzana\",\n          \"given_picture\": \"apple.png\",\n          \"answer\": \"Apple\"\n        },\n        \"dialogs\": [\n          {\n            \"host\": 1,\n            \"caption\": \"Now please, find the word card that matches the picture on the screen.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> Now please, find the word card that matches the picture on the screen. </amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 4500\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"Manzana\",\n            \"dialog\": \"  <speak><prosody rate='115%' pitch ='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/><p><prosody rate='70%' volume='loud'> Manzana!</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 1000\n          }\n        ]\n      },\n      {\n        \"step_id\": \"3\",\n        \"content\": {\n            \"type\": \"vocabulary\",\n            \"word\": \"Bicicleta\",\n            \"pronunciation\": \"Bicicleta\",\n            \"help\": \"bicycle\",\n            \"image\": \"bicycle.png\",\n            \"body\": \"\"\n        },\n        \"dialogs\": [\n          {\n            \"host\": 1,\n            \"caption\": \"The next word we will learn is bicycle.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>The next word we will learn is bicycle.<break time='100ms'/> Listen and repeat!</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 3200\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"Bicicleta, Bicicleta, Bicicleta\",\n            \"dialog\": \"<speak><prosody rate='115%' pitch ='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/><p><prosody rate='70%' volume='loud'> Bicicleta!</prosody></p> <break time='200ms'/> <p><prosody rate='70%' volume='loud'> Bicicleta!</prosody></p> <break time='200ms'/> <p><prosody rate='100%' volume='loud'> Bicicleta!</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 1000\n          }\n        ]\n      },\n      {\n        \"step_id\": \"4\",\n        \"content\": {\n          \"type\": \"rekognition\",\n          \"body\": \"Today's words is<br>Bicicleta\",\n          \"given_word\": \"Bicicleta\",\n          \"answer\": \"Bicycle\"\n        },\n        \"dialogs\": [\n          {\n            \"host\": 1,\n            \"caption\": \"It's time to review what you've learned today.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> It's time to review what you've learned today. <break time='200ms'/> </amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 3200\n          },\n          {\n            \"host\": 1,\n            \"caption\": \"Find the picture card that matches the word on the screen, then take a picture with your camera.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> Find the picture card that matches the word on the screen, <break time='150ms'/> then take a picture with your camera. </amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 4800\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"Bicicleta\",\n            \"dialog\": \"  <speak><prosody rate='115%' pitch ='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/><p><prosody rate='70%' volume='loud'> Bicicleta!</prosody></p> </amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 1000\n          }\n        ]\n      }\n    ]\n  }"
+          },
+          "unit_order": {
+            "N": "3"
+          },
+          "unit_title": {
+            "S": "3. Vocabulary"
+          }
+        },
+        {
+          "id": {
+            "S": "17f07b9fa7a84b5098a7e9f42922a48f"
+          },
+          "_type": {
+            "S": "unit"
+          },
+          "lecture_ref": {
+            "S": "28c98bb8bc29496a8aa41612afd0fb83"
+          },
+          "steps": {
+            "S": "{\n    \"steps\": [\n      {\n        \"step_id\": \"1\",\n        \"content\": {\n            \"type\": \"textbook\",\n            \"body\": \"<br /><div className='row align-items-center'><div className='col-2'></div><div><h2>Key Takeaway</h2>What we learned today:<ul><li>Hola.</li><li>Gracias.</li><li>Manzana</li><li>Bicicleta</li></ul></div></div>\"\n        },\n        \"dialogs\": [\n          {\n            \"host\": 1,\n            \"caption\": \"How was today's class? Today we learned greetings and a few words!\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> How was today's class?<break time='150ms'/> Today we learned greetings and a few words.  </amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 4500\n          },\n          {\n            \"host\": 1,\n            \"caption\": \"Let's wrap up.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>Let's wrap up.</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 3000\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"Hola. Gracias. Manzana, Bicicleta\",\n            \"dialog\": \"<speak><prosody rate='115%' pitch ='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/> <prosody rate='115%' volume='loud'> Hola!</prosody> <break time='100ms'/> <prosody rate='115%' volume='loud'> Gracias!</prosody> <break time='100ms'/> <prosody rate='100%' volume='loud'> Manzana!</prosody> <break time='100ms'/> <prosody rate='100%' volume='loud'> Bicicleta!</prosody>  </amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 6200\n          },\n          {\n            \"host\": 1,\n            \"caption\": \"Then see you in the next lecture.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>Then see you in the next lecture.</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 2800\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"Hasta la vista!\",\n            \"dialog\": \"<speak><prosody rate='100%' pitch ='10%'><amazon:effect vocal-tract-length='+10%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='loud'/> Hasta la vista! </amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 1000\n          }\n        ]\n      }\n    ]\n  }"
+          },
+          "unit_order": {
+            "N": "4"
+          },
+          "unit_title": {
+            "S": "4. Summary"
+          }
+        },
+        {
+          "id": {
+            "S": "f6ffeb0bfe1e460884319ad415cdfbb0"
+          },
+          "_type": {
+            "S": "lecture"
+          },
+          "course_ref": {
+            "S": "ef717ea27fc4426b99e484343a493e5a"
+          },
+          "lecture_order": {
+            "N": "1"
+          },
+          "lecture_title": {
+            "S": "Lecture 01. Greetings (인사말)"
+          }
+        },
+        {
+          "id": {
+            "S": "84a99b187ef04b46b3286f302a798a0a"
+          },
+          "_type": {
+            "S": "lecture"
+          },
+          "course_ref": {
+            "S": "ef717ea27fc4426b99e484343a493e5a"
+          },
+          "lecture_order": {
+            "N": "3"
+          },
+          "lecture_title": {
+            "S": "Lecture 03. Travel (여행)"
+          }
+        },
+        {
+          "id": {
+            "S": "624eceea71cf464899f49b09218b3e55"
+          },
+          "_type": {
+            "S": "unit"
+          },
+          "lecture_ref": {
+            "S": "77acf08ce0ea4da88f9eb27bdddb6e63"
+          },
+          "steps": {
+            "S": "{\n    \"steps\": [\n      {\n        \"step_id\": \"1\",\n        \"content\": {\n            \"type\": \"textbook\",\n            \"body\": \"<br /><div className='row align-items-center'><div className='col-2'></div><div><h2>Key Takeaway</h2>What we learned today:<ul><li>こんにちは.</li><li>ありがとうございます.</li><li>リンゴ</li><li>自転車</li></ul></div></div>\"\n        },\n        \"dialogs\": [\n          {\n            \"host\": 1,\n            \"caption\": \"How was today's class? Today we learned greetings and a few words!\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'> How was today's class?<break time='150ms'/> Today we learned greetings and a few words.  </amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 5000\n          },\n          {\n            \"host\": 1,\n            \"caption\": \"Let's wrap up.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>Let's wrap up.</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 3000\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"こんにちは. ありがとうございます. リンゴ, 自転車\",\n            \"dialog\": \"<speak><prosody rate='125%' pitch ='15%'><amazon:effect vocal-tract-length='-7%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='x-loud'/> <prosody rate='115%' volume='loud'> こんにちは!</prosody> <break time='100ms'/> <prosody rate='115%' volume='loud'> ありがとうございます!</prosody> <break time='100ms'/> <prosody rate='100%' volume='loud'> リンゴ!</prosody> <break time='100ms'/> <prosody rate='100%' volume='loud'> 自転車!</prosody> <break time='100ms'/></amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 6600\n          },\n          {\n            \"host\": 1,\n            \"caption\": \"Then see you in the next lecture.\",\n            \"dialog\": \"<speak><amazon:domain name='news'><prosody rate='110%'><amazon:effect name='drc'>Then see you in the next lecture.</amazon:effect></prosody></amazon:domain></speak>\",\n            \"time\": 3100\n          },\n          {\n            \"host\": 2,\n            \"caption\": \"今度また会いましょう!\",\n            \"dialog\": \"<speak><prosody rate='125%' pitch ='15%'><amazon:effect vocal-tract-length='-7%'><amazon:effect name='drc'> <amazon:breath duration='medium' volume='loud'/> 今度また会いましょう</amazon:effect></amazon:effect></prosody> </speak>\",\n            \"time\": 1000\n          }\n        ]\n      }\n    ]\n  }"
+          },
+          "unit_order": {
+            "N": "4"
+          },
+          "unit_title": {
+            "S": "4. Summary"
+          }
+        }
+      ],
+      "DataAccess": {
+        "MySql": {}
+      },
+      "BillingMode": "PROVISIONED",
+      "ProvisionedCapacitySettings": {
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": 5,
+          "WriteCapacityUnits": 5
+        },
+        "AutoScalingRead": {
+          "ScalableTargetRequest": {
+            "MinCapacity": 1,
+            "MaxCapacity": 10,
+            "ServiceRole": "AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+          },
+          "ScalingPolicyConfiguration": {
+            "TargetValue": 70
+          }
+        },
+        "AutoScalingWrite": {
+          "ScalableTargetRequest": {
+            "MinCapacity": 1,
+            "MaxCapacity": 10,
+            "ServiceRole": "AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+          },
+          "ScalingPolicyConfiguration": {
+            "TargetValue": 70
+          }
+        }
+      }
+    }
+  ]
+}

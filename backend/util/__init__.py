@@ -9,9 +9,13 @@
 """
 import os
 import boto3
+import config
+
 # from gql import Client, gql
 # from gql.transport.aiohttp import AIOHTTPTransport
 from aws_parameter_store import AwsParameterStore
+
+AWS_REGION = config.AWS_REGION
 
 
 def check_env_vars():
@@ -34,7 +38,8 @@ def get_param_path(param_path):
     :param param_path:
     :return:
     """
-    region = boto3.session.Session().region_name
+    # region = boto3.session.Session().region_name
+    region = AWS_REGION
     store = AwsParameterStore(region)
     return store.get_parameters_dict(param_path)
 
