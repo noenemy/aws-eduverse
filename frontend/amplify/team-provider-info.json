@@ -14,6 +14,12 @@
     "categories": {
       "auth": {
         "awseduversetest": {}
+      },
+      "function": {
+        "chimeClassroom": {
+          "deploymentBucketName": "amplify-amplify6734aea206ed4-staging-115854-deployment",
+          "s3Key": "amplify-builds/chimeClassroom-365264424163744d7356-build.zip"
+        }
       }
     }
   }
