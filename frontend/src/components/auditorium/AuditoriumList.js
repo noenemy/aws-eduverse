@@ -64,7 +64,7 @@ const AuditoriumList = (props) => {
                         return (
                             <div className="col" key={index}>
                             <Card style={{ width: '18rem' }}>
-                                <Card.Img variant="top" src={'/assets/images/'+ item.image} />
+                                <Card.Img variant="top" src={`/assets/images/${item.image}`} />
                                 <Card.Body>
                                     <Card.Title>{item.title}</Card.Title>
                                     <Card.Text>{item.description}</Card.Text>

@@ -60,7 +60,7 @@ const ClassroomList = (props) => {
 
                         <div className="col" key={index}>
                         <Card style={{ width: '14rem' }}>
-                            <Card.Img variant="top" src="/assets/images/dummy_180x100.png" />
+                            <Card.Img variant="top" src={`/assets/images/${item.image}`} />
                             <Card.Body>
                                 <Card.Title>{item.title}</Card.Title>
                                 <Card.Text>{item.description}</Card.Text>
