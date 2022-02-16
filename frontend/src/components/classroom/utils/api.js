@@ -20,10 +20,10 @@ export async function joinMeeting(meetingId, name) {
   return joinInfoJsonParse;
 }
 
-export async function endMeeting(meetingId) {
+export async function endMeeting(meetingId, title) {
   const endInfo = await API.graphql(graphqlOperation(endChimeMeeting, {meetingId: meetingId}));
   const endInfoJson = endInfo.data.endChimeMeeting;
-  await API.graphql(graphqlOperation(deleteMeetingGraphQL, {input: {title: meetingId}}));
+  await API.graphql(graphqlOperation(deleteMeetingGraphQL, {input: {title: title}}));
   return endInfoJson;
 }
 

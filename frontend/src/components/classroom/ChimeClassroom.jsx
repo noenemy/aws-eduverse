@@ -5,7 +5,6 @@ import {
   lightTheme
 } from 'amazon-chime-sdk-component-library-react';
 import Meeting from './Meeting';
-import MeetingForm from './MeetingForm';
 import { useParams } from 'react-router';
 
 const ChimeClassroom = (props) => {
@@ -15,7 +14,6 @@ const ChimeClassroom = (props) => {
 	return <React.Fragment>
 		<ThemeProvider theme={lightTheme}>
 			<MeetingProvider>
-				<MeetingForm />
 				<Meeting/>
 			</MeetingProvider>
   	</ThemeProvider>
