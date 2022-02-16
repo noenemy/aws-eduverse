@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 
-export default {
+export const CONFIG = {
   type: Phaser.AUTO,
   parent: 'game',
   backgroundColor: '#87CEEB',
@@ -8,16 +8,16 @@ export default {
   // height: 800,
   // autoCenter: Phaser.Scale.CENTER_BOTH,
   scale: {
-    width: 800,
-    height: 600,
+    width: 1700,
+    // height: 799,
     mode: Phaser.Scale.FIT,
-    autoCenter: Phaser.Scale.CENTER_BOTH,
+    autoCenter: Phaser.Scale.CENTER_HORIZONTALLY,
   },
   dom: {
       createContainer: true
   },
   render: {
-    pixelArt: false,  //true 하니까 눈이 넘 작아지네..
+    pixelArt: true,  //true 하니까 눈이 넘 작아지네..
   },
   audio: {
     noAudio: true,
@@ -32,4 +32,6 @@ export default {
       // debugShoeStaticBody: true
     }
   },
-};;
+};
+
+export default CONFIG;

@@ -49,14 +49,14 @@ function PhaserContainer (props) {
     const game = new Phaser.Game(config);
     props.setGame(game);
 
-  },[])
+  },[]);
 
   //state update 해도 재시작 안함
   // shouldComponentUpdate() {
   //   return false;
   // }
  
-  return <div id='game' style={{height:'100vh', weight:'100%', backgroundColor:'#87CEEB'/*'#CDCDCD'*/, }}/>;
+  return <div id='game' style={{maxHeight:'800px', backgroundColor:'#87CEEB'/*'#CDCDCD'*/, }}/>;
 }
 
 export default PhaserContainer;

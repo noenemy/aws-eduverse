@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import { API, graphqlOperation } from 'aws-amplify';
 import { createTutee, updateTutee } from '../../../graphql/mutations';
-import { getTtlSeconds, randomInt } from '../common';
+import { getTtlSeconds, randomInt, START_POINT } from '../common';
 import { getTutee, listTutees } from '../../../graphql/queries';
 
 class Login extends Phaser.Scene {
@@ -47,8 +47,8 @@ class Login extends Phaser.Scene {
 					const newTutee = {
 						// id: 1, PK 는 자동생성
 						nickname: inputUsername.value,
-						x: 455, //randomInt(100, 400),	//default 시작위치
-						y: 70, //randomInt(100, 400),
+						x: START_POINT.x, //randomInt(100, 400),	//default 시작위치
+						y: START_POINT.y, //randomInt(100, 400),
 						state: "active", 	//active, disconected?
 						character: checkedCharacter.length ? checkedCharacter[0] : 'purple',
 						ttl: getTtlSeconds(3600)

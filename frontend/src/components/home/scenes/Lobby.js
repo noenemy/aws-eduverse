@@ -3,6 +3,7 @@ import Tutee from '../entities/Tutee';
 import { API, graphqlOperation } from 'aws-amplify';
 import { onCreateTutee, onDeleteTutee, onUpdateTutee } from '../../../graphql/subscriptions';
 import { listTutees } from '../../../graphql/queries';
+import { LOBBY_SCALE, PLAYER_SCALE } from '../common';
 // import { Dialog } from 'phaser3-rex-plugins/templates/ui/ui-components.js';
 
 class Lobby extends Phaser.Scene {
@@ -26,8 +27,9 @@ class Lobby extends Phaser.Scene {
     'storage',
   ];
   mainTutee = {};
-  showAuditoriumModal = false;
   isCollide = false;
+  door = {};
+  doorTrigger = {};
 
   constructor(data) {
     super({ key: 'LobbyScene' });
@@ -42,6 +44,8 @@ class Lobby extends Phaser.Scene {
       this.mainTutee = data.newTutee;
       this.mainPlayerId = data.newTutee.id;
     }
+
+    // this.time.addEvent({delay: 5000, callback: ()=>{}, callbackScope: this, loop: false});
   }
 
   init(data) {
@@ -60,7 +64,8 @@ class Lobby extends Phaser.Scene {
 
     this.load.scenePlugin('rexuiplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexuiplugin.min.js', 'rexUI', 'rexUI');
 
-    this.load.tilemapTiledJSON('new-lobby-map', 'assets/tilemaps/new_lobby.json');
+    // this.load.tilemapTiledJSON('new-lobby-map', 'assets/tilemaps/new_lobby.json');
+    this.load.tilemapTiledJSON('new-lobby-map', 'assets/tilemaps/scaled_lobby.json');
     this.load.spritesheet(`door-sheet`, `assets/gifs/door3_beige.png`, {
         frameWidth: 48,
         frameHeight: 32,
@@ -108,35 +113,40 @@ class Lobby extends Phaser.Scene {
 
     this.createTuteeAnims();
 
-    this.auditoriumDoor = this.addSpriteAndPlay(215, 35, 'door', 1 );
-    const welcomeNpc = this.addSpriteAndPlay(435, 230, 'carry', 1.3);
+    // 이동문 생성
+    this.door["auditorium"] = this.addSpriteAndPlay(160, 65, 'door', LOBBY_SCALE );
+    this.door["classroom"] = this.addSpriteAndPlay(1350, 35, 'door', LOBBY_SCALE );
+    this.door["vrlearning"] = this.addSpriteAndPlay(165, 515, 'door', LOBBY_SCALE );
+
+    const welcomeNpc = this.addSpriteAndPlay(435, 230, 'carry', PLAYER_SCALE);
 
     this.time.addEvent({delay: 5000, callback: this.onRemoveWelcome, callbackScope: this, loop: false});
-    this.welcomeSpeechBubble = this.addSpeechBubble(450, 200, 120, 25, `Welcome! ${this.mainTutee.nickname ? this.mainTutee.nickname : 'Tutee'}! Let's study~!`)
+    this.welcomeSpeechBubble = this.addSpeechBubble(450, 200, 180, 40, `Welcome! ${this.mainTutee.nickname ? this.mainTutee.nickname : 'Tutee'}! Let's study~!`)
 
     this.cursorKeys = this.input.keyboard.createCursorKeys();
     
     // 나를 포함한 기존 튜티들 추가
     this.addActiveTutees().then(res => {
-      console.log("@ res >> ", res);
-      console.log("@ addActiveTutees. tuteeMap > ", this.tuteeMap)
       // 방문자 모두 추가 후, 이동할 문에 main player에 대한 collide 설정
-      this.physics.add.existing(this.auditoriumDoor);
-      this.auditoriumDoor.body.setImmovable();
       
-      this.auditoriumTrigger = this.physics.add.collider(
-        this.tuteeMap[this.mainPlayerId],
-        this.auditoriumDoor, 
-         () => {
-          if(this.mainTutee && !this.isCollide) {
-            this.createModal(this, 'Auditorium', `${this.mainTutee.nickname}, Do you want to go to the Auditorium?`, ()=> {
-              console.log("@ Click yes")
-              this.navigate('/auditorium');
-            });
-          }
-        })
+      //3개 문 collide 생성
+      for( const item in this.door) {
+        this.physics.add.existing(this.door[item]);
+        this.door[item].body.setImmovable();
+        console.log(`@ item=${item}`)
+        this.doorTrigger[item] = this.physics.add.collider(
+          this.tuteeMap[this.mainPlayerId],
+          this.door[item], 
+           () => {
+            if(this.mainTutee && !this.isCollide) {
+              this.createModal(this, item, `${this.mainTutee.nickname}, Do you want to go to the ${item}`, ()=> {
+                console.log("@ Click yes")
+                this.navigate(`/${item}`);
+              });
+            }
+          })
+      }
     });
-
   }
 
   createModal(scene, title, message, onClickYes) {
@@ -150,7 +160,7 @@ class Lobby extends Phaser.Scene {
           }
     }).then((closeEventData) => {
       console.log("@ Dialog closed And this.isCollide > ", this.isCollide)
-      this.isCollide = false;
+      this.time.addEvent({delay: 5000, callback: ()=>{ this.isCollide = false; }, callbackScope: this, loop: false});
     });
   }
 
@@ -283,7 +293,7 @@ class Lobby extends Phaser.Scene {
       })
     }
 
-    this.addSpriteAndPlay(435, 210, 'emoji', 1.3);
+    this.addSpriteAndPlay(435, 210, 'emoji', PLAYER_SCALE);
 
   }
 
@@ -303,7 +313,7 @@ class Lobby extends Phaser.Scene {
   addTutee({x, y, id, nickname, character}) {
 
     this.tuteeMap[id] = new Tutee(this, x, y, `walk-${character}-sheet`, id, nickname, character);
-    console.log("@ this.tuteeMap >>> ", this.tuteeMap)
+    // console.log("@ this.tuteeMap >>> ", this.tuteeMap)
     const isMainPlayer = id === this.mainPlayerId; 
     if(isMainPlayer) {
       this.tuteeMap[id].setupMyAnimations();
@@ -342,20 +352,6 @@ class Lobby extends Phaser.Scene {
 
     this.tuteeMap[id].setMovingStateTo(to, x, y);
 
-    // let target = new Phaser.Math.Vector2();
-    // target.x = x;
-    // target.y = y;
-
-    // if(this.debug) {
-    //   this.debug.clear().lineStyle(1, 0x00ff00);
-    //   this.debug.lineBetween(0, target.y, this.new_lobby.widthInPixels, target.y);
-    //   this.debug.lineBetween(target.x, 0, target.x, this.new_lobby.heightInPixels);
-    //   if(this.movetext) this.movetext.destroy();
-    //   this.movetext = this.add.text(target.x, target.y
-        
-    //     , `${target.x},${target.y}`)
-    // }
-
     const distance = Phaser.Math.Distance.Between(this.tuteeMap[id].body.x, this.tuteeMap[id].body.y, x, y);
     if(this.tween) this.tween.stop();
     this.tween = this.add.tween({
@@ -370,21 +366,22 @@ class Lobby extends Phaser.Scene {
 
     const lobbyTiles = this.backgroundTilesets.map(item => this.new_lobby.addTilesetImage(item, `new-lobby-${item}-sheet`))
     
-    this.groundLayer = this.new_lobby.createLayer('ground_layer', lobbyTiles);
-    this.ceilLayer = this.new_lobby.createLayer('ceil_layer', lobbyTiles);
+    this.groundLayer = this.new_lobby.createLayer('ground_layer', lobbyTiles).setScale(LOBBY_SCALE);
+    this.ceilLayer = this.new_lobby.createLayer('ceil_layer', lobbyTiles).setScale(LOBBY_SCALE);
     this.ceilLayer.setCollisionByProperty({ collides: true}, true);
-    this.wallLayer = this.new_lobby.createLayer('wall_layer', lobbyTiles);
+    this.wallLayer = this.new_lobby.createLayer('wall_layer', lobbyTiles).setScale(LOBBY_SCALE);
     this.wallLayer.setCollisionByProperty({ collides: true}, true);
     
     // this.showCollisionDebug(this.ceilLayer, new Phaser.Display.Color(243,234,48,255));
     // this.showCollisionDebug(this.wallLayer, new Phaser.Display.Color(143,234,48,255));
     
-    this.new_lobby.createLayer('interior_ground_layer', lobbyTiles);
-    this.new_lobby.createLayer('interior_upper_layer', lobbyTiles);
+    this.new_lobby.createLayer('interior_ground_layer', lobbyTiles).setScale(LOBBY_SCALE);
+    this.new_lobby.createLayer('interior_upper_layer', lobbyTiles).setScale(LOBBY_SCALE);
+    this.new_lobby.createLayer('interior_top_layer', lobbyTiles).setScale(LOBBY_SCALE);
 
     // const interiorGroundLayer = this.new_lobby.createLayer
 
-    this.physics.world.setBounds(0, 0, this.new_lobby.widthInPixels, this.new_lobby.heightInPixels-70);
+    this.physics.world.setBounds(0, 0, this.new_lobby.widthInPixels*LOBBY_SCALE, this.new_lobby.heightInPixels*LOBBY_SCALE);
     this.physics.world.setBoundsCollision(true, true, true, true);
   }
 
@@ -444,7 +441,7 @@ class Lobby extends Phaser.Scene {
     bubble.lineBetween(point2X, point2Y, point3X, point3Y);
     bubble.lineBetween(point1X, point1Y, point3X, point3Y);
 
-    var content = this.add.text(0, 0, quote, { fontFamily: 'Calibri', fontSize: 10, color: '#5b5a5c', align: 'center', wordWrap: { width: bubbleWidth - (bubblePadding * 2) } });
+    var content = this.add.text(0, 0, quote, { fontFamily: 'Calibri', fontSize: 13, color: '#5b5a5c', align: 'center', wordWrap: { width: bubbleWidth - (bubblePadding * 2) } });
 
     allContent[allCounter++] = content;
     var b = content.getBounds();

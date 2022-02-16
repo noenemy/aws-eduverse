@@ -2,12 +2,12 @@ import Phaser from 'phaser';
 import StateMachine from 'javascript-state-machine';
 import { API, graphqlOperation } from 'aws-amplify';
 import { updateTutee } from '../../../graphql/mutations';
-import { getTtlSeconds } from '../common';
+import { getTtlSeconds, PLAYER_SCALE } from '../common';
 
 class Tutee extends Phaser.GameObjects.Sprite {
 
   entered = false;
-  velocity = 7;
+  velocity = 20;
   movingStateTo = {
     to: "idle",
     x: this.x,
@@ -32,7 +32,7 @@ class Tutee extends Phaser.GameObjects.Sprite {
 		this.body.setSize(16,22);
 		this.body.setOffset(10,10);
 		
-    this.setScale(1.3);
+    this.setScale(PLAYER_SCALE);
     this.body.setVelocity(0, 0);
     
 

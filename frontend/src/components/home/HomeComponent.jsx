@@ -18,10 +18,10 @@ const HomeComponent = (props) => {
 
     if(user && user.id) {
         return (
-            <Grid gridDefinition={[{ colspan: 9 }, { colspan: 3 }]}>
+            // <Grid gridDefinition={[{ colspan: 9 }, { colspan: 3 }]}>
                 <PhaserContainer game={game} setGame={g=>setGame(g)}/>
-                {/* <Chat /> */}
-            </Grid>
+                //챗 임시 제외
+            // </Grid>
         );
     }
 
