@@ -58,3 +58,96 @@ export const deleteTutee = /* GraphQL */ `
     }
   }
 `;
+export const createAuditorium = /* GraphQL */ `
+  mutation CreateAuditorium(
+    $input: CreateAuditoriumInput!
+    $condition: ModelAuditoriumConditionInput
+  ) {
+    createAuditorium(input: $input, condition: $condition) {
+      id
+      title
+      description
+      image
+      url
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateAuditorium = /* GraphQL */ `
+  mutation UpdateAuditorium(
+    $input: UpdateAuditoriumInput!
+    $condition: ModelAuditoriumConditionInput
+  ) {
+    updateAuditorium(input: $input, condition: $condition) {
+      id
+      title
+      description
+      image
+      url
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteAuditorium = /* GraphQL */ `
+  mutation DeleteAuditorium(
+    $input: DeleteAuditoriumInput!
+    $condition: ModelAuditoriumConditionInput
+  ) {
+    deleteAuditorium(input: $input, condition: $condition) {
+      id
+      title
+      description
+      image
+      url
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createClassroom = /* GraphQL */ `
+  mutation CreateClassroom(
+    $input: CreateClassroomInput!
+    $condition: ModelClassroomConditionInput
+  ) {
+    createClassroom(input: $input, condition: $condition) {
+      id
+      title
+      description
+      image
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateClassroom = /* GraphQL */ `
+  mutation UpdateClassroom(
+    $input: UpdateClassroomInput!
+    $condition: ModelClassroomConditionInput
+  ) {
+    updateClassroom(input: $input, condition: $condition) {
+      id
+      title
+      description
+      image
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteClassroom = /* GraphQL */ `
+  mutation DeleteClassroom(
+    $input: DeleteClassroomInput!
+    $condition: ModelClassroomConditionInput
+  ) {
+    deleteClassroom(input: $input, condition: $condition) {
+      id
+      title
+      description
+      image
+      createdAt
+      updatedAt
+    }
+  }
+`;

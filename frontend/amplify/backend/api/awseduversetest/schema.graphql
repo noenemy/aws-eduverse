@@ -12,3 +12,18 @@ type Tutee @model {
   character: String,
   ttl: Int
 }
+
+type Auditorium @model {
+  id: ID!
+  title: String!
+  description: String
+  image: String
+  url: String!
+}
+
+type Classroom @model {
+  id: ID!
+  title: String!
+  description: String
+  image: String
+}
