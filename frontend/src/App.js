@@ -17,6 +17,7 @@ import {
     Routes,
     Route
 } from "react-router-dom";
+import ChimeClassroom from './components/classroom/ChimeClassroom';
 
 Amplify.configure(awsconfig);
 
@@ -32,8 +33,8 @@ function App() {
           <Routes>
             <Route path="/auditorium" element={<Auditorium />} />
             <Route path="/auditorium/:auditoriumId" element={<Auditorium />} />         
-            <Route path="/classroom" element={<Classroom />} />
-            <Route path="/classroom/:classroomId" element={<Classroom />} />
+            <Route path="/classroom" element={<ChimeClassroom />} />
+            <Route path="/classroom/:classroomId" element={<ChimeClassroom />} />
             <Route path="/vrlearning" element={<VRLearning />} />
             <Route path="/lounge" element={<Lounge />} />
             <Route path="/lounge/:id" element={<Lounge />} />
