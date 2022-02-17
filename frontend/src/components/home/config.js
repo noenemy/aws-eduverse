@@ -8,10 +8,10 @@ export const CONFIG = {
   // height: 800,
   // autoCenter: Phaser.Scale.CENTER_BOTH,
   scale: {
-    width: 1600,
+    width: 1200,
     height: 800,
     // mode: Phaser.ScaleModes.FIT,
-    autoCenter: Phaser.Scale.CENTER_BOTH,
+    autoCenter: Phaser.Scale.CENTER_HORIZONTALLY,
   },
   dom: {
       createContainer: true
