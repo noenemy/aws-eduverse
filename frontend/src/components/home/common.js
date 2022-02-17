@@ -7,8 +7,9 @@ export const getTtlSeconds = (ss) => {
 	return (current + ss);
 }
 
-export const LOBBY_SCALE = 2;
+export const LOBBY_SCALE = 1;
+export const PLAYER_SCALE = 1;
+// export const FONT_SCALE =
 
-export const PLAYER_SCALE = 2;
 
 export const START_POINT = {x: 470, y: 300};

@@ -34,7 +34,6 @@ class Tutee extends Phaser.GameObjects.Sprite {
 		
     this.setScale(PLAYER_SCALE);
     this.body.setVelocity(0, 0);
-    
 
     this.enterTimedEvent = this.scene.time.addEvent({delay: 2000, callback: () => this.setEntered(true), callbackScope: this, loop: false});
 	}

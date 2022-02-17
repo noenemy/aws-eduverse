@@ -23,7 +23,7 @@ class Login extends Phaser.Scene {
 	create () {
 		var element = this.add.dom(400, 600).createFromCache('nameform');
 		
-		element.setPerspective(800);
+		// element.setPerspective(800);
 		element.addListener('click');
 
 		const setUser = this.setUser;

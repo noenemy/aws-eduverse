@@ -114,26 +114,32 @@ class Lobby extends Phaser.Scene {
     this.createTuteeAnims();
 
     // 이동문 생성
-    this.door["auditorium"] = this.addSpriteAndPlay(160, 65, 'door', LOBBY_SCALE );
-    this.door["classroom"] = this.addSpriteAndPlay(1350, 35, 'door', LOBBY_SCALE );
-    this.door["vrlearning"] = this.addSpriteAndPlay(165, 515, 'door', LOBBY_SCALE );
+    this.door["auditorium"] = this.addSpriteAndPlay(170, 35, 'door', LOBBY_SCALE );
+    this.door["classroom"] = this.addSpriteAndPlay(680, 17, 'door', LOBBY_SCALE );
+    this.door["vrlearning"] = this.addSpriteAndPlay(165, 257, 'door', LOBBY_SCALE );
 
-    const welcomeNpc = this.addSpriteAndPlay(435, 230, 'carry', PLAYER_SCALE);
+    this.welcomeNpc = this.addSpriteAndPlay(380, 180, 'carry', PLAYER_SCALE);
 
-    this.time.addEvent({delay: 5000, callback: this.onRemoveWelcome, callbackScope: this, loop: false});
-    this.welcomeSpeechBubble = this.addSpeechBubble(450, 200, 180, 40, `Welcome! ${this.mainTutee.nickname ? this.mainTutee.nickname : 'Tutee'}! Let's study~!`)
+    
 
     this.cursorKeys = this.input.keyboard.createCursorKeys();
     
     // 나를 포함한 기존 튜티들 추가
     this.addActiveTutees().then(res => {
+
+      console.log("@ res > ", res);
+
+      this.setCameraFollow();
+
+      this.lights.enable();
+      this.lights.setAmbientColor(0x555555);
+      const light = this.lights.addLight(10, 10, 200).setIntensity(2);;
+
       // 방문자 모두 추가 후, 이동할 문에 main player에 대한 collide 설정
-      
       //3개 문 collide 생성
       for( const item in this.door) {
         this.physics.add.existing(this.door[item]);
         this.door[item].body.setImmovable();
-        console.log(`@ item=${item}`)
         this.doorTrigger[item] = this.physics.add.collider(
           this.tuteeMap[this.mainPlayerId],
           this.door[item], 
@@ -146,7 +152,18 @@ class Lobby extends Phaser.Scene {
             }
           })
       }
+
+      this.time.addEvent({delay: 5000, callback: this.onRemoveWelcome, callbackScope: this, loop: false});
+      this.welcomeSpeechBubble = this.addSpeechBubble(this.welcomeNpc.x, this.welcomeNpc.y-40, 140, 30, `Welcome! ${this.mainTutee.nickname ? this.mainTutee.nickname : 'Tutee'}! Let's study~!`)
     });
+
+    
+  }
+
+  setCameraFollow() {
+    this.cameras.main.setBounds(0,0,this.new_lobby.width, this.new_lobby.height);
+    this.cameras.main.startFollow(this.tuteeMap[this.mainPlayerId], true, 0.09, 0.09);
+    this.cameras.main.setZoom(2);
   }
 
   createModal(scene, title, message, onClickYes) {
@@ -293,7 +310,7 @@ class Lobby extends Phaser.Scene {
       })
     }
 
-    this.addSpriteAndPlay(435, 210, 'emoji', PLAYER_SCALE);
+    this.addSpriteAndPlay(this.welcomeNpc.x, this.welcomeNpc.y-15, 'emoji', PLAYER_SCALE);
 
   }
 
@@ -329,11 +346,9 @@ class Lobby extends Phaser.Scene {
   }
 
   createCollider(tutee) {
-    
     if(this.new_lobby && this.new_lobby.getLayer('wall_layer')) {
       this.physics.add.collider(tutee, this.new_lobby.getLayer('wall_layer').tilemapLayer);
     }
-
     if(this.new_lobby && this.new_lobby.getLayer('ceil_layer')) {
       this.physics.add.collider(tutee, this.new_lobby.getLayer('ceil_layer').tilemapLayer);
     }
@@ -364,20 +379,20 @@ class Lobby extends Phaser.Scene {
 
   createLobby() {
 
-    const lobbyTiles = this.backgroundTilesets.map(item => this.new_lobby.addTilesetImage(item, `new-lobby-${item}-sheet`))
+    const lobbyTiles = this.backgroundTilesets.map(item => this.new_lobby.addTilesetImage(item, `new-lobby-${item}-sheet`));
     
-    this.groundLayer = this.new_lobby.createLayer('ground_layer', lobbyTiles).setScale(LOBBY_SCALE);
-    this.ceilLayer = this.new_lobby.createLayer('ceil_layer', lobbyTiles).setScale(LOBBY_SCALE);
+    this.groundLayer = this.new_lobby.createLayer('ground_layer', lobbyTiles).setScale(LOBBY_SCALE).setScrollFactor(1);
+    this.ceilLayer = this.new_lobby.createLayer('ceil_layer', lobbyTiles).setScale(LOBBY_SCALE).setScrollFactor(1);
     this.ceilLayer.setCollisionByProperty({ collides: true}, true);
-    this.wallLayer = this.new_lobby.createLayer('wall_layer', lobbyTiles).setScale(LOBBY_SCALE);
+    this.wallLayer = this.new_lobby.createLayer('wall_layer', lobbyTiles).setScale(LOBBY_SCALE).setScrollFactor(1);
     this.wallLayer.setCollisionByProperty({ collides: true}, true);
     
     // this.showCollisionDebug(this.ceilLayer, new Phaser.Display.Color(243,234,48,255));
     // this.showCollisionDebug(this.wallLayer, new Phaser.Display.Color(143,234,48,255));
     
-    this.new_lobby.createLayer('interior_ground_layer', lobbyTiles).setScale(LOBBY_SCALE);
-    this.new_lobby.createLayer('interior_upper_layer', lobbyTiles).setScale(LOBBY_SCALE);
-    this.new_lobby.createLayer('interior_top_layer', lobbyTiles).setScale(LOBBY_SCALE);
+    this.new_lobby.createLayer('interior_ground_layer', lobbyTiles).setScale(LOBBY_SCALE).setScrollFactor(1);
+    this.new_lobby.createLayer('interior_upper_layer', lobbyTiles).setScale(LOBBY_SCALE).setScrollFactor(1);
+    this.new_lobby.createLayer('interior_top_layer', lobbyTiles).setScale(LOBBY_SCALE).setScrollFactor(1);
 
     // const interiorGroundLayer = this.new_lobby.createLayer
 
@@ -386,7 +401,7 @@ class Lobby extends Phaser.Scene {
   }
 
   update(time, delta) {
-    // const cameraBottom = this.cameras.main.getWorldPoint(0, this.cameras.main.height).y;
+    const cameraBottom = this.cameras.main.getWorldPoint(0, this.cameras.main.height).y;
 
   }
 
@@ -441,7 +456,7 @@ class Lobby extends Phaser.Scene {
     bubble.lineBetween(point2X, point2Y, point3X, point3Y);
     bubble.lineBetween(point1X, point1Y, point3X, point3Y);
 
-    var content = this.add.text(0, 0, quote, { fontFamily: 'Calibri', fontSize: 13, color: '#5b5a5c', align: 'center', wordWrap: { width: bubbleWidth - (bubblePadding * 2) } });
+    var content = this.add.text(0, 0, quote, { fontFamily: 'Calibri', fontSize: 11, color: '#5b5a5c', align: 'center', wordWrap: { width: bubbleWidth - (bubblePadding * 2) } });
 
     allContent[allCounter++] = content;
     var b = content.getBounds();

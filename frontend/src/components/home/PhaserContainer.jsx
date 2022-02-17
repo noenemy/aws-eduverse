@@ -56,7 +56,7 @@ function PhaserContainer (props) {
   //   return false;
   // }
  
-  return <div id='game' style={{maxHeight:'800px', backgroundColor:'#87CEEB'/*'#CDCDCD'*/, }}/>;
+  return <div id='game' style={{height:'100vh', backgroundColor:'#87CEEB'/*'#CDCDCD'*/, }}/>;
 }
 
 export default PhaserContainer;

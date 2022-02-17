@@ -4,14 +4,14 @@ export const CONFIG = {
   type: Phaser.AUTO,
   parent: 'game',
   backgroundColor: '#87CEEB',
-  // width: 1200,
+  // width: 1600,
   // height: 800,
   // autoCenter: Phaser.Scale.CENTER_BOTH,
   scale: {
-    width: 1700,
-    // height: 799,
-    mode: Phaser.Scale.FIT,
-    autoCenter: Phaser.Scale.CENTER_HORIZONTALLY,
+    width: 1600,
+    height: 800,
+    // mode: Phaser.ScaleModes.FIT,
+    autoCenter: Phaser.Scale.CENTER_BOTH,
   },
   dom: {
       createContainer: true
@@ -26,7 +26,7 @@ export const CONFIG = {
     default: 'arcade',
     arcade: {
       // gravity: {x:0, y:0},
-      debug: true,
+      debug: false,
       // debugShowVelocity: true,
       // debugShowBody: true,
       // debugShoeStaticBody: true
