@@ -1,21 +1,24 @@
 import React, { useMemo, useEffect } from 'react'
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { allUserState, userState } from '../../recoil/user/userState';
 import { Link } from 'react-router-dom';
+import { API, graphqlOperation } from 'aws-amplify';
+import { onCreateTutee, onDeleteTutee, onUpdateTutee } from '../../graphql/subscriptions';
+import { listTutees } from '../../graphql/queries';
 
 const Navbar  = (props) => {
-    const defaultProps = {
-        title: 'Hello There',
-        icon: 'fas fa-chalkboard-teacher'
-    };
 
     const user = useRecoilValue(userState);
-    const allUsers = useRecoilValue(allUserState);
+    const [ allUsers, setAllUsers ] = useRecoilState(allUserState);
 
     useEffect(()=> {
         console.log("@ user > ", user);
         console.log("@ allUsers > ", allUsers);
-    });
+
+        getAllUsers().then(res => setAllUsers(res));
+
+        createSubscriptions();
+    }, []);
 
     const menu = useMemo(()=> ([
         { menuName: 'Home', to:'/' },
@@ -25,6 +28,34 @@ const Navbar  = (props) => {
         { menuName: 'Lounge', to:'/lounge' },
         { menuName: 'About', to:'/about' },
     ]), []);
+
+    const createSubscriptions = ()=>{
+
+        API.graphql(
+          graphqlOperation(onCreateTutee)
+        ).subscribe({
+          next: async(subData) => {
+            const all = await getAllUsers();
+            setAllUsers(all);
+          }
+        });
+    
+        API.graphql(
+          graphqlOperation(onDeleteTutee)
+        ).subscribe({
+          next: async(subData) => {
+            const all = await getAllUsers();
+            setAllUsers(all);
+          }
+        });
+    }
+      
+    const getAllUsers = async () => {
+        const allData = await API.graphql(graphqlOperation(listTutees));
+        const allTutees = Array.from(allData.data.listTutees.items);
+        
+        return allTutees;
+    }
 
     return (
         <div>
