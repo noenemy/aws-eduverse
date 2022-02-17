@@ -33,7 +33,7 @@ const Meeting = () => {
   const navigate = useNavigate();
 
   const { pathname } = useLocation();
-  const title = pathname.substring(pathname.lastIndexOf('/') + 1);
+  const title = pathname.split('/')[2];
 
 
   useEffect(async () => {
