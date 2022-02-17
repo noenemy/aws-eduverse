@@ -24,7 +24,7 @@ const Navbar  = (props) => {
         { menuName: 'VR Learning', to:'/vrlearning' },
         { menuName: 'Lounge', to:'/lounge' },
         { menuName: 'About', to:'/about' },
-    ]))
+    ]), []);
 
     return (
         <div>
