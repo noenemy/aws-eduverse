@@ -27,7 +27,7 @@ class Lobby extends Phaser.Scene {
     'storage',
   ];
   mainTutee = {};
-  isCollide = false;
+  isCollide = true;
   door = {};
   doorTrigger = {};
 
@@ -58,6 +58,8 @@ class Lobby extends Phaser.Scene {
       }
       this.mainPlayerId = data.newTutee.id;
     }
+
+    this.time.addEvent({delay: 5000, callback: ()=>{this.isCollide=false;}, callbackScope: this, loop: false});
   }
 
   preload() {
@@ -161,7 +163,7 @@ class Lobby extends Phaser.Scene {
   }
 
   setCameraFollow() {
-    this.cameras.main.setBounds(0,0,this.new_lobby.width, this.new_lobby.height);
+    this.cameras.main.setBounds(0,0,800, 600);
     this.cameras.main.startFollow(this.tuteeMap[this.mainPlayerId], true, 0.09, 0.09);
     this.cameras.main.setZoom(2);
   }
