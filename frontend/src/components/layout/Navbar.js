@@ -3,7 +3,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { allUserState, userState } from '../../recoil/user/userState';
 import { Link } from 'react-router-dom';
 import { API, graphqlOperation } from 'aws-amplify';
-import { onCreateTutee, onDeleteTutee, onUpdateTutee } from '../../graphql/subscriptions';
+import { onCreateTutee, onDeleteTutee } from '../../graphql/subscriptions';
 import { listTutees } from '../../graphql/queries';
 
 const Navbar  = (props) => {

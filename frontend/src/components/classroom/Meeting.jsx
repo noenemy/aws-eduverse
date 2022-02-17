@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 
-import React, { FC, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import {
@@ -21,7 +21,7 @@ import {
   addAttendeeToDB,
   addMeetingToDB,
   createMeeting,
-  getAttendeeFromDB,
+  // getAttendeeFromDB,
   getMeetingFromDB,
   joinMeeting,
   endMeeting
