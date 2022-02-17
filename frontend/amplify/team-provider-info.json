@@ -22,5 +22,26 @@
         }
       }
     }
+  },
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-awseduversetest-dev-162601-authRole",
+      "UnauthRoleArn": "arn:aws:iam::694975931809:role/amplify-awseduversetest-dev-162601-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::694975931809:role/amplify-awseduversetest-dev-162601-authRole",
+      "Region": "ap-northeast-2",
+      "DeploymentBucketName": "amplify-awseduversetest-dev-162601-deployment",
+      "UnauthRoleName": "amplify-awseduversetest-dev-162601-unauthRole",
+      "StackName": "amplify-awseduversetest-dev-162601",
+      "StackId": "arn:aws:cloudformation:ap-northeast-2:694975931809:stack/amplify-awseduversetest-dev-162601/de9e33a0-8fc2-11ec-90f1-0a089e719a9a",
+      "AmplifyAppId": "d2uyg0sqo6kqas"
+    },
+    "categories": {
+      "function": {
+        "chimeClassroom": {
+          "deploymentBucketName": "amplify-awseduversetest-dev-162601-deployment",
+          "s3Key": "amplify-builds/chimeClassroom-365264424163744d7356-build.zip"
+        }
+      }
+    }
   }
 }
