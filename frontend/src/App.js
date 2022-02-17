@@ -8,7 +8,6 @@ import Footer from './components/layout/Footer';
 import AuditoriumList from './components/auditorium/AuditoriumList';
 import Auditorium from './components/auditorium/Auditorium';
 import ClassroomList from './components/classroom/ClassroomList';
-import Classroom from './components/classroom/Classroom';
 import Lounge from './components/lounge/Lounge';
 import VRLearning from './components/vrlearning/VRLearning';
 import About from './components/about/About';

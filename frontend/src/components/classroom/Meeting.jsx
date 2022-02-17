@@ -26,8 +26,10 @@ import {
   joinMeeting,
   endMeeting
  } from './utils/api';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../recoil/user/userState';
 
-const Meeting = () => {
+const Meeting = (props) => {
   const meetingManager = useMeetingManager();
   const meetingStatus = useMeetingStatus();
   const navigate = useNavigate();
@@ -35,10 +37,29 @@ const Meeting = () => {
   const { pathname } = useLocation();
   const title = pathname.split('/')[2];
 
+  const user = useRecoilValue(userState);
 
-  useEffect(async () => {
+  useEffect(() => {
+
+    if(!user || !user.nickname) {
+      navigate('/');
+    }
+    
+    createAndJoinMeeting();
+
+    return async () => {
+      const meetingId = meetingManager.meetingId;
+      if (meetingId) {
+        // await endMeeting(meetingId, title);
+        await meetingManager.leave();
+      }
+    }
+
+  }, []);
+
+  const createAndJoinMeeting = async () => {
     // Generate random username
-    const name = Math.random().toString(36).replace(/[^a-z]+/g, '').substring(0, 4);
+    const name = user.nickname; // Math.random().toString(36).replace(/[^a-z]+/g, '').substring(0, 4);
 
     const meetingResponse = await getMeetingFromDB(title);
     const meetingJson = meetingResponse.data.getMeeting;
@@ -67,7 +88,7 @@ const Meeting = () => {
     }
 
     await meetingManager.start();
-  }, []);
+  }
 
   const clickedEndMeeting = async () => {
     const meetingId = meetingManager.meetingId;

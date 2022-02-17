@@ -74,10 +74,10 @@ const Navbar  = (props) => {
                         <ul className="navbar-nav ml-auto">
                             {menu.map((item, index) => 
                                 <li key={index} className="nav-item">
-                                    <Link className="nav-link" to={item.to}>{item.menuName}</Link>
+                                    <Link className={ "nav-link " + (user && user.id ? '': 'disabled-link')} to={item.to}>{item.menuName}</Link>
                                 </li>)}
                             <li className="nav-item dropdown mx-5">
-                                <a className="nav-link dropdown-toggle" href="#" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span className="flag-icon flag-icon-kr"> </span> 한국어</a>
+                                <a className="nav-link dropdown-toggle" href="#" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span className="flag-icon flag-icon-kr"></span>  한국어</a>
                                 <div className="dropdown-menu" aria-labelledby="dropdown09">
                                     <a className="dropdown-item" href="#fr"><span className="flag-icon flag-icon-us"> </span>  English</a>
                                     <a className="dropdown-item" href="#it"><span className="flag-icon flag-icon-es"> </span>  Spanish</a>
