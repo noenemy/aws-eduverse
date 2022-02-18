@@ -208,6 +208,51 @@ export const deleteCourse = /* GraphQL */ `
     }
   }
 `;
+export const createLecture = /* GraphQL */ `
+  mutation CreateLecture(
+    $input: CreateLectureInput!
+    $condition: ModelLectureConditionInput
+  ) {
+    createLecture(input: $input, condition: $condition) {
+      id
+      course_ref
+      title
+      order
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateLecture = /* GraphQL */ `
+  mutation UpdateLecture(
+    $input: UpdateLectureInput!
+    $condition: ModelLectureConditionInput
+  ) {
+    updateLecture(input: $input, condition: $condition) {
+      id
+      course_ref
+      title
+      order
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteLecture = /* GraphQL */ `
+  mutation DeleteLecture(
+    $input: DeleteLectureInput!
+    $condition: ModelLectureConditionInput
+  ) {
+    deleteLecture(input: $input, condition: $condition) {
+      id
+      course_ref
+      title
+      order
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const createMeetingGraphQL = /* GraphQL */ `
   mutation CreateMeetingGraphQL(
     $input: CreateMeetingInput!

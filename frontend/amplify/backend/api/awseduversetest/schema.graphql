@@ -39,6 +39,13 @@ type Course @model {
   order: Int
 }
 
+type Lecture @model {
+  id: ID!
+  course_ref: String!
+  title: String!
+  order: Int
+}
+
 type Meeting @model(mutations: {create: "createMeetingGraphQL", delete: "deleteMeetingGraphQL"}, subscriptions: null) {
   meetingId: String!
   title: String! @primaryKey
