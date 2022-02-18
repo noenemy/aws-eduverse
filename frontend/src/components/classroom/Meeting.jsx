@@ -15,7 +15,7 @@ import {
   MeetingStatus,
   useMeetingStatus,
   VideoInputControl,
-  VideoTileGrid
+  VideoTileGrid,
 } from 'amazon-chime-sdk-component-library-react';
 import { 
   addAttendeeToDB,
@@ -24,7 +24,9 @@ import {
   // getAttendeeFromDB,
   getMeetingFromDB,
   joinMeeting,
-  endMeeting
+  endMeeting,
+  getAttendees,
+  leaveMeeting
  } from './utils/api';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../recoil/user/userState';
@@ -58,8 +60,7 @@ const Meeting = (props) => {
   }, []);
 
   const createAndJoinMeeting = async () => {
-    // Generate random username
-    const name = user.nickname; // Math.random().toString(36).replace(/[^a-z]+/g, '').substring(0, 4);
+    const name = user.nickname;
 
     const meetingResponse = await getMeetingFromDB(title);
     const meetingJson = meetingResponse.data.getMeeting;
@@ -67,7 +68,7 @@ const Meeting = (props) => {
       if (meetingJson) {
         const meetingData = JSON.parse(meetingJson.data);
         const joinInfo = await joinMeeting(meetingData.MeetingId, name);
-        await addAttendeeToDB(joinInfo.Attendee.AttendeeId, name);
+        await addAttendeeToDB(joinInfo.Attendee.AttendeeId, meetingData.MeetingId, name);
 
         await meetingManager.join({
           meetingInfo: meetingData,
@@ -75,8 +76,8 @@ const Meeting = (props) => {
         });
       } else {
         const joinInfo = await createMeeting(title, name, 'us-east-1');
-        await addMeetingToDB(title, joinInfo.Meeting.MeetingId, JSON.stringify(joinInfo.Meeting));
-        await addAttendeeToDB(joinInfo.Attendee.AttendeeId, name);
+        await addMeetingToDB(joinInfo.Meeting.MeetingId, title, JSON.stringify(joinInfo.Meeting));
+        await addAttendeeToDB(joinInfo.Attendee.AttendeeId, joinInfo.Meeting.MeetingId, name);
 
         await meetingManager.join({
           meetingInfo: joinInfo.Meeting,
@@ -92,11 +93,23 @@ const Meeting = (props) => {
 
   const clickedEndMeeting = async () => {
     const meetingId = meetingManager.meetingId;
-    if (meetingId) {
-      await endMeeting(meetingId, title);
+    const name = user.nickname;
+
+    const attendeeResponse = await getAttendees(meetingId);
+    const attendeeCount = attendeeResponse.data.listAttendees.items.length;
+    const attendeeId = attendeeResponse.data.listAttendees.items.filter(e => e.name == name)[0].attendeeId;
+
+    try {
+      if (attendeeCount == 1) {
+        await endMeeting(meetingId, title, attendeeId);
+      } else {
+        await leaveMeeting(meetingId, attendeeId);
+      }
+    } catch (error){
+      console.log(error);
+    }
       await meetingManager.leave();
       navigate(`/classroom/`);
-    }
   }
   
   return (

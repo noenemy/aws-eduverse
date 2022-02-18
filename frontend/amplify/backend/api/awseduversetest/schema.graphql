@@ -39,6 +39,13 @@ type Course @model {
   order: Int
 }
 
+type Lecture @model {
+  id: ID!
+  course_ref: String!
+  title: String!
+  order: Int
+}
+
 type Meeting @model(mutations: {create: "createMeetingGraphQL", delete: "deleteMeetingGraphQL"}, subscriptions: null) {
   meetingId: String!
   title: String! @primaryKey
@@ -47,6 +54,7 @@ type Meeting @model(mutations: {create: "createMeetingGraphQL", delete: "deleteM
 
 type Attendee @model(mutations: {create: "createAttendeeGraphQL", delete: "deleteAttendeeGraphQL"}, subscriptions: null) {
   attendeeId: String! @primaryKey
+  meetingId: String!
   name: String!
 }
 
@@ -54,6 +62,7 @@ type Query {
   createChimeMeeting(title: String, name: String, region: String): Response @function(name: "chimeClassroom-${env}")
   joinChimeMeeting(meetingId: String, name: String): Response @function(name: "chimeClassroom-${env}")
   endChimeMeeting(meetingId: String): Response  @function(name: "chimeClassroom-${env}")
+  leaveChimeMeeting(meetingId: String, attendeeId: String): Response  @function(name: "chimeClassroom-${env}")
 }
 
 type Response {

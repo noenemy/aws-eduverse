@@ -172,3 +172,39 @@ export const onDeleteCourse = /* GraphQL */ `
     }
   }
 `;
+export const onCreateLecture = /* GraphQL */ `
+  subscription OnCreateLecture {
+    onCreateLecture {
+      id
+      course_ref
+      title
+      order
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateLecture = /* GraphQL */ `
+  subscription OnUpdateLecture {
+    onUpdateLecture {
+      id
+      course_ref
+      title
+      order
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteLecture = /* GraphQL */ `
+  subscription OnDeleteLecture {
+    onDeleteLecture {
+      id
+      course_ref
+      title
+      order
+      createdAt
+      updatedAt
+    }
+  }
+`;
