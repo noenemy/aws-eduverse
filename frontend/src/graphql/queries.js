@@ -31,6 +31,16 @@ export const endChimeMeeting = /* GraphQL */ `
     }
   }
 `;
+export const leaveChimeMeeting = /* GraphQL */ `
+  query LeaveChimeMeeting($meetingId: String, $attendeeId: String) {
+    leaveChimeMeeting(meetingId: $meetingId, attendeeId: $attendeeId) {
+      statusCode
+      headers
+      body
+      isBase64Encoded
+    }
+  }
+`;
 export const getTutee = /* GraphQL */ `
   query GetTutee($id: ID!) {
     getTutee(id: $id) {
@@ -245,6 +255,7 @@ export const getAttendee = /* GraphQL */ `
   query GetAttendee($attendeeId: String!) {
     getAttendee(attendeeId: $attendeeId) {
       attendeeId
+      meetingId
       name
       createdAt
       updatedAt
@@ -268,6 +279,7 @@ export const listAttendees = /* GraphQL */ `
     ) {
       items {
         attendeeId
+        meetingId
         name
         createdAt
         updatedAt

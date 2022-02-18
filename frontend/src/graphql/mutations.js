@@ -288,6 +288,7 @@ export const createAttendeeGraphQL = /* GraphQL */ `
   ) {
     createAttendeeGraphQL(input: $input, condition: $condition) {
       attendeeId
+      meetingId
       name
       createdAt
       updatedAt
@@ -301,6 +302,7 @@ export const deleteAttendeeGraphQL = /* GraphQL */ `
   ) {
     deleteAttendeeGraphQL(input: $input, condition: $condition) {
       attendeeId
+      meetingId
       name
       createdAt
       updatedAt

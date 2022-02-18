@@ -47,9 +47,9 @@ const createChimeMeeting = async (context) => {
     // Any meeting ID you wish to associate with the meeting.
     // For simplicity here, we use the meeting title.
     ExternalMeetingId: title.substring(0, 64),
-    Tags: [
-      { Key: 'Department', Value: 'RND'}
-    ]
+    // Tags: [
+    //   { Key: 'Department', Value: 'RND'}
+    // ]
   };
   console.info('Creating new chime meeting: ' + JSON.stringify(request));
   let meetingInfo = await chime.createMeeting(request).promise();
@@ -62,7 +62,8 @@ const createChimeMeeting = async (context) => {
     // For simplicity here, we use a random UUID for uniqueness
     // combined with the name the user provided, which can later
     // be used to help build the roster.
-    ExternalUserId: `${uuid().substring(0, 8)}#${name}`.substring(0, 64),
+    // ExternalUserId: `${uuid().substring(0, 8)}#${name}`.substring(0, 64),
+    ExternalUserId: name.substring(0, 64),
   }).promise());
 
   return response(200, 'application/json', JSON.stringify(
@@ -106,6 +107,14 @@ const endChimeMeeting = async (context) => {
   return response(200, 'application/json', JSON.stringify({}));
 }
 
+const leaveChimeMeeting = async (context) => {
+  const meetingId = context.arguments.meetingId;
+  const attendeeId = context.arguments.attendeeId;
+  await chime.deleteAttendee({ MeetingId: meetingId, attendeeId: attendeeId });
+  console.log('Leave Meeting: ' + meetingId);
+  return response(200, 'application/json', JSON.stringify({}));
+}
+
 
 const resolvers = {
   Query: {
@@ -117,6 +126,9 @@ const resolvers = {
     },
     endChimeMeeting: context => {
       return endChimeMeeting(context);
+    },
+    leaveChimeMeeting: context => {
+      return leaveChimeMeeting(context);
     }
   },
 }
