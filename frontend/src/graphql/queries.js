@@ -134,6 +134,45 @@ export const listClassrooms = /* GraphQL */ `
     }
   }
 `;
+export const getCourse = /* GraphQL */ `
+  query GetCourse($id: ID!) {
+    getCourse(id: $id) {
+      id
+      title
+      icon
+      tutor_voice
+      tutor_character
+      tutor_gender
+      language
+      order
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listCourses = /* GraphQL */ `
+  query ListCourses(
+    $filter: ModelCourseFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listCourses(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        title
+        icon
+        tutor_voice
+        tutor_character
+        tutor_gender
+        language
+        order
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const getMeeting = /* GraphQL */ `
   query GetMeeting($title: String!) {
     getMeeting(title: $title) {

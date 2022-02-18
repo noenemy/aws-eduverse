@@ -28,6 +28,17 @@ type Classroom @model {
   image: String
 }
 
+type Course @model {
+  id: ID!
+  title: String!
+  icon: String
+  tutor_voice: String!
+  tutor_character: String!
+  tutor_gender: String!
+  language: String!
+  order: Int
+}
+
 type Meeting @model(mutations: {create: "createMeetingGraphQL", delete: "deleteMeetingGraphQL"}, subscriptions: null) {
   meetingId: String!
   title: String! @primaryKey

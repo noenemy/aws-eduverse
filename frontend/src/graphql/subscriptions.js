@@ -124,3 +124,51 @@ export const onDeleteClassroom = /* GraphQL */ `
     }
   }
 `;
+export const onCreateCourse = /* GraphQL */ `
+  subscription OnCreateCourse {
+    onCreateCourse {
+      id
+      title
+      icon
+      tutor_voice
+      tutor_character
+      tutor_gender
+      language
+      order
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateCourse = /* GraphQL */ `
+  subscription OnUpdateCourse {
+    onUpdateCourse {
+      id
+      title
+      icon
+      tutor_voice
+      tutor_character
+      tutor_gender
+      language
+      order
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteCourse = /* GraphQL */ `
+  subscription OnDeleteCourse {
+    onDeleteCourse {
+      id
+      title
+      icon
+      tutor_voice
+      tutor_character
+      tutor_gender
+      language
+      order
+      createdAt
+      updatedAt
+    }
+  }
+`;

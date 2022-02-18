@@ -151,6 +151,63 @@ export const deleteClassroom = /* GraphQL */ `
     }
   }
 `;
+export const createCourse = /* GraphQL */ `
+  mutation CreateCourse(
+    $input: CreateCourseInput!
+    $condition: ModelCourseConditionInput
+  ) {
+    createCourse(input: $input, condition: $condition) {
+      id
+      title
+      icon
+      tutor_voice
+      tutor_character
+      tutor_gender
+      language
+      order
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateCourse = /* GraphQL */ `
+  mutation UpdateCourse(
+    $input: UpdateCourseInput!
+    $condition: ModelCourseConditionInput
+  ) {
+    updateCourse(input: $input, condition: $condition) {
+      id
+      title
+      icon
+      tutor_voice
+      tutor_character
+      tutor_gender
+      language
+      order
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteCourse = /* GraphQL */ `
+  mutation DeleteCourse(
+    $input: DeleteCourseInput!
+    $condition: ModelCourseConditionInput
+  ) {
+    deleteCourse(input: $input, condition: $condition) {
+      id
+      title
+      icon
+      tutor_voice
+      tutor_character
+      tutor_gender
+      language
+      order
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const createMeetingGraphQL = /* GraphQL */ `
   mutation CreateMeetingGraphQL(
     $input: CreateMeetingInput!
