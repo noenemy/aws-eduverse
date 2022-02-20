@@ -92,8 +92,8 @@ const VRLearning = (props) => {
                         }
                         { courses && courses.map(( course, index) => {
                             return (
-                                <Fragment>
-                                <Button className="ml-2" key={course.id} onClick={() => selectCourse(course.id, course.language)}><i className={ "fas fa-globe-" + course.icon } />&nbsp;{ course.title }</Button>
+                                <Fragment key={course.id}>
+                                <Button className="ml-2" onClick={() => selectCourse(course.id, course.language)}><i className={ "fas fa-globe-" + course.icon } />&nbsp;{ course.title }</Button>
                                 &nbsp;&nbsp;</Fragment>
                                 );
                         })}
