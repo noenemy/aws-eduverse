@@ -41,6 +41,140 @@ export const leaveChimeMeeting = /* GraphQL */ `
     }
   }
 `;
+export const searchCourses = /* GraphQL */ `
+  query SearchCourses(
+    $filter: SearchableCourseFilterInput
+    $sort: [SearchableCourseSortInput]
+    $limit: Int
+    $nextToken: String
+    $from: Int
+    $aggregates: [SearchableCourseAggregationInput]
+  ) {
+    searchCourses(
+      filter: $filter
+      sort: $sort
+      limit: $limit
+      nextToken: $nextToken
+      from: $from
+      aggregates: $aggregates
+    ) {
+      items {
+        id
+        title
+        icon
+        language
+        order
+        createdAt
+        updatedAt
+      }
+      nextToken
+      total
+      aggregateItems {
+        name
+        result {
+          ... on SearchableAggregateScalarResult {
+            value
+          }
+          ... on SearchableAggregateBucketResult {
+            buckets {
+              key
+              doc_count
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+export const searchLectures = /* GraphQL */ `
+  query SearchLectures(
+    $filter: SearchableLectureFilterInput
+    $sort: [SearchableLectureSortInput]
+    $limit: Int
+    $nextToken: String
+    $from: Int
+    $aggregates: [SearchableLectureAggregationInput]
+  ) {
+    searchLectures(
+      filter: $filter
+      sort: $sort
+      limit: $limit
+      nextToken: $nextToken
+      from: $from
+      aggregates: $aggregates
+    ) {
+      items {
+        id
+        course_ref
+        title
+        order
+        createdAt
+        updatedAt
+      }
+      nextToken
+      total
+      aggregateItems {
+        name
+        result {
+          ... on SearchableAggregateScalarResult {
+            value
+          }
+          ... on SearchableAggregateBucketResult {
+            buckets {
+              key
+              doc_count
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+export const searchUnits = /* GraphQL */ `
+  query SearchUnits(
+    $filter: SearchableUnitFilterInput
+    $sort: [SearchableUnitSortInput]
+    $limit: Int
+    $nextToken: String
+    $from: Int
+    $aggregates: [SearchableUnitAggregationInput]
+  ) {
+    searchUnits(
+      filter: $filter
+      sort: $sort
+      limit: $limit
+      nextToken: $nextToken
+      from: $from
+      aggregates: $aggregates
+    ) {
+      items {
+        id
+        lecture_ref
+        title
+        steps
+        order
+        createdAt
+        updatedAt
+      }
+      nextToken
+      total
+      aggregateItems {
+        name
+        result {
+          ... on SearchableAggregateScalarResult {
+            value
+          }
+          ... on SearchableAggregateBucketResult {
+            buckets {
+              key
+              doc_count
+            }
+          }
+        }
+      }
+    }
+  }
+`;
 export const getTutee = /* GraphQL */ `
   query GetTutee($id: ID!) {
     getTutee(id: $id) {
@@ -150,9 +284,6 @@ export const getCourse = /* GraphQL */ `
       id
       title
       icon
-      tutor_voice
-      tutor_character
-      tutor_gender
       language
       order
       createdAt
@@ -171,9 +302,6 @@ export const listCourses = /* GraphQL */ `
         id
         title
         icon
-        tutor_voice
-        tutor_character
-        tutor_gender
         language
         order
         createdAt
@@ -206,6 +334,39 @@ export const listLectures = /* GraphQL */ `
         id
         course_ref
         title
+        order
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getUnit = /* GraphQL */ `
+  query GetUnit($id: ID!) {
+    getUnit(id: $id) {
+      id
+      lecture_ref
+      title
+      steps
+      order
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listUnits = /* GraphQL */ `
+  query ListUnits(
+    $filter: ModelUnitFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listUnits(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        lecture_ref
+        title
+        steps
         order
         createdAt
         updatedAt

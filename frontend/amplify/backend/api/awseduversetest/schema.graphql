@@ -28,22 +28,27 @@ type Classroom @model {
   image: String
 }
 
-type Course @model {
-  id: ID!
+type Course @model @searchable  {
+  id: ID! 
   title: String!
   icon: String
-  tutor_voice: String!
-  tutor_character: String!
-  tutor_gender: String!
   language: String!
-  order: Int
+  order: Int!
 }
 
-type Lecture @model {
+type Lecture @model @searchable {
   id: ID!
   course_ref: String!
   title: String!
-  order: Int
+  order: Int!
+}
+
+type Unit @model @searchable {
+  id: ID!
+  lecture_ref: String! 
+  title: String!
+  steps: String
+  order: Int!
 }
 
 type Meeting @model(mutations: {create: "createMeetingGraphQL", delete: "deleteMeetingGraphQL"}, subscriptions: null) {

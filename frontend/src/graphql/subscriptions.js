@@ -130,9 +130,6 @@ export const onCreateCourse = /* GraphQL */ `
       id
       title
       icon
-      tutor_voice
-      tutor_character
-      tutor_gender
       language
       order
       createdAt
@@ -146,9 +143,6 @@ export const onUpdateCourse = /* GraphQL */ `
       id
       title
       icon
-      tutor_voice
-      tutor_character
-      tutor_gender
       language
       order
       createdAt
@@ -162,9 +156,6 @@ export const onDeleteCourse = /* GraphQL */ `
       id
       title
       icon
-      tutor_voice
-      tutor_character
-      tutor_gender
       language
       order
       createdAt
@@ -202,6 +193,45 @@ export const onDeleteLecture = /* GraphQL */ `
       id
       course_ref
       title
+      order
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateUnit = /* GraphQL */ `
+  subscription OnCreateUnit {
+    onCreateUnit {
+      id
+      lecture_ref
+      title
+      steps
+      order
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateUnit = /* GraphQL */ `
+  subscription OnUpdateUnit {
+    onUpdateUnit {
+      id
+      lecture_ref
+      title
+      steps
+      order
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteUnit = /* GraphQL */ `
+  subscription OnDeleteUnit {
+    onDeleteUnit {
+      id
+      lecture_ref
+      title
+      steps
       order
       createdAt
       updatedAt

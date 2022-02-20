@@ -160,9 +160,6 @@ export const createCourse = /* GraphQL */ `
       id
       title
       icon
-      tutor_voice
-      tutor_character
-      tutor_gender
       language
       order
       createdAt
@@ -179,9 +176,6 @@ export const updateCourse = /* GraphQL */ `
       id
       title
       icon
-      tutor_voice
-      tutor_character
-      tutor_gender
       language
       order
       createdAt
@@ -198,9 +192,6 @@ export const deleteCourse = /* GraphQL */ `
       id
       title
       icon
-      tutor_voice
-      tutor_character
-      tutor_gender
       language
       order
       createdAt
@@ -247,6 +238,54 @@ export const deleteLecture = /* GraphQL */ `
       id
       course_ref
       title
+      order
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createUnit = /* GraphQL */ `
+  mutation CreateUnit(
+    $input: CreateUnitInput!
+    $condition: ModelUnitConditionInput
+  ) {
+    createUnit(input: $input, condition: $condition) {
+      id
+      lecture_ref
+      title
+      steps
+      order
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateUnit = /* GraphQL */ `
+  mutation UpdateUnit(
+    $input: UpdateUnitInput!
+    $condition: ModelUnitConditionInput
+  ) {
+    updateUnit(input: $input, condition: $condition) {
+      id
+      lecture_ref
+      title
+      steps
+      order
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteUnit = /* GraphQL */ `
+  mutation DeleteUnit(
+    $input: DeleteUnitInput!
+    $condition: ModelUnitConditionInput
+  ) {
+    deleteUnit(input: $input, condition: $condition) {
+      id
+      lecture_ref
+      title
+      steps
       order
       createdAt
       updatedAt
