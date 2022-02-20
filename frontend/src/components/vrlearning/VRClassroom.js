@@ -6,7 +6,9 @@ import Whiteboard from './Whiteboard';
 import Navigator from './Navigator';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import axios from "axios";
+import { API, graphqlOperation } from 'aws-amplify';
+import { getCourse, getLecture, getUnit, searchUnits } from '../../graphql/queries';
+import ReactLoading from 'react-loading';
 
 class VRClassroom extends Component {
     constructor(props) {
@@ -145,73 +147,72 @@ class VRClassroom extends Component {
 
     async getLectureInfo(courseId=1, lectureId=1) {
         this.setState({ loading: true });
-        const backendAPI = `${process.env.REACT_APP_BACKEND_SERVER}/courses/${courseId}/lectures/${lectureId}`;
-        const res = await axios.get(backendAPI);        
+        const res = await API.graphql(graphqlOperation(getLecture, { id: lectureId }));
         this.setState({ loading: false });
 
-        if (res != null && res.data.listCourses != null) {
-            this.setState({ lectureTitle: res.data.listCourses.items.lecture_title });
+        if (res != null && res.data.getLecture != null) {
+            console.log("@getLectureInfo > " + res.data.getLecture);    
+            this.setState({ lectureTitle: res.data.getLecture.title });
         }
         else {
-            toast.error("something wrong! try again.");
+            toast.error("@getLectureInfo > something wrong! try again.");
         }
     }
 
     async getCourseInfo(courseId=1) {
 
         this.setState({ loading: true });
-        const backendAPI = `${process.env.REACT_APP_BACKEND_SERVER}/courses/${courseId}`;
-        console.log(backendAPI);
-        const res = await axios.get(backendAPI);      
-        console.log(res);  
+        const res = await API.graphql(graphqlOperation(getCourse, { id: courseId }));
         this.setState({ loading: false });
 
-        if (res != null && res.data.listCourses != null) {
-            this.setState({ course: res.data.listCourses.items });
+        if (res != null && res.data.getCourse != null) {
+            console.log("@getCourseInfo > " + res.data.getCourse);  
+            this.setState({ course: res.data.getCourse });
         }
         else {
-            toast.error("something wrong! try again.");
+            toast.error("@getCourseInfo > something wrong! try again.");
         }
     }
 
     async getLectureUnits(courseId=1, lectureId=1) {
 
         this.setState({ loading: true });
-        const backendAPI = `${process.env.REACT_APP_BACKEND_SERVER}/courses/${courseId}/lectures/${lectureId}/units`;
-
-        const res = await axios.get(backendAPI);        
+        const res = await API.graphql(graphqlOperation(searchUnits, {
+            filter: { lecture_ref: { eq: lectureId } },
+            sort: { direction: 'asc', field: 'order' }
+        }));           
         this.setState({ loading: false });
 
-        if (res != null && res.data.listCourses != null) {
-            this.setState({ units: res.data.listCourses.items }, () => {
+        if (res != null && res.data.searchUnits != null) {
+            console.log("@getLectureUnits > " + res.data.searchUnits);  
+            this.setState({ units: res.data.searchUnits.items }, () => {
                 this.selectCurrentUnit(1, true); // set default unit
             });
         }
         else {
-            toast.error("something wrong! try again.");
+            toast.error("@getLectureUnits > something wrong! try again.");
         }
     }
 
     async getUnitSteps(courseId=1, lectureId=1, unitId=1, forward=true) {
 
         this.setState({ loading: true });
-        const backendAPI = `${process.env.REACT_APP_BACKEND_SERVER}/courses/${courseId}/lectures/${lectureId}/units/${unitId}/steps`;
-        //console.log(backendAPI);
-        const res = await axios.get(backendAPI);        
+        const res = await API.graphql(graphqlOperation(getUnit, { id: unitId }));  
         this.setState({ loading: false });
 
         console.log(res.data);
-        if (res != null && res.data.steps != null) {
+        if (res != null && res.data.getUnit.steps != null) {
+            console.log("@getUnitSteps > " + res.data.getUnit.steps);  
             var step = 0;
             if (forward == false) {
                 step = res.data.steps.length - 1;
             }
-            this.setState({ steps: res.data.steps, currentStep: step }, ()=> {
+            this.setState({ steps: res.data.getUnit.steps, currentStep: step }, ()=> {
                 this.startLearning();
             });
         }
         else {
-            toast.error("something wrong! try again.");
+            toast.error("@getUnitSteps > something wrong! try again.");
         }
     }
 
@@ -231,9 +232,9 @@ class VRClassroom extends Component {
         var unitTitle = "";
         var unitId = "";
         for (var i in this.state.units) {
-            if (this.state.units[i].unit_order === unit_order) {
+            if (this.state.units[i].order === unit_order) {
                 unitId = this.state.units[i].id;
-                unitTitle = this.state.units[i].unit_title;
+                unitTitle = this.state.units[i].title;
                 break;
             }
         }
