@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap";
 import { ToastContainer, toast } from 'react-toastify';
 import LoadScreen from '../../assets/images/load_screen.png'
 import { API, graphqlOperation } from 'aws-amplify';
-import { listCourses, listLectures } from '../../graphql/queries';
+import { searchCourses, searchLectures } from '../../graphql/queries';
 import ReactLoading from 'react-loading';
 //import axios from "axios";
 
@@ -29,12 +29,17 @@ class VRLearningComponent extends Component {
 
     async getCourses() {
         this.setState({ loading: true });
-        const res = await API.graphql(graphqlOperation(listCourses));
+        const res = await API.graphql(graphqlOperation(searchCourses, {
+            sort: {
+                direction: 'asc',
+                field: 'order'
+            }
+        }));
         //console.log(res);
         this.setState({ loading: false });
 
-        if (res != null && res.data.listCourses != null) {
-            this.setState({ courses: res.data.listCourses.items });
+        if (res != null && res.data.searchCourses != null) {
+            this.setState({ courses: res.data.searchCourses.items });
         }
         else {
             toast.error("something wrong! try again.");
@@ -42,20 +47,26 @@ class VRLearningComponent extends Component {
     }
 
     async getLectures(courseId="ef717ea27fc4426b99e484343a493e5a") {
+
         this.setState({ loading: true });
         console.log('@search > ' + courseId); 
-        const res = await API.graphql(graphqlOperation(listLectures, {
+        const res = await API.graphql(graphqlOperation(searchLectures, {
             filter: {
                 course_ref: {
                     eq: courseId
                 }
+            },
+            sort: {
+                direction: 'asc',
+                field: 'order'
             }
         }));
         console.log(res);     
         this.setState({ loading: false });
 
-        if (res != null && res.data.listLectures != null) {
-            this.setState({ lectures: res.data.listLectures.items });
+        if (res != null && res.data.searchLectures != null) {
+            const lectures = res.data.searchLectures.items;
+            this.setState({ lectures: lectures });
         }
         else {
             toast.error("something wrong! try again.");
