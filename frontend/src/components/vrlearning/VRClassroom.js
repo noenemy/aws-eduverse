@@ -202,12 +202,15 @@ class VRClassroom extends Component {
 
         console.log(res.data);
         if (res != null && res.data.getUnit.steps != null) {
-            console.log("@getUnitSteps > " + res.data.getUnit.steps);  
+
+            const jsonData = JSON.parse(res.data.getUnit.steps);
+
+            console.log("@getUnitSteps > " + jsonData.steps.length);  
             var step = 0;
             if (forward == false) {
-                step = res.data.steps.length - 1;
+                step = jsonData.steps.length - 1;
             }
-            this.setState({ steps: res.data.getUnit.steps, currentStep: step }, ()=> {
+            this.setState({ steps: jsonData.steps, currentStep: step }, ()=> {
                 this.startLearning();
             });
         }

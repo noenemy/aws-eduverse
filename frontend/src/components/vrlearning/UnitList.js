@@ -12,8 +12,8 @@ class UnitList extends Component {
                 {this.props.units && this.props.units.map(( unit, index) => {
                     return (
                         <li className={ this.props.currentUnitIndex===index+1 ? 'list-group-item flex-fill list-group-item-success' : 'list-group-item flex-fill' }
-                            key={unit.id} value={unit.unit_order} onClick={this.props.onClickUnit}>
-                            { unit.unit_title }
+                            key={unit.id} value={unit.order} onClick={this.props.onClickUnit}>
+                            { unit.title }
                         </li>
                         );
                 })}
