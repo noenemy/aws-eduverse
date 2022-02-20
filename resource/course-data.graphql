@@ -1,0 +1,500 @@
+/* Courses */
+mutation {
+  courese1: createCourse(input:{
+    id: "ef717ea27fc4426b99e484343a493e5a"
+    title: "Korean"
+    icon: "asia"
+    language: "ko-KR"
+    order: 1
+  }) {
+    id
+  }
+
+  course2: createCourse(input:{
+    id: "5c18f82e337144d8b9c3a10da64d11f4"
+    title: "Spanish"
+    icon: "europe"
+    language: "es-US"
+    order: 2
+  }) {
+    id
+  }
+
+  course3: createCourse(input:{
+    id: "652057e4a0534e388db5b6bb77554eae"
+    title: "Chinese"
+    icon: "asia"
+    language: "zh-CN"
+    order: 3
+  }) {
+    id
+    }
+
+  course4: createCourse(input:{
+    id: "61954b3ef226419080aa5ac0a46d0652"
+    title: "Japanese"
+    icon: "asia"
+    language: "ja-JP"
+    order: 4
+  }) {
+    id
+  }
+
+  course5: createCourse(input:{
+    id: "d59f1e12cb0643fb90446eb70072fad6"
+    title: "English"
+    icon: "americas"
+    language: "en-US"
+    order: 5
+  }) {
+    id
+  }
+}
+
+mutation {
+
+/* Lecture - Chinese */
+
+  lecture1: createLecture(input:{
+    id: "d18e3e69eef74dd9a62dfff9bad3bb81"
+    course_ref: "652057e4a0534e388db5b6bb77554eae"
+    title: "Lecture 01. Greetings (问候语)"
+    order: 1
+  }) {
+    id 
+  }
+  
+  lecture2: createLecture(input:{
+    id: "2edcaed07018423aba6501d910af2b89"
+    course_ref: "652057e4a0534e388db5b6bb77554eae"
+    title: "Lecture 02. Shopping (购物)"
+    order: 2
+  }) {
+    id
+  }
+
+  lecture3: createLecture(input:{
+    id: "605f541b08324716aeb950a92a1a55f5"
+    course_ref: "652057e4a0534e388db5b6bb77554eae"
+    title: "Lecture 03. Travel (旅行)"
+    order: 3
+  }) {
+    id
+  }
+  
+  lecture4: createLecture(input:{
+    id: "604fbe1a70554fd2aea55422a8d5794a"
+    course_ref: "652057e4a0534e388db5b6bb77554eae"
+    title: "Lecture 04. Transportation (公共交通)"
+    order: 4
+  }) {
+    id
+  }
+
+  lecture5: createLecture(input:{
+    id: "48653cd55445476f9df82664b35eb7d9"
+    course_ref: "652057e4a0534e388db5b6bb77554eae"
+    title: "Lecture 05. Restaurant (餐厅)"
+    order: 5
+  }) {
+    id
+  }
+
+# Lecture Korean 
+
+  lecture11: createLecture(input:{
+    id: "f6ffeb0bfe1e460884319ad415cdfbb0"
+    course_ref: "ef717ea27fc4426b99e484343a493e5a"
+    title: "Lecture 01. Greetings (인사말)"
+    order: 1
+  }) {
+    id
+  }
+
+  lecture12: createLecture(input:{
+    id: "730eac45739f4c38b61d8a72a8dc7130"
+    course_ref: "ef717ea27fc4426b99e484343a493e5a"
+    title: "Lecture 02. Shopping (쇼핑)"
+    order: 2
+  }) {
+    id
+  }
+
+  lecture13: createLecture(input:{
+    id: "84a99b187ef04b46b3286f302a798a0a"
+    course_ref: "ef717ea27fc4426b99e484343a493e5a"
+    title: "Lecture 03. Travel (여행)"
+    order: 3
+  }) {
+    id
+  }
+
+  lecture14: createLecture(input:{
+    id: "0f26d35fbe5e44a9acdd00927824e569"
+    course_ref: "ef717ea27fc4426b99e484343a493e5a"
+    title: "Lecture 04. Transportation (대중교통)"
+    order: 4
+  }) {
+    id
+  }
+
+  lecture15: createLecture(input:{
+    id: "43f92554c1fe44ce9434142da998475c"
+    course_ref: "ef717ea27fc4426b99e484343a493e5a"
+    title: "Lecture 05. Restaurant (음식점)"
+    order: 5
+  }) {
+    id
+  }
+
+  lecture16: createLecture(input:{
+    id: "46b3b16b29c4482bb72f1b8367460780"
+    course_ref: "ef717ea27fc4426b99e484343a493e5a"
+    title: "Lecture 06. TV Shows (드라마)"
+    order: 6
+  }) {
+    id
+  }
+
+# Lecture others 
+
+  lecture21: createLecture(input:{
+    id: "77acf08ce0ea4da88f9eb27bdddb6e63"
+    course_ref: "61954b3ef226419080aa5ac0a46d0652"
+    title: "Lecture 01. Greetings (挨拶)"
+    order: 1
+  }) {
+    id
+  }
+  
+  lecture31: createLecture(input:{
+    id: "28c98bb8bc29496a8aa41612afd0fb83"
+    course_ref: "5c18f82e337144d8b9c3a10da64d11f4"
+    title: "Lecture 01. Greetings (saludo)"
+    order: 1
+  }) {
+    id
+  }
+}
+
+/* Units */
+
+mutation {
+
+# Lecture - 28c98bb8bc29496a8aa41612afd0fb83 */
+
+  unit11: createUnit(input:{
+    id: "8a3dc97141b74d028ac932e9a1850769"
+    lecture_ref: "28c98bb8bc29496a8aa41612afd0fb83"
+    title: "1. Introduction"
+    order: 1
+    steps: ""
+  }) {
+    id 
+  }
+  
+  unit12: createUnit(input:{
+    id: "170fe5df3c574d0aa8cb69e67f4b73d2"
+    lecture_ref: "28c98bb8bc29496a8aa41612afd0fb83"
+    title: "2. Expressions"
+    order: 2
+    steps: ""
+  }) {
+    id 
+  }
+  
+  unit13: createUnit(input:{
+    id: "586c04240dac45069d1e55dd0ee7050d"
+    lecture_ref: "28c98bb8bc29496a8aa41612afd0fb83"
+    title: "3. Vocabulary"
+    order: 3
+    steps: ""
+  }) {
+    id 
+  }
+
+  unit14: createUnit(input:{
+    id: "17f07b9fa7a84b5098a7e9f42922a48f"
+    lecture_ref: "28c98bb8bc29496a8aa41612afd0fb83"
+    title: "4. Summary"
+    order: 4
+    steps: ""
+  }) {
+    id 
+  }
+
+# Lecture - 2edcaed07018423aba6501d910af2b89 */
+
+  unit21: createUnit(input:{
+    id: "3cf2ec6c28b5402c99db88b861104909"
+    lecture_ref: "2edcaed07018423aba6501d910af2b89"
+    title: "1. Introduction"
+    order: 1
+    steps: ""
+  }) {
+    id 
+  }
+
+  unit22: createUnit(input:{
+    id: "3da55d67aca74e81af62beefaa00f560"
+    lecture_ref: "2edcaed07018423aba6501d910af2b89"
+    title: "2. Expressions"
+    order: 2
+    steps: ""
+  }) {
+    id 
+  }
+
+  unit23: createUnit(input:{
+    id: "93cdfcb725e14c97988c991edd25643b"
+    lecture_ref: "2edcaed07018423aba6501d910af2b89"
+    title: "3. Vocabulary"
+    order: 3
+    steps: ""
+  }) {
+    id 
+  }
+
+  unit24: createUnit(input:{
+    id: "c43f65948ae0402da9c042f48348abac"
+    lecture_ref: "2edcaed07018423aba6501d910af2b89"
+    title: "4. Exercises"
+    order: 4
+    steps: ""
+  }) {
+    id 
+  }  
+
+  unit25: createUnit(input:{
+    id: "c054849a51ce4976a338e92ada5dd65f"
+    lecture_ref: "2edcaed07018423aba6501d910af2b89"
+    title: "5. Summary"
+    order: 5
+    steps: ""
+  }) {
+    id 
+  }
+
+# Lecture - 46b3b16b29c4482bb72f1b8367460780 */
+
+  unit31: createUnit(input:{
+    id: "949fdab6e0bf4756b6495f0020022c00"
+    lecture_ref: "46b3b16b29c4482bb72f1b8367460780"
+    title: "1. Introduction"
+    order: 1
+    steps: ""
+  }) {
+    id 
+  }
+
+  unit32: createUnit(input:{
+    id: "3a2d3406110945319c9f3144a6ec9307"
+    lecture_ref: "46b3b16b29c4482bb72f1b8367460780"
+    title: "2. Expressions"
+    order: 2
+    steps: ""
+  }) {
+    id 
+  }
+
+  unit33: createUnit(input:{
+    id: "53bbe0ddf84a4be9b49703871bbb5fda"
+    lecture_ref: "46b3b16b29c4482bb72f1b8367460780"
+    title: "3. Vocabulary"
+    order: 3
+    steps: ""
+  }) {
+    id 
+  }
+
+  unit34: createUnit(input:{
+    id: "91366b59f5994b9c9853c7c54110fdbf"
+    lecture_ref: "46b3b16b29c4482bb72f1b8367460780"
+    title: "4. Summary"
+    order: 4
+    steps: ""
+  }) {
+    id 
+  }    
+
+# Lecture - 730eac45739f4c38b61d8a72a8dc7130 */
+
+  unit41: createUnit(input:{
+    id: "bf297456750c49318913750b5449d368"
+    lecture_ref: "730eac45739f4c38b61d8a72a8dc7130"
+    title: "1. Introduction"
+    order: 1
+    steps: ""
+  }) {
+    id 
+  }
+
+  unit42: createUnit(input:{
+    id: "a9f8ae8cc9ac44a8b84c9162033a6449"
+    lecture_ref: "730eac45739f4c38b61d8a72a8dc7130"
+    title: "2. Expressions"
+    order: 2
+    steps: ""
+  }) {
+    id 
+  }
+
+  unit43: createUnit(input:{
+    id: "e8ecec1d3f04408bbe1b432709cbd6d4"
+    lecture_ref: "730eac45739f4c38b61d8a72a8dc7130"
+    title: "3. Vocabulary"
+    order: 3
+    steps: ""
+  }) {
+    id 
+  }
+
+  unit44: createUnit(input:{
+    id: "6784969d76e7429d978e356da33a147d"
+    lecture_ref: "730eac45739f4c38b61d8a72a8dc7130"
+    title: "4. Exercises"
+    order: 4
+    steps: ""
+  }) {
+    id 
+  }    
+
+  unit45: createUnit(input:{
+    id: "95dca299428e48f28c5f3453aaae05a5"
+    lecture_ref: "730eac45739f4c38b61d8a72a8dc7130"
+    title: "5. Summary"
+    order: 5
+    steps: ""
+  }) {
+    id 
+  }
+
+# Lecture - 77acf08ce0ea4da88f9eb27bdddb6e63 */
+
+  unit51: createUnit(input:{
+    id: "6135b9cd6a4a4801bddcb36205f02396"
+    lecture_ref: "77acf08ce0ea4da88f9eb27bdddb6e63"
+    title: "1. Introduction"
+    order: 1
+    steps: ""
+  }) {
+    id 
+  }
+
+  unit52: createUnit(input:{
+    id: "552b5ce84ba741e09833ba85a62b3cb2"
+    lecture_ref: "77acf08ce0ea4da88f9eb27bdddb6e63"
+    title: "2. Expressions"
+    order: 2
+    steps: ""
+  }) {
+    id 
+  }
+
+  unit53: createUnit(input:{
+    id: "ce5146d534d14be69d39d232ad947974"
+    lecture_ref: "77acf08ce0ea4da88f9eb27bdddb6e63"
+    title: "3. Vocabulary"
+    order: 3
+    steps: ""
+  }) {
+    id 
+  }
+
+  unit54: createUnit(input:{
+    id: "624eceea71cf464899f49b09218b3e55"
+    lecture_ref: "77acf08ce0ea4da88f9eb27bdddb6e63"
+    title: "4. Summary"
+    order: 4
+    steps: ""
+  }) {
+    id 
+  }    
+
+
+# Lecture - d18e3e69eef74dd9a62dfff9bad3bb81 */
+
+  unit61: createUnit(input:{
+    id: "eb792605306d4654ada6b5a8e4dcb173"
+    lecture_ref: "d18e3e69eef74dd9a62dfff9bad3bb81"
+    title: "1. Introduction"
+    order: 1
+    steps: ""
+  }) {
+    id 
+  }
+
+  unit62: createUnit(input:{
+    id: "8e67b42bab4f40d68eb3a24afe413f27"
+    lecture_ref: "d18e3e69eef74dd9a62dfff9bad3bb81"
+    title: "2. Expressions"
+    order: 2
+    steps: ""
+  }) {
+    id 
+  }
+
+  unit63: createUnit(input:{
+    id: "0bb80540ddf049bb80c8c2ac22366712"
+    lecture_ref: "d18e3e69eef74dd9a62dfff9bad3bb81"
+    title: "3. Vocabulary"
+    order: 3
+    steps: ""
+  }) {
+    id 
+  }
+
+  unit64: createUnit(input:{
+    id: "70d1b3f8fd73491ab325dd6543755601"
+    lecture_ref: "d18e3e69eef74dd9a62dfff9bad3bb81"
+    title: "4. Summary"
+    order: 4
+    steps: ""
+  }) {
+    id 
+  }    
+
+
+# Lecture - f6ffeb0bfe1e460884319ad415cdfbb0 */
+
+  unit71: createUnit(input:{
+    id: "1d543b27cff44e63b50b9726a5cc806d"
+    lecture_ref: "f6ffeb0bfe1e460884319ad415cdfbb0"
+    title: "1. Introduction"
+    order: 1
+    steps: ""
+  }) {
+    id 
+  }
+
+  unit72: createUnit(input:{
+    id: "4866dba78e7846a4ae964ea2b4294ffb"
+    lecture_ref: "f6ffeb0bfe1e460884319ad415cdfbb0"
+    title: "2. Expressions"
+    order: 2
+    steps: ""
+  }) {
+    id 
+  }
+
+  unit73: createUnit(input:{
+    id: "7622dea1bdff40d6b65f44e8fd6ed9f0"
+    lecture_ref: "f6ffeb0bfe1e460884319ad415cdfbb0"
+    title: "3. Vocabulary"
+    order: 3
+    steps: ""
+  }) {
+    id 
+  }
+
+  unit74: createUnit(input:{
+    id: "5441382ed2204309a477880ae78b32bd"
+    lecture_ref: "f6ffeb0bfe1e460884319ad415cdfbb0"
+    title: "4. Summary"
+    order: 4
+    steps: ""
+  }) {
+    id 
+  }
+
+}
