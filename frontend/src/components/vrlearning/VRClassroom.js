@@ -8,7 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 
-class VRClassroomComponent extends Component {
+class VRClassroom extends Component {
     constructor(props) {
         super(props);
         const current = decodeURI(window.location.href);
@@ -316,4 +316,4 @@ class VRClassroomComponent extends Component {
     }
 }
 
-export default ClassroomComponent;
+export default VRClassroom;
