@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './Classroom.css';
+import './VRClassroom.css';
 
 class Navigator extends Component {
     render() {

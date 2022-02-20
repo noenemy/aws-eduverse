@@ -3,7 +3,7 @@ import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import mic from 'microphone-stream';
-import { pcmEncode, downsampleBuffer } from '../../util/audioUtils.js';
+import { pcmEncode, downsampleBuffer } from './utils/audioUtils.js';
 import { EventStreamMarshaller } from '@aws-sdk/eventstream-marshaller';
 import { toUtf8, fromUtf8 } from '@aws-sdk/util-utf8-node';
 import { ReactMic } from 'react-mic';
