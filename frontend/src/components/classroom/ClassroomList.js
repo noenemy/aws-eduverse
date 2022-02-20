@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, Button, Modal } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { API, graphqlOperation } from 'aws-amplify';
-import { listClassrooms } from '../../graphql/queries';
+import { searchClassrooms } from '../../graphql/queries';
 import ReactLoading from 'react-loading';
 
 const ClassroomList = (props) => {
@@ -13,10 +13,12 @@ const ClassroomList = (props) => {
     const navigate = useNavigate();
 
     useEffect(async () => {
-        const result = await API.graphql(graphqlOperation(listClassrooms));
+        const result = await API.graphql(graphqlOperation(searchClassrooms, {
+            sort: { direction: 'asc', field: 'order' }
+        }));
         console.log(result);
         setLoading(false);
-        setClassroom(result.data.listClassrooms.items);
+        setClassroom(result.data.searchClassrooms.items);
     }, []);
 
     const handleClose = () => {

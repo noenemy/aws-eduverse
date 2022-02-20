@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, Button, Modal } from 'react-bootstrap';
 import { API, graphqlOperation } from 'aws-amplify';
-import { listAuditoriums } from '../../graphql/queries';
+import { searchAuditoriums } from '../../graphql/queries';
 import ReactLoading from 'react-loading';
 
 const AuditoriumList = (props) => {
@@ -13,10 +13,12 @@ const AuditoriumList = (props) => {
     const navigate = useNavigate();
     
     useEffect(async () => {
-        const result = await API.graphql(graphqlOperation(listAuditoriums));
+        const result = await API.graphql(graphqlOperation(searchAuditoriums, {
+            sort: { direction: 'asc', field: 'order' }
+        }));
         console.log(result);
         setLoading(false);
-        setAuditorium(result.data.listAuditoriums.items);
+        setAuditorium(result.data.searchAuditoriums.items);
     }, []);
 
     const createAuditorium = () => {

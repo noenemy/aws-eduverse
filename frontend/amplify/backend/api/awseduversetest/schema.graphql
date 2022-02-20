@@ -13,22 +13,24 @@ type Tutee @model {
   ttl: Int
 }
 
-type Auditorium @model {
+type Auditorium @model @searchable  {
   id: ID!
   title: String!
   description: String
   image: String
   url: String!
+  order: Int
 }
 
-type Classroom @model {
+type Classroom @model @searchable {
   id: ID!
   title: String!
   description: String
   image: String
+  order: Int
 }
 
-type Course @model @searchable  {
+type Course @model @searchable {
   id: ID! 
   title: String!
   icon: String

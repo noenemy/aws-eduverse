@@ -69,6 +69,7 @@ export const createAuditorium = /* GraphQL */ `
       description
       image
       url
+      order
       createdAt
       updatedAt
     }
@@ -85,6 +86,7 @@ export const updateAuditorium = /* GraphQL */ `
       description
       image
       url
+      order
       createdAt
       updatedAt
     }
@@ -101,6 +103,7 @@ export const deleteAuditorium = /* GraphQL */ `
       description
       image
       url
+      order
       createdAt
       updatedAt
     }
@@ -116,6 +119,7 @@ export const createClassroom = /* GraphQL */ `
       title
       description
       image
+      order
       createdAt
       updatedAt
     }
@@ -131,6 +135,7 @@ export const updateClassroom = /* GraphQL */ `
       title
       description
       image
+      order
       createdAt
       updatedAt
     }
@@ -146,6 +151,7 @@ export const deleteClassroom = /* GraphQL */ `
       title
       description
       image
+      order
       createdAt
       updatedAt
     }

@@ -41,6 +41,97 @@ export const leaveChimeMeeting = /* GraphQL */ `
     }
   }
 `;
+export const searchAuditoriums = /* GraphQL */ `
+  query SearchAuditoriums(
+    $filter: SearchableAuditoriumFilterInput
+    $sort: [SearchableAuditoriumSortInput]
+    $limit: Int
+    $nextToken: String
+    $from: Int
+    $aggregates: [SearchableAuditoriumAggregationInput]
+  ) {
+    searchAuditoriums(
+      filter: $filter
+      sort: $sort
+      limit: $limit
+      nextToken: $nextToken
+      from: $from
+      aggregates: $aggregates
+    ) {
+      items {
+        id
+        title
+        description
+        image
+        url
+        order
+        createdAt
+        updatedAt
+      }
+      nextToken
+      total
+      aggregateItems {
+        name
+        result {
+          ... on SearchableAggregateScalarResult {
+            value
+          }
+          ... on SearchableAggregateBucketResult {
+            buckets {
+              key
+              doc_count
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+export const searchClassrooms = /* GraphQL */ `
+  query SearchClassrooms(
+    $filter: SearchableClassroomFilterInput
+    $sort: [SearchableClassroomSortInput]
+    $limit: Int
+    $nextToken: String
+    $from: Int
+    $aggregates: [SearchableClassroomAggregationInput]
+  ) {
+    searchClassrooms(
+      filter: $filter
+      sort: $sort
+      limit: $limit
+      nextToken: $nextToken
+      from: $from
+      aggregates: $aggregates
+    ) {
+      items {
+        id
+        title
+        description
+        image
+        order
+        createdAt
+        updatedAt
+      }
+      nextToken
+      total
+      aggregateItems {
+        name
+        result {
+          ... on SearchableAggregateScalarResult {
+            value
+          }
+          ... on SearchableAggregateBucketResult {
+            buckets {
+              key
+              doc_count
+            }
+          }
+        }
+      }
+    }
+  }
+`;
 export const searchCourses = /* GraphQL */ `
   query SearchCourses(
     $filter: SearchableCourseFilterInput
@@ -222,6 +313,7 @@ export const getAuditorium = /* GraphQL */ `
       description
       image
       url
+      order
       createdAt
       updatedAt
     }
@@ -240,6 +332,7 @@ export const listAuditoriums = /* GraphQL */ `
         description
         image
         url
+        order
         createdAt
         updatedAt
       }
@@ -254,6 +347,7 @@ export const getClassroom = /* GraphQL */ `
       title
       description
       image
+      order
       createdAt
       updatedAt
     }
@@ -271,6 +365,7 @@ export const listClassrooms = /* GraphQL */ `
         title
         description
         image
+        order
         createdAt
         updatedAt
       }
