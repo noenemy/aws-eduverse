@@ -26,6 +26,12 @@ export type AmplifyDependentResourcesAttributes = {
         },
         "awseduversepipelinevrlearningpackage": {
             "Arn": "string"
+        },
+        "admin": {
+            "Name": "string",
+            "Arn": "string",
+            "Region": "string",
+            "LambdaExecutionRole": "string"
         }
     }
 }

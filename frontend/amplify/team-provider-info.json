@@ -24,6 +24,10 @@
         "awseduversepipelinevrlearningpackage": {
           "deploymentBucketName": "amplify-awseduversetest-dev-162601-deployment",
           "s3Key": "amplify-builds/awseduversepipelinevrlearningpackage-LambdaLayerVersionddd47b5e-build.zip"
+        },
+        "admin": {
+          "deploymentBucketName": "amplify-awseduversetest-dev-162601-deployment",
+          "s3Key": "amplify-builds/admin-31465776714477463344-build.zip"
         }
       }
     }
