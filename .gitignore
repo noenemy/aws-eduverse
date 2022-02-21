@@ -120,7 +120,7 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
+# lib/
 lib64/
 parts/
 sdist/
@@ -212,3 +212,6 @@ venv.bak/
 .idea
 
 yarn.lock
+.vscode
+
+.DS_Store

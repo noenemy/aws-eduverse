@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import React from "react";
-import Amplify from 'aws-amplify';
+import React, { useEffect } from "react";
+import Amplify, { API } from 'aws-amplify';
 import awsconfig from './aws-exports'
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
@@ -25,6 +25,22 @@ Amplify.configure(awsconfig);
 
 function App() {
   const showContentOnly = window.location.pathname === "/sumerian";
+
+  useEffect(()=>{
+    API.get("vrlearning","/demo/polly/languages", {
+      // body: "woo"
+    }).then(res=>{
+      console.log("@ /demo/polly/languages res > ", res)
+    })
+
+    API.get("vrlearning","/demo/polly/voices", {
+      queryStringParameters: {
+        languageCode: 'en-US'
+      }
+    }).then(res=>{
+      console.log("@ /demo/polly/voices res > ", res)
+    })
+  }, []);
   return (
 
       <BrowserRouter>

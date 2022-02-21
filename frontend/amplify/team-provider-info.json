@@ -15,7 +15,15 @@
       "function": {
         "chimeClassroom": {
           "deploymentBucketName": "amplify-awseduversetest-dev-162601-deployment",
-          "s3Key": "amplify-builds/chimeClassroom-52574759546c73504265-build.zip"
+          "s3Key": "amplify-builds/chimeClassroom-57625a73316f33714753-build.zip"
+        },
+        "demo": {
+          "deploymentBucketName": "amplify-awseduversetest-dev-162601-deployment",
+          "s3Key": "amplify-builds/demo-35447172477345454a51-build.zip"
+        },
+        "awseduversepipelinevrlearningpackage": {
+          "deploymentBucketName": "amplify-awseduversetest-dev-162601-deployment",
+          "s3Key": "amplify-builds/awseduversepipelinevrlearningpackage-LambdaLayerVersionddd47b5e-build.zip"
         }
       }
     }
