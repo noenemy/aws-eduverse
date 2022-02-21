@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Segment, Button, Form } from 'semantic-ui-react'
 import * as chimeApi from './utils/chime'
 import {
@@ -22,43 +22,69 @@ import {
   MessagingSessionConfiguration,
 }
 from 'amazon-chime-sdk-js';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../recoil/user/userState';
 
-//const messageList = [];
-class Chat extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      messageList: [],
-      chatChannel: appConfig.channelArn,
-      title: props.title,
-      owner: props.owner,
-      chatMsg: "",
-      member: {},
-      isLoading: false,
-      nextToken: null,
-      logger: new ConsoleLogger('SDK', LogLevel.INFO),
-      endpoint: null,
-      chatUser: Math.random().toString(36).replace(/[^a-z]+/g, '').substring(0, 4)
+const Chat = (props) => {
+
+  const [messageList, setMessageList] = useState([]);
+  const [chatChannel, setChatChannel] = useState(appConfig.channelArn);
+  const [title, setTitle] = useState("");
+  const [owner, setOwner] = useState("");
+  const [chatMsg, setChatMsg] = useState("");
+  const [member, setMember] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [nextToken, setNextToken] = useState(null);
+  const [logger, setLogger] = useState(new ConsoleLogger('SDK', LogLevel.INFO));
+  const [endpoint, setEndpoint] = useState(null);
+  const [chatUser, setChatUser] = useState(Math.random().toString(36).replace(/[^a-z]+/g, '').substring(0, 4));
+
+
+  const user = useRecoilValue(userState);
+
+  useEffect(() => {
+
+    joinChat();
+
+  }, []);
+
+  const joinChat = async () => {
+    const messages = await getMessages();
+
+    console.log("CHAT DIDMOUNT");
+
+    const userName = user.nickname;
+
+    await chimeApi.createAppInstanceUser(userName);
+    let memberArn = chimeApi.createMemberArn(userName);
+    try {
+      console.log("Member ARN: " + memberArn)
+      //const memberList = await chimeApi.listChannelMemberships(this.state.chatChannel, user.attributes.sub);
+      //console.log(memberList);
+      const ret = await chimeApi.createChannelMembership(chatChannel, memberArn, 'Admin');
+      console.log("DONE");
+      if (ret) {
+        console.log("Membership add success");
+        console.log(ret);
+        setMember({
+          userId: userName,
+          username: ret.Name,
+        });
+      }
     }
-    console.log("chat!");
-    console.log(props);
-    this.setState({
-      messageList: this.getMessages(),
-    })
-    this.initSession();
+    catch (e) {
+      console.log("ERROR!! ");
+      console.log(e);
+    }
+
+    await initSession();
   }
 
-  handleChange = (e) => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  }
-
-  async initSession() {
+  const initSession = async () => {
     const logger = new ConsoleLogger('SDK', LogLevel.INFO);
     const endpoint = await chimeApi.getMessagingSessionEndpoint();
 
-    const userName = this.state.chatUser;
+    const userName = user.nickname;
 
     const userArn = chimeApi.createMemberArn(userName);
     const sessionId = null;
@@ -87,29 +113,28 @@ class Chat extends Component {
       },
       messagingSessionDidReceiveMessage: message => {
         console.log(`Receive message type ${message.type}`);
-        const msg = JSON.parse(message.payload)
-        console.log(msg);
-        if (msg !== null && msg.Sender.Name !== userName) {
-          this.addMessageList(msg, msg.Content, "incoming");
+        if (message.type == 'CREATE_CHANNEL_MESSAGE'){
+          const msg = JSON.parse(message.payload)
+          console.log(msg);
+          if (msg !== null && msg.Sender.Name !== userName) {
+            addMessageList(msg, msg.Content, "incoming");
+          }
         }
       }
     };
-
     messagingSession.addObserver(observer);
     messagingSession.start();
-    this.setState({
-      messagingSession: messagingSession,
-    })
   }
-  async sendMessage(msg) {
+
+  const sendMessage = async (msg) => {
     try {
       console.log("SENDMSG : " + msg);
-      console.log("ChannelARN: " + this.state.chatChannel);
+      console.log("ChannelARN: " + chatChannel);
       console.log("member: ");
-      console.log(this.state.member);
-      const ret = await chimeApi.sendChannelMessage(this.state.chatChannel, msg, this.state.member)
+      console.log(member);
+      const ret = await chimeApi.sendChannelMessage(chatChannel, msg, member)
       console.log(ret);
-      this.addMessageList(ret, msg, "outgoing");
+      await addMessageList(ret, msg, "outgoing");
     }
     catch (e) {
       console.log("send msg ERROR");
@@ -118,12 +143,12 @@ class Chat extends Component {
 
   }
 
-  async addMessageList(msg, content, variant) {
-    let Messages = this.state.messageList;
+  const addMessageList = async (msg, content, variant) => {
+    let Messages = messageList;
     const index = Messages.length;
-    this.setState({
-      isLoading: true,
-    })
+
+    setIsLoading(true);
+
     Messages.push(
       <ChatBubbleContainer
                 timestamp={formatTime(msg.CreatedTimestamp)}
@@ -138,25 +163,26 @@ class Chat extends Component {
                 > {content} </ChatBubble>
             </ChatBubbleContainer>
     );
-    this.setState({
-      isLoading: false,
-    })
+
+    setIsLoading(false);
   }
 
-  async getMessages() {
-    let Messages = this.state.messageList;
+  const getMessages = async () => {
+    let Messages = messageList;
     
-    const userName = this.state.chatUser;
+    const userName = user.nickname;
     console.log("NAME!!!!: " + userName);
-    this.setState({
-      isLoading: true,
-    })
+
+    setIsLoading(true);
     console.log("GET MESSAGE!!!")
     try {
-      console.log(this.state);
-      let messageList = await chimeApi.listChannelMessages(this.state.chatChannel, userName, this.nextToken);
+
+      console.log(chatChannel);
+
+      let messageList = await chimeApi.listChannelMessages(chatChannel, userName, nextToken);
       console.log("messages: ");
       console.log(messageList);
+      console.log(messageList.length);
       messageList.Messages.map((msg, index) => {
         let variant = "incoming";
         if (msg.Sender.Name === userName) {
@@ -183,80 +209,49 @@ class Chat extends Component {
       console.log("ERROR!!! GET MESSAGE!!");
       console.log(e);
     }
-    this.setState({
-      isLoading: false,
-    })
+
+    setIsLoading(false);
+
     return Messages;
   }
 
-  handleClick = () => {
-    console.log("CHAT!!: " + this.state.chatMsg)
-    if (this.state.chatMsg !== '') {
-      this.sendMessage(this.state.chatMsg);
+  const handleChange = (e) => {
+    setChatMsg(e.target.value)
+  }
+
+  const handleClick = () => {
+    console.log("CHAT!!: " + chatMsg)
+    if (chatMsg !== '') {
+      sendMessage(chatMsg);
       console.log("NOT NULL");
     }
-    this.setState({
-      chatMsg: "",
-    })
+    setChatMsg("");
   }
 
-  handleKeyPress = e => {
+  const handleKeyPress = (e) => {
     e.stopPropagation()
-    if (e.key === 'Enter') { this.handleClick(); }
+    if (e.key === 'Enter') { handleClick(); }
   };
 
-  handleScrollTop = async() => {
+  const handleScrollTop = async () => {
     console.log("handleScrollTop");
-    this.setState({
-      isLoading: true
-    })
-    const messageList = this.getMessages();
-    this.setState({
-      messageList: messageList,
-      isLoading: false,
-    })
+    setIsLoading(true);
+    const messageList = await getMessages();
+    setMessageList(messageList); 
+    setIsLoading(false);
   };
 
-  async componentDidMount() {
-    console.log("CHAT DIDMOUNT");
 
-    const userName = this.state.chatUser;
-    await chimeApi.createAppInstanceUser(userName);
-    let memberArn = chimeApi.createMemberArn(userName);
-    try {
-      console.log("Member ARN: " + memberArn)
-      //const memberList = await chimeApi.listChannelMemberships(this.state.chatChannel, user.attributes.sub);
-      //console.log(memberList);
-      const ret = await chimeApi.createChannelMembership(this.state.chatChannel, memberArn, 'Admin');
-      console.log("DONE");
-      if (ret) {
-        console.log("Membership add success");
-        console.log(ret);
-        this.setState({
-          member: {
-            userId: userName,
-            username: ret.Name,
-          }
-        })
-      }
-    }
-    catch (e) {
-      console.log("ERROR!! ");
-      console.log(e);
-    }
-  }
-
-  render() {
-    return (
-      <div className="h-100">
+  return (
+    <div className="h-100">
         <h2>Chatting</h2>
          <ThemeProvider theme={lightTheme}>
             <GlobalStyles />
               <InfiniteList
                 style={{ display: 'flex', flexGrow: '1' }}
-                items={this.state.messageList}
-                onLoad={this.handleScrollTop}
-                isLoading={this.state.isLoading}
+                items={messageList}
+                onLoad={handleScrollTop}
+                isLoading={isLoading}
                 css="border: 1px solid #3f4149; height: 100%"
                 className="chat-message-list"
                 />
@@ -266,18 +261,17 @@ class Chat extends Component {
             <Form.Field>
               <input name="chatMsg"
                 autocomplete="off" 
-                value={this.state.chatMsg} 
+                value={chatMsg} 
                 placeholder='Type here' 
-                onChange={this.handleChange}
-                onKeyPress={this.handleKeyPress}
+                onChange={handleChange}
+                onKeyPress={handleKeyPress}
                 />
             </Form.Field>
-            <Button type='submit' onClick={this.handleClick}>Submit</Button>
+            <Button type='submit' onClick={handleClick}>Submit</Button>
           </Form>
         </Segment>
       </div>
-    )
-  };
-}
+    );
+};
 
-export default Chat
+export default Chat;
