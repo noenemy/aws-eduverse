@@ -9,7 +9,7 @@ import { LOBBY_SCALE, PLAYER_SCALE } from '../common';
 class Lobby extends Phaser.Scene {
 
   tuteeMap = {}
-  allCharacters = ['pink','purple'];
+  allCharacters = ['pink','purple','green','babypink'];
   allState = ['idle', 'down'];
   backgroundTilesets = [
     'chairs_shadow',

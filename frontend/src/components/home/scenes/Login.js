@@ -38,7 +38,7 @@ class Login extends Phaser.Scene {
 				//  Have they entered anything?
 				if (inputUsername.value !== '')
 				{
-					const allCharacters = ['pink','purple'];
+					const allCharacters = ['pink','purple','green','babypink'];
 					const checkedCharacter = allCharacters.filter(item => {
 						let character = this.getChildByID(`character_${item}`);
 						return character.checked;
