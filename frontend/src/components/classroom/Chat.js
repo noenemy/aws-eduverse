@@ -248,7 +248,8 @@ class Chat extends Component {
 
   render() {
     return (
-      <Segment>
+      <div className="h-100">
+        <h2>Chatting</h2>
          <ThemeProvider theme={lightTheme}>
             <GlobalStyles />
               <InfiniteList
@@ -256,7 +257,7 @@ class Chat extends Component {
                 items={this.state.messageList}
                 onLoad={this.handleScrollTop}
                 isLoading={this.state.isLoading}
-                css="border: 1px solid #3f4149; width: 30rem; height: 30rem"
+                css="border: 1px solid #3f4149; height: 100%"
                 className="chat-message-list"
                 />
          </ThemeProvider>
@@ -274,7 +275,7 @@ class Chat extends Component {
             <Button type='submit' onClick={this.handleClick}>Submit</Button>
           </Form>
         </Segment>
-      </Segment>
+      </div>
     )
   };
 }

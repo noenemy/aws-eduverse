@@ -6,25 +6,43 @@ import {
 } from 'amazon-chime-sdk-component-library-react';
 import Meeting from './Meeting';
 import Chat from './Chat'
+import { Button } from 'react-bootstrap';
 import { useParams } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 const ChimeClassroom = (props) => {
 
 	const { id } = useParams();
+	const navigate = useNavigate();
 
-	return <React.Fragment>
-		<ThemeProvider theme={lightTheme}>
-		<Chat
-                    // chatChannel={this.state.chatChannel} 
-                    // title={this.state.title} 
-                    // owner={this.state.owner}
-                    />
-			<MeetingProvider>
-				<Meeting/>
-			</MeetingProvider>
-			
-  	</ThemeProvider>
-	</React.Fragment>
+	return (
+
+		<div>
+			<div className="row">
+				<div className="col-sm-9">
+					<h4>
+						classroom { id }
+						<Button variant="primary" onClick={() => navigate(-1)}>Exit</Button>
+					</h4>
+					<React.Fragment>
+					<ThemeProvider theme={lightTheme}>
+					<MeetingProvider>
+						<Meeting/>
+					</MeetingProvider>
+					</ThemeProvider>
+					</React.Fragment>
+				</div>
+				<div className="col-sm-3">
+					<Chat
+					// chatChannel={this.state.chatChannel} 
+					// title={this.state.title} 
+					// owner={this.state.owner}
+					/>
+				</div>
+			</div>
+		</div>   		
+
+	);
 }
 
 export default ChimeClassroom;
