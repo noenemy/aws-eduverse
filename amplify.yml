@@ -20,6 +20,9 @@ frontend:
         - echo "=====================================AFTER node version:$(node -v)"
         - cd frontend
         - yarn install
+        - echo "export const TARGET_REGION = $TARGET_REGION;" > ./public/three-js-config.js
+        - echo "export const POOL_ID = $POOL_ID;" >> ./public/three-js-config.js
+        - cat ./public/three-js-config.js        
     build:
       commands:
         - yarn build
