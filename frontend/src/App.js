@@ -9,6 +9,7 @@ import AuditoriumList from './components/auditorium/AuditoriumList';
 import Auditorium from './components/auditorium/Auditorium';
 import ClassroomList from './components/classroom/ClassroomList';
 import Lounge from './components/lounge/Lounge';
+import LoungeList from './components/lounge/LoungeList';
 import VRLearning from './components/vrlearning/VRLearning';
 import VRClassroom from './components/vrlearning/VRClassroom';
 import About from './components/about/About';
@@ -57,7 +58,7 @@ function App() {
             <Route path="/classroom/:id" element={<ChimeClassroom />} />
             <Route path="/vrlearning" element={<VRLearning />} />
             <Route path="/vrlearning/classroom" element={<VRClassroom />} />
-            <Route path="/lounge" element={<Lounge />} />
+            <Route path="/lounge" element={<LoungeList />} />
             <Route path="/lounge/:id" element={<Lounge />} />
             <Route path="/about" element={<About />} />
             <Route path="/" element={<HomeComponent />} />
