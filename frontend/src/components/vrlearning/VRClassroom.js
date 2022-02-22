@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import UnitList from './UnitList';
 import TitleBar from './TitleBar';
-import Sumerian from './Sumerian';
+import TutorViewer from './Sumerian';
 import Whiteboard from './Whiteboard';
 import Navigator from './Navigator';
 import { ToastContainer, toast } from 'react-toastify';
@@ -300,7 +300,7 @@ class VRClassroom extends Component {
                     <div className="row"><br /></div>
                     <div className="row">
                         <div className="col-6">
-                            <Sumerian language={this.language} />
+                            <TutorViewer language={this.language} />
                         </div>
                         <div className="col-6">
                             <h5>{this.state.steps && this.state.currentUnitTitle}</h5>
