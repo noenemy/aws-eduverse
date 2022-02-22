@@ -1,0 +1,2 @@
+export const TARGET_REGION = '[TARGET_REGION_HERE]';
+export const POOL_ID = '[POOL_ID_FOR_VRLEARNING_HERE]';
