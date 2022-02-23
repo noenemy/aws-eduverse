@@ -85,10 +85,18 @@ class PollyDemo extends Component {
         this.setState({ loading: true });
         //const backendAPI = `${process.env.REACT_APP_BACKEND_SERVER}/demo/polly`;         
         //const res = await axios.post(backendAPI, formData);
-        const res = API.post("vrlearning","/demo/polly", formData);
+
+        const res = await API.post("vrlearning","/demo/polly", {
+            body: {
+                language: this.state.selectedLanguage,
+                voice: this.state.selectedVoice,
+                text: this.state.text
+            }
+        });
         this.setState({ loading: false });
 
-        const mediaUrl = res.data.mediaUrl;
+        console.log("@ res >> ", res)
+        const mediaUrl = res.mediaUrl;
 
         this.audio = new Audio(mediaUrl);
         this.audio.play();

@@ -116,37 +116,42 @@ def get_polly_voices(request):
 
 def polly(request):
     try:
+        print(f'polly request > {request}')
         polly = session.client('polly')
-        languageCode = request.form['language']
-        voiceId = request.form['voice']
-        text = request.form['text']
+        languageCode = request["language"]
+        voiceId = request["voice"]
+        text = request["text"]
 
         response = polly.synthesize_speech(LanguageCode=languageCode,
                         VoiceId=voiceId,
                         OutputFormat='mp3', 
                         Text = text)
+                        
+        print(f'response >> {response}')
 
         if "AudioStream" in response:
-            with closing(response["AudioStream"]) as stream:
+            # with closing(response["AudioStream"]) as stream:
                 
-                bucket_name = "eduverse-data"
-                key = "pollydemo"
+            bucket_name = "eduverse-data"
+            key = "pollydemo"
 
-                # upload audio stream to s3 bucket
-                s3 = session.client('s3')
-                output = io.BytesIO()
-                output.write(response['AudioStream'].read())
-                s3.put_object(Body=output.getvalue(), Bucket=bucket_name, Key=key)
-                output.close()
+            # upload audio stream to s3 bucket
+            s3 = session.client('s3')
+            output = io.BytesIO()
+            output.write(response['AudioStream'].read())
+            s3.put_object(Body=output.getvalue(), Bucket=bucket_name, Key=key)
+            output.close()
 
-                # get signed url for the uploaded audio file
-                signedUrl = s3.generate_presigned_url(
-                    ClientMethod='get_object',
-                    Params={
-                        'Bucket': bucket_name,
-                        'Key': key
-                    }
-                )
+            # get signed url for the uploaded audio file
+            signedUrl = s3.generate_presigned_url(
+                ClientMethod='get_object',
+                Params={
+                    'Bucket': bucket_name,
+                    'Key': key
+                }
+            )
+            
+            response["AudioStream"].close()
 
         print('success!')
         res = {'mediaUrl':signedUrl}
@@ -199,7 +204,10 @@ def handler(event, context):
     
     method = event['httpMethod']
     path = event['path'].replace(blueprint, '')
-    body = event['body']
+    body = {}
+    if event['body'] != None:
+        body = json.loads(event['body'])
+        
     queryStringParameters = event['queryStringParameters']
     
     print(f'method : {method}')
