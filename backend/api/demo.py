@@ -167,7 +167,7 @@ def polly():
         if "AudioStream" in response:
             with closing(response["AudioStream"]) as stream:
                 
-                bucket_name = "reinvent-language-tutor"
+                bucket_name = "eduverse-data"
                 key = "pollydemo"
 
                 # upload audio stream to s3 bucket
