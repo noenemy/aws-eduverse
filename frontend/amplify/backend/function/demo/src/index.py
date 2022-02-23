@@ -2,13 +2,11 @@ import boto3
 import base64
 import io
 import json
-# from . import transcribe_util
+import transcribe_util
 # from PIL import Image
-# from contextlib import closing
+from contextlib import closing
 
 session = boto3.session.Session()
-rekog = session.client('rekognition')
-textract = session.client('textract')
 
 def rekognition(request):
     try:
@@ -25,6 +23,7 @@ def rekognition(request):
         # app.logger.debug(req_data)
         # fileContent = base64.b64decode(req_data.replace('data:image/png;base64,', ''))
         #fileContent = base64.b64decode(req_data)
+        rekog = session.client('rekognition')
         response = rekog.detect_labels(
             Image={
                 'Bytes': byteArrImage,
@@ -53,6 +52,7 @@ def textract(request):
     # app.logger.debug(req_data)
     # fileContent = base64.b64decode(req_data.replace('data:image/png;base64,', ''))
     #fileContent = base64.b64decode(req_data)
+    textract = session.client('textract')
     response = textract.detect_document_text(
       Document={
           'Bytes': byteArrImage,
@@ -92,9 +92,9 @@ def get_polly_language(request):
 
 def get_polly_voices(request):
     try:
-        polly = session.client('polly')
         languageCode = request['languageCode']
 
+        polly = session.client('polly')
         response = polly.describe_voices(LanguageCode=languageCode)
         voiceList = []
 
@@ -130,29 +130,27 @@ def polly(request):
         print(f'response >> {response}')
 
         if "AudioStream" in response:
-            # with closing(response["AudioStream"]) as stream:
+            with closing(response["AudioStream"]) as stream:
                 
-            bucket_name = "eduverse-data"
-            key = "pollydemo"
+                bucket_name = "eduverse-data"
+                key = "pollydemo"
 
-            # upload audio stream to s3 bucket
-            s3 = session.client('s3')
-            output = io.BytesIO()
-            output.write(response['AudioStream'].read())
-            s3.put_object(Body=output.getvalue(), Bucket=bucket_name, Key=key)
-            output.close()
+                # upload audio stream to s3 bucket
+                s3 = session.client('s3')
+                output = io.BytesIO()
+                output.write(response['AudioStream'].read())
+                s3.put_object(Body=output.getvalue(), Bucket=bucket_name, Key=key)
+                output.close()
 
-            # get signed url for the uploaded audio file
-            signedUrl = s3.generate_presigned_url(
-                ClientMethod='get_object',
-                Params={
-                    'Bucket': bucket_name,
-                    'Key': key
-                }
-            )
+                # get signed url for the uploaded audio file
+                signedUrl = s3.generate_presigned_url(
+                    ClientMethod='get_object',
+                    Params={
+                        'Bucket': bucket_name,
+                        'Key': key
+                    }
+                )
             
-            response["AudioStream"].close()
-
         print('success!')
         res = {'mediaUrl':signedUrl}
         return res

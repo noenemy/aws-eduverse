@@ -19,7 +19,7 @@
         },
         "demo": {
           "deploymentBucketName": "amplify-awseduversetest-dev-162601-deployment",
-          "s3Key": "amplify-builds/demo-423148704b754b694852-build.zip"
+          "s3Key": "amplify-builds/demo-7876346c582b49476b64-build.zip"
         },
         "awseduversepipelinevrlearningpackage": {
           "deploymentBucketName": "amplify-awseduversetest-dev-162601-deployment",
