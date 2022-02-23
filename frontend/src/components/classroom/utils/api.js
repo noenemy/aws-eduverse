@@ -28,6 +28,11 @@ export async function endMeeting(meetingId, title, attendeeId) {
   return endInfoJson;
 }
 
+export async function deleteMeeting(title) {
+  const deleteInfo = await API.graphql(graphqlOperation(deleteMeetingGraphQL, {input: {title: title}}));
+  return deleteInfo;
+}
+
 export async function leaveMeeting(meetingId, attendeeId) {
   const leaveInfo = await API.graphql(graphqlOperation(leaveChimeMeeting, {meetingId: meetingId, attendeeId: attendeeId}));
   const leaveInfoJson = leaveInfo.data.leaveMeeting;

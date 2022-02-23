@@ -7,7 +7,8 @@ import {
   lightTheme,
   GlobalStyles,
   formatTime,
-  ChatBubbleContainer
+  ChatBubbleContainer,
+  Input
 }
 from 'amazon-chime-sdk-component-library-react';
 import { ThemeProvider } from 'styled-components';
@@ -37,8 +38,6 @@ const Chat = (props) => {
   const [nextToken, setNextToken] = useState(null);
   const [logger, setLogger] = useState(new ConsoleLogger('SDK', LogLevel.INFO));
   const [endpoint, setEndpoint] = useState(null);
-  const [chatUser, setChatUser] = useState(Math.random().toString(36).replace(/[^a-z]+/g, '').substring(0, 4));
-
 
   const user = useRecoilValue(userState);
 
@@ -49,7 +48,6 @@ const Chat = (props) => {
   }, []);
 
   const joinChat = async () => {
-    const messages = await getMessages();
 
     console.log("CHAT DIDMOUNT");
 
@@ -110,6 +108,7 @@ const Chat = (props) => {
       },
       messagingSessionDidStop: event => {
         console.log(`Closed: ${event.code} ${event.reason}`);
+        messagingSession.stop()
       },
       messagingSessionDidReceiveMessage: message => {
         console.log(`Receive message type ${message.type}`);
@@ -252,24 +251,27 @@ const Chat = (props) => {
                 items={messageList}
                 onLoad={handleScrollTop}
                 isLoading={isLoading}
-                css="border: 1px solid #3f4149; height: 100%"
+                css="border: 1px solid #3f4149; height: 20rem"
                 className="chat-message-list"
                 />
-         </ThemeProvider>
+         
         <Segment>
            <Form>
             <Form.Field>
-              <input name="chatMsg"
+              <Input 
+                style={{display: 'flex', flexGlow: '1', width: '100%'}}
+                name="chatMsg"
                 autocomplete="off" 
                 value={chatMsg} 
-                placeholder='Type here' 
+                placeholder='Type your message' 
                 onChange={handleChange}
                 onKeyPress={handleKeyPress}
                 />
             </Form.Field>
-            <Button type='submit' onClick={handleClick}>Submit</Button>
+
           </Form>
         </Segment>
+        </ThemeProvider>
       </div>
     );
 };
