@@ -18,7 +18,7 @@ import {
   VideoTileGrid,
 } from 'amazon-chime-sdk-component-library-react';
 import { 
-  // addAttendeeToDB,
+  addAttendeeToDB,
   addMeetingToDB,
   createMeeting,
   // getAttendeeFromDB,
@@ -71,7 +71,7 @@ const Meeting = (props) => {
       if (meetingJson) {
         const meetingData = JSON.parse(meetingJson.data);
         const joinInfo = await joinMeeting(meetingData.MeetingId, name);
-        // await addAttendeeToDB(joinInfo.Attendee.AttendeeId, meetingData.MeetingId, name);
+        await addAttendeeToDB(joinInfo.Attendee.AttendeeId, meetingData.MeetingId, name);
 
         await meetingManager.join({
           meetingInfo: meetingData,
@@ -80,7 +80,7 @@ const Meeting = (props) => {
       } else {
         const joinInfo = await createMeeting(title, name, 'us-east-1');
         await addMeetingToDB(joinInfo.Meeting.MeetingId, title, JSON.stringify(joinInfo.Meeting));
-        // await addAttendeeToDB(joinInfo.Attendee.AttendeeId, joinInfo.Meeting.MeetingId, name);
+        await addAttendeeToDB(joinInfo.Attendee.AttendeeId, joinInfo.Meeting.MeetingId, name);
 
         await meetingManager.join({
           meetingInfo: joinInfo.Meeting,
@@ -92,7 +92,7 @@ const Meeting = (props) => {
       await deleteMeeting(title);
       const joinInfo = await createMeeting(title, name, 'us-east-1');
       await addMeetingToDB(joinInfo.Meeting.MeetingId, title, JSON.stringify(joinInfo.Meeting));
-      // await addAttendeeToDB(joinInfo.Attendee.AttendeeId, joinInfo.Meeting.MeetingId, name);
+      await addAttendeeToDB(joinInfo.Attendee.AttendeeId, joinInfo.Meeting.MeetingId, name);
       await meetingManager.join({
         meetingInfo: joinInfo.Meeting,
         attendeeInfo: joinInfo.Attendee
