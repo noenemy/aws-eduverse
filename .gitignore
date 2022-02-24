@@ -216,3 +216,4 @@ yarn.lock
 
 .DS_Store
 frontend/public/three-js-config.js
+backend/packages/
