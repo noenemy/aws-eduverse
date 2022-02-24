@@ -158,7 +158,7 @@ def polly(request):
 def get_presigned_url(request):
     try:
 
-        languageCode = request.form['language']
+        languageCode = request
         presigned_url = transcribe_util.get_presigned_url(language_code=languageCode)
 
         print('success!')
@@ -205,25 +205,24 @@ def handler(event, context):
     
     
     body = {}
-    if event['body'] != None and json.loads(event['body']) != None and json.loads(event['body'])['image'] != None:    #rekognition
-        body = json.loads(event['body'])['image']
-    elif event['body'] != None and json.loads(event['body']) != None and json.loads(event['body'])['image'] == None:
-        body = json.loads(event['body'])
-           
-        
+
     queryStringParameters = event['queryStringParameters']
 
     if path == '/rekognition' and method == 'POST':
+        body = json.loads(event['body'])['image']
         res = rekognition(body)
     elif path == '/textract' and method == 'POST':
+        body = json.loads(event['body'])['image']
         res = textract(body)
     elif path == '/polly/languages' and method == 'GET':
         res = get_polly_language(queryStringParameters)
     elif path == '/polly/voices' and method == 'GET':
         res = get_polly_voices(queryStringParameters)
     elif path == '/polly' and method == 'POST':
+        body = json.loads(event['body'])
         res = polly(body)
     elif path == '/transcribe' and method == 'POST':
+        body = json.loads(event['body'])['language']
         res = get_presigned_url(body)
     elif path == '/transcribe/languages' and method == 'GET':
         res = get_transcribe_language(queryStringParameters)

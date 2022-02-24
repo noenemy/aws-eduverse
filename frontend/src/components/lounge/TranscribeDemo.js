@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import mic from 'microphone-stream';
@@ -7,6 +6,7 @@ import { pcmEncode, downsampleBuffer } from '../vrlearning/utils/audioUtils.js';
 import { EventStreamMarshaller } from '@aws-sdk/eventstream-marshaller';
 import { toUtf8, fromUtf8 } from '@aws-sdk/util-utf8-node';
 import { ReactMic } from 'react-mic';
+import { API } from 'aws-amplify';
 
 class TranscribeDemo extends Component {
     constructor(props) {
@@ -48,12 +48,11 @@ class TranscribeDemo extends Component {
 
     async getTranscribeLanguages() {
         this.setState({ loading: true });
-        const backendAPI = `${process.env.REACT_APP_BACKEND_SERVER}/demo/transcribe/languages`;
-        const res = await axios.get(backendAPI);        
+        const res = await API.get("vrlearning","/demo/transcribe/languages");        
         this.setState({ loading: false });
 
         if (res !== null) {
-            this.setState({ languages: res.data });
+            this.setState({ languages: res });
         }
         else {
             toast.error("something wrong! try again.");
@@ -95,12 +94,15 @@ class TranscribeDemo extends Component {
 
         micStream.setStream(mediaStream);        
 
-        const formData = new FormData();
-        formData.append('language', this.state.selectedLanguage);
+        // const formData = new FormData();
+        // formData.append('language', this.state.selectedLanguage);
 
-        const backendAPI = `${process.env.REACT_APP_BACKEND_SERVER}/demo/transcribe`;
-        const res = await axios.post(backendAPI, formData);
-        const transcribeUrl = res.data.transcribeUrl;
+        const res = await API.post("vrlearning","/demo/transcribe", {
+            body: {
+                language: this.state.selectedLanguage
+            }
+        });
+        const transcribeUrl = res.transcribeUrl;
 
         //open up Websocket connection
         this.websocket = new WebSocket(transcribeUrl);
