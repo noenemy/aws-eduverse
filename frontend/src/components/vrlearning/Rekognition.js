@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Webcam from "react-webcam";
 import 'react-toastify/dist/ReactToastify.css';
+import Amplify, { API } from 'aws-amplify';
 import axios from "axios";
 
 class Rekognition extends Component {
@@ -19,21 +20,26 @@ class Rekognition extends Component {
 
     async postImage() {
         // call a demo API here
-        const formData = new FormData();
-        formData.append('image', this.state.screenshot);
+        //const formData = new FormData();
+        //formData.append('image', this.state.screenshot);
 
         this.setState({ loading: true });
-        const backendAPI = `${process.env.REACT_APP_BACKEND_SERVER}/demo/rekognition`;
-        const res = await axios.post(backendAPI, formData);
+        //const backendAPI = `${process.env.REACT_APP_BACKEND_SERVER}/demo/rekognition`;
+        //const res = await axios.post(backendAPI, formData);
+        const res = await API.post("vrlearning","/demo/rekognition", {
+            body: {
+                image: this.state.screenshot
+            }
+        });        
         this.setState({ loading: false });
 
         if (res !== null) {
-            this.setState({ labels: res.data.Labels });
+            this.setState({ labels: res.Labels });
             var found = false;
 
-            for (var i in res.data.Labels) {
-                console.log(res.data.Labels[i].Name);
-                if (res.data.Labels[i].Name === this.props.content.answer) {
+            for (var i in res.Labels) {
+                console.log(res.Labels[i].Name);
+                if (res.Labels[i].Name === this.props.content.answer) {
                     found = true;
                     break;
                 }
@@ -45,7 +51,7 @@ class Rekognition extends Component {
                 this.props.onWrong();
             }
 
-            console.log(res.data.Labels);
+            console.log(res.Labels);
         }
         else {
             console.log("something wrong! try again.");
