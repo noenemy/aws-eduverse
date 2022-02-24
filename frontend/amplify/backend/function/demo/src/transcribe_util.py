@@ -1,9 +1,8 @@
 import datetime, boto3, hmac
-import config
 import hashlib
 from urllib.parse import quote
 
-AWS_REGION = config.AWS_REGION
+AWS_REGION = 'ap-northeast-2'
 
 # Key derivation functions. See:
 # http://docs.aws.amazon.com/general/latest/gr/signature-v4-examples.html#signature-v4-examples-python

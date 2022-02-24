@@ -2,19 +2,17 @@ import boto3
 import base64
 import io
 import json
-# from . import transcribe_util
-# from PIL import Image
-# from contextlib import closing
+import transcribe_util
+import PIL.Image as Image
+from contextlib import closing
 
 session = boto3.session.Session()
-rekog = session.client('rekognition')
-textract = session.client('textract')
 
 def rekognition(request):
     try:
         print(f'session > {session}')
 
-        base64Image = request.form['image']
+        base64Image = request['image']
         base64Image = base64.b64decode(base64Image.split(',')[1])
         receivedImage = Image.open(io.BytesIO(base64Image))
 
@@ -22,15 +20,12 @@ def rekognition(request):
         receivedImage.save(byteArrImage, format='PNG')
         byteArrImage = byteArrImage.getvalue()
 
-        # app.logger.debug(req_data)
-        # fileContent = base64.b64decode(req_data.replace('data:image/png;base64,', ''))
-        #fileContent = base64.b64decode(req_data)
+        rekog = session.client('rekognition')
         response = rekog.detect_labels(
             Image={
                 'Bytes': byteArrImage,
             }
         )
-        # print('success!')
         print('success!')
         res = response
         return res
@@ -40,9 +35,8 @@ def rekognition(request):
 
 def textract(request):
   try:
-    # session = boto3.session.Session()
 
-    base64Image = request.form['image']
+    base64Image = request['image']
     base64Image = base64.b64decode(base64Image.split(',')[1])
     receivedImage = Image.open(io.BytesIO(base64Image))
 
@@ -50,15 +44,12 @@ def textract(request):
     receivedImage.save(byteArrImage, format='PNG')
     byteArrImage = byteArrImage.getvalue()
 
-    # app.logger.debug(req_data)
-    # fileContent = base64.b64decode(req_data.replace('data:image/png;base64,', ''))
-    #fileContent = base64.b64decode(req_data)
+    textract = session.client('textract')
     response = textract.detect_document_text(
       Document={
           'Bytes': byteArrImage,
       }
     )
-    # print('success!')
     print('success!')
     res = response
     return res
@@ -92,9 +83,9 @@ def get_polly_language(request):
 
 def get_polly_voices(request):
     try:
-        polly = session.client('polly')
         languageCode = request['languageCode']
 
+        polly = session.client('polly')
         response = polly.describe_voices(LanguageCode=languageCode)
         voiceList = []
 
@@ -130,29 +121,27 @@ def polly(request):
         print(f'response >> {response}')
 
         if "AudioStream" in response:
-            # with closing(response["AudioStream"]) as stream:
+            with closing(response["AudioStream"]) as stream:
                 
-            bucket_name = "eduverse-data"
-            key = "pollydemo"
+                bucket_name = "eduverse-data"
+                key = "pollydemo"
 
-            # upload audio stream to s3 bucket
-            s3 = session.client('s3')
-            output = io.BytesIO()
-            output.write(response['AudioStream'].read())
-            s3.put_object(Body=output.getvalue(), Bucket=bucket_name, Key=key)
-            output.close()
+                # upload audio stream to s3 bucket
+                s3 = session.client('s3')
+                output = io.BytesIO()
+                output.write(response['AudioStream'].read())
+                s3.put_object(Body=output.getvalue(), Bucket=bucket_name, Key=key)
+                output.close()
 
-            # get signed url for the uploaded audio file
-            signedUrl = s3.generate_presigned_url(
-                ClientMethod='get_object',
-                Params={
-                    'Bucket': bucket_name,
-                    'Key': key
-                }
-            )
+                # get signed url for the uploaded audio file
+                signedUrl = s3.generate_presigned_url(
+                    ClientMethod='get_object',
+                    Params={
+                        'Bucket': bucket_name,
+                        'Key': key
+                    }
+                )
             
-            response["AudioStream"].close()
-
         print('success!')
         res = {'mediaUrl':signedUrl}
         return res
@@ -214,6 +203,8 @@ def handler(event, context):
     print(f'path : {path}')
     print(f'body : {body}')
     print(f'queryStringParameters : {queryStringParameters}')
+
+    # print(f'PIL.Image >> {Image}')
 
     if path == '/rekognition' and method == 'POST':
         res = rekognition(body)
