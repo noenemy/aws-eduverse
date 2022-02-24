@@ -3,7 +3,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Amplify, { API } from 'aws-amplify';
 import Webcam from "react-webcam";
-//import axios from "axios";
 
 class RekognitionDemo extends Component {
     constructor(props) {
@@ -30,12 +29,7 @@ class RekognitionDemo extends Component {
 
     async postImage() {
         // call a demo API here
-        //const formData = new FormData();
-        //formData.append('image', this.state.screenshot);
-
         this.setState({ loading: true });
-        //const backendAPI = `${process.env.REACT_APP_BACKEND_SERVER}/demo/rekognition`;
-        //const res = await axios.post(backendAPI, formData);
         const res = await API.post("vrlearning","/demo/rekognition", {
             body: {
                 image: this.state.screenshot
