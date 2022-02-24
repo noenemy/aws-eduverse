@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 
-import React, { useEffect, useState, createRef } from 'react';
+import React, { useEffect, useState, createRef, useRef } from 'react';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../recoil/user/userState';
 import { Button } from 'react-bootstrap';
@@ -25,6 +25,8 @@ const Chat = () => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const [connection, setConnection] = useState(null);
+
+  const connectionRef = useRef(null);
   
   const chatRef = createRef();
   const messagesEndRef = createRef();
@@ -32,20 +34,20 @@ const Chat = () => {
   useEffect(() => {
 
     const initConnection = async () => {
-      const connectionInit = new WebSocket(config.CHAT_WEBSOCKET);
-      connectionInit.onopen = (event) => {
+      connectionRef.current = new WebSocket(config.CHAT_WEBSOCKET);
+      connectionRef.current.onopen = (event) => {
         console.log("WebSocket is now open.");
       };
     
-      connectionInit.onclose = (event) => {
+      connectionRef.current.onclose = (event) => {
         console.log("WebSocket is now closed.");
       };
     
-      connectionInit.onerror = (event) => {
+      connectionRef.current.onerror = (event) => {
         console.error("WebSocket error observed:", event);
       };
     
-      connectionInit.onmessage = (event) => {
+      connectionRef.current.onmessage = (event) => {
         // append received message from the server to the DOM element 
         const data = event.data.split('::');
         const username = data[0];
@@ -64,9 +66,16 @@ const Chat = () => {
           ];
         });
       };
-      setConnection(connectionInit);
+      // setConnection(connectionInit);
     }
+
     initConnection();
+
+    return () => {
+      if(connectionRef.current)
+        connectionRef.current.close();
+    }
+
   }, [])
 
   useEffect(() => {
@@ -145,6 +154,7 @@ const Chat = () => {
           <div ref={messagesEndRef} />
         </div>
         <div className="composer">
+          {user && user.id ? `${user.nickname} : ` : "unknown user : "}
           <input 
             ref={chatRef}
             className={`rounded ${!username ? 'hidden' : ''}`} 
@@ -155,9 +165,9 @@ const Chat = () => {
             onChange={handleChange}
             onKeyDown={handleKeyDown}
           />
-          {!username && (
+          {!(user && user.id) && (
             <fieldset>
-              <Button className="btn btn--primary full-width rounded" onClick={handleOnClick}>Click to send messages</Button>
+              <Button className="btn btn--primary full-width rounded" onClick={() => handleOnClick()}>Click to send messages</Button>
               
             </fieldset>
           )}

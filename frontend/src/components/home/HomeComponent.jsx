@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PhaserContainer from './PhaserContainer';
-import Chat from '../chat/Chat';
+import Chat from '../classroom/Chat';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../recoil/user/userState';
 import { Box, Grid } from '@awsui/components-react';
@@ -16,19 +16,21 @@ const HomeComponent = (props) => {
         }
     }, [game])
 
-    if(user && user.id) {
+    if(user && user.id && user.nickname) {
         return (
-            // <Grid gridDefinition={[{ colspan: 9 }, { colspan: 3 }]}>
-                <PhaserContainer game={game} setGame={g=>setGame(g)}/>
-                //챗 임시 제외
-            // </Grid>
+            <Box margin={{top:"xxl"}} padding={{ top: "l" }}>
+                <Grid gridDefinition={[{ colspan: 9 }, { colspan: 3 }]}>
+                    <PhaserContainer game={game} setGame={g=>setGame(g)}/>
+                    <Chat />
+                </Grid>
+            </Box>
         );
     }
 
     return (
-    <React.Fragment>
-        <PhaserContainer game={game} setGame={g=>setGame(g)}/>
-    </React.Fragment>)
+        <Box margin={{top:"xxl"}} padding={{ top: "l" }}>
+            <PhaserContainer game={game} setGame={g=>setGame(g)}/>
+        </Box>)
 }
 
 export default HomeComponent;

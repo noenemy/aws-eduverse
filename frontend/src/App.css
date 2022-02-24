@@ -32,6 +32,19 @@
   pointer-events: none;
 }
 
+.navbar {
+  position: absolute;
+  top:0px;
+  width:100vw;
+  z-index: 999;
+}
+
+#game {
+  /* margin-top: 56px; */
+  height: calc(100vh - 60px);
+  background-color: #87CEEB;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
