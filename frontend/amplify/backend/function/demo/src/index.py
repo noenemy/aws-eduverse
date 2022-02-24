@@ -3,23 +3,25 @@ import base64
 import io
 import json
 import transcribe_util
-from PIL.Image import core as _imaging
+from PIL import Image
 from contextlib import closing
 
 session = boto3.session.Session()
 
 def rekognition(request):
     try:
-        print(f'session > {session}')
-
-        base64Image = request['image']
+        print(f'@ rekognition request >> {request}')
+        base64Image = request
         base64Image = base64.b64decode(base64Image.split(',')[1])
-        receivedImage = _imaging.open(io.BytesIO(base64Image))
+        receivedImage = Image.open(io.BytesIO(base64Image))
 
         byteArrImage = io.BytesIO()
         receivedImage.save(byteArrImage, format='PNG')
         byteArrImage = byteArrImage.getvalue()
 
+        # app.logger.debug(req_data)
+        # fileContent = base64.b64decode(req_data.replace('data:image/png;base64,', ''))
+        #fileContent = base64.b64decode(req_data)
         rekog = session.client('rekognition')
         response = rekog.detect_labels(
             Image={
@@ -35,21 +37,26 @@ def rekognition(request):
 
 def textract(request):
   try:
+    # session = boto3.session.Session()
 
-    base64Image = request['image']
+    base64Image = request.form['image']
     base64Image = base64.b64decode(base64Image.split(',')[1])
-    receivedImage = _imaging.open(io.BytesIO(base64Image))
+    receivedImage = Image.open(io.BytesIO(base64Image))
 
     byteArrImage = io.BytesIO()
     receivedImage.save(byteArrImage, format='PNG')
     byteArrImage = byteArrImage.getvalue()
 
+    # app.logger.debug(req_data)
+    # fileContent = base64.b64decode(req_data.replace('data:image/png;base64,', ''))
+    #fileContent = base64.b64decode(req_data)
     textract = session.client('textract')
     response = textract.detect_document_text(
       Document={
           'Bytes': byteArrImage,
       }
     )
+    # print('success!')
     print('success!')
     res = response
     return res
@@ -185,24 +192,30 @@ def get_transcribe_language(request):
         print(e)
 
 def handler(event, context):
+    
+    # print(f'received event: {event}')
   
     blueprint = '/demo'
     
-    print('received event:')
-    print(event)
-    
     method = event['httpMethod']
     path = event['path'].replace(blueprint, '')
-    body = {}
-    if event['body'] != None:
-        body = json.loads(event['body'])
-        
-    queryStringParameters = event['queryStringParameters']
     
     print(f'method : {method}')
     print(f'path : {path}')
-    print(f'body : {body}')
-    print(f'queryStringParameters : {queryStringParameters}')
+    # print(f'body : {event['body']}')
+    
+    
+    body = {}
+    if event['body'] != None and json.loads(event['body']) != None and json.loads(event['body'])['image'] == None:
+        body = json.loads(event['body'])
+    elif event['body'] != None and json.loads(event['body']) != None and json.loads(event['body'])['image'] != None:
+        body = json.loads(event['body'])['image']
+        
+    queryStringParameters = event['queryStringParameters']
+    
+
+    # print(f'body : {body}')
+    # print(f'queryStringParameters : {queryStringParameters}')
 
     # print(f'PIL.Image >> {Image}')
 

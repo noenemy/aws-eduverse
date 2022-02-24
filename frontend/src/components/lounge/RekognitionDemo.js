@@ -44,7 +44,7 @@ class RekognitionDemo extends Component {
         this.setState({ loading: false });
 
         if (res !== null) {
-            this.setState({ labels: res.data.Labels });
+            this.setState({ labels: res.Labels });
         }
         else {
             toast.error("something wrong! try again.");

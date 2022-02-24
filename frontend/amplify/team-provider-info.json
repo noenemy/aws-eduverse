@@ -19,11 +19,11 @@
         },
         "demo": {
           "deploymentBucketName": "amplify-awseduversetest-dev-162601-deployment",
-          "s3Key": "amplify-builds/demo-77754c7077735042592b-build.zip"
+          "s3Key": "amplify-builds/demo-3078786d38635a447241-build.zip"
         },
         "admin": {
           "deploymentBucketName": "amplify-awseduversetest-dev-162601-deployment",
-          "s3Key": "amplify-builds/admin-39387a2f334f79676f6c-build.zip"
+          "s3Key": "amplify-builds/admin-6630527032456179685a-build.zip"
         },
         "awseduversepipelinepillow": {
           "deploymentBucketName": "amplify-awseduversetest-dev-162601-deployment",
