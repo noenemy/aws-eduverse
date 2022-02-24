@@ -79,6 +79,7 @@ async function listChannelMessages(channelArn, userId, nextToken = null) {
 
   const params = {
     ChannelArn: channelArn,
+    NotBefore: new Date(),
     NextToken: nextToken
   };
 
