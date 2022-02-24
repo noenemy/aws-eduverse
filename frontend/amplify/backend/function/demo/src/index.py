@@ -20,12 +20,6 @@ def rekognition(request):
         receivedImage.save(byteArrImage, format='PNG')
         byteArrImage = byteArrImage.getvalue()
 
-<<<<<<< HEAD
-=======
-        # app.logger.debug(req_data)
-        # fileContent = base64.b64decode(req_data.replace('data:image/png;base64,', ''))
-        #fileContent = base64.b64decode(req_data)
->>>>>>> 9042c03b3c73ac3b96b6dc1c16087e4c4dc842ff
         rekog = session.client('rekognition')
         response = rekog.detect_labels(
             Image={
@@ -50,12 +44,6 @@ def textract(request):
     receivedImage.save(byteArrImage, format='PNG')
     byteArrImage = byteArrImage.getvalue()
 
-<<<<<<< HEAD
-=======
-    # app.logger.debug(req_data)
-    # fileContent = base64.b64decode(req_data.replace('data:image/png;base64,', ''))
-    #fileContent = base64.b64decode(req_data)
->>>>>>> 9042c03b3c73ac3b96b6dc1c16087e4c4dc842ff
     textract = session.client('textract')
     response = textract.detect_document_text(
       Document={
