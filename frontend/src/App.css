@@ -42,7 +42,7 @@
 #game {
   /* margin-top: 56px; */
   height: calc(100vh - 60px);
-  background-color: #87CEEB;
+  /* background-color: #87CEEB; */
 }
 
 @keyframes App-logo-spin {

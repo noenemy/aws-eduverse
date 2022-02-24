@@ -21,7 +21,9 @@ const HomeComponent = (props) => {
             <Box margin={{top:"xxl"}} padding={{ top: "l" }}>
                 <Grid gridDefinition={[{ colspan: 9 }, { colspan: 3 }]}>
                     <PhaserContainer game={game} setGame={g=>setGame(g)}/>
-                    <Chat />
+                    <Box margin={{left:"m", right: "m"}}>
+                        <Chat />
+                    </Box>
                 </Grid>
             </Box>
         );

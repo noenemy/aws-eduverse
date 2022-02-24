@@ -3,7 +3,7 @@ import Phaser from 'phaser';
 export const CONFIG = {
   type: Phaser.AUTO,
   parent: 'game',
-  backgroundColor: '#87CEEB',
+  backgroundColor: '#FFFFFF',
   // width: 1600,
   // height: 800,
   // autoCenter: Phaser.Scale.CENTER_BOTH,
