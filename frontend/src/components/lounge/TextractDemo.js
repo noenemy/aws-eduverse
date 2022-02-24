@@ -41,7 +41,7 @@ class TextractDemo extends Component {
         this.setState({ loading: false });
 
         if (res !== null) {
-            this.setState({ blocks: res.data.Blocks });
+            this.setState({ blocks: res.Blocks });
         }
         else {
             toast.error("something wrong! try again.");

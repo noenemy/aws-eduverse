@@ -37,9 +37,9 @@ def rekognition(request):
 
 def textract(request):
   try:
-    # session = boto3.session.Session()
+    print(f'@ textract request >> {request}')
 
-    base64Image = request.form['image']
+    base64Image = request
     base64Image = base64.b64decode(base64Image.split(',')[1])
     receivedImage = Image.open(io.BytesIO(base64Image))
 
@@ -56,7 +56,6 @@ def textract(request):
           'Bytes': byteArrImage,
       }
     )
-    # print('success!')
     print('success!')
     res = response
     return res
@@ -206,18 +205,13 @@ def handler(event, context):
     
     
     body = {}
-    if event['body'] != None and json.loads(event['body']) != None and json.loads(event['body'])['image'] == None:
-        body = json.loads(event['body'])
-    elif event['body'] != None and json.loads(event['body']) != None and json.loads(event['body'])['image'] != None:
+    if event['body'] != None and json.loads(event['body']) != None and json.loads(event['body'])['image'] != None:    #rekognition
         body = json.loads(event['body'])['image']
+    elif event['body'] != None and json.loads(event['body']) != None and json.loads(event['body'])['image'] == None:
+        body = json.loads(event['body'])
+           
         
     queryStringParameters = event['queryStringParameters']
-    
-
-    # print(f'body : {body}')
-    # print(f'queryStringParameters : {queryStringParameters}')
-
-    # print(f'PIL.Image >> {Image}')
 
     if path == '/rekognition' and method == 'POST':
         res = rekognition(body)
