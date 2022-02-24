@@ -15,19 +15,19 @@
       "function": {
         "chimeClassroom": {
           "deploymentBucketName": "amplify-awseduversetest-dev-162601-deployment",
-          "s3Key": "amplify-builds/chimeClassroom-57625a73316f33714753-build.zip"
+          "s3Key": "amplify-builds/chimeClassroom-447a4d6b575278724258-build.zip"
         },
         "demo": {
           "deploymentBucketName": "amplify-awseduversetest-dev-162601-deployment",
-          "s3Key": "amplify-builds/demo-7876346c582b49476b64-build.zip"
-        },
-        "awseduversepipelinevrlearningpackage": {
-          "deploymentBucketName": "amplify-awseduversetest-dev-162601-deployment",
-          "s3Key": "amplify-builds/awseduversepipelinevrlearningpackage-LambdaLayerVersionddd47b5e-build.zip"
+          "s3Key": "amplify-builds/demo-77754c7077735042592b-build.zip"
         },
         "admin": {
           "deploymentBucketName": "amplify-awseduversetest-dev-162601-deployment",
-          "s3Key": "amplify-builds/admin-31465776714477463344-build.zip"
+          "s3Key": "amplify-builds/admin-39387a2f334f79676f6c-build.zip"
+        },
+        "awseduversepipelinepillow": {
+          "deploymentBucketName": "amplify-awseduversetest-dev-162601-deployment",
+          "s3Key": "amplify-builds/awseduversepipelinepillow-LambdaLayerVersion5da48c85-build.zip"
         }
       }
     }

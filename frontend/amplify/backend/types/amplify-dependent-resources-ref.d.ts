@@ -24,14 +24,14 @@ export type AmplifyDependentResourcesAttributes = {
             "Region": "string",
             "LambdaExecutionRole": "string"
         },
-        "awseduversepipelinevrlearningpackage": {
-            "Arn": "string"
-        },
         "admin": {
             "Name": "string",
             "Arn": "string",
             "Region": "string",
             "LambdaExecutionRole": "string"
+        },
+        "awseduversepipelinepillow": {
+            "Arn": "string"
         }
     }
 }

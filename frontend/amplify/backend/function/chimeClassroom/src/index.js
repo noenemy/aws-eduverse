@@ -91,7 +91,7 @@ const joinChimeMeeting = async (context) => {
     // For simplicity here, we use a random UUID for uniqueness
     // combined with the name the user provided, which can later
     // be used to help build the roster.
-    ExternalUserId: `${uuid().substring(0, 8)}#${name}`.substring(0, 64),
+    ExternalUserId: name.substring(0, 64),
   }).promise());
 
   return response(200, 'application/json', JSON.stringify(

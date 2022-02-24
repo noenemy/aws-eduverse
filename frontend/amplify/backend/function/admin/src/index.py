@@ -16,7 +16,9 @@ def handler(event, context):
 
     method = event['httpMethod']
     path = event['path'].replace(blueprint, '')
-    body = event['body']
+    body = {}
+    if event['body'] != None:
+        body = json.loads(event['body'])
     queryStringParameters = event['queryStringParameters']
 
     print(f'method : {method}')

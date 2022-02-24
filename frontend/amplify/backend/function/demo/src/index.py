@@ -3,7 +3,7 @@ import base64
 import io
 import json
 import transcribe_util
-# from PIL import Image
+from PIL.Image import core as _imaging
 from contextlib import closing
 
 session = boto3.session.Session()
@@ -14,7 +14,7 @@ def rekognition(request):
 
         base64Image = request.form['image']
         base64Image = base64.b64decode(base64Image.split(',')[1])
-        receivedImage = Image.open(io.BytesIO(base64Image))
+        receivedImage = _imaging.open(io.BytesIO(base64Image))
 
         byteArrImage = io.BytesIO()
         receivedImage.save(byteArrImage, format='PNG')
@@ -43,7 +43,7 @@ def textract(request):
 
     base64Image = request.form['image']
     base64Image = base64.b64decode(base64Image.split(',')[1])
-    receivedImage = Image.open(io.BytesIO(base64Image))
+    receivedImage = _imaging.open(io.BytesIO(base64Image))
 
     byteArrImage = io.BytesIO()
     receivedImage.save(byteArrImage, format='PNG')
@@ -212,6 +212,8 @@ def handler(event, context):
     print(f'path : {path}')
     print(f'body : {body}')
     print(f'queryStringParameters : {queryStringParameters}')
+
+    # print(f'PIL.Image >> {Image}')
 
     if path == '/rekognition' and method == 'POST':
         res = rekognition(body)
