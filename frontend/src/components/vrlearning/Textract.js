@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Webcam from "react-webcam";
 import 'react-toastify/dist/ReactToastify.css';
-import axios from "axios";
+import Amplify, { API } from 'aws-amplify';
 
 class Textract extends Component {
     constructor(props) {
@@ -18,24 +18,24 @@ class Textract extends Component {
     }
 
     async postImage() {
-        // call a demo API here
-        const formData = new FormData();
-        formData.append('image', this.state.screenshot);
-
+        
         this.setState({ loading: true });
-        const backendAPI = `${process.env.REACT_APP_BACKEND_SERVER}/demo/textract`;
-        const res = await axios.post(backendAPI, formData);
+        const res = await API.post("vrlearning","/demo/textract", {
+            body: {
+                image: this.state.screenshot
+            }
+        });
         this.setState({ loading: false });
 
         console.log(res);
 
         if (res !== null) {
-            this.setState({ blocks: res.data.Blocks });
+            this.setState({ blocks: res.Blocks });
             var found = false;
 
-            for (var i in res.data.Blocks) {
-                console.log(res.data.Blocks[i].BlockType + ' ' + res.data.Blocks[i].Text);
-                if (res.data.Blocks[i].BlockType === "WORD" && res.data.Blocks[i].Text  === this.props.content.answer) {
+            for (var i in res.Blocks) {
+                console.log(res.Blocks[i].BlockType + ' ' + res.Blocks[i].Text);
+                if (res.Blocks[i].BlockType === "WORD" && res.Blocks[i].Text  === this.props.content.answer) {
                     found = true;
                     break;
                 }

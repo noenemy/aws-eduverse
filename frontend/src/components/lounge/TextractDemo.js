@@ -3,7 +3,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import Amplify, { API } from 'aws-amplify';
 import 'react-toastify/dist/ReactToastify.css';
 import Webcam from "react-webcam";
-//import axios from "axios";
 
 class TextractDemo extends Component {
     constructor(props) {
@@ -27,12 +26,7 @@ class TextractDemo extends Component {
 
     async postImage() {
         // call a demo API here
-        //const formData = new FormData();
-        //formData.append('image', this.state.screenshot);
-
         this.setState({ loading: true });
-        //const backendAPI = `${process.env.REACT_APP_BACKEND_SERVER}/demo/textract`;
-        //const res = await axios.post(backendAPI, formData);
         const res = await API.post("vrlearning","/demo/textract", {
             body: {
                 image: this.state.screenshot
