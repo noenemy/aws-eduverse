@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import VideoPlayer from './VideoPlayer';
-import Chat from '../chat/Chat';
+//import Chat from '../chat/Chat';
 import { API, graphqlOperation } from 'aws-amplify';
 import { getAuditorium, listAuditoriums } from '../../graphql/queries';
 
@@ -33,7 +33,7 @@ function Auditorium() {
                 
             </div>
             <div className="col-sm-3">
-                <Chat />
+                {/*<Chat />*/}
             </div>
         </div>
     );
