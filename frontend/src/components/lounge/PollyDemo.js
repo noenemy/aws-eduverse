@@ -47,7 +47,7 @@ class PollyDemo extends Component {
             queryStringParameters: {
               languageCode: languageCode
             }
-          })
+        });
         this.setState({ loading: false });
 
         if (res !== null) {
@@ -77,15 +77,8 @@ class PollyDemo extends Component {
     }
 
     async pollyDemo() {
-        const formData = new FormData();
-        formData.append('language', this.state.selectedLanguage);
-        formData.append('voice', this.state.selectedVoice);
-        formData.append('text',this.state.text);
 
         this.setState({ loading: true });
-        //const backendAPI = `${process.env.REACT_APP_BACKEND_SERVER}/demo/polly`;         
-        //const res = await axios.post(backendAPI, formData);
-
         const res = await API.post("vrlearning","/demo/polly", {
             body: {
                 language: this.state.selectedLanguage,

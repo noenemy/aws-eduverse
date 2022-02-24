@@ -12,7 +12,7 @@ def rekognition(request):
     try:
         print(f'session > {session}')
 
-        base64Image = request.form['image']
+        base64Image = request['image']
         base64Image = base64.b64decode(base64Image.split(',')[1])
         receivedImage = _imaging.open(io.BytesIO(base64Image))
 
@@ -20,16 +20,12 @@ def rekognition(request):
         receivedImage.save(byteArrImage, format='PNG')
         byteArrImage = byteArrImage.getvalue()
 
-        # app.logger.debug(req_data)
-        # fileContent = base64.b64decode(req_data.replace('data:image/png;base64,', ''))
-        #fileContent = base64.b64decode(req_data)
         rekog = session.client('rekognition')
         response = rekog.detect_labels(
             Image={
                 'Bytes': byteArrImage,
             }
         )
-        # print('success!')
         print('success!')
         res = response
         return res
@@ -39,9 +35,8 @@ def rekognition(request):
 
 def textract(request):
   try:
-    # session = boto3.session.Session()
 
-    base64Image = request.form['image']
+    base64Image = request['image']
     base64Image = base64.b64decode(base64Image.split(',')[1])
     receivedImage = _imaging.open(io.BytesIO(base64Image))
 
@@ -49,16 +44,12 @@ def textract(request):
     receivedImage.save(byteArrImage, format='PNG')
     byteArrImage = byteArrImage.getvalue()
 
-    # app.logger.debug(req_data)
-    # fileContent = base64.b64decode(req_data.replace('data:image/png;base64,', ''))
-    #fileContent = base64.b64decode(req_data)
     textract = session.client('textract')
     response = textract.detect_document_text(
       Document={
           'Bytes': byteArrImage,
       }
     )
-    # print('success!')
     print('success!')
     res = response
     return res

@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import {
@@ -25,13 +25,16 @@ import {
   getMeetingFromDB,
   joinMeeting,
   endMeeting,
+  deleteMeeting,
   getAttendees,
   leaveMeeting
  } from './utils/api';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../recoil/user/userState';
+import ReactLoading from 'react-loading';
 
 const Meeting = (props) => {
+  const [ loading, setLoading ] = useState(true);
   const meetingManager = useMeetingManager();
   const meetingStatus = useMeetingStatus();
   const navigate = useNavigate();
@@ -46,7 +49,7 @@ const Meeting = (props) => {
     if(!user || !user.nickname) {
       navigate('/');
     }
-    
+    setLoading(false);
     createAndJoinMeeting();
 
     return async () => {
@@ -86,6 +89,14 @@ const Meeting = (props) => {
       }
     } catch (error) {
       console.log(error);
+      await deleteMeeting(title);
+      const joinInfo = await createMeeting(title, name, 'us-east-1');
+      await addMeetingToDB(joinInfo.Meeting.MeetingId, title, JSON.stringify(joinInfo.Meeting));
+      await addAttendeeToDB(joinInfo.Attendee.AttendeeId, joinInfo.Meeting.MeetingId, name);
+      await meetingManager.join({
+        meetingInfo: joinInfo.Meeting,
+        attendeeInfo: joinInfo.Attendee
+      });
     }
 
     await meetingManager.start();
@@ -100,16 +111,16 @@ const Meeting = (props) => {
     const attendeeId = attendeeResponse.data.listAttendees.items.filter(e => e.name == name)[0].attendeeId;
 
     try {
-      if (attendeeCount == 1) {
-        await endMeeting(meetingId, title, attendeeId);
-      } else {
+      // if (attendeeCount == 1) {
+        // await endMeeting(meetingId, title, attendeeId);
+      // } else {
         await leaveMeeting(meetingId, attendeeId);
-      }
+      // }
     } catch (error){
       console.log(error);
     }
-      await meetingManager.leave();
-      navigate(`/classroom/`);
+    await meetingManager.leave();
+    navigate(`/classroom/`);
   }
   
   return (
@@ -127,7 +138,7 @@ const Meeting = (props) => {
             <ControlBarButton icon={<Phone />} onClick={clickedEndMeeting} label="End" />
           </ControlBar> 
           :
-          <div/>
+          <><ReactLoading type="spin" color="#123abc" /><div /></>
         }
       </div>
   );
