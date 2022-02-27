@@ -7,7 +7,6 @@
 /* Variables */
 :root {
   --radius: 12px;
-  --btn-size: 3rem;
 }
 
 /* Style */
@@ -26,10 +25,19 @@ body {
   overflow: hidden;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
   user-select: none;
-  display: grid;
-  place-items: center;
 }
 */
+
+
+.inner {
+  max-width: 1080px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  align-items: stretch;
+  margin: 0 auto;
+  padding: 40px;
+}
 
 .player-wrapper {
   width: 90%;
@@ -46,6 +54,15 @@ body {
   padding-bottom: 56.25%;
 }
 
+.el-player {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  background: #000;
+  border-radius: var(--radius);
+}
+
 #overlay {
   position: absolute;
   top: 0;
@@ -53,6 +70,100 @@ body {
   right: 0;
   bottom: 0;
   z-index: 1;
+}
+
+
+.quiz-wrap {
+  min-height: 460px;
+  position: relative;
+  transition: all 0.25s ease-in;
+}
+
+.ivs-card {
+  margin: 0 20px;
+  padding: 20px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+  transition: all 1s cubic-bezier(1, -0.56, 0, 1);
+  transform: translate3d(0, 0, 0) scale(1);
+  backface-visibility: hidden;
+  z-index: 1;
+}
+
+.ivs-card.drop {
+  opacity: 0;
+  transform: translate3d(0, 200px, -20px) scale(0.92);
+}
+
+#question {
+  font-size: 20px;
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.answer {
+  height: 50px;
+  line-height: 50px;
+  font-size: 15px;
+  display: flex;
+  text-decoration: none;
+  border: 1px solid #d5dbdb;
+  border-radius: 50px;
+  padding: 0 24px;
+  margin: 10px 0;
+  background: #fafafa;
+  color: #545b64;
+  transition: all 0.05s ease-in-out;
+}
+
+.answer:hover {
+  background: #ebebebe0;
+}
+
+.answer:active {
+  background: #ff9900;
+  border: 1px solid #eb5f07;
+  color: #fff;
+}
+
+.answer.correct {
+  background: #25a702;
+  border: 1px solid #1d8102;
+  color: #fff;
+  animation: blink 0.45s infinite;
+}
+
+.answer.wrong {
+  background: #d13212;
+  border: 1px solid #b7290d;
+  color: #fff;
+  animation: blink 0.45s infinite;
+}
+
+#waiting {
+  top: 100px;
+  left: 0;
+  right: 0;
+  position: absolute;
+  display: none;
+  align-items: center;
+}
+
+.waiting-text {
+  width: 100%;
+  display: block;
+  text-align: center;
+  font-size: 18px;
+  color: #d5dbdb;
+}
+
+.float {
+  transform: translateY(0px);
+  animation: float 6s ease-in-out infinite;
 }
 
 #player-controls {
