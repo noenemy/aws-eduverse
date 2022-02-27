@@ -136,7 +136,7 @@ class PollyDemo extends Component {
                                 {this.state.voices && <div className="container">
 
                                     {this.state.voices.map(({ voiceName, gender }, index) =>
-                                    <div className="radio" onChange={this.voiceChanged}>
+                                    <div className="radio" onChange={this.voiceChanged} key={index}>
                                         <label>
                                         <input type="radio" name="radioVoices" id={voiceName} value={voiceName} defaultChecked={index === 0} />
                                         &nbsp;{voiceName}, {gender}
