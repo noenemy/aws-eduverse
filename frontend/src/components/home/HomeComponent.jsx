@@ -18,21 +18,18 @@ const HomeComponent = (props) => {
 
     if(user && user.id && user.nickname) {
         return (
-            <Box margin={{top:"xxl"}} padding={{ top: "l" }}>
-                <Grid gridDefinition={[{ colspan: 9 }, { colspan: 3 }]}>
-                    <PhaserContainer game={game} setGame={g=>setGame(g)}/>
-                    <Box margin={{left:"m", right: "m"}}>
-                        <Chat />
-                    </Box>
-                </Grid>
-            </Box>
+            <Grid gridDefinition={[{ colspan: 9 }, { colspan: 3 }]}>
+                <PhaserContainer game={game} setGame={g=>setGame(g)}/>
+                <Box margin={{left:"m", right: "m"}}>
+                    <Chat />
+                </Box>
+            </Grid>
         );
     }
 
     return (
-        <Box margin={{top:"xxl"}} padding={{ top: "l" }}>
-            <PhaserContainer game={game} setGame={g=>setGame(g)}/>
-        </Box>)
+        <PhaserContainer game={game} setGame={g=>setGame(g)}/>
+    )
 }
 
 export default HomeComponent;
