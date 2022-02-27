@@ -40,7 +40,7 @@ body {
 }
 
 .player-wrapper {
-  width: 90%;
+  width: 100%;
   position: relative;
   overflow: hidden;
   transform: translate3d(0, 0, 0);
@@ -334,4 +334,20 @@ body {
 }
 .full-height {
   height: 100%;
+}
+
+/* Mediaqueries */
+@media (max-width: 767px) {
+  h2 {
+    font-size: 20px;
+  }
+  .ivs-card {
+    top: -20px;
+  }
+}
+
+@media (min-width: 767px) {
+  .ivs-card {
+    top: -25%;
+  }
 }
