@@ -21,6 +21,7 @@ import {
     Route
 } from "react-router-dom";
 import ChimeClassroom from './components/classroom/ChimeClassroom';
+import { Box } from '@awsui/components-react';
 
 Amplify.configure(awsconfig);
 
@@ -50,20 +51,20 @@ function App() {
           { showContentOnly ? null :
             (<Navbar title="AWS Eduverse" />)
           }
-
-          <Routes>
-            <Route path="/auditorium" element={<AuditoriumList />} />
-            <Route path="/auditorium/:id" element={<Auditorium />} />         
-            <Route path="/classroom" element={<ClassroomList />} />
-            <Route path="/classroom/:id" element={<ChimeClassroom />} />
-            <Route path="/vrlearning" element={<VRLearning />} />
-            <Route path="/vrlearning/classroom" element={<VRClassroom />} />
-            <Route path="/lounge" element={<LoungeList />} />
-            <Route path="/lounge/:id" element={<Lounge />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/" element={<HomeComponent />} />
-          </Routes>
-
+          <Box margin={{top:"xxl"}} padding={{ top: "l" }}>
+            <Routes>
+              <Route path="/auditorium" element={<AuditoriumList />} />
+              <Route path="/auditorium/:id" element={<Auditorium />} />         
+              <Route path="/classroom" element={<ClassroomList />} />
+              <Route path="/classroom/:id" element={<ChimeClassroom />} />
+              <Route path="/vrlearning" element={<VRLearning />} />
+              <Route path="/vrlearning/classroom" element={<VRClassroom />} />
+              <Route path="/lounge" element={<LoungeList />} />
+              <Route path="/lounge/:id" element={<Lounge />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/" element={<HomeComponent />} />
+            </Routes>
+          </Box>
           { showContentOnly ? null : (<Footer />) }
 
         </BrowserRouter>

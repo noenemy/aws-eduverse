@@ -1,8 +1,8 @@
 import Phaser from 'phaser';
 import { API, graphqlOperation } from 'aws-amplify';
 import { createTutee, updateTutee } from '../../../graphql/mutations';
-import { getTtlSeconds, randomInt, START_POINT } from '../common';
-import { getTutee, listTutees } from '../../../graphql/queries';
+import { getTtlSeconds, START_POINT } from '../common';
+import { listTutees } from '../../../graphql/queries';
 
 class Login extends Phaser.Scene {
 
