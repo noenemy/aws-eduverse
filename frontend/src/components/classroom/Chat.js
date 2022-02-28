@@ -9,7 +9,6 @@ import {
   formatTime,
   ChatBubbleContainer,
   Input,
-  ContentShareControl
 }
 from 'amazon-chime-sdk-component-library-react';
 import { ThemeProvider } from 'styled-components';
@@ -89,25 +88,6 @@ const Chat = (props) => {
       console.log("ERROR!! ");
       console.log(e);
     }
-    // try {
-    //   console.log("Member ARN: " + memberArn)
-    //   //const memberList = await chimeApi.listChannelMemberships(this.state.chatChannel, user.attributes.sub);
-    //   //console.log(memberList);
-    //   const ret = await chimeApi.createChannelMembership(chatChannel, memberArn, 'Admin');
-    //   console.log("DONE");
-    //   if (ret) {
-    //     console.log("Membership add success");
-    //     console.log(ret);
-    //     setMember({
-    //       userId: userName,
-    //       username: ret.Name,
-    //     });
-    //   }
-    // }
-    // catch (e) {
-    //   console.log("ERROR!! ");
-    //   console.log(e);
-    // }
 
     await initSession();
   }
