@@ -95,6 +95,11 @@ class Lobby extends Phaser.Scene {
       frameHeight: 32,
     });
 
+    this.load.spritesheet(`jump-sheet`, `assets/jump/jump.png`, {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+
     this.load.spritesheet('emoji-sheet', `assets/carry/emoticons.png`, {
       frameWidth: 16,
       frameHeight: 16,
@@ -111,6 +116,7 @@ class Lobby extends Phaser.Scene {
 
     this.createAnims('door-anims', 'door-sheet', 0, 2, { repeat: -1, duration: 800 });
     this.createAnims('carry-anims', 'carry-sheet', 0, 31, { repeat: -1, duration: 2000 });
+    this.createAnims('jump-anims', 'jump-sheet', 0, 19, { repeat: -1, duration: 2000 });
     this.createAnims('emoji-anims', 'emoji-sheet', 0, 14, { repeat: -1, duration: 5000 });
 
     this.createTuteeAnims();
@@ -121,7 +127,7 @@ class Lobby extends Phaser.Scene {
     this.door["vrlearning"] = this.addSpriteAndPlay(165, 257, 'door', LOBBY_SCALE );
 
     this.welcomeNpc = this.addSpriteAndPlay(380, 180, 'carry', PLAYER_SCALE);
-
+    this.jumpNpc = this.addSpriteAndPlay(200, 50, 'jump', PLAYER_SCALE);
     
 
     this.cursorKeys = this.input.keyboard.createCursorKeys();
