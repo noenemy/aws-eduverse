@@ -5,6 +5,7 @@ import VideoPlayer from './VideoPlayer';
 import Chat from '../classroom/Chat';
 import { API, graphqlOperation } from 'aws-amplify';
 import { getAuditorium, listAuditoriums } from '../../graphql/queries';
+import ScrollToTop from '../home/ScrollToTop';
 
 function Auditorium() {
     const { id } = useParams();
@@ -21,21 +22,23 @@ function Auditorium() {
     }, []);
 
     return (
-        <div className="row">
-            <div className="col-sm-9">
-                <div>
-                    <span>auditorium { id }</span> 
-                    <Button variant="primary" onClick={() => navigate(-1)}>Exit</Button> 
+        <ScrollToTop>
+            <div className="row">
+                <div className="col-sm-9">
+                    <div>
+                        <span>auditorium { id }</span> 
+                        <Button variant="primary" onClick={() => navigate(-1)}>Exit</Button> 
+                    </div>
+                    { url && 
+                        <VideoPlayer url={ url } />
+                    }  
+                    
                 </div>
-                { url && 
-                    <VideoPlayer url={ url } />
-                }  
-                
+                <div className="col-sm-3">
+                    <Chat />
+                </div>
             </div>
-            <div className="col-sm-3">
-                <Chat />
-            </div>
-        </div>
+        </ScrollToTop>
     );
 }
 
