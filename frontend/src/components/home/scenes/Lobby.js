@@ -3,7 +3,7 @@ import Tutee from '../entities/Tutee';
 import { API, graphqlOperation } from 'aws-amplify';
 import { onCreateTutee, onDeleteTutee, onUpdateTutee } from '../../../graphql/subscriptions';
 import { listTutees } from '../../../graphql/queries';
-import { LOBBY_SCALE, PLAYER_SCALE } from '../common';
+import { LOBBY_SCALE, NPC_CONFIG, PLAYER_SCALE } from '../common';
 // import { Dialog } from 'phaser3-rex-plugins/templates/ui/ui-components.js';
 
 class Lobby extends Phaser.Scene {
@@ -90,20 +90,10 @@ class Lobby extends Phaser.Scene {
       })
     });
 
-    this.load.spritesheet(`carry-sheet`, `assets/carry/carry_welcome.png`, {
+    NPC_CONFIG.map(item => this.load.spritesheet(`${item.name}-sheet`, `assets/${item.name}/${item.name}.png`, {
       frameWidth: 32,
       frameHeight: 32,
-    });
-
-    this.load.spritesheet(`jump-sheet`, `assets/jump/jump.png`, {
-      frameWidth: 32,
-      frameHeight: 32,
-    });
-
-    this.load.spritesheet('hoe-sheet', `assets/hoe/hoe.png`, {
-      frameWidth: 32,
-      frameHeight: 32,
-    });
+    }));
 
     this.load.spritesheet('emoji-sheet', `assets/carry/emoticons.png`, {
       frameWidth: 16,
@@ -120,9 +110,9 @@ class Lobby extends Phaser.Scene {
     this.createLobby();
 
     this.createAnims('door-anims', 'door-sheet', 0, 2, { repeat: -1, duration: 800 });
-    this.createAnims('carry-anims', 'carry-sheet', 0, 31, { repeat: -1, duration: 2000 });
-    this.createAnims('jump-anims', 'jump-sheet', 0, 19, { repeat: -1, duration: 2000 });
-    this.createAnims('hoe-anims', 'hoe-sheet', 0, 19, { repeat: -1, duration: 2000 });
+
+    NPC_CONFIG.map(item => this.createAnims(`${item.name}-anims`, `${item.name}-sheet`, item.start, item.end, {repeat:-1, duration: item.duration}));
+
     this.createAnims('emoji-anims', 'emoji-sheet', 0, 14, { repeat: -1, duration: 5000 });
 
     this.createTuteeAnims();
@@ -132,10 +122,7 @@ class Lobby extends Phaser.Scene {
     this.door["classroom"] = this.addSpriteAndPlay(680, 17, 'door', LOBBY_SCALE );
     this.door["vrlearning"] = this.addSpriteAndPlay(165, 257, 'door', LOBBY_SCALE );
 
-    this.welcomeNpc = this.addSpriteAndPlay(380, 180, 'carry', PLAYER_SCALE);
-    this.jumpNpc = this.addSpriteAndPlay(200, 50, 'jump', PLAYER_SCALE);
-    this.hoeNpc = this.addSpriteAndPlay(210, 280, 'hoe', PLAYER_SCALE);
-    
+    this.npcList = NPC_CONFIG.map(item => this.addSpriteAndPlay(item.x, item.y, item.name, PLAYER_SCALE));
 
     this.cursorKeys = this.input.keyboard.createCursorKeys();
     
@@ -169,7 +156,7 @@ class Lobby extends Phaser.Scene {
       }
 
       this.time.addEvent({delay: 5000, callback: this.onRemoveWelcome, callbackScope: this, loop: false});
-      this.welcomeSpeechBubble = this.addSpeechBubble(this.welcomeNpc.x, this.welcomeNpc.y-40, 140, 30, `Welcome! ${this.mainTutee.nickname ? this.mainTutee.nickname : 'Tutee'}! Let's study~!`)
+      this.welcomeSpeechBubble = this.addSpeechBubble(this.npcList[0].x, this.npcList[0].y-40, 140, 30, `Welcome! ${this.mainTutee.nickname ? this.mainTutee.nickname : 'Tutee'}! Let's study~!`)
     });
 
     
@@ -325,7 +312,7 @@ class Lobby extends Phaser.Scene {
       })
     }
 
-    this.addSpriteAndPlay(this.welcomeNpc.x, this.welcomeNpc.y-15, 'emoji', PLAYER_SCALE);
+    this.addSpriteAndPlay(this.npcList[0].x, this.npcList[0].y-15, 'emoji', PLAYER_SCALE);
 
   }
 
