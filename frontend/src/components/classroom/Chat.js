@@ -8,14 +8,14 @@ import {
   GlobalStyles,
   formatTime,
   ChatBubbleContainer,
-  Input
+  Input,
+  ContentShareControl
 }
 from 'amazon-chime-sdk-component-library-react';
 import { ThemeProvider } from 'styled-components';
 import * as Chime from 'aws-sdk/clients/chime';
 import * as AWS from 'aws-sdk/global';
 import appConfig from './utils/chimeConfig';
-
 import {
   ConsoleLogger,
   DefaultMessagingSession,
@@ -25,12 +25,16 @@ import {
 from 'amazon-chime-sdk-js';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../recoil/user/userState';
+import { 
+  addChattingToDB,
+  getChattingFromDB
+ } from './utils/api';
 
 const Chat = (props) => {
 
   const [messageList, setMessageList] = useState([]);
-  const [chatChannel, setChatChannel] = useState(appConfig.channelArn);
-  const [title, setTitle] = useState("");
+  const [chatChannel, setChatChannel] = useState("");
+  const [title, setTitle] = useState(props.title);
   const [owner, setOwner] = useState("");
   const [chatMsg, setChatMsg] = useState("");
   const [member, setMember] = useState({});
@@ -55,25 +59,55 @@ const Chat = (props) => {
 
     await chimeApi.createAppInstanceUser(userName);
     let memberArn = chimeApi.createMemberArn(userName);
+
+    const chattingResponse = await getChattingFromDB(title);
+    const chattingJson = chattingResponse.data.getChatting;
+
     try {
       console.log("Member ARN: " + memberArn)
-      //const memberList = await chimeApi.listChannelMemberships(this.state.chatChannel, user.attributes.sub);
-      //console.log(memberList);
-      const ret = await chimeApi.createChannelMembership(chatChannel, memberArn, 'Admin');
-      console.log("DONE");
-      if (ret) {
-        console.log("Membership add success");
-        console.log(ret);
+      if (chattingJson) {
+        const chattingData = JSON.parse(chattingJson.data);
+        const ret = await chimeApi.createChannelMembership(chattingData.ChannelArn, memberArn);
+        setChatChannel(chattingData.ChannelArn);
+        setMember({
+          userId: userName,
+          username: ret.Name,
+        });
+      } else {
+        const chattingInfo = await chimeApi.createChannel(appConfig.appInstanceArn, title);
+        console.log(chattingInfo)
+        setChatChannel(chattingInfo.ChannelArn);
+        await addChattingToDB(chattingInfo.ChannelArn, title, JSON.stringify(chattingInfo))
+        const ret = await chimeApi.createChannelMembership(chattingInfo.ChannelArn, memberArn);
         setMember({
           userId: userName,
           username: ret.Name,
         });
       }
-    }
-    catch (e) {
+      
+    } catch (e) {
       console.log("ERROR!! ");
       console.log(e);
     }
+    // try {
+    //   console.log("Member ARN: " + memberArn)
+    //   //const memberList = await chimeApi.listChannelMemberships(this.state.chatChannel, user.attributes.sub);
+    //   //console.log(memberList);
+    //   const ret = await chimeApi.createChannelMembership(chatChannel, memberArn, 'Admin');
+    //   console.log("DONE");
+    //   if (ret) {
+    //     console.log("Membership add success");
+    //     console.log(ret);
+    //     setMember({
+    //       userId: userName,
+    //       username: ret.Name,
+    //     });
+    //   }
+    // }
+    // catch (e) {
+    //   console.log("ERROR!! ");
+    //   console.log(e);
+    // }
 
     await initSession();
   }
@@ -251,7 +285,7 @@ const Chat = (props) => {
                 items={messageList}
                 onLoad={handleScrollTop}
                 isLoading={isLoading}
-                css="border: 1px solid #3f4149; height: 20rem"
+                css="border: 1px solid #D3D3D3; height: 20rem"
                 className="chat-message-list"
                 />
          

@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import {
   AudioInputControl,
@@ -34,13 +34,11 @@ import { userState } from '../../recoil/user/userState';
 import ReactLoading from 'react-loading';
 
 const Meeting = (props) => {
-  const [ loading, setLoading ] = useState(true);
+  const [loading, setLoading] = useState(true);
+  const [title, setTitle] = useState(props.title);
   const meetingManager = useMeetingManager();
   const meetingStatus = useMeetingStatus();
   const navigate = useNavigate();
-
-  const { pathname } = useLocation();
-  const title = pathname.split('/')[2];
 
   const user = useRecoilValue(userState);
 

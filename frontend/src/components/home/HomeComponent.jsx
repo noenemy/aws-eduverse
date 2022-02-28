@@ -21,7 +21,7 @@ const HomeComponent = (props) => {
             <Grid gridDefinition={[{ colspan: 9 }, { colspan: 3 }]}>
                 <PhaserContainer game={game} setGame={g=>setGame(g)}/>
                 <Box margin={{left:"m", right: "m"}}>
-                    <Chat />
+                    <Chat title="Lobby"/>
                 </Box>
             </Grid>
         );

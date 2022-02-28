@@ -2,8 +2,8 @@
 // SPDX-License-Identifier: MIT-0
 
 import { API, graphqlOperation } from 'aws-amplify';
-import { createAttendeeGraphQL, createMeetingGraphQL, deleteMeetingGraphQL, deleteAttendeeGraphQL } from '../../../graphql/mutations';
-import { createChimeMeeting, getAttendee, endChimeMeeting, getMeeting, joinChimeMeeting, listAttendees, leaveChimeMeeting } from '../../../graphql/queries';
+import { createAttendeeGraphQL, createMeetingGraphQL, deleteMeetingGraphQL, deleteAttendeeGraphQL, createChattingGraphQL } from '../../../graphql/mutations';
+import { createChimeMeeting, getAttendee, endChimeMeeting, getMeeting, joinChimeMeeting, listAttendees, leaveChimeMeeting, getChatting } from '../../../graphql/queries';
 
 
 export async function createMeeting(title, attendeeName, region) {
@@ -61,4 +61,13 @@ export async function getAttendeeFromDB(meetingId) {
 export async function getAttendees(meetingId) {
   const attendeeInfo = await API.graphql(graphqlOperation(listAttendees, {meetingId: meetingId}));
   return attendeeInfo;
+}
+
+export async function addChattingToDB(chattingArn, title, chattingData) {
+  await API.graphql(graphqlOperation(createChattingGraphQL, {input: {chattingArn: chattingArn, title: title, data: chattingData}}));
+}
+
+export async function getChattingFromDB(title) {
+  const chattingInfo = await API.graphql(graphqlOperation(getChatting, {title: title}));
+  return chattingInfo;
 }
