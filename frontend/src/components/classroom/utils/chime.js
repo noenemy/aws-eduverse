@@ -122,7 +122,7 @@ async function createAppInstanceUser(userName) {
   return response;
 }
 
-async function createChannelMembership(channelArn, memberArn, userId) {
+async function createChannelMembership(channelArn, memberArn) {
   console.log('createChannelMembership called');
 
   const params = {
@@ -133,9 +133,7 @@ async function createChannelMembership(channelArn, memberArn, userId) {
 
   const request = (await chimeClient()).createChannelMembership(params);
   request.on('build', function() {
-    request.httpRequest.headers[appInstanceUserArnHeader] = createMemberArn(
-      userId
-    );
+    request.httpRequest.headers[appInstanceUserArnHeader] = appConfig.adminUserArn
   });
   const response = await request.promise();
   return response.Member;
@@ -231,24 +229,20 @@ async function listChannelMemberships(channelArn, userId) {
   return response.ChannelMemberships;
 }
 
-async function createChannel(appInstanceArn, name, mode, privacy, userId) {
+async function createChannel(appInstanceArn, name) {
   console.log('createChannel called');
   const params = {
     AppInstanceArn: appInstanceArn,
     Name: name,
-    Mode: mode,
-    Privacy: privacy
   };
   console.log(params);
-  console.log("user id: " + userId);
+  console.log("channel name: " + name);
   const request = (await chimeClient()).createChannel(params);
   request.on('build', function() {
-    request.httpRequest.headers[appInstanceUserArnHeader] = createMemberArn(
-      userId
-    );
+    request.httpRequest.headers[appInstanceUserArnHeader] = appConfig.adminUserArn
   });
   const response = await request.promise();
-  return response.ChannelArn;
+  return response;
 }
 
 async function describeChannel(channelArn, userId) {

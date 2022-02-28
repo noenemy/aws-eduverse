@@ -27,16 +27,11 @@ const ChimeClassroom = (props) => {
                   classroom {id}
                   {/* <Button variant="primary" onClick={() => navigate(-1)}>Exit</Button> */}
                 </h4>
-                <Meeting />
+                <Meeting title={id}/>
               </div>
               <div className="col-sm-3">
                 <Attendee />
-
-                <Chat
-                // chatChannel={this.state.chatChannel}
-                // title={this.state.title}
-                // owner={this.state.owner}
-                />
+                <Chat title={id}/>
               </div>
             </MeetingProvider>
           </ThemeProvider>

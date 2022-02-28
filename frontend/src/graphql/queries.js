@@ -544,3 +544,40 @@ export const listAttendees = /* GraphQL */ `
     }
   }
 `;
+export const getChatting = /* GraphQL */ `
+  query GetChatting($title: String!) {
+    getChatting(title: $title) {
+      chattingArn
+      title
+      data
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listChattings = /* GraphQL */ `
+  query ListChattings(
+    $title: String
+    $filter: ModelChattingFilterInput
+    $limit: Int
+    $nextToken: String
+    $sortDirection: ModelSortDirection
+  ) {
+    listChattings(
+      title: $title
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      sortDirection: $sortDirection
+    ) {
+      items {
+        chattingArn
+        title
+        data
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;

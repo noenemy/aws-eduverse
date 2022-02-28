@@ -354,3 +354,31 @@ export const deleteAttendeeGraphQL = /* GraphQL */ `
     }
   }
 `;
+export const createChattingGraphQL = /* GraphQL */ `
+  mutation CreateChattingGraphQL(
+    $input: CreateChattingInput!
+    $condition: ModelChattingConditionInput
+  ) {
+    createChattingGraphQL(input: $input, condition: $condition) {
+      chattingArn
+      title
+      data
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteChattingGraphQL = /* GraphQL */ `
+  mutation DeleteChattingGraphQL(
+    $input: DeleteChattingInput!
+    $condition: ModelChattingConditionInput
+  ) {
+    deleteChattingGraphQL(input: $input, condition: $condition) {
+      chattingArn
+      title
+      data
+      createdAt
+      updatedAt
+    }
+  }
+`;

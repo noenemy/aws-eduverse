@@ -65,6 +65,12 @@ type Attendee @model(mutations: {create: "createAttendeeGraphQL", delete: "delet
   name: String!
 }
 
+type Chatting @model(mutations: {create: "createChattingGraphQL", delete: "deleteChattingGraphQL"}, subscriptions: null) {
+  chattingArn: String!
+  title: String! @primaryKey
+  data: String!
+}
+
 type Query {
   createChimeMeeting(title: String, name: String, region: String): Response @function(name: "chimeClassroom-${env}")
   joinChimeMeeting(meetingId: String, name: String): Response @function(name: "chimeClassroom-${env}")
