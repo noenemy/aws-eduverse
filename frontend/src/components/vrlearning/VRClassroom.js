@@ -167,7 +167,7 @@ class VRClassroom extends Component {
 
         if (res != null && res.data.getCourse != null) {
             console.log("@getCourseInfo > " + res.data.getCourse);  
-            this.setState({ course: res.data.getCourse });
+            this.setState({ course: res.data.getCourse, courseTitle: res.data.getCourse.title });
         }
         else {
             toast.error("@getCourseInfo > something wrong! try again.");
@@ -296,7 +296,7 @@ class VRClassroom extends Component {
         return (
             <div>
                 <div className="container">
-                    <TitleBar className="re:Invent 2021" lectureId={this.state.lectureId} lectureTitle={this.state.lectureTitle} />
+                    <TitleBar className={this.state.courseTitle} lectureId={this.state.lectureId} lectureTitle={this.state.lectureTitle} />
                     <div className="row"><br /></div>
                     <div className="row">
                         <div className="col-6">

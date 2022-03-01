@@ -6,11 +6,9 @@ class TitleBar extends Component {
             <div className="row">
                 <div className="col-3">
                     <i className="fas fa-book" />
-                    <a href="/learning" onClick={this.goLearningHome}>My Learning</a>
+                    <a href="/vrlearning" onClick={this.goLearningHome}>VR Learning</a>
                     /&nbsp;&nbsp;
                     {this.props.className}
-                    &nbsp;&nbsp;
-                    <i className="fab fa-aws" />
                 </div>
                 <div className="col-9">
                     <h3>{this.props.lectureTitle}</h3>
