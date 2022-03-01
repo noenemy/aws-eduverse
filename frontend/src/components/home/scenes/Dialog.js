@@ -38,7 +38,7 @@ class Dialog extends Phaser.Scene {
 	}
 
 	talk() {
-		console.log("@ talk !")
+		console.log(`@ talk ! this.sayIndex: ${this.sayIndex}, this.stuffToSay: ${this.stuffToSay[this.sayIndex]}`)
 		this.dialog.removeDialog();
 		this.dialog.init(this.initData);
     this.dialog.setText(this.stuffToSay[this.sayIndex++], true);
@@ -46,7 +46,12 @@ class Dialog extends Phaser.Scene {
 
 	update() {
 		if(this.keySpace.isDown) {
-			if(this.sayIndex + 1 > this.stuffToSay.length) {
+			this.keySpaceDown = true;
+		}
+		if(this.keySpaceDown && this.keySpace.isUp) {
+			this.keySpaceDown = false;
+			if(this.sayIndex > this.stuffToSay.length - 1) {
+				console.log(`@ npc saying done. index: ${this.sayIndex} length: ${this.stuffToSay.length}`)
 				this.dialog.removeDialog();
 				return;
 			}
