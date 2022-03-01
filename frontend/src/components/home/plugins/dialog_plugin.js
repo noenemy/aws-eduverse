@@ -219,14 +219,26 @@ export default class DialogModalPlugin extends Phaser.Plugins.BasePlugin {
     });
     this.closeBtn.on('pointerdown', function () {
       // self.toggleWindow();
-      if (self.timedEvent) self.timedEvent.remove();
-      if (self.text) self.text.destroy();
+      self.removeDialog();
+      // if (self.timedEvent) self.timedEvent.remove();
+      // if (self.text) self.text.destroy();
 
-      if (self.text) self.text.setVisible(false);
-      if (self.graphics) self.graphics.setVisible(false);
-      if (self.closeBtn) self.closeBtn.setVisible(false);
-      if (self.faceImage) self.faceImage.destroy();
+      // if (self.text) self.text.setVisible(false);
+      // if (self.graphics) self.graphics.setVisible(false);
+      // if (self.closeBtn) self.closeBtn.setVisible(false);
+      // if (self.faceImage) self.faceImage.destroy();
     });
+  }
+
+  removeDialog() {
+    let self = this;
+    if (self.timedEvent) self.timedEvent.remove();
+    if (self.text) self.text.destroy();
+
+    if (self.text) self.text.setVisible(false);
+    if (self.graphics) self.graphics.setVisible(false);
+    if (self.closeBtn) self.closeBtn.setVisible(false);
+    if (self.faceImage) self.faceImage.destroy();
   }
 
 }

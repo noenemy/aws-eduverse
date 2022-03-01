@@ -128,7 +128,7 @@ class Lobby extends Phaser.Scene {
     this.npcList[0].setInteractive();
     this.npcList[0].on('pointerdown', function(pointer) {
       console.log("@ npc click > ", this);
-      lobbyScene.scene.launch('DialogScene');
+      lobbyScene.scene.launch('DialogScene',{ face: 'carry', stuffToSay: STUFF_TO_SAY['carry']});
     });
 
     this.createAnims('emoji-anims', 'emoji-sheet', 0, 14, { repeat: -1, duration: 5000 });

@@ -67,40 +67,9 @@ export const BOTTOM_SPEECH_POSITION = {
 	scale: 4
 }
 
-export const STUFF_TO_SAY = [
-	{
-		isDialog: true,
-		text:
-			"Lorem ipsum dolor sit amet, consectetur {adipiscing elit}, sed do eiusmod tempor incididunt ut {labore} et dolore magna aliqua. " +
-			"Ut enim ad minim {veniam}, quis nostrud exercitation ullamco.",
-		sprite: "avatarSheet",
-		frame: 0,
-		name: "Susie",
-		textIsDynamic: true,
-		specialTextColor: 0x00ffff
-	},
-	{
-		isDialog: true,
-		text:
-			"Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. " +
-			"Duis aute irure dolor in {reprehenderit} in voluptate velit esse.",
-		maxHorisontalCharacters: 65,
-		textIsDynamic: true,
-		specialTextShaking: true
-	},
-	{
-		isDialog: true,
-		text:
-			"Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-		sprite: "avatarSheet",
-		frame: 2
-	},
-	{
-		isDialog: true,
-		text:
-			"Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-		name: "Susie",
-		nameColor: 0xf0e68c,
-		maxHorisontalCharacters: 65
-	}
-];
+export const STUFF_TO_SAY = {
+	carry: [
+		"Lorem ipsum dolor sit amet, consectetur {adipiscing elit}, sed do eiusmod tempor incididunt ut {labore} et dolore magna aliqua. ",
+		"Ut enim ad minim {veniam}, quis nostrud exercitation ullamco.",
+	]
+}
