@@ -3,9 +3,8 @@ import Tutee from '../entities/Tutee';
 import { API, graphqlOperation } from 'aws-amplify';
 import { onCreateTutee, onDeleteTutee, onUpdateTutee } from '../../../graphql/subscriptions';
 import { listTutees } from '../../../graphql/queries';
-import { LOBBY_SCALE, NPC_CONFIG, PLAYER_SCALE } from '../common';
-// import { Dialog } from 'phaser3-rex-plugins/templates/ui/ui-components.js';
-
+import { BOTTOM_SPEECH_POSITION, LOBBY_SCALE, NPC_CONFIG, PLAYER_SCALE, STUFF_TO_SAY, ZOOM_SCALE } from '../common';
+import DialogModalPlugin from '../plugins/dialog_plugin';
 class Lobby extends Phaser.Scene {
 
   tuteeMap = {}
@@ -37,10 +36,10 @@ class Lobby extends Phaser.Scene {
     this.navigate = data.navigate;
     this.setAllUsers = data.setAllUsers;
     this.createSubscriptions();
-
-    //다른 메뉴 갔다가 홈으로 돌아오는 경우
-    console.log("@ Lobby.user >>", data);
+    
     if(data && data.newTutee) {
+      //다른 메뉴 갔다가 홈으로 돌아오는 경우
+      console.log("@ Lobby.user >>", data);
       this.mainTutee = data.newTutee;
       this.mainPlayerId = data.newTutee.id;
     }
@@ -63,9 +62,7 @@ class Lobby extends Phaser.Scene {
   }
 
   preload() {
-
     this.load.scenePlugin('rexuiplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexuiplugin.min.js', 'rexUI', 'rexUI');
-
     // this.load.tilemapTiledJSON('new-lobby-map', 'assets/tilemaps/new_lobby.json');
     this.load.tilemapTiledJSON('new-lobby-map', 'assets/tilemaps/scaled_lobby.json');
     this.load.spritesheet(`door-sheet`, `assets/gifs/door3_beige.png`, {
@@ -100,10 +97,17 @@ class Lobby extends Phaser.Scene {
       frameHeight: 16,
     });
 
-  }
+    this.load.image('carry-face', `assets/carry/carry_face.png`);
+
+    this.load.spritesheet("frames", "../assets/frameHeartSheet.png", {
+      frameWidth: 32,
+      frameHeight: 32
+    });
+
+  } //end of preload
 
   create(data) {
-
+    
     console.log("@ this.mainTutee >> ", this.mainTutee)
 
     this.new_lobby = this.make.tilemap({key: 'new-lobby-map'});
@@ -112,6 +116,20 @@ class Lobby extends Phaser.Scene {
     this.createAnims('door-anims', 'door-sheet', 0, 2, { repeat: -1, duration: 800 });
 
     NPC_CONFIG.map(item => this.createAnims(`${item.name}-anims`, `${item.name}-sheet`, item.start, item.end, {repeat:-1, duration: item.duration}));
+    
+    this.npcList = NPC_CONFIG.map(item => this.addSpriteAndPlay(item.x, item.y, item.name, PLAYER_SCALE));
+    
+    // this.bottomSpeechLayer = this.add.layer();
+    // this.bottomSpeechLayer.visible = false;
+    // this.bottomSpeechLayer.add(this.make.image({x: BOTTOM_SPEECH_POSITION.x, y: BOTTOM_SPEECH_POSITION.y, key: 'carry-face'},false).setScale(BOTTOM_SPEECH_POSITION.scale));
+    
+    //npc 클릭이벤트
+    let lobbyScene = this;
+    this.npcList[0].setInteractive();
+    this.npcList[0].on('pointerdown', function(pointer) {
+      console.log("@ npc click > ", this);
+      lobbyScene.scene.launch('DialogScene');
+    });
 
     this.createAnims('emoji-anims', 'emoji-sheet', 0, 14, { repeat: -1, duration: 5000 });
 
@@ -119,23 +137,15 @@ class Lobby extends Phaser.Scene {
 
     // 이동문 생성
     this.door["auditorium"] = this.addSpriteAndPlay(170, 35, 'door', LOBBY_SCALE );
-    this.door["classroom"] = this.addSpriteAndPlay(680, 17, 'door', LOBBY_SCALE );
+    this.door["classroom"] = this.addSpriteAndPlay(570, 17, 'door', LOBBY_SCALE );
     this.door["vrlearning"] = this.addSpriteAndPlay(165, 257, 'door', LOBBY_SCALE );
-
-    this.npcList = NPC_CONFIG.map(item => this.addSpriteAndPlay(item.x, item.y, item.name, PLAYER_SCALE));
 
     this.cursorKeys = this.input.keyboard.createCursorKeys();
     
     // 나를 포함한 기존 튜티들 추가
     this.addActiveTutees().then(res => {
 
-      console.log("@ res > ", res);
-
       this.setCameraFollow();
-
-      this.lights.enable();
-      this.lights.setAmbientColor(0x555555);
-      const light = this.lights.addLight(10, 10, 200).setIntensity(2);;
 
       // 방문자 모두 추가 후, 이동할 문에 main player에 대한 collide 설정
       //3개 문 collide 생성
@@ -157,34 +167,37 @@ class Lobby extends Phaser.Scene {
 
       this.time.addEvent({delay: 5000, callback: this.onRemoveWelcome, callbackScope: this, loop: false});
       this.welcomeSpeechBubble = this.addSpeechBubble(this.npcList[0].x, this.npcList[0].y-40, 140, 30, `Welcome! ${this.mainTutee.nickname ? this.mainTutee.nickname : 'Tutee'}! Let's study~!`)
+      
     });
 
     
-  }
+
+  } // end of create()
 
   setCameraFollow() {
-    this.cameras.main.setBounds(0,0,800, 600);
-    this.cameras.main.startFollow(this.tuteeMap[this.mainPlayerId], true, 0.09, 0.09);
-    this.cameras.main.setZoom(2);
+    this.cameras.main.setBounds(0, 0, 1000, 800);
+    this.cameras.main.startFollow(this.tuteeMap[this.mainPlayerId], true, 0.09, 0.09,);
+    this.cameras.main.setZoom(ZOOM_SCALE);
+    // this.cameras.main.useBounds(true);
+    
   }
 
   createModal(scene, title, message, onClickYes) {
     this.isCollide = true;
     this.rexUI.modalPromise(
-      this.createDialog(scene, title, message, onClickYes).setPosition(400, 300), {
+      this.createRexDialog(scene, title, message, onClickYes).setPosition(400, 300), {
           manaulClose: true,
           duration: {
               in: 1000,
               out: 1000
           }
     }).then((closeEventData) => {
-      console.log("@ Dialog closed And this.isCollide > ", this.isCollide)
       this.time.addEvent({delay: 5000, callback: ()=>{ this.isCollide = false; }, callbackScope: this, loop: false});
     });
   }
 
-  createDialog(scene, title, message, onClickYes) {
-    var dialog = this.rexUI.add.dialog({
+  createRexDialog(scene, title, message, onClickYes) {
+    var rexDialog = this.rexUI.add.dialog({
 			background: scene.rexUI.add.roundRectangle(0, 0, 100, 100, 20, 0xdec4a6),
 			title: scene.rexUI.add.label({
 					background: scene.rexUI.add.roundRectangle(0, 0, 100, 40, 20, 0x766a62),
@@ -219,24 +232,21 @@ class Lobby extends Phaser.Scene {
 	  }).layout().popUp(1000);
 
     
-	  dialog
+	  rexDialog
 			.on('button.click', function (button, groupName, index, pointer, event) {
-        console.log("@ Click index > ", index);
         if(index === 0 && typeof onClickYes === 'function') {
           onClickYes();
         }
-        dialog.emit('modal.requestClose', { closedDialog: "Auditorium" });
+        rexDialog.emit('modal.requestClose', { closedDialog: "Auditorium" });
 			})
 			.on('button.over', function (button, groupName, index, pointer, event) {
-        console.log("@ button.over")
         button.getElement('background').setStrokeStyle(1, 0xffffff);
 			})
 			.on('button.out', function (button, groupName, index, pointer, event) {
-        console.log("@ button.out")
         button.getElement('background').setStrokeStyle();
 			});
 
-	  return dialog;
+	  return rexDialog;
   }
 
   createLabel(scene, text) {
@@ -302,7 +312,6 @@ class Lobby extends Phaser.Scene {
   }
 
   onRemoveWelcome() {
-
     if(this.welcomeSpeechBubble && this.welcomeSpeechBubble.length > 0) {
       this.welcomeSpeechBubble.map(item => {
         if(item.destroy) {
@@ -311,9 +320,7 @@ class Lobby extends Phaser.Scene {
         return item;
       })
     }
-
     this.addSpriteAndPlay(this.npcList[0].x, this.npcList[0].y-15, 'emoji', PLAYER_SCALE);
-
   }
 
   async addActiveTutees() {
@@ -330,7 +337,6 @@ class Lobby extends Phaser.Scene {
   }
 
   addTutee({x, y, id, nickname, character}) {
-
     this.tuteeMap[id] = new Tutee(this, x, y, `walk-${character}-sheet`, id, nickname, character);
     // console.log("@ this.tuteeMap >>> ", this.tuteeMap)
     const isMainPlayer = id === this.mainPlayerId; 
@@ -340,7 +346,6 @@ class Lobby extends Phaser.Scene {
     } else {
       this.tuteeMap[id].setupOtherAnimations();
     }
-
   }
 
   addSpriteAndPlay(x, y, anims, scaled) {
@@ -364,7 +369,6 @@ class Lobby extends Phaser.Scene {
   }
 
   moveTutee(id, x, y, to) {
-
     if(!this.tuteeMap[id] || !this.tuteeMap[id].setMovingStateTo) return; 
 
     this.tuteeMap[id].setMovingStateTo(to, x, y);
@@ -380,31 +384,26 @@ class Lobby extends Phaser.Scene {
   }
 
   createLobby() {
-
     const lobbyTiles = this.backgroundTilesets.map(item => this.new_lobby.addTilesetImage(item, `new-lobby-${item}-sheet`));
     
     this.groundLayer = this.new_lobby.createLayer('ground_layer', lobbyTiles).setScale(LOBBY_SCALE).setScrollFactor(1);
     this.ceilLayer = this.new_lobby.createLayer('ceil_layer', lobbyTiles).setScale(LOBBY_SCALE).setScrollFactor(1);
-    this.ceilLayer.setCollisionByProperty({ collides: true}, true);
+    // this.ceilLayer.setCollisionByProperty({ collides: true}, true);
     this.wallLayer = this.new_lobby.createLayer('wall_layer', lobbyTiles).setScale(LOBBY_SCALE).setScrollFactor(1);
-    this.wallLayer.setCollisionByProperty({ collides: true}, true);
-    
-    // this.showCollisionDebug(this.ceilLayer, new Phaser.Display.Color(243,234,48,255));
-    // this.showCollisionDebug(this.wallLayer, new Phaser.Display.Color(143,234,48,255));
+    // this.wallLayer.setCollisionByProperty({ collides: true}, true);
     
     this.new_lobby.createLayer('interior_ground_layer', lobbyTiles).setScale(LOBBY_SCALE).setScrollFactor(1);
     this.new_lobby.createLayer('interior_upper_layer', lobbyTiles).setScale(LOBBY_SCALE).setScrollFactor(1);
     this.new_lobby.createLayer('interior_top_layer', lobbyTiles).setScale(LOBBY_SCALE).setScrollFactor(1);
-
-    // const interiorGroundLayer = this.new_lobby.createLayer
 
     this.physics.world.setBounds(0, 0, this.new_lobby.widthInPixels*LOBBY_SCALE, this.new_lobby.heightInPixels*LOBBY_SCALE);
     this.physics.world.setBoundsCollision(true, true, true, true);
   }
 
   update(time, delta) {
-    const cameraBottom = this.cameras.main.getWorldPoint(0, this.cameras.main.height).y;
+    // const cameraBottom = this.cameras.main.getWorldPoint(0, this.cameras.main.height).y;
 
+    // this.controls.update(delta);
   }
 
   showCollisionDebug(layer, color) {
@@ -470,7 +469,7 @@ class Lobby extends Phaser.Scene {
 
   createSubscriptions() {
 
-    const createSub = API.graphql(
+    API.graphql(
       graphqlOperation(onCreateTutee)
     ).subscribe({
       next: (subData) => {
@@ -482,7 +481,7 @@ class Lobby extends Phaser.Scene {
       }
     });
 
-    const updateSub = API.graphql(
+    API.graphql(
       graphqlOperation(onUpdateTutee)
     ).subscribe({
       next: (subData) => {
@@ -493,7 +492,7 @@ class Lobby extends Phaser.Scene {
       }
     });
 
-    const deleteSub = API.graphql(
+    API.graphql(
       graphqlOperation(onDeleteTutee)
     ).subscribe({
       next: (subData) => {

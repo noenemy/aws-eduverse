@@ -4,13 +4,12 @@ export const CONFIG = {
   type: Phaser.AUTO,
   parent: 'game',
   backgroundColor: '#FFFFFF',
-  // width: 1600,
-  // height: 800,
-  // autoCenter: Phaser.Scale.CENTER_BOTH,
+  // height: 600,
+  // autoCenter: Phaser.Scale.CENTER_HORIZONTALLY,
   scale: {
     width: 1200,
-    height: 800,
-    // mode: Phaser.ScaleModes.FIT,
+    // height: 600,
+    mode: Phaser.ScaleModes.FIT,
     autoCenter: Phaser.Scale.CENTER_HORIZONTALLY,
   },
   dom: {

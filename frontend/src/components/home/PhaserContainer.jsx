@@ -1,14 +1,14 @@
 import Phaser from 'phaser';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useRecoilState } from 'recoil';
 import { allUserState, userState } from '../../recoil/user/userState';
 import CONFIG from './config';
-// import OutlinePipeline from './entities/OutlinePipeline';
 
 import Lobby from './scenes/Lobby';
 import Login from './scenes/Login';
-// import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
+import Dialog from './scenes/Dialog';
+import DialogModalPlugin from './plugins/dialog_plugin';
 
 function PhaserContainer (props) {
 
@@ -27,23 +27,29 @@ function PhaserContainer (props) {
       setAllUsers: all => setAllUsers(all),
     });
 
+    const dialogScene = new Dialog();
+
     const config = { 
       ...CONFIG,
       scene: user && user.id ? 
       [
-        lobbyScene,
+        lobbyScene, dialogScene
       ]
       : [
-        loginScene,
-        lobbyScene,
+        loginScene, lobbyScene, dialogScene
       ],
-      // plugins: {
-      //   scene: [{
-      //       key: 'rexUI',
-      //       plugin: RexUIPlugin,
-      //       mapping: 'rexUI'
-      //   }]
-      // }
+      plugins: {
+        global: [ 
+          // {
+          //   key: "DialogModalPlugin",
+          //   plugin: DialogModalPlugin,
+          //   start: true,
+          //   mapping: "dialog"
+          // }
+        ],
+        scene: [
+        ]
+      }
     };
 
     const game = new Phaser.Game(config);
