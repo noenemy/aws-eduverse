@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Button, Modal } from 'react-bootstrap';
+import { Card, Button, Modal, Form, Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { API, graphqlOperation } from 'aws-amplify';
 import { searchClassrooms } from '../../graphql/queries';
+import { createClassroom } from '../../graphql/mutations';
 import ReactLoading from 'react-loading';
 
 const ClassroomList = (props) => {
@@ -25,8 +26,30 @@ const ClassroomList = (props) => {
         setShowModal(false);
     }
 
-    const createClassroom = () => {
+    const openCreateDialog = () => {
         setShowModal(true);
+    }
+
+    const addClassroom = async (e) => {
+        e.preventDefault();
+        const newItem = {
+            title: e.target.formTextTitle.value,
+            description: e.target.formTextDescription.value,
+            image: e.target.formSelectImage.value,
+            order: 99    
+        }
+
+        const result = await API.graphql(graphqlOperation(createClassroom, {
+            input: newItem
+        }));
+        console.log("@addClassroom > " + result);
+
+        if (result && result.data && result.data.createClassroom) {
+            let newClassroomList = classrooms;
+            newClassroomList.push(result.data.createClassroom);
+            setClassroom(newClassroomList);
+        }
+        handleClose();
     }
 
     const enterClassroom = (classroomId) => {
@@ -42,7 +65,7 @@ const ClassroomList = (props) => {
             <div className="container">
                 <div className="row">
                     <div className="col">
-                        <Button variant="primary" onClick={createClassroom}>+ Create a Classroom</Button>
+                        <Button variant="primary" onClick={openCreateDialog}>+ Create a Classroom</Button>
                         <p></p>
                     </div>
                 </div>
@@ -75,19 +98,50 @@ const ClassroomList = (props) => {
                 </div>
             </div>
 
-            <Modal show={showModal} onHide={handleClose}>
+            <Modal show={showModal} onHide={handleClose} onSubmit={addClassroom}>
                 <Modal.Header closeButton>
                 <Modal.Title>Create a Classroom</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Woohoo, you're creating a class here!</Modal.Body>
-                <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                    Close
-                </Button>
-                <Button variant="primary" onClick={handleClose}>
-                    Create
-                </Button>
-                </Modal.Footer>
+                <Modal.Body>
+                    <Form>
+                        <Form.Group as={Row} className="mb-3" controlId="formTextTitle">
+                            <Form.Label column sm="4">
+                            Title
+                            </Form.Label>
+                            <Col sm="8">
+                            <Form.Control type="text" placeholder="" />
+                            </Col>
+                        </Form.Group>
+
+                        <Form.Group as={Row} className="mb-3" controlId="formTextDescription">
+                            <Form.Label column sm="4">
+                            Description
+                            </Form.Label>
+                            <Col sm="8">
+                            <Form.Control type="text" placeholder="" />
+                            </Col>
+                        </Form.Group>
+
+                        <Form.Group as={Row} className="mb-3" controlId="formSelectImage">
+                            <Form.Label column sm="4">
+                            Card Image
+                            </Form.Label>
+                            <Col sm="8">
+                            <Form.Select aria-label="Default select example">
+                                <option value="laptop_180x100.png">Laptop</option>
+                                <option value="servers_180x100.png">Servers</option>
+                                <option value="robot_180x100.png">Robot</option>
+                                <option value="metaverse_180x100.png">Metaverse</option>
+                                <option value="workshop_180x100.png">Workshop</option>
+                            </Form.Select>
+                            </Col>
+                        </Form.Group>
+                        <Form.Group as={Row}>&nbsp;</Form.Group>
+                        <Button variant="secondary" onClick={handleClose}>Cancel</Button>
+                        &nbsp;
+                        <Button type="submit" variant="primary">Submit</Button>
+                    </Form>
+                </Modal.Body>
             </Modal>
 
         </div>
