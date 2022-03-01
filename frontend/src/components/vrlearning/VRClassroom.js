@@ -60,9 +60,9 @@ class VRClassroom extends Component {
         toast.info(event.data);
         if (event.data === "SUMERIAN_LOAD_COMPLETED") {
             // TODO: Disable auto-start feature for testing
-            //this.setState({ sumerianIsReady: true}, () => {
-            //    this.startLearning();
-            //})
+            this.setState({ sumerianIsReady: true}, () => {
+                this.startLearning();
+            })
             this.setState({ sumerianIsReady: true});
         }
     }
