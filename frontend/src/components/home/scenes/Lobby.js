@@ -137,7 +137,7 @@ class Lobby extends Phaser.Scene {
 
     // 이동문 생성
     this.door["auditorium"] = this.addSpriteAndPlay(170, 35, 'door', LOBBY_SCALE );
-    this.door["classroom"] = this.addSpriteAndPlay(570, 17, 'door', LOBBY_SCALE );
+    this.door["classroom"] = this.addSpriteAndPlay(670, 17, 'door', LOBBY_SCALE );
     this.door["vrlearning"] = this.addSpriteAndPlay(165, 257, 'door', LOBBY_SCALE );
 
     this.cursorKeys = this.input.keyboard.createCursorKeys();
@@ -402,7 +402,7 @@ class Lobby extends Phaser.Scene {
 
   update(time, delta) {
     // const cameraBottom = this.cameras.main.getWorldPoint(0, this.cameras.main.height).y;
-    console.log("@ ",this.cameras.main.getWorldPoint(0, this.cameras.main.height))
+    // console.log("@ ",this.cameras.main.getWorldPoint(0, this.cameras.main.height))
 
     // this.controls.update(delta);
   }
