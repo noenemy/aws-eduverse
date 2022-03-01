@@ -175,7 +175,7 @@ class Lobby extends Phaser.Scene {
   } // end of create()
 
   setCameraFollow() {
-    this.cameras.main.setBounds(0, 0, 1000, 800);
+    this.cameras.main.setBounds(0, 0, 800, 400);
     this.cameras.main.startFollow(this.tuteeMap[this.mainPlayerId], true, 0.09, 0.09,);
     this.cameras.main.setZoom(ZOOM_SCALE);
     // this.cameras.main.useBounds(true);
@@ -402,6 +402,7 @@ class Lobby extends Phaser.Scene {
 
   update(time, delta) {
     // const cameraBottom = this.cameras.main.getWorldPoint(0, this.cameras.main.height).y;
+    console.log("@ ",this.cameras.main.getWorldPoint(0, this.cameras.main.height))
 
     // this.controls.update(delta);
   }
