@@ -3,13 +3,13 @@ import { Card, Button, Modal, Form, Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { API, graphqlOperation } from 'aws-amplify';
 import { searchClassrooms } from '../../graphql/queries';
-import { createClassroom } from '../../graphql/mutations';
+import { createClassroom, deleteClassroom } from '../../graphql/mutations';
 import ReactLoading from 'react-loading';
 
 const ClassroomList = (props) => {
 
     const [ classrooms, setClassroom ] = useState([]);
-    const [ showModal, setShowModal ] = useState(false);
+    const [ showCreateModal, setShowCreateModal ] = useState(false);
     const [ loading, setLoading ] = useState(true);
     const navigate = useNavigate();
 
@@ -22,12 +22,12 @@ const ClassroomList = (props) => {
         setClassroom(result.data.searchClassrooms.items);
     }, []);
 
-    const handleClose = () => {
-        setShowModal(false);
+    const closeCreateDialog = () => {
+        setShowCreateModal(false);
     }
 
     const openCreateDialog = () => {
-        setShowModal(true);
+        setShowCreateModal(true);
     }
 
     const addClassroom = async (e) => {
@@ -49,7 +49,23 @@ const ClassroomList = (props) => {
             newClassroomList.push(result.data.createClassroom);
             setClassroom(newClassroomList);
         }
-        handleClose();
+        closeCreateDialog();
+    }
+
+    const removeClassroom = async (classroomId) => {
+
+        if (window.confirm("Do you really want to delete the classroom?")) {
+
+            const result = await API.graphql(graphqlOperation(deleteClassroom, {
+                input: { id : classroomId }
+            }));
+            console.log("@removeClassroom > " + result.data);
+
+            if (result && result.data && result.data.deleteClassroom) {
+                let newClassroomList = classrooms.filter(item => item.id !== result.data.deleteClassroom.id);
+                setClassroom(newClassroomList);
+            }
+        }
     }
 
     const enterClassroom = (classroomId) => {
@@ -89,7 +105,9 @@ const ClassroomList = (props) => {
                             <Card.Body>
                                 <Card.Title>{item.title}</Card.Title>
                                 <Card.Text>{item.description}</Card.Text>
-                                <Button variant="primary" onClick={() => enterClassroom(item.id)}>Go somewhere</Button>
+                                <Button variant="primary" onClick={() => enterClassroom(item.id)}>Enter</Button>
+                                &nbsp;
+                                <a href="#" onClick={() => removeClassroom(item.id)}>X</a>
                             </Card.Body>
                         </Card>
                         </div>
@@ -98,7 +116,7 @@ const ClassroomList = (props) => {
                 </div>
             </div>
 
-            <Modal show={showModal} onHide={handleClose} onSubmit={addClassroom}>
+            <Modal show={showCreateModal} onHide={closeCreateDialog} onSubmit={addClassroom}>
                 <Modal.Header closeButton>
                 <Modal.Title>Create a Classroom</Modal.Title>
                 </Modal.Header>
@@ -137,7 +155,7 @@ const ClassroomList = (props) => {
                             </Col>
                         </Form.Group>
                         <Form.Group as={Row}>&nbsp;</Form.Group>
-                        <Button variant="secondary" onClick={handleClose}>Cancel</Button>
+                        <Button variant="secondary" onClick={closeCreateDialog}>Cancel</Button>
                         &nbsp;
                         <Button type="submit" variant="primary">Submit</Button>
                     </Form>
