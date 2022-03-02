@@ -10,27 +10,27 @@ const LoungeList = props => {
         {
             id: 0,
             title: "Rekognition",
-            image: "dummy_180x100.png",
+            image: "rekognition-card.png",
             description: "Some quick example text to build."
         }, {
             id: 1,
             title: "Textract",
-            image: "dummy_180x100.png",
+            image: "textract-card.png",
             description: "Some quick example text to build."
         }, {
             id: 2,
                 title: "Polly",
-            image: "dummy_180x100.png",
+            image: "polly-card.png",
             description: "Some quick example text to build."
         }, {
             id: 3,
             title: "Transcribe",
-            image: "dummy_180x100.png",
+            image: "transcribe-card.png",
             description: "Some quick example text to build."
         }, {
             id: 4,
             title: "Sumerian",
-            image: "dummy_180x100.png",
+            image: "sumerian-card.png",
             description: "Some quick example text to build."
         }
     ]);
