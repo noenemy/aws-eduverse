@@ -372,6 +372,7 @@ class Lobby extends Phaser.Scene {
 
   removeTutee(id) {
     if(this.tuteeMap[id]) {
+      this.tuteeMap[id].nicknametext.destroy();
       this.tuteeMap[id].destroy();
       delete this.tuteeMap[id];
     }

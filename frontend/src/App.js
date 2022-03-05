@@ -46,7 +46,6 @@ function App() {
   //   });
   // }, []);
   return (
-
       <BrowserRouter>
           { showContentOnly ? null :
             (<Navbar title="AWS Eduverse" />)
