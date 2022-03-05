@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router-dom';
 import ReactLoading from 'react-loading';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../recoil/user/userState';
-import { updateTuteeLastVisit } from '../home/common';
 
 const VRLearning = (props) => {
 
@@ -25,7 +24,6 @@ const VRLearning = (props) => {
     useEffect(() => {
         getCourses();
         getLectures(selectedCourseId);
-        updateTuteeLastVisit(user.id, 'vrlearning');
     }, []);
 
     const selectCourse = (courseId, language) => {

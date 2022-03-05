@@ -4,7 +4,6 @@ import { Card, Button, Modal } from 'react-bootstrap';
 import { API, graphqlOperation } from 'aws-amplify';
 import { searchAuditoriums } from '../../graphql/queries';
 import ReactLoading from 'react-loading';
-import { updateTuteeLastVisit } from '../home/common';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../recoil/user/userState';
 
@@ -18,7 +17,6 @@ const AuditoriumList = (props) => {
     
     useEffect( () => {
         listAuditoriums();
-        updateTuteeLastVisit(user.id, 'auditorium');
     }, []);
 
     const listAuditoriums = async () => {

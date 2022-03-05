@@ -3,17 +3,12 @@ import { Card, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../recoil/user/userState';
-import { updateTuteeLastVisit } from '../home/common';
 
 const LoungeList = props => {
 
     const navigate = useNavigate();
     const user = useRecoilValue(userState);
 
-    useEffect(() => {
-        updateTuteeLastVisit(user.id, 'lounge');
-    }, []);
-    
     const [lounges, setLounges] = useState([
         {
             id: 0,

@@ -7,7 +7,6 @@ import { createClassroom, deleteClassroom } from '../../graphql/mutations';
 import ReactLoading from 'react-loading';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../recoil/user/userState';
-import { updateTuteeLastVisit } from '../home/common';
 
 const ClassroomList = (props) => {
 
@@ -19,7 +18,6 @@ const ClassroomList = (props) => {
 
     useEffect(() => {
         listClassrooms();
-        updateTuteeLastVisit(user.id, 'classroom');
     }, []);
 
     const listClassrooms = async () => {
