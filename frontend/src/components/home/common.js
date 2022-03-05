@@ -31,7 +31,7 @@ export const BOTTOM_SPEECH_POSITION = {
 
 export const STUFF_TO_SAY = {
 	carry: [	//초록머리 웰컴봇
-		"Lorem ipsum dolor sit amet, consectetur {adipiscing elit}, sed do eiusmod tempor incididunt ut {labore} et dolore magna aliqua. ",
+		"Lorem ipsum dolor sit amet, consectetur {adipiscing elit}, sed do eiusmod\ntempor incididunt ut {labore} et dolore magna aliqua. ",
 		"Ut enim ad minim {veniam}, quis nostrud exercitation ullamco.",
 	],
 	jump: [	//대강당 NPC

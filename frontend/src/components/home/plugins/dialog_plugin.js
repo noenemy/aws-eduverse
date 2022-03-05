@@ -118,14 +118,24 @@ export default class DialogModalPlugin extends Phaser.Plugins.BasePlugin {
     var x = this.positionX + 10 + 100; //this.padding + 10;
     var y = this.positionY + 10; //this._getGameHeight() - this.windowHeight - this.padding + 10;
 
-    this.text = this.scene.make.text({
-      x,
-      y,
-      text,
-      style: {
-        wordWrap: { width: this._getGameWidth() - (this.padding * 2) - 25 - 100 }
-      }
-    });
+    this.text = this.scene.make.bitmapText({
+      font: 'DungGeunMo_black',
+	    text: text,
+      size: 12
+      },
+      true
+    );
+
+    this.text.setX(x);
+    this.text.setY(y);
+    // this.text = this.scene.make.text({
+    //   x,
+    //   y,
+    //   text,
+    //   style: {
+    //     wordWrap: { width: this._getGameWidth() - (this.padding * 2) - 25 - 100 }
+    //   }
+    // });
   }
 
   // Creates the dialog window

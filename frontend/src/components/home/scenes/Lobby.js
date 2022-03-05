@@ -3,8 +3,7 @@ import Tutee from '../entities/Tutee';
 import { API, graphqlOperation } from 'aws-amplify';
 import { onCreateTutee, onDeleteTutee, onUpdateTutee } from '../../../graphql/subscriptions';
 import { listTutees } from '../../../graphql/queries';
-import { BOTTOM_SPEECH_POSITION, LOBBY_SCALE, NPC_CONFIG, PLAYER_SCALE, STUFF_TO_SAY, ZOOM_SCALE } from '../common';
-import DialogModalPlugin from '../plugins/dialog_plugin';
+import { LOBBY_SCALE, NPC_CONFIG, PLAYER_SCALE, STUFF_TO_SAY, ZOOM_SCALE } from '../common';
 class Lobby extends Phaser.Scene {
   
   tuteeMap = {}
