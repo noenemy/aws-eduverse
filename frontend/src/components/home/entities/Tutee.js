@@ -236,7 +236,10 @@ class Tutee extends Phaser.GameObjects.Sprite {
     }
 
     if(this.nicknametext) this.nicknametext.destroy();
-    if(this.entered) this.nicknametext = this.scene.add.text(this.body.x-5, this.body.y-10, this.nickname, { fontFamily: 'Calibri', fontSize: 12, color: '#ffffff', align: 'center' });
+    if(this.entered) {
+      this.nicknametext = this.scene.add.text(this.body.x-5, this.body.y-10, this.nickname, { fontFamily: 'Calibri', fontSize: 12, color: '#ffffff', align: 'center' });
+      this.nicknametext.setDepth(100);
+    }
 
 	}
 

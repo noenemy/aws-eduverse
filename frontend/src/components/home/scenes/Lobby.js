@@ -157,10 +157,13 @@ class Lobby extends Phaser.Scene {
           this.door[item], 
            () => {
             if(this.mainTutee && !this.isCollide) {
-              this.createModal(this, item, `${this.mainTutee.nickname}, Do you want to go to the ${item}`, ()=> {
-                console.log("@ Click yes")
-                this.navigate(`/${item}`);
-              });
+              this.createModal(
+                this, 
+                item, 
+                `${this.mainTutee.nickname}, Do you want to go to the ${item}`,
+                 ()=> {
+                  this.navigate(`/${item}`);
+                });
             }
           })
       }
@@ -185,7 +188,7 @@ class Lobby extends Phaser.Scene {
   createModal(scene, title, message, onClickYes) {
     this.isCollide = true;
     this.rexUI.modalPromise(
-      this.createRexDialog(scene, title, message, onClickYes).setPosition(400, 300), {
+      this.createRexDialog(scene, title, message, onClickYes).setPosition(300, 150), {
           manaulClose: true,
           duration: {
               in: 1000,
@@ -193,6 +196,7 @@ class Lobby extends Phaser.Scene {
           }
     }).then((closeEventData) => {
       this.time.addEvent({delay: 5000, callback: ()=>{ this.isCollide = false; }, callbackScope: this, loop: false});
+
     });
   }
 
@@ -231,7 +235,7 @@ class Lobby extends Phaser.Scene {
 			}
 	  }).layout().popUp(1000);
 
-    
+    rexDialog.setDepth(200);
 	  rexDialog
 			.on('button.click', function (button, groupName, index, pointer, event) {
         if(index === 0 && typeof onClickYes === 'function') {
@@ -240,12 +244,17 @@ class Lobby extends Phaser.Scene {
         rexDialog.emit('modal.requestClose', { closedDialog: "Auditorium" });
 			})
 			.on('button.over', function (button, groupName, index, pointer, event) {
+        console.log("@ button.over")
         button.getElement('background').setStrokeStyle(1, 0xffffff);
 			})
 			.on('button.out', function (button, groupName, index, pointer, event) {
+        console.log("@ button.out")
         button.getElement('background').setStrokeStyle();
 			});
 
+    
+    
+    
 	  return rexDialog;
   }
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PhaserContainer from './PhaserContainer';
-import Chat from '../classroom/Chat';
+import Chat from './Chat';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../recoil/user/userState';
 import { Box, Grid } from '@awsui/components-react';

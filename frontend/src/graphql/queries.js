@@ -276,6 +276,7 @@ export const getTutee = /* GraphQL */ `
       to
       state
       character
+      lastVisit
       ttl
       createdAt
       updatedAt
@@ -297,6 +298,7 @@ export const listTutees = /* GraphQL */ `
         to
         state
         character
+        lastVisit
         ttl
         createdAt
         updatedAt
