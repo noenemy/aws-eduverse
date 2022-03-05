@@ -1,24 +1,33 @@
 import React, { useMemo, useEffect } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { allUserState, userState } from '../../recoil/user/userState';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { API, graphqlOperation } from 'aws-amplify';
 import { onCreateTutee, onDeleteTutee } from '../../graphql/subscriptions';
 import { listTutees } from '../../graphql/queries';
+import { deleteTutee } from '../../graphql/mutations';
+import { SpaceBetween } from '@awsui/components-react';
+import { Button } from 'react-bootstrap';
 
 const Navbar  = (props) => {
 
     const user = useRecoilValue(userState);
     const [ allUsers, setAllUsers ] = useRecoilState(allUserState);
+    const navigate = useNavigate();
 
     useEffect(()=> {
         console.log("@ user > ", user);
         console.log("@ allUsers > ", allUsers);
 
+        if(!user || !user.id) {
+            navigate("/");
+        }
+
         getAllUsers().then(res => setAllUsers(res));
 
         createSubscriptions();
     }, []);
+
 
     const menu = useMemo(()=> ([
         { menuName: 'Home', to:'/' },
@@ -57,6 +66,23 @@ const Navbar  = (props) => {
         return allTutees;
     }
 
+    const onClickExit = async () => {
+        // await API.graphql(graphqlOperation(updateTutee, {
+        //     input: {
+        //         id: id,
+        //         lastVisit: place,
+        //         state: 'disconnected'
+        //     }
+        // }))
+
+        await API.graphql(graphqlOperation(deleteTutee, {
+            input: {
+                id: user.id
+            }
+        }));
+        window.location.replace("/");
+    }
+
     return (
         <div>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -89,7 +115,10 @@ const Navbar  = (props) => {
                                 <a className="nav-link" href="#">현재 접속자 : {allUsers.length} 명</a>
                             </li>
                             <li className="nav-item mx-5">
-                                <a className="nav-link" href="#">{ user && user.nickname ? <i className="far fa-user">{" "+user.nickname}</i> : ''}</a>
+                                <SpaceBetween direction="horizontal" size="l">
+                                    <a className="nav-link" href="#">{ user && user.nickname ? <i className="far fa-user">{" "+user.nickname}</i> : ''}</a>
+                                    <Button onClick={()=>onClickExit()}>Exit</Button>
+                                </SpaceBetween>
                             </li>
                             {/* <li className="nav-item">
                                 <a className="nav-link" href="#">{ user && user.id ? 'Exit' : ''}</a>
