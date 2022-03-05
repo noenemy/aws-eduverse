@@ -3,7 +3,7 @@ import Tutee from '../entities/Tutee';
 import { API, graphqlOperation } from 'aws-amplify';
 import { onCreateTutee, onDeleteTutee, onUpdateTutee } from '../../../graphql/subscriptions';
 import { listTutees } from '../../../graphql/queries';
-import { LOBBY_SCALE, NPC_CONFIG, PLAYER_SCALE, STUFF_TO_SAY, updateTuteeLastVisit, ZOOM_SCALE } from '../common';
+import { LOBBY_SCALE, NPC_CONFIG, PLAYER_SCALE, STUFF_TO_SAY, ZOOM_SCALE } from '../common';
 class Lobby extends Phaser.Scene {
   
   tuteeMap = {};
@@ -41,7 +41,6 @@ class Lobby extends Phaser.Scene {
       console.log("@ Lobby.user >>", data);
       this.mainTutee = data.newTutee;
       this.mainPlayerId = data.newTutee.id;
-      updateTuteeLastVisit(data.id, 'lobby');
     }
 
     // this.time.addEvent({delay: 5000, callback: ()=>{}, callbackScope: this, loop: false});
@@ -372,7 +371,7 @@ class Lobby extends Phaser.Scene {
 
   removeTutee(id) {
     if(this.tuteeMap[id]) {
-      this.tuteeMap[id].nicknametext.destroy();
+      if(this.tuteeMap[id].nicknametext) this.tuteeMap[id].nicknametext.destroy();
       this.tuteeMap[id].destroy();
       delete this.tuteeMap[id];
     }
@@ -477,6 +476,13 @@ class Lobby extends Phaser.Scene {
 
     return allContent;
   }
+
+  async getAllUsers () {
+    const allData = await API.graphql(graphqlOperation(listTutees));
+    const allTutees = Array.from(allData.data.listTutees.items);
+    
+    return allTutees;
+  } 
 
   createSubscriptions() {
 

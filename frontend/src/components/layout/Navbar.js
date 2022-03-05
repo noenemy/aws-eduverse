@@ -1,18 +1,20 @@
 import React, { useMemo, useEffect } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { allUserState, userState } from '../../recoil/user/userState';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { API, graphqlOperation } from 'aws-amplify';
 import { onCreateTutee, onDeleteTutee } from '../../graphql/subscriptions';
 import { listTutees } from '../../graphql/queries';
 import { deleteTutee } from '../../graphql/mutations';
 import { SpaceBetween } from '@awsui/components-react';
 import { Button } from 'react-bootstrap';
+import { updateTuteeLastVisit, VISIT_AVAILABLE } from '../home/common';
 
 const Navbar  = (props) => {
 
     const user = useRecoilValue(userState);
     const [ allUsers, setAllUsers ] = useRecoilState(allUserState);
+    const location = useLocation();
     const navigate = useNavigate();
 
     useEffect(()=> {
@@ -27,6 +29,13 @@ const Navbar  = (props) => {
 
         createSubscriptions();
     }, []);
+
+    useEffect(()=> {
+        const path = location.pathname.split("/");
+        const place = path && path[1] ? path[1] : 'lobby';
+        if(VISIT_AVAILABLE.includes(place))
+            updateTuteeLastVisit(user.id, place);
+    }, [location]);
 
 
     const menu = useMemo(()=> ([
@@ -58,6 +67,7 @@ const Navbar  = (props) => {
           }
         });
     }
+    
       
     const getAllUsers = async () => {
         const allData = await API.graphql(graphqlOperation(listTutees));

@@ -18,6 +18,7 @@ export const updateTuteeLastVisit = async (id, place) => {
 			ttl: getTtlSeconds(7200)
 		}
 	}))
+
 	return res;
 }
 
@@ -61,3 +62,11 @@ export const STUFF_TO_SAY = {
 		"이제 수업이 곧 시작됩니다. 어서 강의실로 들어오세요!"
 	]
 }
+
+export const VISIT_AVAILABLE = [
+	"auditorium",
+	"classroom",
+	"vrlearning",
+	"lounge",
+	"lobby"
+];
