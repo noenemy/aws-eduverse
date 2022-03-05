@@ -91,9 +91,9 @@ const Navbar  = (props) => {
                             <li className="nav-item mx-5">
                                 <a className="nav-link" href="#">{ user && user.nickname ? <i className="far fa-user">{" "+user.nickname}</i> : ''}</a>
                             </li>
-                            <li className="nav-item">
+                            {/* <li className="nav-item">
                                 <a className="nav-link" href="#">{ user && user.id ? 'Exit' : ''}</a>
-                            </li>
+                            </li> */}
                         </ul>
                     </div>
                 </div>
