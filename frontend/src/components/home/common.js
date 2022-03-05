@@ -31,19 +31,19 @@ export const BOTTOM_SPEECH_POSITION = {
 
 export const STUFF_TO_SAY = {
 	carry: [	//초록머리 웰컴봇
-		"Lorem ipsum dolor sit amet, consectetur {adipiscing elit}, sed do eiusmod\ntempor incididunt ut {labore} et dolore magna aliqua. ",
+		"안녕?나는 초록머리 웰컴봇이다!!\ntempor incididunt ut {labore} et dolore magna aliqua. ",
 		"Ut enim ad minim {veniam}, quis nostrud exercitation ullamco.",
 	],
 	jump: [	//대강당 NPC
-
+		"자자 입학식이 곧 시작됩니다.\n학생들 어서 이리 오세요~~!"
 	],
 	hoe: [ //VR 학습터 NPC
-
+		"외국어를 배우고 싶으신가요~~ VR학습터에선 언제든! 공부가 가능하지요."
 	],
 	witch: [ //라운지 NPC
-
+		"라운지에서 쉬어가세요~~ 재밌는 데모들이 있어요~"
 	],
 	sword: [	// 강의실 NPC
-
+		"이제 수업이 곧 시작됩니다. 어서 강의실로 들어오세요!"
 	]
 }

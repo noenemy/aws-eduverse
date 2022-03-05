@@ -119,7 +119,7 @@ export default class DialogModalPlugin extends Phaser.Plugins.BasePlugin {
     var y = this.positionY + 10; //this._getGameHeight() - this.windowHeight - this.padding + 10;
 
     this.text = this.scene.make.bitmapText({
-      font: 'DungGeunMo_black',
+      font: 'DungGeunMo',
 	    text: text,
       size: 12
       },

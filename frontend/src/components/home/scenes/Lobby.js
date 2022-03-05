@@ -6,7 +6,8 @@ import { listTutees } from '../../../graphql/queries';
 import { LOBBY_SCALE, NPC_CONFIG, PLAYER_SCALE, STUFF_TO_SAY, ZOOM_SCALE } from '../common';
 class Lobby extends Phaser.Scene {
   
-  tuteeMap = {}
+  tuteeMap = {};
+  npcKind = ['carry', 'hoe', 'jump', 'sword', 'witch'];
   allCharacters = ['pink','purple','green','babypink'];
   allState = ['idle', 'down'];
   backgroundTilesets = [
@@ -100,7 +101,7 @@ class Lobby extends Phaser.Scene {
       frameHeight: 16,
     });
 
-    this.load.image('carry-face', `assets/carry/carry_face.png`);
+    this.npcKind.map(item => this.load.image(`${item}-face`, `assets/${item}/${item}_face.png`));
 
     this.load.spritesheet("frames", "../assets/frameHeartSheet.png", {
       frameWidth: 32,
@@ -115,25 +116,23 @@ class Lobby extends Phaser.Scene {
 
     this.new_lobby = this.make.tilemap({key: 'new-lobby-map'});
     this.createLobby();
-
     this.createAnims('door-anims', 'door-sheet', 0, 2, { repeat: -1, duration: 800 });
 
-    NPC_CONFIG.map(item => this.createAnims(`${item.name}-anims`, `${item.name}-sheet`, item.start, item.end, {repeat:-1, duration: item.duration}));
-    
-    this.npcList = NPC_CONFIG.map(item => this.addSpriteAndPlay(item.x, item.y, item.name, PLAYER_SCALE));
-    
-    // this.bottomSpeechLayer = this.add.layer();
-    // this.bottomSpeechLayer.visible = false;
-    // this.bottomSpeechLayer.add(this.make.image({x: BOTTOM_SPEECH_POSITION.x, y: BOTTOM_SPEECH_POSITION.y, key: 'carry-face'},false).setScale(BOTTOM_SPEECH_POSITION.scale));
-    
-    //npc 클릭이벤트
+    //npc 생성
     let lobbyScene = this;
-    this.npcList[0].setInteractive();
-    this.npcList[0].on('pointerdown', function(pointer) {
-      console.log("@ npc click > ", this);
-      lobbyScene.scene.launch('DialogScene',{ face: 'carry', stuffToSay: STUFF_TO_SAY['carry']});
-    });
+    NPC_CONFIG.map(item => this.createAnims(`${item.name}-anims`, `${item.name}-sheet`, item.start, item.end, {repeat:-1, duration: item.duration}));
+    this.npcList = NPC_CONFIG.map(item => {
+      let npc = this.addSpriteAndPlay(item.x, item.y, item.name, PLAYER_SCALE)
+      //npc 클릭이벤트 생성
+      npc.setInteractive();
+      npc.on('pointerdown', function(pointer) {
+        console.log("@ npc click > ", this);
+        lobbyScene.scene.launch('DialogScene',{ face: item.name, stuffToSay: STUFF_TO_SAY[item.name]});
+      });
 
+      return npc;
+    });
+    //웰컴봇에만 귀요미 이모지 보이자
     this.createAnims('emoji-anims', 'emoji-sheet', 0, 14, { repeat: -1, duration: 5000 });
 
     this.createTuteeAnims();
