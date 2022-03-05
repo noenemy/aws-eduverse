@@ -56,6 +56,8 @@ class Lobby extends Phaser.Scene {
         y: parseInt(data.newTutee.y),
       }
       this.mainPlayerId = data.newTutee.id;
+
+      
     }
 
     this.time.addEvent({delay: 5000, callback: ()=>{this.isCollide=false;}, callbackScope: this, loop: false});
