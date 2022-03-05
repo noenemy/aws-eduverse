@@ -6,7 +6,7 @@ import { listTutees } from '../../../graphql/queries';
 import { BOTTOM_SPEECH_POSITION, LOBBY_SCALE, NPC_CONFIG, PLAYER_SCALE, STUFF_TO_SAY, ZOOM_SCALE } from '../common';
 import DialogModalPlugin from '../plugins/dialog_plugin';
 class Lobby extends Phaser.Scene {
-
+  
   tuteeMap = {}
   allCharacters = ['pink','purple','green','babypink'];
   allState = ['idle', 'down'];
@@ -59,13 +59,15 @@ class Lobby extends Phaser.Scene {
 
       
     }
-
     this.time.addEvent({delay: 5000, callback: ()=>{this.isCollide=false;}, callbackScope: this, loop: false});
   }
 
   preload() {
     this.load.scenePlugin('rexuiplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexuiplugin.min.js', 'rexUI', 'rexUI');
     // this.load.tilemapTiledJSON('new-lobby-map', 'assets/tilemaps/new_lobby.json');
+
+    this.load.bitmapFont('DungGeunMo', 'assets/fonts/DungGeunMo_white.png','assets/fonts/DungGeunMo_white.xml');
+
     this.load.tilemapTiledJSON('new-lobby-map', 'assets/tilemaps/scaled_lobby.json');
     this.load.spritesheet(`door-sheet`, `assets/gifs/door3_beige.png`, {
         frameWidth: 48,
