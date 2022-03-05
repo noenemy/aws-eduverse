@@ -1,11 +1,19 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import { Card, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../recoil/user/userState';
+import { updateTuteeLastVisit } from '../home/common';
 
 const LoungeList = props => {
 
     const navigate = useNavigate();
+    const user = useRecoilValue(userState);
 
+    useEffect(() => {
+        updateTuteeLastVisit(user.id, 'lounge');
+    }, []);
+    
     const [lounges, setLounges] = useState([
         {
             id: 0,
@@ -38,8 +46,8 @@ const LoungeList = props => {
     const enterLounge = (id) => {
         navigate(`/lounge/${id}`)
     }
+    
 
-   
     return (
         <div>
             <h2>Lounge</h2>

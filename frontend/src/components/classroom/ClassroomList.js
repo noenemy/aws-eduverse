@@ -5,6 +5,9 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { searchClassrooms } from '../../graphql/queries';
 import { createClassroom, deleteClassroom } from '../../graphql/mutations';
 import ReactLoading from 'react-loading';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../recoil/user/userState';
+import { updateTuteeLastVisit } from '../home/common';
 
 const ClassroomList = (props) => {
 
@@ -12,15 +15,21 @@ const ClassroomList = (props) => {
     const [ showCreateModal, setShowCreateModal ] = useState(false);
     const [ loading, setLoading ] = useState(true);
     const navigate = useNavigate();
+    const user = useRecoilValue(userState);
 
-    useEffect(async () => {
+    useEffect(() => {
+        listClassrooms();
+        updateTuteeLastVisit(user.id, 'classroom');
+    }, []);
+
+    const listClassrooms = async () => {
         const result = await API.graphql(graphqlOperation(searchClassrooms, {
             sort: { direction: 'asc', field: 'order' }
         }));
         console.log(result);
         setLoading(false);
         setClassroom(result.data.searchClassrooms.items);
-    }, []);
+    }
 
     const closeCreateDialog = () => {
         setShowCreateModal(false);

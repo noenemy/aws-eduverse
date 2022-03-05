@@ -3,7 +3,7 @@ import Tutee from '../entities/Tutee';
 import { API, graphqlOperation } from 'aws-amplify';
 import { onCreateTutee, onDeleteTutee, onUpdateTutee } from '../../../graphql/subscriptions';
 import { listTutees } from '../../../graphql/queries';
-import { LOBBY_SCALE, NPC_CONFIG, PLAYER_SCALE, STUFF_TO_SAY, ZOOM_SCALE } from '../common';
+import { LOBBY_SCALE, NPC_CONFIG, PLAYER_SCALE, STUFF_TO_SAY, updateTuteeLastVisit, ZOOM_SCALE } from '../common';
 class Lobby extends Phaser.Scene {
   
   tuteeMap = {};
@@ -38,10 +38,10 @@ class Lobby extends Phaser.Scene {
     this.createSubscriptions();
     
     if(data && data.newTutee) {
-      //다른 메뉴 갔다가 홈으로 돌아오는 경우
       console.log("@ Lobby.user >>", data);
       this.mainTutee = data.newTutee;
       this.mainPlayerId = data.newTutee.id;
+      updateTuteeLastVisit(data.id, 'lobby');
     }
 
     // this.time.addEvent({delay: 5000, callback: ()=>{}, callbackScope: this, loop: false});
@@ -56,8 +56,6 @@ class Lobby extends Phaser.Scene {
         y: parseInt(data.newTutee.y),
       }
       this.mainPlayerId = data.newTutee.id;
-
-      
     }
     this.time.addEvent({delay: 5000, callback: ()=>{this.isCollide=false;}, callbackScope: this, loop: false});
   }

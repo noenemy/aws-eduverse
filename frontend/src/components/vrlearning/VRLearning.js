@@ -6,6 +6,9 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { searchCourses, searchLectures } from '../../graphql/queries';
 import { useNavigate } from 'react-router-dom';
 import ReactLoading from 'react-loading';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../recoil/user/userState';
+import { updateTuteeLastVisit } from '../home/common';
 
 const VRLearning = (props) => {
 
@@ -15,12 +18,14 @@ const VRLearning = (props) => {
     const [ lectures, setLectures ] = useState();
     const [ courseLoading, setCourseLoading ] = useState(false);
     const [ lectureLoading, setLectureLoading ] = useState(false);
+    const user = useRecoilValue(userState);
     
     const navigate = useNavigate();
 
-    useEffect(async () => {
+    useEffect(() => {
         getCourses();
         getLectures(selectedCourseId);
+        updateTuteeLastVisit(user.id, 'vrlearning');
     }, []);
 
     const selectCourse = (courseId, language) => {

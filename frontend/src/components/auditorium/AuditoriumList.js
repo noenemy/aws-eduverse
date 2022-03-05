@@ -4,6 +4,9 @@ import { Card, Button, Modal } from 'react-bootstrap';
 import { API, graphqlOperation } from 'aws-amplify';
 import { searchAuditoriums } from '../../graphql/queries';
 import ReactLoading from 'react-loading';
+import { updateTuteeLastVisit } from '../home/common';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../recoil/user/userState';
 
 const AuditoriumList = (props) => {
 
@@ -11,15 +14,21 @@ const AuditoriumList = (props) => {
     const [ showModal, setShowModal] = useState(false);
     const [ loading, setLoading] = useState(true);
     const navigate = useNavigate();
+    const user = useRecoilValue(userState);
     
-    useEffect(async () => {
+    useEffect( () => {
+        listAuditoriums();
+        updateTuteeLastVisit(user.id, 'auditorium');
+    }, []);
+
+    const listAuditoriums = async () => {
         const result = await API.graphql(graphqlOperation(searchAuditoriums, {
             sort: { direction: 'asc', field: 'order' }
         }));
         console.log(result);
         setLoading(false);
         setAuditorium(result.data.searchAuditoriums.items);
-    }, []);
+    }
 
     const createAuditorium = () => {
         setShowModal(true);

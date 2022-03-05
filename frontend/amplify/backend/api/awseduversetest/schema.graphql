@@ -4,11 +4,11 @@ input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONL
 
 type Tutee @model {
   id: ID!
-  nickname: String!
-  x: Float!
-  y: Float!
+  nickname: String
+  x: Float
+  y: Float
   to: String
-  state: String!
+  state: String
   character: String,
   lastVisit: String,
   ttl: Int

@@ -1,3 +1,6 @@
+import { API, graphqlOperation } from "aws-amplify";
+import { updateTutee } from "../../graphql/mutations";
+
 export const randomInt = (low, high) => {
 	return Math.floor(Math.random() * (high - low) + low);
 }
@@ -5,6 +8,17 @@ export const randomInt = (low, high) => {
 export const getTtlSeconds = (ss) => {
 	const current = parseInt(new Date().getTime()/1000);
 	return (current + ss);
+}
+
+export const updateTuteeLastVisit = async (id, place) => {
+	const res = await API.graphql(graphqlOperation(updateTutee, {
+		input: {
+			id: id,
+			lastVisit: place,
+			ttl: getTtlSeconds(7200)
+		}
+	}))
+	return res;
 }
 
 export const ZOOM_SCALE = 2;

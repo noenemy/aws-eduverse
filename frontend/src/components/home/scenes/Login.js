@@ -51,6 +51,7 @@ class Login extends Phaser.Scene {
 						y: START_POINT.y, //randomInt(100, 400),
 						state: "active", 	//active, disconected?
 						character: checkedCharacter.length ? checkedCharacter[0] : 'purple',
+						lastVisit: 'lobby',
 						ttl: getTtlSeconds(3600)
 					}
 
@@ -68,6 +69,7 @@ class Login extends Phaser.Scene {
 						delete tutee.updatedAt;
 						tutee.x = newTutee.x;
 						tutee.y = newTutee.y;
+						tutee.lastVisit = newTutee.lastVisit;
 						await API.graphql(graphqlOperation(updateTutee, {
 							input: tutee
 						}));
