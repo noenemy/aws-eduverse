@@ -8,7 +8,6 @@ import CONFIG from './config';
 import Lobby from './scenes/Lobby';
 import Login from './scenes/Login';
 import Dialog from './scenes/Dialog';
-import DialogModalPlugin from './plugins/dialog_plugin';
 
 function PhaserContainer (props) {
 

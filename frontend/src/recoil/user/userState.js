@@ -15,5 +15,5 @@ export const userState = atom({
 
 export const allUserState = atom({
 	key: 'allUserState',
-	default: {}
+	default: []
 })

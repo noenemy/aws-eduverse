@@ -504,7 +504,10 @@ class Lobby extends Phaser.Scene {
       next: (subData) => {
         const tutee = subData.value.data.onUpdateTutee;
         if(this.mainTutee && tutee.id !== this.mainTutee.id) {
-          this.moveTutee(tutee.id, tutee.x, tutee.y, tutee.to)
+          this.moveTutee(tutee.id, tutee.x, tutee.y, tutee.to);
+
+          //다른튜티 장소 업뎃하기
+          
         }
       }
     });
