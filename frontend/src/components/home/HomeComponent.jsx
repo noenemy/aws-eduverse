@@ -54,7 +54,7 @@ const HomeComponent = (props) => {
                 <Grid gridDefinition={[{ colspan: 9 }, { colspan: 3 }]}>
                     <PhaserContainer game={game} setGame={g=>setGame(g)}/>
                     <Box margin={{left:"m", right: "m"}}>
-                        <TextContent>로비 사용자 수: {usersInLobby}</TextContent>
+                        <TextContent><h2>{usersInLobby}명의 친구들이 로비에 있어요.</h2></TextContent>
                         <Chat title={"lobby"}/>
                     </Box>
                 </Grid>
