@@ -22,44 +22,6 @@ export const NPC_CONFIG = [
 	{ name: 'sword', x: 500, y: 60, start: 0, end: 15, duration: 2000 },
 ];
 
-export const NPC_SCRUPT = [
-	{
-		name: 'carry',
-		line: [
-			"Welcome to Eduverse! You'd like to learn about here, right? Please, click the NEXT button ↘︎↘︎↘︎ ",
-			"line2",
-			"line3",
-		]
-	},
-	{
-		name: 'jump',
-		line: [
-			"line1",
-			"line2",
-		]
-	},
-	{
-		name: 'hoe',
-		line: [
-			"line1",
-			"line2",
-		]
-	},
-	{
-		name: 'witch',
-		line: [
-			"line1",
-			"line2",
-		]
-	},
-	{
-		name: 'sword',
-		line: [
-			"",
-			"",
-		]
-	},
-];
 
 export const BOTTOM_SPEECH_POSITION = {
 	x: 400,
@@ -68,8 +30,20 @@ export const BOTTOM_SPEECH_POSITION = {
 }
 
 export const STUFF_TO_SAY = {
-	carry: [
+	carry: [	//초록머리 웰컴봇
 		"Lorem ipsum dolor sit amet, consectetur {adipiscing elit}, sed do eiusmod tempor incididunt ut {labore} et dolore magna aliqua. ",
 		"Ut enim ad minim {veniam}, quis nostrud exercitation ullamco.",
+	],
+	jump: [	//대강당 NPC
+
+	],
+	hoe: [ //VR 학습터 NPC
+
+	],
+	witch: [ //라운지 NPC
+
+	],
+	sword: [	// 강의실 NPC
+
 	]
 }
