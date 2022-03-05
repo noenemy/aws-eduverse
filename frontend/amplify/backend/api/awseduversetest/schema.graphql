@@ -10,6 +10,7 @@ type Tutee @model {
   to: String
   state: String!
   character: String,
+  lastVisit: String,
   ttl: Int
 }
 
