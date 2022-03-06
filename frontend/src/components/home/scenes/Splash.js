@@ -28,7 +28,7 @@ class Splash extends Phaser.Scene {
         let scale = Math.max(scaleX, scaleY)
         bgImage.setScale(scale).setScrollFactor(0)
 
-        this.add.text(bgImage.width / 2 - 33, 300, "AWS 서비스를 이용해서 구현한", { fontSize: 30 });
+        this.topText = this.add.text(bgImage.width / 2 - 33, 300, "AWS 서비스를 이용해서 구현한", { fontSize: 30 });
         this.add.text(bgImage.width / 2 - 20, 350, "인터랙티브 가상 교육 플랫폼", { fontSize: 30 });
 
         this.clickButton = this.add.text(bgImage.width / 2, bgImage.height / 2 + 250, '[ 시작하기 ]', { fill: '#0f0', fontSize: 50 })
@@ -36,13 +36,18 @@ class Splash extends Phaser.Scene {
             .on('pointover', () => this.enterButtonHoverState() )
             .on('pointout', () => this.enterButtonRestState() )
             .on('pointerdown', () => this.clickEnter() );
-  
-        const logo = this.physics.add.image(this.cameras.main.width / 2, 150, 'logo_image');
-        logo.setVelocity(0, 100);
-        logo.setBounce(1, 1);
-        logo.setCollideWorldBounds( true );
 
-        console.log("@logo > " + logo);
+        this.logo = this.physics.add.image(this.cameras.main.width / 2, 150, 'logo_image');
+        this.logo.setVelocity(0, 100);
+        this.logo.setBounce(1, 1);
+        this.logo.setCollideWorldBounds( true );
+
+        this.physics.add.existing(this.topText);
+        this.topText.body.setImmovable();
+
+        this.physics.add.collider(this.logo, this.topText)
+        
+        console.log("@logo > " + this.logo);
 	}
 
     enterButtonHoverState() {
@@ -61,7 +66,6 @@ class Splash extends Phaser.Scene {
     }
 
 	update(time, delta) {
-
 	}
 
 }
