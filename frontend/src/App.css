@@ -43,6 +43,9 @@ div {
   font-family: DungGeunMo;
 }
 
+h2 {
+  font-family: DungGeunMo !important;
+}
 
 .navbar {
   position: absolute;
