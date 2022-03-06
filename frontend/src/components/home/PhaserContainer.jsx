@@ -5,6 +5,7 @@ import { useRecoilState } from 'recoil';
 import { allUserState, userState } from '../../recoil/user/userState';
 import CONFIG from './config';
 
+import Splash from './scenes/Splash';
 import Lobby from './scenes/Lobby';
 import Login from './scenes/Login';
 import Dialog from './scenes/Dialog';
@@ -16,6 +17,8 @@ function PhaserContainer (props) {
   const navigate = useNavigate();
 
   useEffect(()=> {
+    const splashScene = new Splash();
+
     const loginScene = new Login(user, (user) => setUser(user), allUsers, (all) => setAllUsers(all));
 
     const lobbyScene = new Lobby({
@@ -35,7 +38,8 @@ function PhaserContainer (props) {
         lobbyScene, dialogScene
       ]
       : [
-        loginScene, lobbyScene, dialogScene
+        //splashScene, loginScene, lobbyScene, dialogScene /* Splash 씬 작업을 위해 임시 커멘트 처리
+        splashScene
       ],
       plugins: {
         global: [ 
