@@ -44,35 +44,43 @@ const LoungeList = props => {
     
 
     return (
-        <div>
-            <h2>Lounge</h2>
-            Amazon 서비스를 이용해서 구현된 각종 게임입니다.
-            <p></p>
-            <div className="container">
-                <div className="row">
-                    <div className="col">
-                        <h4>Which game would you like to play?</h4>
+        <div className="vh-100">
+            <div className="container-fluid h-100">
+                <div className="row h-100">
+                    <div className="col col-1" style={{ backgroundColor: "#F9C74F" }}>&nbsp;</div>
+                    <div className="col col-mr-auto">
+
+                    <h2>Lounge</h2>
+                    Amazon 서비스를 이용해서 구현된 각종 게임입니다.
+                    <p>&nbsp;</p>
+                    <div className="container">
+                        <div className="row">
+                            <div className="col">
+                                <h4>Which game would you like to play?</h4>
+                            </div>
+                        </div>
+
+                        <div className="row">
+                        {lounges.map((item, index) => {
+                        return (
+
+                            <div className="col" key={index}>
+                            <Card style={{ width: '14rem' }}>
+                                <Card.Img variant="top" src={`/assets/images/${item.image}`} />
+                                <Card.Body>
+                                    <Card.Title>{item.title}</Card.Title>
+                                    <Card.Text>{item.description}</Card.Text>
+                                    <Button variant="primary" onClick={() => enterLounge(item.id)}>Go somewhere</Button>
+                                </Card.Body>
+                            </Card>
+                            </div>
+                            );
+                        })}
+                        </div>
+
+                        </div>
                     </div>
                 </div>
-
-                <div className="row">
-                {lounges.map((item, index) => {
-                return (
-
-                    <div className="col" key={index}>
-                    <Card style={{ width: '14rem' }}>
-                        <Card.Img variant="top" src={`/assets/images/${item.image}`} />
-                        <Card.Body>
-                            <Card.Title>{item.title}</Card.Title>
-                            <Card.Text>{item.description}</Card.Text>
-                            <Button variant="primary" onClick={() => enterLounge(item.id)}>Go somewhere</Button>
-                        </Card.Body>
-                    </Card>
-                    </div>
-                    );
-                })}
-                </div>
-                
             </div>
         </div>
     );
