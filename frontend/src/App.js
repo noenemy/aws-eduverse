@@ -48,7 +48,7 @@ function App() {
   return (
       <BrowserRouter>
           { showContentOnly ? null :
-            (<Navbar title="AWS Eduverse" />)
+            (<Navbar title="AWS Eduverse" icon="fa fa-chalkboard" />)
           }
           <Box margin={{top:"xxl"}} padding={{ top: "l" }}>
             <Routes>

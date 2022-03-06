@@ -98,9 +98,9 @@ const Navbar  = (props) => {
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div className="container-fluid">
                     <a className="navbar-brand" href="/">
-                        &nbsp;&nbsp;&nbsp;
-                        <i className={props.icon} /> &nbsp;&nbsp;{props.title}
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;
+                        <i className={props.icon} /> {props.title}
+                        &nbsp;&nbsp;
                     </a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
@@ -112,6 +112,7 @@ const Navbar  = (props) => {
                                 <li key={index} className="nav-item">
                                     <Link className={ "nav-link " + (user && user.id ? '': 'disabled-link')} to={item.to}>{item.menuName}</Link>
                                 </li>)}
+                            {/*
                             <li className="nav-item dropdown mx-5">
                                 <a className="nav-link dropdown-toggle" href="#" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span className="flag-icon flag-icon-kr"></span>  한국어</a>
                                 <div className="dropdown-menu" aria-labelledby="dropdown09">
@@ -121,10 +122,11 @@ const Navbar  = (props) => {
                                     <a className="dropdown-item" href="#ru"><span className="flag-icon flag-icon-jp"> </span>  Japanese</a>
                                 </div>
                             </li>
-                            <li className="nav-item mx-5">
-                                <a className="nav-link" href="#">현재 접속자 : {allUsers.length} 명</a>
+                            */}
+                            <li className="nav-item mx-4">
+                                <a className="nav-link" href="#">현재: {allUsers.length} 명</a>
                             </li>
-                            <li className="nav-item mx-5">
+                            <li className="nav-item ml-4">
                                 <SpaceBetween direction="horizontal" size="l">
                                     <a className="nav-link" href="#">{ user && user.nickname ? <i className="far fa-user">{" "+user.nickname}</i> : ''}</a>
                                     <Button onClick={()=>onClickExit()}>Exit</Button>
