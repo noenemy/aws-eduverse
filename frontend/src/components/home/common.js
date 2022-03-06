@@ -37,7 +37,6 @@ export const NPC_CONFIG = [
 	{ name: 'sword', x: 500, y: 60, start: 0, end: 15, duration: 2000 },
 ];
 
-
 export const BOTTOM_SPEECH_POSITION = {
 	x: 400,
 	y: 360,
@@ -46,20 +45,26 @@ export const BOTTOM_SPEECH_POSITION = {
 
 export const STUFF_TO_SAY = {
 	carry: [	//초록머리 웰컴봇
-		"안녕?나는 초록머리 웰컴봇이다!!\ntempor incididunt ut {labore} et dolore magna aliqua. ",
-		"Ut enim ad minim {veniam}, quis nostrud exercitation ullamco.",
+		"안녕 {USERNAME}!!\n\n에듀버스에 온 것을 환영해. ",
+		"난 공부가 취미인데 넌 어때?",
+		"아.. 참. 너 신입생이지?\n\n곧 입학식이 시작되니까\n\n지금 바로 대강당으로 가보는게 좋겠다.",
+		"대강당은 왼쪽에 위치하고 있어.\n\n화살표를 따라가면 쉽게 찾을 수 있을거야."
 	],
 	jump: [	//대강당 NPC
-		"자자 입학식이 곧 시작됩니다.\n학생들 어서 이리 오세요~~!"
+		"와우! 잘 찾아왔네요.\n\n바로 여기가 대강당입니다.",
+		"에듀버스 입학식이 곧 시작됩니다.\n\n어서 와서 편한 자리에 앉으세요!"
 	],
 	hoe: [ //VR 학습터 NPC
-		"외국어를 배우고 싶으신가요~~ VR학습터에선 언제든! 공부가 가능하지요."
+		"외국어를 배우고 싶으신가요~~\n\n우리두 할 수 있어요.",
+		"VR 학습터에선 언제든!\n\n여러 언어를 배울 수 있다구."
 	],
 	witch: [ //라운지 NPC
-		"라운지에서 쉬어가세요~~ 재밌는 데모들이 있어요~"
+		"공부하느라 수고가 많아요.\n\n잠시 라운지에서 머리를 식히세요~~.",
+		"AWS의 여러 AI/ML 서비스를 체험할 수 있는 데모들이 있어요~"
 	],
 	sword: [	// 강의실 NPC
-		"이제 수업이 곧 시작됩니다. 어서 강의실로 들어오세요!"
+		"이제 수업이 곧 시작됩니다.\n\n선생님들이 기다리고 계세요.",
+		"강의실에 들어가면\n\n먼저 마이크와 웹캠이 동작하는지 확인해보세요."
 	]
 }
 
