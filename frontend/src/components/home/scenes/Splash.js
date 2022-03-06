@@ -39,6 +39,7 @@ class Splash extends Phaser.Scene {
 
         this.logo = this.physics.add.image(this.cameras.main.width / 2, 150, 'logo_image');
         this.logo.setVelocity(0, 100);
+        this.logo.setGravity(0, 180)
         this.logo.setBounce(1, 1);
         this.logo.setCollideWorldBounds( true );
 
