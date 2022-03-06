@@ -126,9 +126,10 @@ const Navbar  = (props) => {
                             <li className="nav-item mx-4">
                                 <a className="nav-link" href="#">현재: {allUsers.length} 명</a>
                             </li>
-                            <li className="nav-item ml-4">
+                            <li className="nav-item ml-3">
                                 <SpaceBetween direction="horizontal" size="l">
-                                    <a className="nav-link" href="#">{ user && user.nickname ? <i className="far fa-user">{" "+user.nickname}</i> : ''}</a>
+                                    
+                                    <a className="nav-link" href="#">{ user && user.nickname ? <i className="fa fa-user">&nbsp;{user.nickname}</i> : 'Sign In'}</a>
                                     <Button onClick={()=>onClickExit()}>Exit</Button>
                                 </SpaceBetween>
                             </li>
