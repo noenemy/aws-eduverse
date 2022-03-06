@@ -7,7 +7,7 @@ import { listTutees } from '../../../graphql/queries';
 class Splash extends Phaser.Scene {
 
 	constructor() {
-        super();
+		super({key: 'SplashScene'});
         this.clickButton = null;
 	}
 
@@ -46,8 +46,6 @@ class Splash extends Phaser.Scene {
         this.topText.body.setImmovable();
 
         this.physics.add.collider(this.logo, this.topText)
-        
-        console.log("@logo > " + this.logo);
 	}
 
     enterButtonHoverState() {
@@ -63,6 +61,7 @@ class Splash extends Phaser.Scene {
 
     clickEnter() {
         console.log("Enter clicked");
+        this.scene.launch('LoginScene');
     }
 
 	update(time, delta) {

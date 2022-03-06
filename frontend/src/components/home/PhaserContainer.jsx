@@ -38,8 +38,7 @@ function PhaserContainer (props) {
         lobbyScene, dialogScene
       ]
       : [
-        //splashScene, loginScene, lobbyScene, dialogScene /* Splash 씬 작업을 위해 임시 커멘트 처리
-        splashScene
+        splashScene, loginScene, lobbyScene, dialogScene
       ],
       plugins: {
         global: [ 
