@@ -27,7 +27,7 @@ const HomeComponent = (props) => {
     }, [])
     
     useEffect(() => {
-        console.log("@ HomeComponent allUsers >> ", allUsers)
+        // console.log("@ HomeComponent allUsers >> ", allUsers)
         setUsersInLobby(allUsers.filter(item => item.lastVisit === 'lobby').length);
 
     }, [allUsers])
