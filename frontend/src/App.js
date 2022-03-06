@@ -28,23 +28,6 @@ Amplify.configure(awsconfig);
 function App() {
   const showContentOnly = window.location.pathname === "/sumerian";
 
-  // useEffect(()=>{
-  //   API.get("vrlearning","/demo/polly/languages").then(res=>{
-  //     console.log("@ /demo/polly/languages res > ", res)
-  //   });
-
-  //   API.get("vrlearning","/demo/polly/voices", {
-  //     queryStringParameters: {
-  //       languageCode: 'en-US'
-  //     }
-  //   }).then(res=>{
-  //     console.log("@ /demo/polly/voices res > ", res)
-  //   });
-
-  //   API.get("vrlearning","/admin/health_check").then(res=>{
-  //     console.log("@ /demo/polly/voices res > ", res)
-  //   });
-  // }, []);
   return (
       <BrowserRouter>
           { showContentOnly ? null :

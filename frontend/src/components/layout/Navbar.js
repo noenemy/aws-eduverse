@@ -77,13 +77,6 @@ const Navbar  = (props) => {
     }
 
     const onClickExit = async () => {
-        // await API.graphql(graphqlOperation(updateTutee, {
-        //     input: {
-        //         id: id,
-        //         lastVisit: place,
-        //         state: 'disconnected'
-        //     }
-        // }))
 
         await API.graphql(graphqlOperation(deleteTutee, {
             input: {
@@ -129,13 +122,14 @@ const Navbar  = (props) => {
                             <li className="nav-item ml-3">
                                 <SpaceBetween direction="horizontal" size="l">
                                     
-                                    <a className="nav-link" href="#">{ user && user.nickname ? <i className="fa fa-user">&nbsp;{user.nickname}</i> : 'Sign In'}</a>
+                                    <a className="nav-link" href="#">{ user && user.nickname ? 
+                                        <i className="fa fa-user">&nbsp;{user.nickname}</i> 
+                                        : 'Sign In'}
+                                    </a>
                                     <Button onClick={()=>onClickExit()}>Exit</Button>
                                 </SpaceBetween>
                             </li>
-                            {/* <li className="nav-item">
-                                <a className="nav-link" href="#">{ user && user.id ? 'Exit' : ''}</a>
-                            </li> */}
+
                         </ul>
                     </div>
                 </div>
