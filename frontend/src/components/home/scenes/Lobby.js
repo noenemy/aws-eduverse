@@ -64,6 +64,7 @@ class Lobby extends Phaser.Scene {
     // this.load.tilemapTiledJSON('new-lobby-map', 'assets/tilemaps/new_lobby.json');
 
     this.load.bitmapFont('DungGeunMo', 'assets/fonts/DungGeunMo_white.png','assets/fonts/DungGeunMo_white.xml');
+    this.load.bitmapFont('DungGeunMo_skyblue', 'assets/fonts/DungGeunMo_skyblue.png','assets/fonts/DungGeunMo_skyblue.xml');
 
     this.load.tilemapTiledJSON('new-lobby-map', 'assets/tilemaps/scaled_lobby.json');
     this.load.spritesheet(`door-sheet`, `assets/gifs/door3_beige.png`, {
@@ -115,10 +116,18 @@ class Lobby extends Phaser.Scene {
     this.createLobby();
     this.createAnims('door-anims', 'door-sheet', 0, 2, { repeat: -1, duration: 800 });
 
-    //npc 생성
+    // npc 생성
     let lobbyScene = this;
     NPC_CONFIG.map(item => this.createAnims(`${item.name}-anims`, `${item.name}-sheet`, item.start, item.end, {repeat:-1, duration: item.duration}));
     this.npcList = NPC_CONFIG.map(item => {
+      //npc display name 노출
+      this.add.bitmapText(
+        item.x-40, 
+        item.y-20, 
+        'DungGeunMo_skyblue', 
+        item.displayName, 
+        12, 
+        Phaser.GameObjects.BitmapText.ALIGN_CENTER).setDepth(100);
       let npc = this.addSpriteAndPlay(item.x, item.y, item.name, PLAYER_SCALE)
       //npc 클릭이벤트 생성
       npc.setInteractive();
