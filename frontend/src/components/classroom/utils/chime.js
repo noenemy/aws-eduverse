@@ -113,13 +113,13 @@ async function createAppInstanceUser(userName) {
 
   const params = {
     AppInstanceArn: appConfig.appInstanceArn,
-    AppInstanceUserId: userName,
+    AppInstanceUserId: Math.random().toString(36).replace(/[^a-z]+/g, '').substring(0, 5),
     Name: userName
   };
 
   const request = (await chimeClient()).createAppInstanceUser(params);
   const response = await request.promise();
-  return response;
+  return response.AppInstanceUserArn;
 }
 
 async function createChannelMembership(channelArn, memberArn) {

@@ -56,8 +56,7 @@ const Chat = (props) => {
 
     const userName = user.nickname;
 
-    await chimeApi.createAppInstanceUser(userName);
-    let memberArn = chimeApi.createMemberArn(userName);
+    const memberArn = await chimeApi.createAppInstanceUser(userName);
 
     const chattingResponse = await getChattingFromDB(title);
     const chattingJson = chattingResponse.data.getChatting;
@@ -69,7 +68,7 @@ const Chat = (props) => {
         const ret = await chimeApi.createChannelMembership(chattingData.ChannelArn, memberArn);
         setChatChannel(chattingData.ChannelArn);
         setMember({
-          userId: userName,
+          userId: memberArn.split('/')[3],
           username: ret.Name,
         });
       } else {
@@ -79,7 +78,7 @@ const Chat = (props) => {
         await addChattingToDB(chattingInfo.ChannelArn, title, JSON.stringify(chattingInfo))
         const ret = await chimeApi.createChannelMembership(chattingInfo.ChannelArn, memberArn);
         setMember({
-          userId: userName,
+          userId: memberArn.split('/')[3],
           username: ret.Name,
         });
       }
@@ -96,9 +95,7 @@ const Chat = (props) => {
     const logger = new ConsoleLogger('SDK', LogLevel.INFO);
     const endpoint = await chimeApi.getMessagingSessionEndpoint();
 
-    const userName = user.nickname;
-
-    const userArn = chimeApi.createMemberArn(userName);
+    const userArn = chimeApi.createMemberArn(member.userId);
     const sessionId = null;
     AWS.config.credentials = new AWS.Credentials(
       appConfig.accessKeyId, appConfig.secretAccessKey
@@ -129,7 +126,7 @@ const Chat = (props) => {
         if (message.type == 'CREATE_CHANNEL_MESSAGE'){
           const msg = JSON.parse(message.payload)
           console.log(msg);
-          if (msg !== null && msg.Sender.Name !== userName) {
+          if (msg !== null && msg.Sender.Name !== member.userName) {
             addMessageList(msg, msg.Content, "incoming");
           }
         }
