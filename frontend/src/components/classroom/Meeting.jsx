@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 
 import {
   AudioInputControl,
-  AudioOutputControl,
   ContentShareControl,
   ControlBar,
   ControlBarButton,
@@ -14,14 +13,13 @@ import {
   useMeetingManager,
   MeetingStatus,
   useMeetingStatus,
-  VideoInputControl,
+  VideoInputBackgroundBlurControl,
   VideoTileGrid,
 } from 'amazon-chime-sdk-component-library-react';
 import { 
   addAttendeeToDB,
   addMeetingToDB,
   createMeeting,
-  // getAttendeeFromDB,
   getMeetingFromDB,
   joinMeeting,
   endMeeting,
@@ -123,15 +121,14 @@ const Meeting = (props) => {
   
   return (
       <div style={{marginTop: '2rem', height: '40rem', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
-        <VideoTileGrid/>
+        <VideoTileGrid />
         {meetingStatus === MeetingStatus.Succeeded ?
           <ControlBar
             layout="undocked-horizontal"
             showLabels
           >
             <AudioInputControl />
-            <VideoInputControl />
-            <AudioOutputControl />
+            <VideoInputBackgroundBlurControl />
             <ContentShareControl />
             <ControlBarButton icon={<Phone />} onClick={clickedEndMeeting} label="End" />
           </ControlBar> 

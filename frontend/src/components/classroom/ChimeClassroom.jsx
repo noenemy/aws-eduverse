@@ -2,6 +2,8 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import {
   MeetingProvider,
+  VoiceFocusProvider,
+  BackgroundBlurProvider,
   lightTheme
 } from 'amazon-chime-sdk-component-library-react';
 import Meeting from './Meeting';
@@ -21,6 +23,7 @@ const ChimeClassroom = (props) => {
       <div className="row">
         <React.Fragment>
           <ThemeProvider theme={lightTheme}>
+          <BackgroundBlurProvider>            
             <MeetingProvider>
               <div className="col-sm-9">
                 <h4>
@@ -34,6 +37,7 @@ const ChimeClassroom = (props) => {
                 <Chat title={id}/>
               </div>
             </MeetingProvider>
+            </BackgroundBlurProvider>
           </ThemeProvider>
         </React.Fragment>
       </div>
