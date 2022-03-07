@@ -29,15 +29,22 @@ class Splash extends Phaser.Scene {
         bgImage.setScale(scale).setScrollFactor(0)
 
         // introduction text
-        this.topText = this.add.text(bgImage.width / 2 - 33, 300, "AWS 서비스를 이용하여 구현한", { fill: '#023047', fontSize: 30 });
-        this.add.text(bgImage.width / 2 - 20, 350, "인터랙티브 가상 교육 플랫폼", { fill: '#023047', fontSize: 30 });
+        this.topText = this.add.text(this.scale.width / 2, 300, "AWS 서비스를 이용하여 구현한", { fill: '#023047', fontSize: 30 });
+        this.bottomText = this.add.text(this.scale.width / 2 - 20, 350, "인터랙티브 가상 교육 플랫폼", { fill: '#023047', fontSize: 30 });
+
+       
 
         // start text button
-        this.clickButton = this.add.text(bgImage.width / 2, bgImage.height / 2 + 250, '[ 시작하기 ]', { fill: '#333D29', fontSize: 50 })
+        this.clickButton = this.add.text(this.scale.width / 2, this.scale.height / 2 + 50, '[ 시작하기 ]', { fill: '#333D29', fontSize: 50 })
             .setInteractive({ useHandCursor: true })
             .on('pointerover', () => this.enterButtonHoverState() )
             .on('pointerout', () => this.enterButtonRestState() )
             .on('pointerdown', () => this.clickEnter() );
+
+        //위치 가운데 정렬
+        this.topText.setX(this.scale.width/2 - this.topText.width/2);
+        this.bottomText.setX(this.scale.width/2 - this.bottomText.width/2);
+        this.clickButton.setX(this.scale.width/2 - this.clickButton.width/2);
 
         // logo image
         this.logo = this.physics.add.image(this.cameras.main.width / 2, 150, 'logo_image');
@@ -65,6 +72,7 @@ class Splash extends Phaser.Scene {
 
     clickEnter() {
         console.log("Enter clicked");
+
         this.scene.launch('LoginScene');
     }
 

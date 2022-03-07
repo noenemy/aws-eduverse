@@ -1,16 +1,16 @@
 <style>
 	.login-wrapper {
-		position: absolute;
+		/* position: absolute;
     top: -270px;
-    left: -270px;
+    left: -270px; */
 	}
 	.login {
 		background: #eceeee;
 		border: 1px solid #42464b;
 		border-radius: 6px;
 		height: 250px;
-		margin: 20px auto 0;
-		width: 298px;
+		/* margin: 20px auto 0; */
+		width: 331px;
 	}
 	.login h1 {
 		background-image: linear-gradient(top, #f1f3f3, #d4dae0);
@@ -145,13 +145,21 @@
 		height: 204px;
 		object-position: left; /*center 40%;*/
 	}
+
+	input {
+		font-family: DungGeunMo;
+	}
+
+	#mainSubmit {
+		font-family: DungGeunMo;
+	}
 	
 	</style>
 
 	<div class="login-wrapper">
-		<div>
+		<!-- <div>
 			<img src="assets/main_text.png" />
-		</div>
+		</div> -->
 		<div class="login">
 				
 				<div class="form">
@@ -170,7 +178,7 @@
 					<input type="radio" id="character_babypink" name="character" value="babypink">
 					<label for="babypink"><div class="cropped"><img class="trimmed-cover" src="assets/walk/walk_babypink.png"/></div></label>
 				</div>
-				<input type="submit" value="Enter" name="loginButton">
+				<input id="mainSubmit" type="submit" value="입장하기" name="loginButton">
 		</div>
 		<div class="shadow"></div>
 	</div>
