@@ -22,6 +22,14 @@ export const updateTuteeLastVisit = async (id, place) => {
 	return res;
 }
 
+export const WALK_SPRITE_SPLIT = {
+	"down": {start: 0, end: 7},
+	"up": {start: 8, end: 15},
+	"right": {start: 16, end: 23},
+	"left": {start: 24, end: 31},
+	"idle": {start: 0, end: 7},
+}
+
 export const ZOOM_SCALE = 2;
 
 export const LOBBY_SCALE = 1;

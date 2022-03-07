@@ -85,11 +85,12 @@ class Tutee extends Phaser.GameObjects.Sprite {
       methods: {
         onEnterState: (lifecycle) => {
           // this.anims.play(`${this.scene.tutee}-${lifecycle.to}`);
-          if('idle' === lifecycle.to) {
-            this.anims.play(`walk-${this.character}-${lifecycle.to}`);
-          } else {
-            this.anims.play(`walk-${this.character}-down`);
-          }
+          this.anims.play(`walk-${this.character}-${lifecycle.to}`);
+          // if('idle' === lifecycle.to) {
+          //   this.anims.play(`walk-${this.character}-${lifecycle.to}`);
+          // } else {
+            // this.anims.play(`walk-${this.character}-down`);
+          // }
           
           if(!['idle', 'none'].includes(lifecycle.from) && lifecycle.to === 'idle') {
             this.updateTuteePosition({

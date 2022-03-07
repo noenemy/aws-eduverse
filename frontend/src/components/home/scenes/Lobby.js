@@ -3,13 +3,13 @@ import Tutee from '../entities/Tutee';
 import { API, graphqlOperation } from 'aws-amplify';
 import { onCreateTutee, onDeleteTutee, onUpdateTutee } from '../../../graphql/subscriptions';
 import { listTutees } from '../../../graphql/queries';
-import { LOBBY_SCALE, NPC_CONFIG, PLAYER_SCALE, STUFF_TO_SAY, ZOOM_SCALE } from '../common';
+import { LOBBY_SCALE, NPC_CONFIG, PLAYER_SCALE, STUFF_TO_SAY, WALK_SPRITE_SPLIT, ZOOM_SCALE } from '../common';
 class Lobby extends Phaser.Scene {
   
   tuteeMap = {};
   npcKind = ['carry', 'hoe', 'jump', 'sword', 'witch'];
   allCharacters = ['pink','purple','green','babypink'];
-  allState = ['idle', 'down'];
+  allState = ['idle', 'down', 'up', 'right', 'left'];
   backgroundTilesets = [
     'chairs_shadow',
     'couches_shadow',
@@ -113,8 +113,10 @@ class Lobby extends Phaser.Scene {
     
     console.log("@ this.mainTutee >> ", this.mainTutee)
 
+    //로비 그리기
     this.new_lobby = this.make.tilemap({key: 'new-lobby-map'});
     this.createLobby();
+    //문 달기
     this.createAnims('door-anims', 'door-sheet', 0, 2, { repeat: -1, duration: 800 });
 
     // npc 생성
@@ -139,7 +141,7 @@ class Lobby extends Phaser.Scene {
 
       return npc;
     });
-    //웰컴봇에만 귀요미 이모지 보이자
+    //웰컴봇에만 귀요미 이모지 보이기
     this.createAnims('emoji-anims', 'emoji-sheet', 0, 14, { repeat: -1, duration: 5000 });
 
     this.createTuteeAnims();
@@ -320,8 +322,8 @@ class Lobby extends Phaser.Scene {
         return this.anims.create({
           key: `walk-${char}-${direction}`,
           frames: this.anims.generateFrameNumbers(`walk-${char}-sheet`, {
-            start: 0,
-            end: 7
+            start: WALK_SPRITE_SPLIT[direction].start,
+            end: WALK_SPRITE_SPLIT[direction].end
           }),
           repeat: direction === 'idle' ? 0 : -1
         });
