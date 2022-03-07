@@ -87,7 +87,7 @@ const ClassroomList = (props) => {
                     <div className="col col-mr-auto">
 
                     <h2>Classroom</h2>
-                    Amazon Chime SDK를 이용해서 구현한 온라인 클래스기능입니다.
+                    Amazon Chime SDK를 이용해서 구현한 온라인 클래스 서비스입니다.
 
                     <div className="container">
                         <div className="row">
