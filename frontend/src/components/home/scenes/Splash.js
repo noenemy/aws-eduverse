@@ -20,7 +20,7 @@ class Splash extends Phaser.Scene {
 	}
 
 	create () {
-        console.log("@splash > loading background iamge");
+        // background image
         let bgImage = this.add.image(this.cameras.main.width / 2, this.cameras.main.height / 2, 'background_image');
 
         let scaleX = this.cameras.main.width / bgImage.width
@@ -28,15 +28,18 @@ class Splash extends Phaser.Scene {
         let scale = Math.max(scaleX, scaleY)
         bgImage.setScale(scale).setScrollFactor(0)
 
-        this.topText = this.add.text(bgImage.width / 2 - 33, 300, "AWS 서비스를 이용하여 구현한", { fontSize: 30 });
-        this.add.text(bgImage.width / 2 - 20, 350, "인터랙티브 가상 교육 플랫폼", { fontSize: 30 });
+        // introduction text
+        this.topText = this.add.text(bgImage.width / 2 - 33, 300, "AWS 서비스를 이용하여 구현한", { fill: '#023047', fontSize: 30 });
+        this.add.text(bgImage.width / 2 - 20, 350, "인터랙티브 가상 교육 플랫폼", { fill: '#023047', fontSize: 30 });
 
-        this.clickButton = this.add.text(bgImage.width / 2, bgImage.height / 2 + 250, '[ 시작하기 ]', { fill: '#0f0', fontSize: 50 })
+        // start text button
+        this.clickButton = this.add.text(bgImage.width / 2, bgImage.height / 2 + 250, '[ 시작하기 ]', { fill: '#333D29', fontSize: 50 })
             .setInteractive({ useHandCursor: true })
-            .on('pointover', () => this.enterButtonHoverState() )
-            .on('pointout', () => this.enterButtonRestState() )
+            .on('pointerover', () => this.enterButtonHoverState() )
+            .on('pointerout', () => this.enterButtonRestState() )
             .on('pointerdown', () => this.clickEnter() );
 
+        // logo image
         this.logo = this.physics.add.image(this.cameras.main.width / 2, 150, 'logo_image');
         this.logo.setVelocity(0, 100);
         this.logo.setGravity(0, 250)
@@ -51,12 +54,12 @@ class Splash extends Phaser.Scene {
 
     enterButtonHoverState() {
         console.log("enterButtonHoverState");
-        this.clickButton.setStyle({ fill: '#ff0' });
+        this.clickButton.setStyle({ fill: '#F1FAEE' });
     }
 
     enterButtonRestState() {
         console.log("enterButtonRestState");
-        this.clickButton.setStyle({ fill: '#0f0' });
+        this.clickButton.setStyle({ fill: '#333D29' });
     }
     
 
