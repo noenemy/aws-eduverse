@@ -255,7 +255,6 @@ const Chat = (props) => {
     setIsLoading(false);
   };
 
-
   return (
     <div style={{height: '100%'}}>
         <h2>Chatting</h2>
@@ -279,8 +278,9 @@ const Chat = (props) => {
                   autocomplete="off" 
                   value={chatMsg} 
                   placeholder='Type your message' 
-                  onChange={handleChange}
-                  onKeyPress={handleKeyPress}
+                  onChange={e => handleChange(e)}
+                  // onKeyPress={e => handleKeyPress(e)}
+                  onKeyDown={e => handleKeyPress(e)}
                   />
               </Form.Field>
 
