@@ -65,6 +65,7 @@ class Lobby extends Phaser.Scene {
 
     this.load.bitmapFont('DungGeunMo', 'assets/fonts/DungGeunMo_white.png','assets/fonts/DungGeunMo_white.xml');
     this.load.bitmapFont('DungGeunMo_skyblue', 'assets/fonts/DungGeunMo_skyblue.png','assets/fonts/DungGeunMo_skyblue.xml');
+    this.load.bitmapFont('DungGeunMo_pink', 'assets/fonts/DungGeunMo_pink.png','assets/fonts/DungGeunMo_pink.xml');
 
     this.load.tilemapTiledJSON('new-lobby-map', 'assets/tilemaps/scaled_lobby.json');
     this.load.spritesheet(`door-sheet`, `assets/gifs/door3_beige.png`, {
@@ -178,7 +179,7 @@ class Lobby extends Phaser.Scene {
 
       this.time.addEvent({delay: 5000, callback: this.onRemoveWelcome, callbackScope: this, loop: false});
       this.welcomeSpeechBubble = this.addSpeechBubble(this.npcList[0].x, this.npcList[0].y-40, 140, 30, `Welcome! ${this.mainTutee.nickname ? this.mainTutee.nickname : 'Tutee'}! Let's study~!`)
-      
+
     });
 
     
@@ -360,6 +361,7 @@ class Lobby extends Phaser.Scene {
     if(isMainPlayer) {
       this.tuteeMap[id].setupMyAnimations();
       this.createCollider(this.tuteeMap[id]);
+      
     } else {
       this.tuteeMap[id].setupOtherAnimations();
     }

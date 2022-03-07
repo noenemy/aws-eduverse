@@ -15,8 +15,12 @@ class Tutee extends Phaser.GameObjects.Sprite {
   };
 
 	constructor(scene, x, y, sheet, id, nickname, character) {
+
 		super(scene, x, y, sheet, 0);
 
+    // const hs = 1;
+    // this.setDisplaySize(this.width + hs*2, this.height + hs*2)
+    
     scene.add.existing(this);
 		scene.physics.add.existing(this);
 
@@ -25,6 +29,8 @@ class Tutee extends Phaser.GameObjects.Sprite {
     this.id = id;
     this.nickname = nickname;
     this.character = character ? character : "purple";
+
+    this.setDepth(101);
 
     this.anims.play(`walk-${character}-idle`);
 
@@ -36,6 +42,7 @@ class Tutee extends Phaser.GameObjects.Sprite {
     this.body.setVelocity(0, 0);
 
     this.enterTimedEvent = this.scene.time.addEvent({delay: 2000, callback: () => this.setEntered(true), callbackScope: this, loop: false});
+
 	}
 
   setEntered(flag) {
@@ -238,7 +245,11 @@ class Tutee extends Phaser.GameObjects.Sprite {
     if(this.nicknametext) this.nicknametext.destroy();
     if(this.entered) {
       // this.add.bitmapText(x,y,font,text,size,align)
-      this.nicknametext = this.scene.add.bitmapText(this.body.x-5, this.body.y-10, 'DungGeunMo', this.nickname, 12, Phaser.GameObjects.BitmapText.ALIGN_CENTER );
+      let fontFamily = 'DungGeunMo'
+      if(this.id === this.scene.mainPlayerId) {
+        fontFamily = 'DungGeunMo_pink'
+      }
+      this.nicknametext = this.scene.add.bitmapText(this.body.x-5, this.body.y-10, fontFamily, this.nickname, 12, Phaser.GameObjects.BitmapText.ALIGN_CENTER );
       // this.nicknametext = this.scene.add.text(this.body.x-5, this.body.y-10, this.nickname, { fontFamily: 'DungGeunMo', fontSize: 12, color: '#ffffff', align: 'center' });
       this.nicknametext.setDepth(100);
     }
