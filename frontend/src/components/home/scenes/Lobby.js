@@ -129,7 +129,7 @@ class Lobby extends Phaser.Scene {
         item.y-20, 
         'DungGeunMo_skyblue', 
         item.displayName, 
-        12, 
+        11, 
         Phaser.GameObjects.BitmapText.ALIGN_CENTER).setDepth(100);
       let npc = this.addSpriteAndPlay(item.x, item.y, item.name, PLAYER_SCALE)
       //npc 클릭이벤트 생성
