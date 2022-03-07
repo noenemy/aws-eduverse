@@ -340,7 +340,7 @@ class Lobby extends Phaser.Scene {
         return item;
       })
     }
-    this.addSpriteAndPlay(this.npcList[0].x, this.npcList[0].y-15, 'emoji', PLAYER_SCALE);
+    this.addSpriteAndPlay(this.npcList[0].x+15, this.npcList[0].y-2, 'emoji', PLAYER_SCALE);
   }
 
   async addActiveTutees() {
