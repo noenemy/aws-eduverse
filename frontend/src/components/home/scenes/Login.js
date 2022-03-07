@@ -110,7 +110,7 @@ class Login extends Phaser.Scene {
 
 		this.tweens.add({
 				targets: element,
-				y: this.scale.height*0.77,
+				y: this.scale.height*0.75,
 				duration: 2500,
 				ease: 'Power3'
 		});

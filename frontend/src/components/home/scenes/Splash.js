@@ -72,7 +72,7 @@ class Splash extends Phaser.Scene {
 
     clickEnter() {
         console.log("Enter clicked");
-
+        this.clickButton.destroy();
         this.scene.launch('LoginScene');
     }
 
