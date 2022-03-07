@@ -9,6 +9,7 @@ import ScrollToTop from '../home/ScrollToTop';
 
 function Auditorium() {
     const { id } = useParams();
+    const [ title, setTitle ] = useState("");
     const [ url, setUrl ] = useState("");
     const [ auditorium, setAuditorium ] = useState();
     const navigate = useNavigate();
@@ -16,6 +17,7 @@ function Auditorium() {
     useEffect(async () => {
         if (id) {
             const result = await API.graphql(graphqlOperation(getAuditorium, {id}));
+            setTitle(result.data.getAuditorium.title);
             setUrl(result.data.getAuditorium.url);
             console.log("@getAuditorium > " + url);
         }
@@ -23,19 +25,22 @@ function Auditorium() {
 
     return (
         <ScrollToTop>
-            <div className="row">
+            <div className="row vh-100">
                 <div className="col-sm-9">
                     <div>
-                        <span>auditorium { id }</span> 
-                        <Button variant="primary" onClick={() => navigate(-1)}>Exit</Button> 
+                        
+                        <p className="h3">
+                            <a href="#" onClick={() => navigate(-1)}><i className="fa fa-angle-left px-4"></i></a>
+                            { title }
+                        </p>
                     </div>
                     { url && 
                         <VideoPlayer url={ url } />
                     }  
                     
                 </div>
-                <div className="col-sm-3">
-                    <Chat />
+                <div className="col-sm-3 vh-100">
+                    <Chat title={id} />
                 </div>
             </div>
         </ScrollToTop>
