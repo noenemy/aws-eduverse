@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import {
@@ -121,19 +121,28 @@ const Meeting = (props) => {
   
   return (
       <div style={{marginTop: '2rem', height: '40rem', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
-        <VideoTileGrid />
+        
         {meetingStatus === MeetingStatus.Succeeded ?
-          <ControlBar
-            layout="undocked-horizontal"
-            showLabels
-          >
-            <AudioInputControl />
-            <VideoInputBackgroundBlurControl />
-            <ContentShareControl />
-            <ControlBarButton icon={<Phone />} onClick={clickedEndMeeting} label="End" />
-          </ControlBar> 
+          <Fragment>
+            <VideoTileGrid />
+            <ControlBar
+              layout="undocked-horizontal"
+              showLabels
+            >
+              <AudioInputControl />
+              <VideoInputBackgroundBlurControl />
+              <ContentShareControl />
+              <ControlBarButton icon={<Phone />} onClick={clickedEndMeeting} label="End" />
+            </ControlBar>
+          </Fragment>
           :
-          <><ReactLoading type="spin" color="#123abc" /><div /></>
+          <Fragment>
+            <p className="h3 text-muted">강의실에 접속 중입니다. 잠시만 기다려 주세요.</p>
+            <p>&nbsp;</p>
+            <p className="h5 text-muted">웹캠과 마이크를 사용해서 다른 참여자와 대화할 수 있습니다.</p>
+            <p>&nbsp;</p>
+            <ReactLoading type="spin" color="#123abc" />
+          </Fragment>
         }
       </div>
   );

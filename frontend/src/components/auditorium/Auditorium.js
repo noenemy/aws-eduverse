@@ -1,10 +1,9 @@
-import React, { useState, useMemo, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
 import VideoPlayer from './VideoPlayer';
 import Chat from '../classroom/Chat';
 import { API, graphqlOperation } from 'aws-amplify';
-import { getAuditorium, listAuditoriums } from '../../graphql/queries';
+import { getAuditorium } from '../../graphql/queries';
 import ScrollToTop from '../home/ScrollToTop';
 
 function Auditorium() {

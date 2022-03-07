@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { API, graphqlOperation } from 'aws-amplify';
+import { getClassroom } from '../../graphql/queries';
 import { ThemeProvider } from 'styled-components';
 import {
   MeetingProvider,
@@ -9,14 +11,21 @@ import {
 import Meeting from './Meeting';
 import Chat from './Chat'
 import Attendee from './Attendee'
-import { Button } from 'react-bootstrap';
 import { useParams } from 'react-router';
 import { useNavigate } from 'react-router-dom';
 
 const ChimeClassroom = (props) => {
 
 	const { id } = useParams();
+  const [ title, setTitle ] = useState();
 	const navigate = useNavigate();
+
+  useEffect(async () => {
+    if (id) {
+        const result = await API.graphql(graphqlOperation(getClassroom, {id}));
+        setTitle(result.data.getClassroom.title);
+    }
+    }, []);
 
 	return (
     <div>
@@ -26,10 +35,12 @@ const ChimeClassroom = (props) => {
           <BackgroundBlurProvider>            
             <MeetingProvider>
               <div className="col-sm-9">
-                <h4>
-                  classroom {id}
-                  {/* <Button variant="primary" onClick={() => navigate(-1)}>Exit</Button> */}
-                </h4>
+                <div>
+                    <p className="h3">
+                        <a href="#" onClick={() => navigate(-1)}><i className="fa fa-angle-left px-4"></i></a>
+                        { title }
+                    </p>
+                  </div>
                 <Meeting title={id}/>
               </div>
               <div className="col-sm-3">
