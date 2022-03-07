@@ -58,6 +58,10 @@ const Chat = (props) => {
     const userName = user.nickname;
 
     const memberArn = await chimeApi.createAppInstanceUser(userName);
+    setMember({
+      userId: memberArn.split('/')[3],
+      username: userName,
+    });
 
     const chattingResponse = await getChattingFromDB(title);
     const chattingJson = chattingResponse.data.getChatting;
@@ -83,20 +87,21 @@ const Chat = (props) => {
           username: ret.Name,
         });
       }
+
+      await initSession();
       
     } catch (e) {
       console.log("ERROR!! ");
       console.log(e);
     }
-
-    await initSession();
   }
 
   const initSession = async () => {
+    const userName = user.nickname;
+
     const logger = new ConsoleLogger('SDK', LogLevel.INFO);
     const endpoint = await chimeApi.getMessagingSessionEndpoint();
 
-    const userArn = chimeApi.createMemberArn(member.userId);
     const sessionId = null;
     AWS.config.credentials = new AWS.Credentials(
       appConfig.accessKeyId, appConfig.secretAccessKey
@@ -104,7 +109,7 @@ const Chat = (props) => {
     const chime = new Chime({
       region: appConfig.region,
     });
-    const configuration = new MessagingSessionConfiguration(userArn, sessionId, endpoint.Endpoint.Url, chime, AWS);
+    const configuration = new MessagingSessionConfiguration(appConfig.adminUserArn, sessionId, endpoint.Endpoint.Url, chime, AWS);
     const messagingSession = new DefaultMessagingSession(configuration, logger);
     const observer = {
       messagingSessionDidStart: () => {
@@ -127,7 +132,7 @@ const Chat = (props) => {
         if (message.type == 'CREATE_CHANNEL_MESSAGE'){
           const msg = JSON.parse(message.payload)
           console.log(msg);
-          if (msg !== null && msg.Sender.Name !== member.userName) {
+          if (msg !== null && msg.Sender.Name !== userName) {
             addMessageList(msg, msg.Content, "incoming");
           }
         }
@@ -180,23 +185,17 @@ const Chat = (props) => {
 
   const getMessages = async () => {
     let Messages = messageList;
-    
-    const userName = user.nickname;
-    console.log("NAME!!!!: " + userName);
-
+  
     setIsLoading(true);
     console.log("GET MESSAGE!!!")
     try {
-
-      console.log(chatChannel);
-
-      let messageList = await chimeApi.listChannelMessages(chatChannel, userName, nextToken);
+      let messageList = await chimeApi.listChannelMessages(chatChannel, member.userId, nextToken);
       console.log("messages: ");
       console.log(messageList);
       console.log(messageList.length);
       messageList.Messages.map((msg, index) => {
         let variant = "incoming";
-        if (msg.Sender.Name === userName) {
+        if (msg.Sender.Name === member.userName) {
           variant = "outgoing"
         }
         console.log(variant);
@@ -241,7 +240,6 @@ const Chat = (props) => {
 
   const handleKeyPress = (e) => {
     e.stopPropagation()
-    console.log(e.key);
     if (e.key === 'Enter') { handleClick(); }
   };
 
