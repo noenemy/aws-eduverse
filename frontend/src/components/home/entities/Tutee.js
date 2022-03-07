@@ -30,7 +30,7 @@ class Tutee extends Phaser.GameObjects.Sprite {
     this.nickname = nickname;
     this.character = character ? character : "purple";
 
-    this.setDepth(101);
+    this.setDepth(99);
 
     this.anims.play(`walk-${character}-idle`);
 
