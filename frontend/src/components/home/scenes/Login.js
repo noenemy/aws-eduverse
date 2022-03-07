@@ -13,7 +13,9 @@ class Login extends Phaser.Scene {
 		this.user = user;
 	}
 
-	init() {
+	init({domX, domY}) {
+		this.domX = domX;
+		this.domY = domY;
 	}
 
 	preload () {
@@ -21,7 +23,7 @@ class Login extends Phaser.Scene {
 	}
 
 	create () {
-		var element = this.add.dom(400, 600).createFromCache('nameform');
+		var element = this.add.dom(this.scale.width/2, this.scale.height).createFromCache('nameform');
 		
 		// element.setPerspective(800);
 		element.addListener('click');
@@ -108,7 +110,7 @@ class Login extends Phaser.Scene {
 
 		this.tweens.add({
 				targets: element,
-				y: 300,
+				y: this.scale.height*0.75,
 				duration: 2500,
 				ease: 'Power3'
 		});

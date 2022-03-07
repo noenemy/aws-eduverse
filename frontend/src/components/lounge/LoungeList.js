@@ -47,11 +47,11 @@ const LoungeList = props => {
         <div className="vh-100">
             <div className="container-fluid h-100">
                 <div className="row h-100">
-                    <div className="col col-1" style={{ backgroundColor: "#F9C74F" }}>&nbsp;</div>
+                    <div className="col col-1" style={{ backgroundColor: "#4D908E" }}>&nbsp;</div>
                     <div className="col col-mr-auto">
 
                     <h2>Lounge</h2>
-                    Amazon 서비스를 이용해서 구현된 각종 게임입니다.
+                    다양한 Amazon AI/ML 서비스를 체험 할 수 있는 라운지 공간입니다.
                     <p>&nbsp;</p>
                     <div className="container">
                         <div className="row">

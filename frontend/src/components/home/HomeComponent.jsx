@@ -20,8 +20,10 @@ const HomeComponent = (props) => {
     //로비 사용자수 업뎃 스케줄러 10초
     useEffect(() => {
         lobbyUserCounter.current = setInterval( async ()=>{
-            const allTutees = await getAllUsers();
-            setAllUsers(allTutees);
+            if(user && user.id) {
+                const allTutees = await getAllUsers();
+                setAllUsers(allTutees);
+            }
         }, 10000);
         return () => clearInterval(lobbyUserCounter.current);
     }, [])
@@ -34,10 +36,8 @@ const HomeComponent = (props) => {
 
 
     useEffect(() => {
-        
         return ()=>{
             if(game.config) game.destroy(true, false);
-
         }
     }, [game])
 

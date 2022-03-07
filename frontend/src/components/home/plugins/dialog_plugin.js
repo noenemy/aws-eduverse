@@ -124,7 +124,7 @@ export default class DialogModalPlugin extends Phaser.Plugins.BasePlugin {
       size: 12
       },
       true
-    );
+    ).setDepth(300);
 
     this.text.setX(x);
     this.text.setY(y);
@@ -143,13 +143,13 @@ export default class DialogModalPlugin extends Phaser.Plugins.BasePlugin {
     var gameHeight = this._getGameHeight();
     var gameWidth = this._getGameWidth();
     var windowDimensions = this._calculateWindowDimensions(gameWidth, gameHeight);
-    this.graphics = this.scene.add.graphics();
+    this.graphics = this.scene.add.graphics().setDepth(200);
 
     this._createOuterWindow(windowDimensions);
     this._createInnerWindow(windowDimensions);
     // this._createCloseModalButtonBorder();
     this._createCloseModalButton();
-    this.faceImage = this.scene.add.image(windowDimensions.x + 40, windowDimensions.y + 30,`${this.face}-face`).setScale(BOTTOM_SPEECH_POSITION.scale)
+    this.faceImage = this.scene.add.image(windowDimensions.x + 40, windowDimensions.y + 30,`${this.face}-face`).setScale(BOTTOM_SPEECH_POSITION.scale).setDepth(300)
   }
 
   // Gets the width of the game (based on the scene)
@@ -218,7 +218,7 @@ export default class DialogModalPlugin extends Phaser.Plugins.BasePlugin {
         font: 'bold 12px Arial',
         fill: this.closeBtnColor
       }
-    });
+    }).setDepth(300);
     this.closeBtn.setInteractive();
 
     this.closeBtn.on('pointerover', function () {
