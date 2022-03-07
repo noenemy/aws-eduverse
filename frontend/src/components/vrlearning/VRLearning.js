@@ -72,60 +72,69 @@ const VRLearning = (props) => {
     }
 
     return (
-        <div>
-            <h2>VRLearning</h2>
-            Amazon AI/ML 서비스 및 Sumerian을 이용해서 구현한 셀프스터디 서비스입니다.
-            <div className="container">
-                <div className="row">
-                    <div className="col-6">
-                        <img className="img-fluid" src={LoadScreen} alt="loadscreen" width="500" height="400"></img>
-                    </div>
-                    <div className="col-6">
-                        <h2>
-                            <i className="fas fa-quote-left" />&nbsp;
-                            Hi, we are your language tutors.
-                        </h2>
-                        <h2>Learning a language is fun. </h2>
-                        <h2>We will help you. <i className="fas fa-quote-right" />&nbsp;
-                        </h2>
-                        <br />
-                        <h2>Which language do you want to learn?</h2>
-                        { courseLoading &&
-                            <ReactLoading type="spin" color="#123abc" size="sm" /> 
-                        }
-                        { courses && courses.map(( course, index) => {
-                            return (
-                                <Fragment key={course.id}>
-                                <Button className="ml-2" onClick={() => selectCourse(course.id, course.language)}><i className={ "fas fa-globe-" + course.icon } />&nbsp;{ course.title }</Button>
-                                &nbsp;&nbsp;</Fragment>
-                                );
-                        })}
-                        
-                        <br /><br />
-                        <h2>Which subject do you want to learn today?</h2>
-                        <div className="list-group">
-                            <button type="button" className="list-group-item list-group-item-action list-group-item-secondary" aria-current="true">
-                                Course content
-                            </button>
-                            { lectureLoading &&
-                                <ReactLoading type="spin" color="#123abc" /> 
-                            }
-                            { lectures && lectures.map(( lecture, index) => {
-                                return (
-                                    <button type="button" className="list-group-item list-group-item-action" key={lecture.id} onClick={() => enterClassroom(lecture.id, language)}>
-                                        <i className="fas fa-book" />&nbsp;{ lecture.title }
-                                    </button>
-                                    );
-                            })}
 
+        <div className="vh-100">
+            <div className="container-fluid h-100">
+                <div className="row h-100">
+                    <div className="col col-1" style={{ backgroundColor: "#43AA8D" }}>&nbsp;</div>
+                    <div className="col col-mr-auto">
+                                    
+                        <h2>VRLearning</h2>
+                        Amazon AI/ML 서비스 및 Sumerian을 이용해서 구현한 셀프스터디 서비스입니다.
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-5">
+                                    <img className="img-fluid" src={LoadScreen} alt="loadscreen" width="460"></img>
+                                </div>
+                                <div className="col-7">
+                                    <h2>
+                                        <i className="fas fa-quote-left" />&nbsp;
+                                        Hi, we are your language tutors.
+                                    </h2>
+                                    <h2>Learning a language is fun. </h2>
+                                    <h2>We will help you. <i className="fas fa-quote-right" />&nbsp;
+                                    </h2>
+                                    <br />
+                                    <h2>Which language do you want to learn?</h2>
+                                    { courseLoading &&
+                                        <ReactLoading type="spin" color="#123abc" size="sm" /> 
+                                    }
+                                    { courses && courses.map(( course, index) => {
+                                        return (
+                                            <Fragment key={course.id}>
+                                            <Button className="ml-2" onClick={() => selectCourse(course.id, course.language)}><i className={ "fas fa-globe-" + course.icon } />&nbsp;{ course.title }</Button>
+                                            &nbsp;&nbsp;</Fragment>
+                                            );
+                                    })}
+                                    
+                                    <br /><br />
+                                    <h2>Which subject do you want to learn today?</h2>
+                                    <div className="list-group">
+                                        <button type="button" className="list-group-item list-group-item-action list-group-item-secondary" aria-current="true">
+                                            Course content
+                                        </button>
+                                        { lectureLoading &&
+                                            <ReactLoading type="spin" color="#123abc" /> 
+                                        }
+                                        { lectures && lectures.map(( lecture, index) => {
+                                            return (
+                                                <button type="button" className="list-group-item list-group-item-action" key={lecture.id} onClick={() => enterClassroom(lecture.id, language)}>
+                                                    <i className="fas fa-book" />&nbsp;{ lecture.title }
+                                                </button>
+                                                );
+                                        })}
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div className="row"> 
+
+                            </div>
+                            <ToastContainer position="bottom-right" autoClose="3000" />
                         </div>
-
                     </div>
                 </div>
-                <div className="row"> 
-
-                </div>
-                <ToastContainer position="bottom-right" autoClose="3000" />
             </div>
         </div>
     );

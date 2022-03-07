@@ -46,11 +46,11 @@ const AuditoriumList = (props) => {
         <div className="vh-100">
             <div className="container-fluid h-100">
                 <div className="row h-100">
-                    <div className="col col-1" style={{ backgroundColor: "#F8961E" }}>&nbsp;</div>
+                    <div className="col col-1" style={{ backgroundColor: "#F4A261" }}>&nbsp;</div>
                     <div className="col col-mr-auto">
 
                         <h2>Auditorium</h2>
-                        Amazon IVS를 이용해서 라이브스트리밍을 구현한 대강당 기능입니다.
+                        Amazon Interactive Video Service(IVS)를 이용해서 라이브스트리밍을 구현한 대강당 서비스입니다.
                         <p></p>
 
                         <div className="container">
