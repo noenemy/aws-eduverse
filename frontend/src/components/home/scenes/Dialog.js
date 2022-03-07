@@ -21,6 +21,7 @@ class Dialog extends Phaser.Scene {
 		this.load.plugin('DialogModalPlugin', DialogModalPlugin);
 		// this.plugins.registerGameObject('DialogModalPlugin', DialogModalPlugin )
 		// this.load.bitmapFont('DungGeunMo_black', 'assets/fonts/DungGeunMo.png','assets/fonts/DungGeunMo.xml');
+		// this.load.bitmapFont('DungGeunMo_green_stroke', 'assets/fonts/DungGeunMo_green_stroke.png','assets/fonts/DungGeunMo_green_stroke.xml');
 	}
 
 	create () {

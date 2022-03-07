@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import { BOTTOM_SPEECH_POSITION, ZOOM_SCALE } from "../common";
+import { BOTTOM_SPEECH_POSITION, NPC_CONFIG, ZOOM_SCALE } from "../common";
 
 export default class DialogModalPlugin extends Phaser.Plugins.BasePlugin {
   
@@ -115,8 +115,19 @@ export default class DialogModalPlugin extends Phaser.Plugins.BasePlugin {
     // Reset the dialog
     if (this.text) this.text.destroy();
 
+    let hasDisplayName = NPC_CONFIG.filter(item=>item.name === this.face);
+    let displayName = '안내자';
+    if(hasDisplayName.length > 0 && hasDisplayName[0].displayName) {
+      displayName = hasDisplayName[0].displayName;
+    }
     var x = this.positionX + 10 + 100; //this.padding + 10;
     var y = this.positionY + 10; //this._getGameHeight() - this.windowHeight - this.padding + 10;
+
+    this.npcDisplayName = this.scene.make.bitmapText({
+      font: 'DungGeunMo_skyblue',
+      text: `[${displayName}]`,
+      size: 12
+    }, true).setX(x).setY(y).setDepth(300);
 
     this.text = this.scene.make.bitmapText({
       font: 'DungGeunMo',
@@ -124,10 +135,8 @@ export default class DialogModalPlugin extends Phaser.Plugins.BasePlugin {
       size: 12
       },
       true
-    ).setDepth(300);
+    ).setX(x).setY(y+20).setDepth(300);
 
-    this.text.setX(x);
-    this.text.setY(y);
     // this.text = this.scene.make.text({
     //   x,
     //   y,
@@ -244,6 +253,7 @@ export default class DialogModalPlugin extends Phaser.Plugins.BasePlugin {
     let self = this;
     if (self.timedEvent) self.timedEvent.remove();
     if (self.text) self.text.destroy();
+    if (self.npcDisplayName) self.npcDisplayName.destroy();
 
     if (self.text) self.text.setVisible(false);
     if (self.graphics) self.graphics.setVisible(false);
