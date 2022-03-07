@@ -24,8 +24,6 @@ class Dialog extends Phaser.Scene {
 	}
 
 	create () {
-		var cursors = this.input.keyboard.createCursorKeys();
-
 		this.dialog = this.plugins.get('DialogModalPlugin');
 		this.dialog.init(this.initData);
 
@@ -53,7 +51,9 @@ class Dialog extends Phaser.Scene {
 			this.keySpaceDown = false;
 			if(this.sayIndex > this.stuffToSay.length - 1) {
 				console.log(`@ npc saying done. index: ${this.sayIndex} length: ${this.stuffToSay.length}`)
+				this.keySpace.destroy();
 				this.dialog.removeDialog();
+				
 				return;
 			}
 			this.talk();
