@@ -29,7 +29,7 @@ class Splash extends Phaser.Scene {
         bgImage.setScale(scale).setScrollFactor(0)
 
         // introduction text
-        this.topText = this.add.text(this.scale.width / 2, 300, "AWS 서비스를 이용하여 구현한", { fill: '#023047', fontSize: 30 });
+        this.topText = this.add.text(this.scale.width / 2, 300, "AWS 서비스를 이용해서 구현한", { fill: '#023047', fontSize: 30 });
         this.bottomText = this.add.text(this.scale.width / 2 - 20, 350, "인터랙티브 가상 교육 플랫폼", { fill: '#023047', fontSize: 30 });
 
        
