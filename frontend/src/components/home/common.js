@@ -32,10 +32,10 @@ export const WALK_SPRITE_SPLIT = {
 }
 
 export const DOOR_CONFIG = {
-	"auditorium": { x: 140, y: 35, color: 'blue' },
-	"classroom": { x: 670, y: 30, color: 'blue' },
-	"vrlearning": { x: 175, y: 240, color: 'blue' },
-	"lounge": { x: 550, y: 370, color: 'blue' },
+	"auditorium": { x: 140, y: 35, color: 'blue', nameKr: '대강당' },
+	"classroom": { x: 670, y: 30, color: 'blue', nameKr: '강의실' },
+	"vrlearning": { x: 175, y: 240, color: 'blue', nameKr: 'VR 학습터' },
+	"lounge": { x: 550, y: 370, color: 'blue', nameKr: '라운지' },
 }
 
 export const ZOOM_SCALE = 2;

@@ -183,8 +183,8 @@ class Lobby extends Phaser.Scene {
             if(this.mainTutee && !this.isCollide) {
               this.createModal(
                 this, 
-                item, 
-                `${this.mainTutee.nickname}, Do you want to go to the ${item}`,
+                `${DOOR_CONFIG[item].nameKr} 이동`, 
+                `${this.mainTutee.nickname}님, ${DOOR_CONFIG[item].nameKr} (으)로 이동할까요?`,
                  ()=> {
                   this.navigate(`/${item}`);
                 });
@@ -211,8 +211,9 @@ class Lobby extends Phaser.Scene {
 
   createModal(scene, title, message, onClickYes) {
     this.isCollide = true;
-    this.rexUI.modalPromise(
-      this.createRexDialog(scene, title, message, onClickYes).setPosition(300, 150), {
+
+      this.rexUI.modalPromise(
+      this.createRexDialog(scene, title, message, onClickYes), {
           manaulClose: true,
           duration: {
               in: 1000,
@@ -225,11 +226,18 @@ class Lobby extends Phaser.Scene {
   }
 
   createRexDialog(scene, title, message, onClickYes) {
-    var rexDialog = this.rexUI.add.dialog({
+    this.rexDialog = this.rexUI.add.dialog({
 			background: scene.rexUI.add.roundRectangle(0, 0, 100, 100, 20, 0xdec4a6),
 			title: scene.rexUI.add.label({
 					background: scene.rexUI.add.roundRectangle(0, 0, 100, 40, 20, 0x766a62),
-					text: scene.add.text(0, 0, title ?? 'Confirmation', { fontSize: '15px' }),
+					text: scene.make.bitmapText(
+            {
+              font: 'DungGeunMo',
+              text: title ?? '이동 확인',
+              size: 12
+            }, 
+            true
+          ).setX(0).setY(0),//scene.add.text(0, 0, title ?? 'Confirmation', { fontSize: '15px' }),
 					space: {
 							left: 15,
 							right: 15,
@@ -237,7 +245,14 @@ class Lobby extends Phaser.Scene {
 							bottom: 10
 					}
 			}),
-			content: scene.add.text(0, 0, message ?? 'Do you confirm?', { fontSize: '12px', color: '#5b5a5c' }),
+			content: scene.make.bitmapText(
+        {
+          font: 'DungGeunMo',
+          text: message ?? 'Do you confirm?',
+          size: 12
+        }, 
+        true
+      ).setX(0).setY(0),//scene.add.text(0, 0, message ?? 'Do you confirm?', { fontSize: '12px', color: '#5b5a5c' }),
 			actions: [
 					this.createLabel(scene, 'Yes'),
 					this.createLabel(scene, 'No')
@@ -259,13 +274,15 @@ class Lobby extends Phaser.Scene {
 			}
 	  }).layout().popUp(1000);
 
-    rexDialog.setDepth(200);
-	  rexDialog
+    this.rexDialog.setDepth(200);
+
+    const self = this.rexDialog;
+	  this.rexDialog
 			.on('button.click', function (button, groupName, index, pointer, event) {
         if(index === 0 && typeof onClickYes === 'function') {
           onClickYes();
         }
-        rexDialog.emit('modal.requestClose', { closedDialog: "Auditorium" });
+        self.emit('modal.requestClose', { closedDialog: "Auditorium" });
 			})
 			.on('button.over', function (button, groupName, index, pointer, event) {
         console.log("@ button.over")
@@ -276,10 +293,13 @@ class Lobby extends Phaser.Scene {
         button.getElement('background').setStrokeStyle();
 			});
 
-    
-    
-    
-	  return rexDialog;
+    console.log("@ rexDialog > ", this.rexDialog.width, this.rexDialog.height)
+
+    var windowDimensions = this._calculateWindowDimensions(this.rexDialog.width, this.rexDialog.height);
+
+    this.rexDialog.setPosition(windowDimensions.x, windowDimensions.y);
+
+	  return this.rexDialog;
   }
 
   createLabel(scene, text) {
@@ -297,6 +317,20 @@ class Lobby extends Phaser.Scene {
             bottom: 10
         }
     });
+  }
+
+  _calculateWindowDimensions(recWidth, recHeight) {
+    console.log("@ camera > ", this.cameras.main.midPoint)
+    var wannaBeX = this.cameras.main.midPoint.x;// - (recWidth/4);
+    var wannaBeY = this.cameras.main.midPoint.y ;//- (recHeight/4);
+
+    var x = wannaBeX;
+    var y = wannaBeY;
+    
+    return {
+      x,
+      y,
+    };
   }
 
   createAnims(key, sheet, start, end, others) {
