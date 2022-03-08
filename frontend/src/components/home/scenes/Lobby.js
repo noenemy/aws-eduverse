@@ -3,7 +3,7 @@ import Tutee from '../entities/Tutee';
 import { API, graphqlOperation } from 'aws-amplify';
 import { onCreateTutee, onDeleteTutee, onUpdateTutee } from '../../../graphql/subscriptions';
 import { listTutees } from '../../../graphql/queries';
-import { DOOR_CONFIG, LOBBY_SCALE, NPC_CONFIG, PLAYER_SCALE, STUFF_TO_SAY, WALK_SPRITE_SPLIT, ZOOM_SCALE } from '../common';
+import { DOOR_CONFIG, FONT_CONFIG, LOBBY_SCALE, NPC_CONFIG, PLAYER_SCALE, STUFF_TO_SAY, WALK_SPRITE_SPLIT, ZOOM_SCALE } from '../common';
 class Lobby extends Phaser.Scene {
   
   tuteeMap = {};
@@ -61,19 +61,20 @@ class Lobby extends Phaser.Scene {
   }
 
   preload() {
+    // rexUI load
     this.load.scenePlugin('rexuiplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexuiplugin.min.js', 'rexUI', 'rexUI');
-    // this.load.tilemapTiledJSON('new-lobby-map', 'assets/tilemaps/new_lobby.json');
-
-    this.load.bitmapFont('DungGeunMo', 'assets/fonts/DungGeunMo_white.png','assets/fonts/DungGeunMo_white.xml');
-    this.load.bitmapFont('DungGeunMo_skyblue', 'assets/fonts/DungGeunMo_skyblue.png','assets/fonts/DungGeunMo_skyblue.xml');
-    this.load.bitmapFont('DungGeunMo_babypink', 'assets/fonts/DungGeunMo_babypink.png','assets/fonts/DungGeunMo_babypink.xml');
-
+    // bitmap font load
+    for(let type in FONT_CONFIG) {
+      this.load.bitmapFont(FONT_CONFIG[type],  `assets/fonts/${FONT_CONFIG[type]}.png`, `assets/fonts/${FONT_CONFIG[type]}.xml`);
+    }
+    //lobby tile load
     this.load.tilemapTiledJSON('new-lobby-map', 'assets/tilemaps/scaled_lobby_new.json');
+    //door load
     this.load.spritesheet(`door-sheet`, `assets/gifs/door3_beige.png`, {
         frameWidth: 48,
         frameHeight: 32,
     });
-    
+    //tileset load
     this.backgroundTilesets.map(item => {
       return this.load.spritesheet(`new-lobby-${item}-sheet`, `assets/tilesets/${item}.png`, {
         frameWidth: 16,
@@ -83,14 +84,14 @@ class Lobby extends Phaser.Scene {
         // spacing: 2,
       },);
     });
-
+    //character load
     this.allCharacters.map(char => {
       return this.load.spritesheet(`walk-${char}-sheet`, `assets/walk/walk_${char}.png`, {
         frameWidth: 32,
         frameHeight: 32,
       })
     });
-
+    //npc character load
     NPC_CONFIG.map(item => this.load.spritesheet(`${item.name}-sheet`, `assets/${item.name}/${item.name}.png`, {
       frameWidth: 32,
       frameHeight: 32,
@@ -130,9 +131,9 @@ class Lobby extends Phaser.Scene {
       this.add.bitmapText(
         item.x-40, 
         item.y-20, 
-        'DungGeunMo_skyblue', 
+        FONT_CONFIG.NPC, 
         item.displayName, 
-        11, 
+        12, 
         Phaser.GameObjects.BitmapText.ALIGN_CENTER).setDepth(100);
       let npc = this.addSpriteAndPlay(item.x, item.y, item.name, PLAYER_SCALE)
       //npc 클릭이벤트 생성
@@ -158,11 +159,6 @@ class Lobby extends Phaser.Scene {
       // 이동문 위에 워프 포탈 emitter 추가
       this.addWarpPortal(DOOR_CONFIG[item].x, DOOR_CONFIG[item].y, DOOR_CONFIG[item].color);
     }
-    // this.door["auditorium"] = this.addSpriteAndPlay(170, 35, 'door', LOBBY_SCALE );
-    // this.door["classroom"] = this.addSpriteAndPlay(670, 17, 'door', LOBBY_SCALE );
-    // this.door["vrlearning"] = this.addSpriteAndPlay(165, 257, 'door', LOBBY_SCALE );
-
-    
 
     this.cursorKeys = this.input.keyboard.createCursorKeys();
     
@@ -184,7 +180,7 @@ class Lobby extends Phaser.Scene {
               this.createModal(
                 this, 
                 `${DOOR_CONFIG[item].nameKr} 이동`, 
-                `${this.mainTutee.nickname}님, ${DOOR_CONFIG[item].nameKr} (으)로 이동할까요?`,
+                `${this.mainTutee.nickname}님, ${DOOR_CONFIG[item].nameKr} 장소로 이동할까요?`,
                  ()=> {
                   this.navigate(`/${item}`);
                 });
@@ -232,7 +228,7 @@ class Lobby extends Phaser.Scene {
 					background: scene.rexUI.add.roundRectangle(0, 0, 100, 40, 20, 0x766a62),
 					text: scene.make.bitmapText(
             {
-              font: 'DungGeunMo',
+              font: FONT_CONFIG.POPUP_TITLE,
               text: title ?? '이동 확인',
               size: 12
             }, 
@@ -247,7 +243,7 @@ class Lobby extends Phaser.Scene {
 			}),
 			content: scene.make.bitmapText(
         {
-          font: 'DungGeunMo',
+          font: FONT_CONFIG.POPUP_MESSAGE,
           text: message ?? 'Do you confirm?',
           size: 12
         }, 

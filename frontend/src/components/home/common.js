@@ -91,3 +91,12 @@ export const VISIT_AVAILABLE = [
 	"lounge",
 	"lobby"
 ];
+
+// 폰트는 https://snowb.org/ 에서 편집 및 다운로드
+export const FONT_CONFIG = {
+	DEFAULT : 'DungGeunMo_white',
+	NPC : 'DungGeunMo_orange_shadow',
+	MAIN_PLAYER : 'DungGeunMo_skyblue',
+	POPUP_MESSAGE: 'DungGeunMo_black',
+	POPUP_TITLE: 'DungGeunMo_beige'
+}

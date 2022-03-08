@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import StateMachine from 'javascript-state-machine';
 import { API, graphqlOperation } from 'aws-amplify';
 import { updateTutee } from '../../../graphql/mutations';
-import { getTtlSeconds, PLAYER_SCALE } from '../common';
+import { FONT_CONFIG, getTtlSeconds, PLAYER_SCALE } from '../common';
 
 class Tutee extends Phaser.GameObjects.Sprite {
 
@@ -246,12 +246,11 @@ class Tutee extends Phaser.GameObjects.Sprite {
     if(this.nicknametext) this.nicknametext.destroy();
     if(this.entered) {
       // this.add.bitmapText(x,y,font,text,size,align)
-      let fontFamily = 'DungGeunMo'
+      let fontFamily = FONT_CONFIG.DEFAULT
       if(this.id === this.scene.mainPlayerId) {
-        fontFamily = 'DungGeunMo_babypink'
+        fontFamily = FONT_CONFIG.MAIN_PLAYER
       }
       this.nicknametext = this.scene.add.bitmapText(this.body.x-5, this.body.y-10, fontFamily, this.nickname, 10, Phaser.GameObjects.BitmapText.ALIGN_CENTER );
-      // this.nicknametext = this.scene.add.text(this.body.x-5, this.body.y-10, this.nickname, { fontFamily: 'DungGeunMo', fontSize: 12, color: '#ffffff', align: 'center' });
       this.nicknametext.setDepth(100);
     }
 

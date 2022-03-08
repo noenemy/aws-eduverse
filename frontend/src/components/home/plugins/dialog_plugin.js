@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import { BOTTOM_SPEECH_POSITION, NPC_CONFIG, ZOOM_SCALE } from "../common";
+import { BOTTOM_SPEECH_POSITION, FONT_CONFIG, NPC_CONFIG, ZOOM_SCALE } from "../common";
 
 export default class DialogModalPlugin extends Phaser.Plugins.BasePlugin {
   
@@ -124,13 +124,13 @@ export default class DialogModalPlugin extends Phaser.Plugins.BasePlugin {
     var y = this.positionY + 10; //this._getGameHeight() - this.windowHeight - this.padding + 10;
 
     this.npcDisplayName = this.scene.make.bitmapText({
-      font: 'DungGeunMo_skyblue',
+      font: FONT_CONFIG.NPC,
       text: displayName,
       size: 12
     }, true).setX(x).setY(y).setDepth(300);
 
     this.text = this.scene.make.bitmapText({
-      font: 'DungGeunMo',
+      font: FONT_CONFIG.DEFAULT,
 	    text: text,
       size: 12
       },
