@@ -43,7 +43,10 @@ export const ZOOM_SCALE = 2;
 export const LOBBY_SCALE = 1;
 export const PLAYER_SCALE = 1;
 
-export const START_POINT = {x: 200, y: 100};
+export const getRandomInt = (min, max) => Math.floor(Math.random()*(max-min) + min)
+
+//리스폰 위치 this.add.rectangle(383, 200, 190, 150, 0xffffff, 70)
+// export const START_POINT = { x: getRandomInt(142, 142+95), y: getRandomInt(100, 175) };
 
 export const NPC_CONFIG = [
 	{ name: 'carry', x: 380, y: 180, start: 0, end: 31, duration: 2000, displayName: '[로비지킴이]' },

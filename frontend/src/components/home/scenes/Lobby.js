@@ -3,7 +3,7 @@ import Tutee from '../entities/Tutee';
 import { API, graphqlOperation } from 'aws-amplify';
 import { onCreateTutee, onDeleteTutee, onUpdateTutee } from '../../../graphql/subscriptions';
 import { listTutees } from '../../../graphql/queries';
-import { DOOR_CONFIG, FONT_CONFIG, LOBBY_SCALE, NPC_CONFIG, PLAYER_SCALE, STUFF_TO_SAY, WALK_SPRITE_SPLIT, ZOOM_SCALE } from '../common';
+import { DOOR_CONFIG, FONT_CONFIG, getRandomInt, LOBBY_SCALE, NPC_CONFIG, PLAYER_SCALE, STUFF_TO_SAY, WALK_SPRITE_SPLIT, ZOOM_SCALE } from '../common';
 class Lobby extends Phaser.Scene {
   
   tuteeMap = {};
@@ -37,9 +37,8 @@ class Lobby extends Phaser.Scene {
     this.navigate = data.navigate;
     this.setAllUsers = data.setAllUsers;
     this.createSubscriptions();
-    
+    console.log("@ Lobby.constructor >>", data);
     if(data && data.newTutee) {
-      console.log("@ Lobby.user >>", data);
       this.mainTutee = data.newTutee;
       this.mainPlayerId = data.newTutee.id;
     }
@@ -48,12 +47,16 @@ class Lobby extends Phaser.Scene {
   }
 
   init(data) {
+    
+    console.log("@ scale > ", {w: this.sys.game.config.width, h: this.sys.game.config.height});
     // 로그인 씬에서 닉네임 입력 후 넘어오는 경우 (신규, 기존 튜티)
     if(data.newTutee) {
       this.mainTutee = {
         ...data.newTutee,
         x: parseInt(data.newTutee.x),
         y: parseInt(data.newTutee.y),
+        // x: getRandomInt(255, 255+192),
+        // y: getRandomInt(208, 208+150),
       }
       this.mainPlayerId = data.newTutee.id;
     }
@@ -192,6 +195,8 @@ class Lobby extends Phaser.Scene {
       this.welcomeSpeechBubble = this.addSpeechBubble(this.npcList[0].x, this.npcList[0].y-40, 140, 30, `Welcome! ${this.mainTutee.nickname ? this.mainTutee.nickname : 'Tutee'}! Let's study~!`)
 
     });
+
+    
 
     
 
