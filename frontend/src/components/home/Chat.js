@@ -98,6 +98,7 @@ const Chat = (props) => {
 
   const initSession = async () => {
     const userName = user.nickname;
+    const userArn = await chimeApi.createAppInstanceUser(userName);
 
     const logger = new ConsoleLogger('SDK', LogLevel.INFO);
     const endpoint = await chimeApi.getMessagingSessionEndpoint();
@@ -109,7 +110,7 @@ const Chat = (props) => {
     const chime = new Chime({
       region: appConfig.region,
     });
-    const configuration = new MessagingSessionConfiguration(appConfig.adminUserArn, sessionId, endpoint.Endpoint.Url, chime, AWS);
+    const configuration = new MessagingSessionConfiguration(userArn, sessionId, endpoint.Endpoint.Url, chime, AWS);
     const messagingSession = new DefaultMessagingSession(configuration, logger);
     const observer = {
       messagingSessionDidStart: () => {
