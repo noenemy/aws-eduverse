@@ -3,8 +3,6 @@ import DialogModalPlugin from '../plugins/dialog_plugin';
 
 class Dialog extends Phaser.Scene {
 
-	
-
 	constructor() {
 		super({key: 'DialogScene'});
 	}
@@ -15,6 +13,7 @@ class Dialog extends Phaser.Scene {
 		this.face = data.face || 'carry';
 		this.stuffToSay = data.stuffToSay || [];
 		this.sayIndex = 0;
+		this.nickname = data.mainTutee && data.mainTutee.nickname ? data.mainTutee.nickname : '튜티';
 	}
 
 	preload () {
@@ -31,17 +30,20 @@ class Dialog extends Phaser.Scene {
 		if(this.stuffToSay.length === 0) return;
 		
 		this.sayIndex = 0;
-		this.dialog.setText(this.stuffToSay[this.sayIndex++], true);
-
+		const actualSay = String(this.stuffToSay[this.sayIndex]).replaceAll('{USERNAME}', this.nickname);
+		this.dialog.setText(actualSay, true);
+		this.sayIndex++;
 		this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 		// this.input.keyboard.on("keyup_SPACE", this.talk, this);
 	}
 
 	talk() {
-		console.log(`@ talk ! this.sayIndex: ${this.sayIndex}, this.stuffToSay: ${this.stuffToSay[this.sayIndex]}`)
+		// console.log(`@ talk ! this.sayIndex: ${this.sayIndex}, this.stuffToSay: ${this.stuffToSay[this.sayIndex]}`)
 		this.dialog.removeDialog();
 		this.dialog.init(this.initData);
-    this.dialog.setText(this.stuffToSay[this.sayIndex++], true);
+		const actualSay = String(this.stuffToSay[this.sayIndex]).replaceAll('{USERNAME}', this.nickname);
+    this.dialog.setText(actualSay);
+		this.sayIndex++;
   }
 
 	update() {

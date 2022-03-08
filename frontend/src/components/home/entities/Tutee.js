@@ -248,7 +248,7 @@ class Tutee extends Phaser.GameObjects.Sprite {
       // this.add.bitmapText(x,y,font,text,size,align)
       let fontFamily = 'DungGeunMo'
       if(this.id === this.scene.mainPlayerId) {
-        fontFamily = 'DungGeunMo_pink'
+        fontFamily = 'DungGeunMo_babypink'
       }
       this.nicknametext = this.scene.add.bitmapText(this.body.x-5, this.body.y-10, fontFamily, this.nickname, 10, Phaser.GameObjects.BitmapText.ALIGN_CENTER );
       // this.nicknametext = this.scene.add.text(this.body.x-5, this.body.y-10, this.nickname, { fontFamily: 'DungGeunMo', fontSize: 12, color: '#ffffff', align: 'center' });

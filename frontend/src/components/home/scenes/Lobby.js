@@ -65,7 +65,7 @@ class Lobby extends Phaser.Scene {
 
     this.load.bitmapFont('DungGeunMo', 'assets/fonts/DungGeunMo_white.png','assets/fonts/DungGeunMo_white.xml');
     this.load.bitmapFont('DungGeunMo_skyblue', 'assets/fonts/DungGeunMo_skyblue.png','assets/fonts/DungGeunMo_skyblue.xml');
-    this.load.bitmapFont('DungGeunMo_pink', 'assets/fonts/DungGeunMo_pink.png','assets/fonts/DungGeunMo_pink.xml');
+    this.load.bitmapFont('DungGeunMo_babypink', 'assets/fonts/DungGeunMo_babypink.png','assets/fonts/DungGeunMo_babypink.xml');
 
     this.load.tilemapTiledJSON('new-lobby-map', 'assets/tilemaps/scaled_lobby.json');
     this.load.spritesheet(`door-sheet`, `assets/gifs/door3_beige.png`, {
@@ -138,7 +138,10 @@ class Lobby extends Phaser.Scene {
       npc.setInteractive();
       npc.on('pointerdown', function(pointer) {
         console.log("@ npc click > ", this);
-        lobbyScene.scene.launch('DialogScene',{ face: item.name, stuffToSay: STUFF_TO_SAY[item.name]});
+        lobbyScene.scene.launch('DialogScene', { 
+          face: item.name, 
+          stuffToSay: STUFF_TO_SAY[item.name],
+           mainTutee: lobbyScene.mainTutee });
       });
 
       return npc;

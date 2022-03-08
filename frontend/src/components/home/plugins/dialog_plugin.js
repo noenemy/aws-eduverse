@@ -124,8 +124,8 @@ export default class DialogModalPlugin extends Phaser.Plugins.BasePlugin {
     var y = this.positionY + 10; //this._getGameHeight() - this.windowHeight - this.padding + 10;
 
     this.npcDisplayName = this.scene.make.bitmapText({
-      font: 'DungGeunMo_skyblue',
-      text: `[${displayName}]`,
+      font: 'DungGeunMo_skyblue_back',
+      text: displayName,
       size: 12
     }, true).setX(x).setY(y).setDepth(300);
 

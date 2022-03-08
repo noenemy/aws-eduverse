@@ -253,7 +253,7 @@ const Chat = (props) => {
 
   return (
     <div style={{height: '100%'}}>
-        <h2>Chatting</h2>
+        {/* <h2>Chatting</h2> */}
         <ThemeProvider theme={lightTheme}>
             <GlobalStyles />
               <InfiniteList
