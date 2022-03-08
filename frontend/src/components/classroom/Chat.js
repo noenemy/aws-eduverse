@@ -82,22 +82,10 @@ const Chat = (props) => {
           username: ret.Name,
         });
       }
-      
-    } catch (e) {
-      console.log("ERROR!! ");
-      console.log(e);
-    }
-
-    await initSession();
-  }
-
-  const initSession = async () => {
-    const userName = user.nickname;
 
     const logger = new ConsoleLogger('SDK', LogLevel.INFO);
     const endpoint = await chimeApi.getMessagingSessionEndpoint();
 
-    const userArn = chimeApi.createMemberArn(member.userId);
     const sessionId = null;
     AWS.config.credentials = new AWS.Credentials(
       appConfig.accessKeyId, appConfig.secretAccessKey
@@ -105,7 +93,7 @@ const Chat = (props) => {
     const chime = new Chime({
       region: appConfig.region,
     });
-    const configuration = new MessagingSessionConfiguration(appConfig.adminUserArn, sessionId, endpoint.Endpoint.Url, chime, AWS);
+    const configuration = new MessagingSessionConfiguration(memberArn, sessionId, endpoint.Endpoint.Url, chime, AWS);
     const messagingSession = new DefaultMessagingSession(configuration, logger);
     const observer = {
       messagingSessionDidStart: () => {
@@ -136,6 +124,11 @@ const Chat = (props) => {
     };
     messagingSession.addObserver(observer);
     messagingSession.start();
+
+    } catch (e) {
+      console.log("ERROR!! ");
+      console.log(e);
+    }
   }
 
   const sendMessage = async (msg) => {
@@ -181,7 +174,7 @@ const Chat = (props) => {
 
   const getMessages = async () => {
     let Messages = messageList;
-    
+
     setIsLoading(true);
     console.log("GET MESSAGE!!!")
     try {
