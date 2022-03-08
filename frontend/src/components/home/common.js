@@ -11,6 +11,7 @@ export const getTtlSeconds = (ss) => {
 }
 
 export const updateTuteeLastVisit = async (id, place) => {
+	if(!id) return {};
 	const res = await API.graphql(graphqlOperation(updateTutee, {
 		input: {
 			id: id,

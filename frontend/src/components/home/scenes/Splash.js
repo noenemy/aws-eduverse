@@ -1,10 +1,7 @@
 import Phaser from 'phaser';
-import { API, graphqlOperation } from 'aws-amplify';
-import { createTutee, updateTutee } from '../../../graphql/mutations';
-import { getTtlSeconds, START_POINT } from '../common';
-import { listTutees } from '../../../graphql/queries';
-
 class Splash extends Phaser.Scene {
+
+    sceneLight = {};
 
 	constructor() {
 		super({key: 'SplashScene'});
@@ -32,8 +29,6 @@ class Splash extends Phaser.Scene {
         this.topText = this.add.text(this.scale.width / 2, 300, "AWS 서비스를 이용해서 구현한", { fill: '#023047', fontSize: 30 });
         this.bottomText = this.add.text(this.scale.width / 2 - 20, 350, "인터랙티브 가상 교육 플랫폼", { fill: '#023047', fontSize: 30 });
 
-       
-
         // start text button
         this.clickButton = this.add.text(this.scale.width / 2, this.scale.height / 2 + 50, '[ 시작하기 ]', { fill: '#333D29', fontSize: 50 })
             .setInteractive({ useHandCursor: true })
@@ -56,7 +51,20 @@ class Splash extends Phaser.Scene {
         this.physics.add.existing(this.topText);
         this.topText.body.setImmovable();
 
-        this.physics.add.collider(this.logo, this.topText)
+        this.physics.add.collider(this.logo, this.topText);
+
+        //로고에 빛 효과
+        // this.offsets = Math.random()+ 1 - 2;
+        // console.log("@ offsets > ", this.offsets)
+
+        // bgImage.setPipeline('Light2D');
+        // this.sceneLight = this.lights.addLight(100, 100, 200).setScrollFactor(0.0).setIntensity(2);
+        // this.lights.enable().setAmbientColor(0x555555);
+
+        // this.lights.addLight(0, 100, 100).setColor(0xff0000).setIntensity(3.0);
+        // this.lights.addLight(0, 200, 100).setColor(0x00ff00).setIntensity(3.0);
+        // this.lights.addLight(0, 300, 100).setColor(0x0000ff).setIntensity(3.0);
+
 	}
 
     enterButtonHoverState() {
@@ -77,6 +85,9 @@ class Splash extends Phaser.Scene {
     }
 
 	update(time, delta) {
+        // const scene = this;
+        // this.sceneLight.x = 400 + Math.sin(scene.offsets) * 1000;
+        // scene.offsets += 0.02;
 	}
 
 }

@@ -24,6 +24,7 @@ class Lobby extends Phaser.Scene {
     'kitchen_tiles',
     'kitchens_assembled',
     'storage',
+    'aws_logo'
   ];
   mainTutee = {};
   isCollide = true;
@@ -67,7 +68,7 @@ class Lobby extends Phaser.Scene {
     this.load.bitmapFont('DungGeunMo_skyblue', 'assets/fonts/DungGeunMo_skyblue.png','assets/fonts/DungGeunMo_skyblue.xml');
     this.load.bitmapFont('DungGeunMo_babypink', 'assets/fonts/DungGeunMo_babypink.png','assets/fonts/DungGeunMo_babypink.xml');
 
-    this.load.tilemapTiledJSON('new-lobby-map', 'assets/tilemaps/scaled_lobby.json');
+    this.load.tilemapTiledJSON('new-lobby-map', 'assets/tilemaps/scaled_lobby_new.json');
     this.load.spritesheet(`door-sheet`, `assets/gifs/door3_beige.png`, {
         frameWidth: 48,
         frameHeight: 32,
@@ -421,14 +422,15 @@ class Lobby extends Phaser.Scene {
     const lobbyTiles = this.backgroundTilesets.map(item => this.new_lobby.addTilesetImage(item, `new-lobby-${item}-sheet`));
     
     this.groundLayer = this.new_lobby.createLayer('ground_layer', lobbyTiles).setScale(LOBBY_SCALE).setScrollFactor(1);
-    this.ceilLayer = this.new_lobby.createLayer('ceil_layer', lobbyTiles).setScale(LOBBY_SCALE).setScrollFactor(1);
+    // this.ceilLayer = this.new_lobby.createLayer('ceil_layer', lobbyTiles).setScale(LOBBY_SCALE).setScrollFactor(1);
     // this.ceilLayer.setCollisionByProperty({ collides: true}, true);
-    this.wallLayer = this.new_lobby.createLayer('wall_layer', lobbyTiles).setScale(LOBBY_SCALE).setScrollFactor(1);
+    // this.wallLayer = this.new_lobby.createLayer('wall_layer', lobbyTiles).setScale(LOBBY_SCALE).setScrollFactor(1);
     // this.wallLayer.setCollisionByProperty({ collides: true}, true);
     
     this.new_lobby.createLayer('interior_ground_layer', lobbyTiles).setScale(LOBBY_SCALE).setScrollFactor(1);
     this.new_lobby.createLayer('interior_upper_layer', lobbyTiles).setScale(LOBBY_SCALE).setScrollFactor(1);
     this.new_lobby.createLayer('interior_top_layer', lobbyTiles).setScale(LOBBY_SCALE).setScrollFactor(1);
+    this.new_lobby.createLayer('aws_logo_layer', lobbyTiles).setScale(LOBBY_SCALE).setScrollFactor(1);
 
     this.physics.world.setBounds(0, 0, this.new_lobby.widthInPixels*LOBBY_SCALE, this.new_lobby.heightInPixels*LOBBY_SCALE);
     this.physics.world.setBoundsCollision(true, true, true, true);
