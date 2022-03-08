@@ -515,7 +515,7 @@ class Lobby extends Phaser.Scene {
         frame: flareColor,
         x: x,
         y: y,
-        speed: 50,
+        speed: 10,
         scale: 0.4,
         blendMode: 'ADD',
         lifespan: 100
@@ -535,11 +535,11 @@ class Lobby extends Phaser.Scene {
         frame: 'yellow',
         x: x,
         y: y,
-        speed: 100,
+        speed: 50,
         // scale: 0.1,
-        scale: { min: 0, max: 0.05 },
+        scale: { min: 0, max: 0.1 },
         blendMode: 'ADD',
-        lifespan: 250
+        lifespan: 500
     });
   }
 

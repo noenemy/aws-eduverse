@@ -52,10 +52,12 @@ h2 {
   top:0px;
   width:100vw;
   z-index: 999;
+  font-family: DungGeunMo;
 }
 
 #game {
   /* margin-top: 56px; */
+  font-family: DungGeunMo;
   height: calc(100vh - 60px);
   /* background-color: #87CEEB; */
 }
