@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import VideoPlayer from './VideoPlayer';
-import Chat from '../classroom/Chat';
+import Chat from '../home/Chat';
 import { API, graphqlOperation } from 'aws-amplify';
 import { getAuditorium } from '../../graphql/queries';
 import ScrollToTop from '../home/ScrollToTop';
