@@ -32,10 +32,10 @@ export const WALK_SPRITE_SPLIT = {
 }
 
 export const DOOR_CONFIG = {
-	"auditorium": { x: 170, y: 35, color: 'blue' },
-	"classroom": { x: 670, y: 17, color: 'blue' },
-	"vrlearning": { x: 165, y: 257, color: 'blue' },
-	"lounge": { x: 500, y: 257, color: 'blue' },
+	"auditorium": { x: 140, y: 35, color: 'blue' },
+	"classroom": { x: 670, y: 30, color: 'blue' },
+	"vrlearning": { x: 175, y: 240, color: 'blue' },
+	"lounge": { x: 550, y: 370, color: 'blue' },
 }
 
 export const ZOOM_SCALE = 2;
