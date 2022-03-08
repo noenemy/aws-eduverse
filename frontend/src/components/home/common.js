@@ -30,6 +30,13 @@ export const WALK_SPRITE_SPLIT = {
 	"idle": {start: 0, end: 7},
 }
 
+export const DOOR_CONFIG = {
+	"auditorium": { x: 170, y: 35, color: 'blue' },
+	"classroom": { x: 670, y: 17, color: 'blue' },
+	"vrlearning": { x: 165, y: 257, color: 'blue' },
+	"lounge": { x: 500, y: 257, color: 'blue' },
+}
+
 export const ZOOM_SCALE = 2;
 
 export const LOBBY_SCALE = 1;

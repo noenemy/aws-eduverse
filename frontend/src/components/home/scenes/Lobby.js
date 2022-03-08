@@ -3,7 +3,7 @@ import Tutee from '../entities/Tutee';
 import { API, graphqlOperation } from 'aws-amplify';
 import { onCreateTutee, onDeleteTutee, onUpdateTutee } from '../../../graphql/subscriptions';
 import { listTutees } from '../../../graphql/queries';
-import { LOBBY_SCALE, NPC_CONFIG, PLAYER_SCALE, STUFF_TO_SAY, WALK_SPRITE_SPLIT, ZOOM_SCALE } from '../common';
+import { DOOR_CONFIG, LOBBY_SCALE, NPC_CONFIG, PLAYER_SCALE, STUFF_TO_SAY, WALK_SPRITE_SPLIT, ZOOM_SCALE } from '../common';
 class Lobby extends Phaser.Scene {
   
   tuteeMap = {};
@@ -102,10 +102,12 @@ class Lobby extends Phaser.Scene {
 
     this.npcKind.map(item => this.load.image(`${item}-face`, `assets/${item}/${item}_face.png`));
 
-    this.load.spritesheet("frames", "../assets/frameHeartSheet.png", {
-      frameWidth: 32,
-      frameHeight: 32
-    });
+    // this.load.spritesheet("frames", "../assets/frameHeartSheet.png", {
+    //   frameWidth: 32,
+    //   frameHeight: 32
+    // });
+
+    this.load.atlas('flares', 'assets/particles/flares.png', 'assets/particles/flares.json');
 
   } //end of preload
 
@@ -147,9 +149,16 @@ class Lobby extends Phaser.Scene {
     this.createTuteeAnims();
 
     // 이동문 생성
-    this.door["auditorium"] = this.addSpriteAndPlay(170, 35, 'door', LOBBY_SCALE );
-    this.door["classroom"] = this.addSpriteAndPlay(670, 17, 'door', LOBBY_SCALE );
-    this.door["vrlearning"] = this.addSpriteAndPlay(165, 257, 'door', LOBBY_SCALE );
+    for(let item in DOOR_CONFIG) {
+      this.door[item] = this.addSpriteAndPlay(DOOR_CONFIG[item].x, DOOR_CONFIG[item].y, 'door', LOBBY_SCALE );
+      // 이동문 위에 워프 포탈 emitter 추가
+      this.addWarpPortal(DOOR_CONFIG[item].x, DOOR_CONFIG[item].y, DOOR_CONFIG[item].color);
+    }
+    // this.door["auditorium"] = this.addSpriteAndPlay(170, 35, 'door', LOBBY_SCALE );
+    // this.door["classroom"] = this.addSpriteAndPlay(670, 17, 'door', LOBBY_SCALE );
+    // this.door["vrlearning"] = this.addSpriteAndPlay(165, 257, 'door', LOBBY_SCALE );
+
+    
 
     this.cursorKeys = this.input.keyboard.createCursorKeys();
     
@@ -495,7 +504,44 @@ class Lobby extends Phaser.Scene {
     const allTutees = Array.from(allData.data.listTutees.items);
     
     return allTutees;
-  } 
+  }
+  
+  addWarpPortal(x, y, color) {
+    var particles = this.add.particles('flares');
+
+    let flareColor = color ? color : 'blue';
+
+    var emitter1 = particles.createEmitter({
+        frame: flareColor,
+        x: x,
+        y: y,
+        speed: 50,
+        scale: 0.4,
+        blendMode: 'ADD',
+        lifespan: 100
+    });
+
+    // var emitter2 = particles.createEmitter({
+    //     frame: 'red',
+    //     x: x,
+    //     y: y,
+    //     speed: 200,
+    //     scale: 0.1,
+    //     blendMode: 'ADD',
+    //     lifespan: 100
+    // });
+
+    var emitter3 = particles.createEmitter({
+        frame: 'yellow',
+        x: x,
+        y: y,
+        speed: 100,
+        // scale: 0.1,
+        scale: { min: 0, max: 0.05 },
+        blendMode: 'ADD',
+        lifespan: 250
+    });
+  }
 
   createSubscriptions() {
 
