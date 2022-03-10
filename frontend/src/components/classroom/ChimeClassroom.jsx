@@ -13,6 +13,7 @@ import Chat from './Chat'
 import Attendee from './Attendee'
 import { useParams } from 'react-router';
 import { useNavigate } from 'react-router-dom';
+import ScrollToTop from '../home/ScrollToTop';
 
 const ChimeClassroom = (props) => {
 
@@ -28,7 +29,7 @@ const ChimeClassroom = (props) => {
     }, []);
 
 	return (
-    <div>
+    <ScrollToTop>
       <div className="row">
         <React.Fragment>
           <ThemeProvider theme={lightTheme}>
@@ -52,7 +53,7 @@ const ChimeClassroom = (props) => {
           </ThemeProvider>
         </React.Fragment>
       </div>
-    </div>
+    </ScrollToTop>
   );
 }
 
