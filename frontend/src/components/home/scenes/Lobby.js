@@ -3,7 +3,7 @@ import Tutee from '../entities/Tutee';
 import { API, graphqlOperation } from 'aws-amplify';
 import { onCreateTutee, onDeleteTutee, onUpdateTutee } from '../../../graphql/subscriptions';
 import { listTutees } from '../../../graphql/queries';
-import { DOOR_CONFIG, FONT_CONFIG, getRandomInt, LOBBY_SCALE, NPC_CONFIG, PLAYER_SCALE, STUFF_TO_SAY, WALK_SPRITE_SPLIT, ZOOM_SCALE } from '../common';
+import { DOOR_CONFIG, FONT_CONFIG, LOBBY_SCALE, NPC_CONFIG, PLAYER_SCALE, STUFF_TO_SAY, WALK_SPRITE_SPLIT, ZOOM_SCALE } from '../common';
 class Lobby extends Phaser.Scene {
   
   tuteeMap = {};
@@ -47,16 +47,12 @@ class Lobby extends Phaser.Scene {
   }
 
   init(data) {
-    
-    console.log("@ scale > ", {w: this.sys.game.config.width, h: this.sys.game.config.height});
     // 로그인 씬에서 닉네임 입력 후 넘어오는 경우 (신규, 기존 튜티)
     if(data.newTutee) {
       this.mainTutee = {
         ...data.newTutee,
         x: parseInt(data.newTutee.x),
         y: parseInt(data.newTutee.y),
-        // x: getRandomInt(255, 255+192),
-        // y: getRandomInt(208, 208+150),
       }
       this.mainPlayerId = data.newTutee.id;
     }
@@ -107,11 +103,6 @@ class Lobby extends Phaser.Scene {
 
     this.npcKind.map(item => this.load.image(`${item}-face`, `assets/${item}/${item}_face.png`));
 
-    // this.load.spritesheet("frames", "../assets/frameHeartSheet.png", {
-    //   frameWidth: 32,
-    //   frameHeight: 32
-    // });
-
     this.load.atlas('flares', 'assets/particles/flares.png', 'assets/particles/flares.json');
 
   } //end of preload
@@ -151,7 +142,7 @@ class Lobby extends Phaser.Scene {
 
       return npc;
     });
-    //웰컴봇에만 귀요미 이모지 보이기
+    //웰컴봇에 이모지 보이기
     this.createAnims('emoji-anims', 'emoji-sheet', 0, 14, { repeat: -1, duration: 5000 });
 
     this.createTuteeAnims();
@@ -167,7 +158,7 @@ class Lobby extends Phaser.Scene {
     
     // 나를 포함한 기존 튜티들 추가
     this.addActiveTutees().then(res => {
-
+      //카메라 세팅
       this.setCameraFollow();
 
       // 방문자 모두 추가 후, 이동할 문에 main player에 대한 collide 설정
@@ -198,23 +189,19 @@ class Lobby extends Phaser.Scene {
 
     
 
-    
-
   } // end of create()
 
   setCameraFollow() {
     this.cameras.main.setBounds(0, 0, 800, 400);
     this.cameras.main.startFollow(this.tuteeMap[this.mainPlayerId], true, 0.09, 0.09,);
     this.cameras.main.setZoom(ZOOM_SCALE);
-    // this.cameras.main.useBounds(true);
-    
   }
 
   createModal(scene, title, message, onClickYes) {
     this.isCollide = true;
-
-      this.rexUI.modalPromise(
-      this.createRexDialog(scene, title, message, onClickYes), {
+    this.rexUI.modalPromise(
+      this.createRexDialog(scene, title, message, onClickYes)
+        .setPosition(this.cameras.main.midPoint.x, this.cameras.main.midPoint.y), {
           manaulClose: true,
           duration: {
               in: 1000,
@@ -222,12 +209,11 @@ class Lobby extends Phaser.Scene {
           }
     }).then((closeEventData) => {
       this.time.addEvent({delay: 5000, callback: ()=>{ this.isCollide = false; }, callbackScope: this, loop: false});
-
     });
   }
 
   createRexDialog(scene, title, message, onClickYes) {
-    this.rexDialog = this.rexUI.add.dialog({
+    const rexDialog = this.rexUI.add.dialog({
 			background: scene.rexUI.add.roundRectangle(0, 0, 100, 100, 20, 0xdec4a6),
 			title: scene.rexUI.add.label({
 					background: scene.rexUI.add.roundRectangle(0, 0, 100, 40, 20, 0x766a62),
@@ -273,34 +259,27 @@ class Lobby extends Phaser.Scene {
 			expand: {
 					content: false,  // Content is a pure text object
 			}
-	  }).layout().popUp(1000);
+	  }).layout().popUp(1500).setDepth(200);
 
-    this.rexDialog.setDepth(200);
-
-    const self = this.rexDialog;
-	  this.rexDialog
+	  rexDialog
 			.on('button.click', function (button, groupName, index, pointer, event) {
         if(index === 0 && typeof onClickYes === 'function') {
           onClickYes();
         }
-        self.emit('modal.requestClose', { closedDialog: "Auditorium" });
+        rexDialog.emit('modal.requestClose', { closedDialog: "Auditorium" });
 			})
 			.on('button.over', function (button, groupName, index, pointer, event) {
         console.log("@ button.over")
-        button.getElement('background').setStrokeStyle(1, 0xffffff);
+        button.getElement('background').setStrokeStyle(1, 0xffffff).setDepth(200);
 			})
 			.on('button.out', function (button, groupName, index, pointer, event) {
         console.log("@ button.out")
-        button.getElement('background').setStrokeStyle();
+        button.getElement('background').setStrokeStyle().setDepth(200);
 			});
 
-    console.log("@ rexDialog > ", this.rexDialog.width, this.rexDialog.height)
+    // console.log("@ rexDialog >", rexDialog)
 
-    var windowDimensions = this._calculateWindowDimensions(this.rexDialog.width, this.rexDialog.height);
-
-    this.rexDialog.setPosition(windowDimensions.x, windowDimensions.y);
-
-	  return this.rexDialog;
+	  return rexDialog;
   }
 
   createLabel(scene, text) {

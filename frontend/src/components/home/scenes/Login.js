@@ -49,8 +49,8 @@ class Login extends Phaser.Scene {
 					const newTutee = {
 						// id: 1, PK 는 자동생성
 						nickname: inputUsername.value,
-						x: getRandomInt(255, 255+192),
-						y: getRandomInt(208, 208+150),
+						x: getRandomInt(300, 460),
+						y: getRandomInt(280, 280+80),
 						state: "active", 	//active, disconected?
 						character: checkedCharacter.length ? checkedCharacter[0] : 'purple',
 						lastVisit: 'lobby',
