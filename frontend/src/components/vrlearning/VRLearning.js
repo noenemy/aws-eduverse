@@ -79,7 +79,7 @@ const VRLearning = (props) => {
                     <div className="col col-1" style={{ backgroundColor: "#43AA8D" }}>&nbsp;</div>
                     <div className="col col-mr-auto">
                                     
-                        <h2>VRLearning</h2>
+                        <h2>VR 학습터 (VR Learning)</h2>
                         Amazon AI/ML 서비스 및 Sumerian을 이용해서 구현한 셀프스터디 서비스입니다.
                         <div className="container">
                             <div className="row">
@@ -102,7 +102,7 @@ const VRLearning = (props) => {
                                     { courses && courses.map(( course, index) => {
                                         return (
                                             <Fragment key={course.id}>
-                                            <Button className="ml-2" onClick={() => selectCourse(course.id, course.language)}><i className={ "fas fa-globe-" + course.icon } />&nbsp;{ course.title }</Button>
+                                            <Button className="ml-2 btn-secondary" onClick={() => selectCourse(course.id, course.language)}><i className={ "fas fa-globe-" + course.icon } />&nbsp;{ course.title }</Button>
                                             &nbsp;&nbsp;</Fragment>
                                             );
                                     })}

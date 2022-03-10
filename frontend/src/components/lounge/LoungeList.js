@@ -50,13 +50,13 @@ const LoungeList = props => {
                     <div className="col col-1" style={{ backgroundColor: "#4D908E" }}>&nbsp;</div>
                     <div className="col col-mr-auto">
 
-                    <h2>Lounge</h2>
+                    <h2>라운지 (Lounge)</h2>
                     다양한 Amazon AI/ML 서비스를 체험 할 수 있는 라운지 공간입니다.
                     <p>&nbsp;</p>
                     <div className="container">
                         <div className="row">
                             <div className="col">
-                                <h4>Which game would you like to play?</h4>
+                                <h4>어떤 AI/ML 서비스를 체험하시겠습니까?</h4>
                             </div>
                         </div>
 
@@ -70,7 +70,7 @@ const LoungeList = props => {
                                 <Card.Body>
                                     <Card.Title>{item.title}</Card.Title>
                                     <Card.Text>{item.description}</Card.Text>
-                                    <Button variant="primary" onClick={() => enterLounge(item.id)}>Go somewhere</Button>
+                                    <Button variant="secondary" onClick={() => enterLounge(item.id)}>체험하기</Button>
                                 </Card.Body>
                             </Card>
                             </div>

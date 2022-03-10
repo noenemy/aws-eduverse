@@ -86,19 +86,19 @@ const ClassroomList = (props) => {
                     <div className="col col-1" style={{ backgroundColor: "#90BE6D" }}>&nbsp;</div>
                     <div className="col col-mr-auto">
 
-                    <h2>Classroom</h2>
+                    <h2>강의실 (Classroom)</h2>
                     Amazon Chime SDK를 이용해서 구현한 온라인 클래스 서비스입니다.
 
                     <div className="container">
                         <div className="row">
                             <div className="col">
-                                <Button variant="primary" onClick={openCreateDialog}>+ Create a Classroom</Button>
+                                <Button variant="secondary" onClick={openCreateDialog}>+ 강의실 만들기</Button>
                                 <p>&nbsp;</p>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col">
-                                <h4>Which classroom would you like to enter?</h4>
+                                <h4>강의실 목록</h4>
                             </div>
                         </div>
 
@@ -116,9 +116,9 @@ const ClassroomList = (props) => {
                                     <Card.Body>
                                         <Card.Title>{item.title}</Card.Title>
                                         <Card.Text>{item.description}</Card.Text>
-                                        <Button variant="primary" onClick={() => enterClassroom(item.id)}>Enter</Button>
+                                        <Button variant="secondary" onClick={() => enterClassroom(item.id)}>강의실 입장</Button>
                                         &nbsp;
-                                        <a href="#" onClick={() => removeClassroom(item.id)}>X</a>
+                                        <a href="#" class="text-info mx-1" onClick={() => removeClassroom(item.id)}>X</a>
                                     </Card.Body>
                                 </Card>
                                 </div>

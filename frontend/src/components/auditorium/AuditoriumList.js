@@ -49,7 +49,7 @@ const AuditoriumList = (props) => {
                     <div className="col col-1" style={{ backgroundColor: "#F4A261" }}>&nbsp;</div>
                     <div className="col col-mr-auto">
 
-                        <h2>Auditorium</h2>
+                        <h2>대강당 (Auditorium)</h2>
                         Amazon Interactive Video Service(IVS)를 이용해서 라이브스트리밍을 구현한 대강당 서비스입니다.
                         <p></p>
 
@@ -62,7 +62,7 @@ const AuditoriumList = (props) => {
                             </div>
                             <div className="row">
                                 <div className="col">
-                                    <h4>Which auditorium would you like to enter?</h4>
+                                    <h4>대강당 목록</h4>
                                 </div>
                             </div>
 
@@ -80,7 +80,7 @@ const AuditoriumList = (props) => {
                                             <Card.Body>
                                                 <Card.Title>{item.title}</Card.Title>
                                                 <Card.Text>{item.description}</Card.Text>
-                                                <Button variant="primary" onClick={() => enterAuditorium(item.id)}>Go somewhere</Button>
+                                                <Button variant="success" onClick={() => enterAuditorium(item.id)}>대강당 입장</Button>
                                             </Card.Body>
                                         </Card>
                                     </div>
