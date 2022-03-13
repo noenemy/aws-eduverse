@@ -30,7 +30,7 @@ function Auditorium() {
                         
                         <p className="h3">
                             <a href="#" onClick={() => navigate(-1)}><i className="fa fa-angle-left px-4"></i></a>
-                            { title }
+                            대강당: { title }
                         </p>
                     </div>
                     { url && 

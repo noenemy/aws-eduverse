@@ -115,7 +115,7 @@ const ClassroomList = (props) => {
                                     <Card.Img variant="top" src={`/assets/images/${item.image}`} />
                                     <Card.Body>
                                         <Card.Title>{item.title}</Card.Title>
-                                        <Card.Text>{item.description}</Card.Text>
+                                        <Card.Text>{item.description}<p>&nbsp;</p></Card.Text>
                                         <Button variant="secondary" onClick={() => enterClassroom(item.id)}>강의실 입장</Button>
                                         &nbsp;
                                         <a href="#" class="text-info mx-1" onClick={() => removeClassroom(item.id)}>X</a>

@@ -79,7 +79,7 @@ const AuditoriumList = (props) => {
                                             <Card.Img variant="top" src={`/assets/images/${item.image}`} />
                                             <Card.Body>
                                                 <Card.Title>{item.title}</Card.Title>
-                                                <Card.Text>{item.description}</Card.Text>
+                                                <Card.Text>{item.description}<p>&nbsp;</p></Card.Text>
                                                 <Button variant="success" onClick={() => enterAuditorium(item.id)}>대강당 입장</Button>
                                             </Card.Body>
                                         </Card>
