@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import mic from 'microphone-stream';
@@ -7,6 +6,7 @@ import { pcmEncode, downsampleBuffer } from './utils/audioUtils.js';
 import { EventStreamMarshaller } from '@aws-sdk/eventstream-marshaller';
 import { toUtf8, fromUtf8 } from '@aws-sdk/util-utf8-node';
 import { ReactMic } from 'react-mic';
+import { API } from 'aws-amplify';
 
 class Transcribe extends Component {
     constructor(props) {
@@ -112,12 +112,12 @@ class Transcribe extends Component {
 
         micStream.setStream(mediaStream);        
 
-        const formData = new FormData();
-        formData.append('language', this.state.language);
-
-        const backendAPI = `${process.env.REACT_APP_BACKEND_SERVER}/demo/transcribe`;
-        const res = await axios.post(backendAPI, formData);
-        const transcribeUrl = res.data.transcribeUrl;
+        const res = await API.post("vrlearning","/demo/transcribe", {
+            body: {
+                language: this.state.language
+            }
+        });
+        const transcribeUrl = res.transcribeUrl;
 
         //open up Websocket connection
         this.websocket = new WebSocket(transcribeUrl);

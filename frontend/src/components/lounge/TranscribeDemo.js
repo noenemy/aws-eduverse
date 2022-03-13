@@ -94,9 +94,6 @@ class TranscribeDemo extends Component {
 
         micStream.setStream(mediaStream);        
 
-        // const formData = new FormData();
-        // formData.append('language', this.state.selectedLanguage);
-
         const res = await API.post("vrlearning","/demo/transcribe", {
             body: {
                 language: this.state.selectedLanguage
